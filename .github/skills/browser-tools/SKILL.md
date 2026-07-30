@@ -142,7 +142,7 @@ Use this whenever you'd otherwise reach for a local HTTP server or an image-prev
 
 - Rendered `docs/index.html` after a shell edit
 - Standalone `report.html` from a markdown-to-html converter
-- SVG banners, diagrams, generated charts (see [svg-banner](../svg-banner/SKILL.md) for author-side)
+- SVG banners, diagrams, generated charts (author-side visual work ships in the `Alex_ACT_Illustrator_Plugin`)
 - PNG/JPG screenshots or captures from other tools
 - Any HTML that consumes local `.json` / `.md` / `.svg` via `fetch()`
 - A PDF that a converter just emitted, to confirm layout

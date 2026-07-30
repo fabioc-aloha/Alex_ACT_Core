@@ -8,7 +8,7 @@ lastReviewed: 2026-07-30
 
 Author Mermaid that renders cleanly on first attempt and doesn't drift from the project's visual identity. LLMs generate correct Mermaid syntax natively; this skill adds the two things they don't have:
 
-1. **The project's palette + linkStyle + classDef vocabulary** (from `.github/config/brand-palette.json`, shared with svg-banner, illustrator agent, and flint-chart plugin)
+1. **The project's palette + linkStyle + classDef vocabulary** (from `.github/config/brand-palette.json`, shared with the illustrator plugin's svg-banner + illustrator agent + flint-chart)
 2. **Renderer-specific pitfalls** (colons breaking timeline/gitGraph/gantt parsers, unicode escapes, reserved-word handling; the footguns native gen trips on)
 
 Unified 2026-07-30: palette values moved from the retired `mermaid-init.json` into the shared `brand-palette.json`. One file, all visual layers.
@@ -40,7 +40,7 @@ flowchart LR
 - `classDef <name> fill:... color:... stroke:...` for each entry in `semantic` (blue / green / purple / gold / red / neutral)
 - `linkStyle default <spec>` from `typography.linkStroke` + `linkStrokeWidth`
 
-To override the palette for a project, edit `.github/config/brand-palette.json` (rebrands mermaid + svg-banner + illustrator + flint at once). To use a different palette for one diagram, override the init directive inline (rare; usually you want fleet-wide consistency).
+To override the palette for a project, edit `.github/config/brand-palette.json` (rebrands mermaid + the illustrator plugin's svg-banner + illustrator + flint at once). To use a different palette for one diagram, override the init directive inline (rare; usually you want fleet-wide consistency).
 
 ## Semantic classDef vocabulary
 
@@ -103,7 +103,7 @@ A[Line one\nLine two]:::blue
 | Timeline / roadmap               | Mermaid gantt (but see fragility above) | Native but fragile                   |
 | Free-form / whiteboard           | Excalidraw (external)                   | LLM cannot generate; user draws      |
 | Data / metrics                   | flint-chart plugin                      | Real chart rendering, not diagram    |
-| Brand / hero banner              | [svg-banner](../svg-banner/SKILL.md)    | Not a diagram; different domain      |
+| Brand / hero banner              | `Alex_ACT_Illustrator_Plugin` svg-banner | Not a diagram; different domain      |
 
 For Mermaid alternatives (D2, PlantUML, Graphviz, WaveDrom) with syntax examples and VS Code extension setup, see [`references/tool-ecosystem.md`](references/tool-ecosystem.md).
 

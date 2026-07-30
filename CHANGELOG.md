@@ -6,6 +6,33 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### svg-banner un-ported to Alex_ACT_Illustrator_Plugin (2026-07-30)
+
+Per Fabio directive 2026-07-30 ("svg-banner should only be in the illustrator"), the `svg-banner` skill + `/banner` prompt un-ported from Core to `Alex_ACT_Illustrator_Plugin` (v0.6.0, commit `e6ad02f`). Rationale: banner authoring is visual-authoring capability and belongs alongside `docs-shell` + `flint-chart` + `chart-big-idea` + `chart-vocabulary` + `render-verify` + `print-svg-style-guide` + `figure-generator` + `replicate-imagery` in the illustrator plugin — not in the Core baseline that every heir installs.
+
+Removed from Core:
+
+- `.github/skills/svg-banner/` (skill body + `assets/mark-mono-emerald-256.png` + `scripts/generate-banner.cjs`)
+- `.github/prompts/banner.prompt.md`
+- `.github/config/banner-brand.json` (structure config for the svg-banner skill — orphaned after skill removal)
+
+Cross-refs updated:
+
+- `.github/skills/browser-tools/SKILL.md` — dead link to `../svg-banner/SKILL.md` replaced with reference to illustrator plugin
+- `.github/skills/markdown-mermaid/SKILL.md` — 3 svg-banner references updated to route through illustrator plugin; the `brand-palette.json` sharing note preserved (Core's markdown-mermaid still reads that palette, and it's still shared with the illustrator plugin's svg-banner + illustrator agent + flint-chart)
+- `.github/skills/README.md` — svg-banner row removed from skills table; summary paragraph deduplicated (5 identical paragraphs → 1); banner-generation note added pointing at illustrator plugin
+- `.github/prompts/README.md` — banner.prompt.md row removed; count 10 → 9
+
+Manifest updates:
+
+- `shape`: `thirty-three-instructions + thirty-one-skills + ten-prompts` → `thirty-three-instructions + thirty-skills + nine-prompts (…; svg-banner + /banner un-ported to Alex_ACT_Illustrator_Plugin on 2026-07-30)`
+- `description` refreshed to reflect the un-port
+- `assets.skills[]`: 31 → 30 (svg-banner entry removed)
+- `assets.prompts[]`: 10 → 9 (banner entry removed)
+- `assets.instructions[]`: unchanged at 33
+
+`.github/config/brand-palette.json` retained — still consumed by `markdown-mermaid` for its init directive and classDef vocabulary, and still shared cross-repo with the illustrator plugin's svg-banner + illustrator agent + flint-chart.
+
 ### Added — Batch 10: Sundries cluster (2026-07-30)
 
 Eleven artifacts closing the Both-classified inventory: 4 always-on instructions + 3 skills + 4 slash-command prompts. Completes Core's core content set (Both-classified inventory fully ported).

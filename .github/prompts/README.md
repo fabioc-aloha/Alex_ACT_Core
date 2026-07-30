@@ -1,10 +1,9 @@
 # Prompts
 
-10 slash-command prompts ship as of Batch 10 (2026-07-30):
+9 slash-command prompts ship as of Batch 10 (2026-07-30, svg-banner un-ported 2026-07-30):
 
 | File | Slash command | Role |
 | --- | --- | --- |
-| [`banner.prompt.md`](banner.prompt.md) | `/banner` | Generate a 1200×320 SVG banner via the svg-banner skill using `.github/config/{banner-brand,brand-palette}.json`. |
 | [`configure-vscode.prompt.md`](configure-vscode.prompt.md) | `/configure-vscode` | Apply VS Code user-scope baseline settings for policy compliance. Heirs adapt their project's baseline. |
 | [`configure-vscode-verify.prompt.md`](configure-vscode-verify.prompt.md) | `/configure-vscode-verify` | Read-only audit of user-level VS Code/Copilot settings compliance. |
 | [`convert.prompt.md`](convert.prompt.md) | `/convert` | Convert a document between Markdown, HTML, Word, email, and plain text. Detects source + target format, runs the bundled converter, validates and reports output. |
