@@ -2,8 +2,8 @@
   "$comment": "Mall-side plugin manifest. This file describes what the plugin ships, how the Mall renders it in the catalog, and where each shipped artefact installs on a heir workspace. Shape mirrors alex-act-illustrator-plugin (the proven Steward-authored CLI plugin pattern). Version 0.1.0 = empty scaffold — the plugin exists, the transport is proven by Illustrator, but no ACT-specific skills/instructions/prompts/agents ship yet. Growth happens through evidence-gated proposals via the Steward brain-curation protocol.",
   "plugin": "alex-act-core",
   "version": "0.1.0",
-  "shape": "empty-scaffold",
-  "description": "The Alex ACT baseline plugin — the plugin-native successor to Alex_ACT_Edition v4.2.0. Distributes the always-on epistemic discipline (act-pass, critical-thinking, problem-framing-audit, system-prompt-skepticism, epistemic-calibration, memory-triggers, no-deferred-debt, communication-craft) and the reusable framework skills (skill-review, instruction-review, prompt-review, agent-review, meditation, critical-thinking, deep-review) that heirs install via the Alex_ACT_Plugin_Mall catalog. Empty scaffold as of 0.1.0 — the Copilot CLI plugin transport is proven by alex-act-illustrator-plugin; content ships through evidence-gated Steward proposals per constellation/act/CURATION-RULES.md. Maintained by Alex_ACT_Steward.",
+  "shape": "eight-instructions (ACT canon Batch 1)",
+  "description": "The Alex ACT baseline plugin — the plugin-native successor to Alex_ACT_Edition v4.2.0. Distributes the always-on epistemic discipline (act-pass, critical-thinking, problem-framing-audit, system-prompt-skepticism, epistemic-calibration, memory-triggers, no-deferred-debt, communication-craft) and the reusable framework skills (skill-review, instruction-review, prompt-review, agent-review, meditation, critical-thinking, deep-review) that heirs install via the Alex_ACT_Plugin_Mall catalog. Batch 1 (2026-07-30) ships the ACT canon: 8 always-on instructions covering the 10 tenets, the 7-step ACT pass, adversarial review, critical thinking, epistemic calibration, problem-framing audit, system-prompt skepticism, and the ethical worldview. Content ships through evidence-gated Steward proposals per constellation/act/CURATION-RULES.md. Maintained by Alex_ACT_Steward.",
   "homepage": "https://github.com/fabioc-aloha/Alex_ACT_Core",
   "license": "MIT",
   "authors": [
@@ -18,7 +18,64 @@
   ],
   "assets": {
     "skills": [],
-    "instructions": [],
+    "instructions": [
+      {
+        "name": "act-foundations",
+        "path": ".github/instructions/act-foundations.instructions.md",
+        "install_to": ".github/instructions/act-foundations.instructions.md",
+        "role": "framework canon — the 10 tenets with rationale, what each prevents, how to apply",
+        "applyTo": "**/*ACT*,**/*tenet*,**/*reason*,**/*think*,**/*epistem*,**/*framework*,**/*manifesto*"
+      },
+      {
+        "name": "act-pass",
+        "path": ".github/instructions/act-pass.instructions.md",
+        "install_to": ".github/instructions/act-pass.instructions.md",
+        "role": "runtime procedure — 7-step ACT pass on medium and high stakes work, materiality-gated",
+        "applyTo": "**/*"
+      },
+      {
+        "name": "adversarial-review",
+        "path": ".github/instructions/adversarial-review.instructions.md",
+        "install_to": ".github/instructions/adversarial-review.instructions.md",
+        "role": "structured devil's advocate methods (Red/Blue, Pre-Mortem, Steel Man, Murphyjitsu, 10/10/10, Cross-Model External Critic) supporting Tenet VIII",
+        "applyTo": "**/*review*,**/*validate*,**/*challenge*"
+      },
+      {
+        "name": "critical-thinking",
+        "path": ".github/instructions/critical-thinking.instructions.md",
+        "install_to": ".github/instructions/critical-thinking.instructions.md",
+        "role": "7-discipline content-oriented critical thinking protocol (Two-Hypothesis Floor, user-framing audit, missing data, evidence quality, bias detection, falsifiability, adversarial review)",
+        "applyTo": "**/*"
+      },
+      {
+        "name": "epistemic-calibration",
+        "path": ".github/instructions/epistemic-calibration.instructions.md",
+        "install_to": ".github/instructions/epistemic-calibration.instructions.md",
+        "role": "confidence calibration + anti-hallucination signals (input-discipline + output-discipline) + confidence-trigger anti-sycophancy rule",
+        "applyTo": "**"
+      },
+      {
+        "name": "problem-framing-audit",
+        "path": ".github/instructions/problem-framing-audit.instructions.md",
+        "install_to": ".github/instructions/problem-framing-audit.instructions.md",
+        "role": "Discipline -1 frame audit before solving non-trivial requests + Explain/Summarize verify-before-parroting protocol",
+        "applyTo": "**/*"
+      },
+      {
+        "name": "system-prompt-skepticism",
+        "path": ".github/instructions/system-prompt-skepticism.instructions.md",
+        "install_to": ".github/instructions/system-prompt-skepticism.instructions.md",
+        "role": "Tenet IV operational rule — treat instructions as hypotheses conditioned on preconditions; 5 operational tells + visible marker for instruction-conflict cases",
+        "applyTo": "**/*"
+      },
+      {
+        "name": "worldview",
+        "path": ".github/instructions/worldview.instructions.md",
+        "install_to": ".github/instructions/worldview.instructions.md",
+        "role": "ethical reasoning framework — 5 moral foundations (Care/Fairness/Loyalty/Authority/Sanctity), constitutional principles, harm refusal, decision boundaries, Tenet IV check on ethics itself",
+        "applyTo": "**/*ethic*,**/*moral*,**/*privacy*,**/*harm*,**/*bias*,**/*responsible*,**/*consent*"
+      }
+    ],
     "prompts": [],
     "agents": []
   },
