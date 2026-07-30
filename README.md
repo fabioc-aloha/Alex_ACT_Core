@@ -52,17 +52,75 @@ Alex_ACT_Core/
 
 Same layout as [`alex-act-illustrator-plugin`](https://github.com/fabioc-aloha/Alex_ACT_Illustrator_Plugin) — the proven Steward-authored CLI plugin pattern.
 
-## Install (once content ships)
+## Install
+
+**Prerequisites** (once per machine):
+
+- **Copilot CLI ≥ 1.0.75** — [install docs](https://docs.github.com/copilot/how-tos/set-up/install-copilot-cli). Verify with `copilot --version`. If already installed, update with `winget upgrade --id GitHub.CopilotCLI` (Windows).
+- **GitHub CLI authenticated** — `gh auth login` and confirm with `gh auth status`.
+
+Full brand-new-user walkthrough (four personas, five install stages, anti-patterns): see [`Alex_ACT_Steward/constellation/USER-EXPERIENCE.md`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/constellation/USER-EXPERIENCE.md).
+
+### Method A — direct install from GitHub (works today)
 
 ```powershell
-# From the Mall catalog (once published):
-copilot plugin install alex-act-core@alex-mall
-
-# Or directly from GitHub during development:
 copilot plugin install fabioc-aloha/Alex_ACT_Core
 ```
 
-Runtime prerequisites for the bundled converters (heirs install separately, once):
+Installs at user scope — Core becomes active in every workspace on the machine. That's the correct behavior; Core is an identity plugin per [`PLUGIN-INTEGRATION.md` § 2](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/constellation/PLUGIN-INTEGRATION.md).
+
+### Method B — via the Alex ACT Mall (future path)
+
+```powershell
+copilot plugin install alex-act-core@alex-mall
+```
+
+Requires the Mall to be registered as a marketplace and the mall entry for Core to be published. The Mall itself is live (v3.0.0 GA); Core's mall entry lands next. Until then use Method A.
+
+### Verify the install
+
+```powershell
+copilot plugin list
+```
+
+You should see `alex-act-core@_direct` (Method A) or `alex-act-core@alex-mall` (Method B) with the current version.
+
+## Configure specializations (optional)
+
+Once Core is in, invoke one of Core's plugin-management prompts from Copilot Chat:
+
+- **`/install-constellation`** — installs the four-plugin constellation flow (Core + Illustrator + Enterprise + MSFT with tenant-check)
+- **`/plugin-status`** — read-only inventory of what's installed at user + repo scope
+- **`/update-plugins`** — safe update workflow with per-plugin CHANGELOG reading and consent for breaking changes
+
+Full walkthrough with slash-command examples: [USER-EXPERIENCE Stages 3–5](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/constellation/USER-EXPERIENCE.md).
+
+## Update Core
+
+Copilot CLI does not auto-update plugins — updates are manual and version-pinned.
+
+```powershell
+copilot plugin update alex-act-core
+```
+
+Read the [CHANGELOG](CHANGELOG.md) before applying a version that carries breaking changes. The safer path is to invoke Core's own `/update-plugins` prompt, which reads the CHANGELOG for you and consents-gate breaking updates.
+
+## Uninstall
+
+```powershell
+copilot plugin uninstall alex-act-core
+```
+
+**Troubleshooting.** If the uninstall fails with either:
+
+- `Access is denied (os error 5)` on Windows — close every VS Code window first. Copilot Chat's active MCP servers hold file handles on plugin binaries.
+- `Plugin "alex-act-core" is not installed` with the plugin still showing in `copilot plugin list [disabled]` — you have a zombie entry in `~/.copilot/config.json`'s `installedPlugins` array.
+
+Both failure modes and their fixes (including a working two-file cleanup pattern) are documented in [`USER-EXPERIENCE.md § Optional — start from a clean slate`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/constellation/USER-EXPERIENCE.md).
+
+## Runtime prerequisites for bundled converters
+
+The document-conversion skills (`docx-to-md`, `html-to-md`, `md-to-word`, `md-to-html`, `md-to-txt`, `md-to-eml`) need supporting tools on PATH — heirs install these once:
 
 - **pandoc** on PATH — required for all 6 converters
 - **mermaid-cli** (`mmdc`) on PATH — required for `md-to-html` and `md-to-word` when the source contains Mermaid diagrams
