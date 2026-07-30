@@ -1,0 +1,23 @@
+{
+  "$comment": "Structure-only config for the svg-banner skill. Watermark whitelist, mark image, and label text. Color values come from .github/config/brand-palette.json (background = brand.primaryDark, gradient = gradient[], title text = typography.textOnDark, subtitle text = brand.muted, accent = brand.primary, brand sub-label = brand.muted, watermark = typography.textOnDark). Font stack comes from brand-palette typography.fontStack. Heirs edit brand-palette.json to rebrand colors project-wide; edit this file to change watermark vocabulary, brand label text, or mark image.",
+  "brand": {
+    "label": "ALEX",
+    "subLabel": "ARTIFICIAL CRITICAL THINKING"
+  },
+  "mark": {
+    "path": ".github/skills/svg-banner/assets/mark-mono-emerald-256.png",
+    "width": 170,
+    "height": 170,
+    "x": 970,
+    "y": 42
+  },
+  "watermarks": ["ACT", "EDITION", "DOCS", "RELEASE", "PLAN", "NOTE"],
+  "watermarkDescriptions": {
+    "ACT": "Critical-thinking content, ACT framework artifacts, manifestos",
+    "EDITION": "Top-level repo identity (root README, ABOUT)",
+    "DOCS": "User guides, tutorials, reference material",
+    "RELEASE": "CHANGELOGs, release notes, version stamps",
+    "PLAN": "Planning docs, roadmaps, milestone trackers",
+    "NOTE": "Session notes, ad-hoc memos"
+  }
+}

@@ -6,6 +6,55 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — Batch 9: Craft skills cluster (2026-07-30)
+
+Thirteen artifacts covering authoring craft (big-idea, humanizer, doc-hygiene, markdown-mermaid, markdown-sanitization-chain, lint-clean-markdown, svg-banner) and engineering craft (mutation-testing, systematic-debugging, test-driven-development, token-waste-elimination). Largest batch to date and closes the pending `svg-banner` cross-ref from Batch 7 (browser-tools).
+
+**Instructions (2)**:
+
+- **`doc-hygiene.instructions.md`** — Routing pointer to doc-hygiene skill; fires on `**/*doc*audit*,**/*doc*quality*,**/*drift*,**/*hygiene*` patterns.
+- **`markdown-mermaid.instructions.md`** — Routing pointer to markdown-mermaid skill; fires on `**/*.md,**/*mermaid*` patterns.
+
+**Skills (11)**:
+
+- **`big-idea/SKILL.md`** — Distill the central claim before summary-shaped output (hero copy, commit subjects, PR titles, ADR titles, executive summaries). 6-step distill (context read → claim → arc → audience → stance → emit) tested against Saint-Exupéry's removal rule (delete sentences until the next deletion breaks the claim).
+- **`humanizer/SKILL.md`** — Remove 29 documented AI-writing patterns (Wikipedia's "Signs of AI writing") via draft → self-audit → rewrite. Optional voice-calibration from user-provided writing sample. Adapted from Hermes Agent / blader/humanizer.
+- **`doc-hygiene/SKILL.md`** — Anti-drift rules for living documents: count elimination (hardcoded counts become stale within days), single source of truth per metric, link-integrity checker (find broken markdown links across the tree), orphan detection, docs-as-architecture principle.
+- **`markdown-mermaid/SKILL.md`** — Author Mermaid diagrams that render correctly on first attempt. Config-driven init directive + linkStyle + semantic classDef vocabulary from `.github/config/brand-palette.json` (6-role palette: blue/green/purple/gold/red/neutral + typography). Bundled references: `references/pitfalls.md` (renderer footguns), `references/tool-ecosystem.md` (Mermaid vs Excalidraw vs D2 vs PlantUML), `references/diagram-reference.md`, `references/markdown-best-practices.md`, `markdown-light.css` (preview styling).
+- **`markdown-sanitization-chain/SKILL.md`** — Render user-supplied markdown safely via `marked.js → DOMPurify → Mermaid` pipeline. Order matters — skipping the sanitizer is XSS. DOMPurify allowlist for Mermaid-specific attributes.
+- **`mutation-testing/SKILL.md`** — Meta-test the test harness: apply small intentional defects to production code and expect the suite to catch each one. Surfaces silent coverage gaps that 100% line-coverage hides.
+- **`systematic-debugging/SKILL.md`** — 4-phase root-cause-first method (investigate → pattern-analyze → hypothesize → implement) that beats guess-and-check thrashing. Use for any bug, test failure, unexpected behavior before proposing fixes.
+- **`test-driven-development/SKILL.md`** — Enforce RED-GREEN-REFACTOR for any feature, bug fix, refactor, or behavior change. Write failing test first, watch it fail, write minimal code to pass, refactor. Carve out only throwaway prototypes and generated code.
+- **`token-waste-elimination/SKILL.md`** — Audit active brain artifacts for context cost, duplicated guidance, oversized routing files, stale metadata. Use during brain audits, quarterly review, or when instructions feel heavy.
+- **`lint-clean-markdown/SKILL.md`** — Write markdown that passes markdownlint on first attempt. Encodes the most common rules (MD012 blank-line, MD022 heading-spacing, MD040 fenced-code language, MD024 unique-heading, MD029 ordered-list) as muscle memory.
+- **`svg-banner/SKILL.md`** — Generate 1200×320 SVG banners for READMEs, plans, notes, release artifacts. Bundled `scripts/generate-banner.cjs` muscle + `assets/mark-mono-emerald-256.png` mark. Pluggable brand via `.github/config/banner-brand.json` (structure) + `.github/config/brand-palette.json` (colors/typography). Default is the Alex ACT brand (slate-900 background, emerald-teal-cyan accent, x-loop mark, ACT/EDITION/DOCS/RELEASE/PLAN/NOTE watermarks). Heirs override the config for their own brand. **Closes the pending cross-ref from Batch 7 (`browser-tools` referenced svg-banner).**
+
+**Bundled resources**:
+
+- `.github/config/brand-palette.json` — Shared 6-role semantic palette + typography, referenced by markdown-mermaid, svg-banner, and (in the sibling ecosystem) the illustrator plugin's flint-chart + print-svg-style-guide skills.
+- `.github/config/banner-brand.json` — Banner-specific structure config (labels, mark, watermarks, colors); shipped with default Alex ACT brand values, heirs override.
+- `.github/skills/svg-banner/assets/mark-mono-emerald-256.png` — Default Alex ACT x-loop mark, 256×256 mono emerald.
+- `.github/skills/svg-banner/scripts/generate-banner.cjs` — Banner generator; reads both config files with shallow-merged fallback to built-in Alex ACT default so behavior is byte-equivalent when no config override is present.
+- `.github/skills/markdown-mermaid/references/{diagram-reference,markdown-best-practices,pitfalls,tool-ecosystem}.md` + `markdown-light.css` — Reference bundle and preview CSS.
+
+**Adaptation applied**:
+
+- 11 of 13 files ported verbatim. Two required light adaptation to remove Steward-specific references while preserving the discipline:
+  - `big-idea/SKILL.md`: (a) rewrote "American English, per Cardinal Rule 4 in `copilot-instructions.md`" to "American English by default (if your project defines a language rule in `copilot-instructions.md`, follow it — Alex ACT itself uses American English per Cardinal Rule 4)" — preserves the recommendation while acknowledging heirs may have their own language rule; (b) same soften in the anti-patterns table row for British spelling; (c) rewrote the `## Falsifiability` tracking line from "Track in `operations/ledgers/curation-log.md`" to "Track in your project's audit trail (Alex ACT itself tracks in `operations/ledgers/curation-log.md`)" — heirs adapt to their own ledger location.
+  - `token-waste-elimination/SKILL.md`: reframed the two `node scripts/brain-qa.cjs` invocation blocks as "if your project ships brain-QA muscles like Alex ACT's ..." so heirs without those muscles have a fallback path (measure by hand). The scripts still ship in Alex_ACT_Steward and heirs installing Core through the plugin transport won't have them locally by default.
+- Zero content edits to the other 11 files. `mutation-testing/SKILL.md` retains its origin story naming Alex_ACT_Extension + Alex_ACT_Edition commits as historical evidence of pattern effectiveness — the story is illustrative, not an example a heir needs to reproduce.
+
+**Composition with earlier batches**:
+
+- `big-idea` (this batch) + `communication-craft` (Batch 4): communication-craft frames the whole message; big-idea frames only the headline. Composable.
+- `humanizer` (this batch) + `big-idea` (this batch): big-idea authoring routes through humanizer's AI-tell check before emit.
+- `doc-hygiene` (this batch) + `no-deferred-debt` (Batch 4): both fire on stale content — no-deferred-debt for tech-debt scope, doc-hygiene for documentation-drift scope.
+- `markdown-mermaid` (this batch) + `svg-banner` (this batch): shared `brand-palette.json` config keeps mermaid diagrams and SVG banners visually consistent.
+- `markdown-sanitization-chain` (this batch) + `security-and-hardening` (Batch 6): both surface XSS — security-and-hardening at the code boundary, markdown-sanitization-chain at the render pipeline.
+- `mutation-testing` + `test-driven-development` + `systematic-debugging` (all this batch): three engineering-quality disciplines compose — TDD writes the test, systematic-debugging fires when the test surfaces a defect, mutation-testing meta-tests whether the test suite is trustworthy.
+- `token-waste-elimination` (this batch) + `doc-hygiene` (this batch): both audit active content for waste; token-waste-elimination is context-cost-scoped, doc-hygiene is documentation-drift-scoped.
+- `svg-banner` (this batch): resolves the pending cross-ref from `browser-tools/SKILL.md` (Batch 7). Batch 7's dangling reference now resolves locally in Core.
+
 ### Added — Batch 8: Git + lint + MCP cluster (2026-07-30)
 
 Five artifacts covering the highest-frequency developer disciplines heirs need after platform safety: version control, lint ownership, and Model Context Protocol server construction.

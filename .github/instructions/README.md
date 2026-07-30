@@ -1,6 +1,6 @@
 # Instructions
 
-27 always-on instructions ship as of Batch 8 (2026-07-30):
+29 always-on instructions ship as of Batch 9 (2026-07-30):
 
 | File | Role | applyTo |
 | --- | --- | --- |
@@ -11,11 +11,13 @@
 | [`converter.instructions.md`](converter.instructions.md) | Document conversion routing — detect source/target format, delegate to matching skill + muscle | `**/*convert*,**/*docx*,**/*word*,**/*eml*,**/*html-to-md*,**/*md-to-*` |
 | [`critical-thinking.instructions.md`](critical-thinking.instructions.md) | 7-discipline content-oriented protocol | `**/*` |
 | [`cross-project-isolation.instructions.md`](cross-project-isolation.instructions.md) | Strip project specifics before writing to shared fleet channels; refuses on-request override | `**/Alex_ACT_Memory/**,**/announcements/**,**/*fleet*` |
+| [`doc-hygiene.instructions.md`](doc-hygiene.instructions.md) | Routing pointer to doc-hygiene skill — fires on doc-audit / drift / hygiene patterns | `**/*doc*audit*,**/*doc*quality*,**/*drift*,**/*hygiene*` |
 | [`emotional-intelligence.instructions.md`](emotional-intelligence.instructions.md) | 6-signal detection with per-signal adaptation + mimicry prevention | `**` |
 | [`epistemic-calibration.instructions.md`](epistemic-calibration.instructions.md) | Confidence calibration + anti-hallucination + anti-sycophancy | `**` |
 | [`git-workflow.instructions.md`](git-workflow.instructions.md) | Branch hygiene + safe-commit patterns + recovery from lost commits / bad merges / accidental pushes | `**/.*git*,**/.github/**` |
 | [`knowledge-coverage.instructions.md`](knowledge-coverage.instructions.md) | Coverage taxonomy (High / Medium / Low / Unknown) with language calibration | `**` |
 | [`lint-discipline.instructions.md`](lint-discipline.instructions.md) | Own the lint state of every file you touched — pre-existing findings become yours | `**` |
+| [`markdown-mermaid.instructions.md`](markdown-mermaid.instructions.md) | Routing pointer to markdown-mermaid skill — fires on .md files + mermaid patterns | `**/*.md,**/*mermaid*` |
 | [`mcp-development.instructions.md`](mcp-development.instructions.md) | MCP server development routing — points at mcp-builder skill for detailed guide | `**/*mcp*,**/*mcp-server*,**/*mcp*/**,**/*mcp-server*/**` |
 | [`meditation.instructions.md`](meditation.instructions.md) | 6-step meditation ritual for consolidating session learning | `**/*meditat*,**/*consolidat*` |
 | [`memory-triggers.instructions.md`](memory-triggers.instructions.md) | Automatic memory formation triggers (correction / pattern-3× / preference / session-end) | `**` |
