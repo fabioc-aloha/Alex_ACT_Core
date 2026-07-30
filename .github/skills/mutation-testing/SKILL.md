@@ -134,4 +134,4 @@ Codified 2026-05-31 after meta-testing the Alex_ACT_Extension static-fetch test 
 ## Related
 
 - [code-review/SKILL.md](../code-review/SKILL.md) — pre-publish review; mutation testing is the final layer when code review surfaces test-quality concerns
-- [release-preflight/SKILL.md](../release-preflight/SKILL.md) — releases that newly depend on a module's correctness should mutation-test it first
+- Release preflight discipline — releases that newly depend on a module's correctness should mutation-test it first (Alex ACT itself formalizes this in the Steward release ritual)
