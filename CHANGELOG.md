@@ -6,6 +6,47 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — Batch 10: Sundries cluster (2026-07-30)
+
+Eleven artifacts closing the Both-classified inventory: 4 always-on instructions + 3 skills + 4 slash-command prompts. Completes Core's core content set (Both-classified inventory fully ported).
+
+**Instructions (4)**:
+
+- **`agent-delegation.instructions.md`** (`applyTo: **/*agent*,**/*delegate*,**/*subagent*,...`) — Delegate mechanical work (markdown authoring, diagram rendering, file conversion, assembly) to worker subagents so the parent session keeps capacity for reasoning. Names the workers, the delegation decision table, and self-check discipline before authoring mechanical output directly.
+- **`code-review.instructions.md`** (`applyTo: **/*review*,**/*audit*,**/*pr*`) — Code review quality gate protocols and feedback guidelines. Routes to `code-review` skill for the systematic-review body.
+- **`risk-analysis.instructions.md`** (`applyTo: **/*risk*,**/*plan*,**/*assess*,...`) — Risk assessment via probability×impact scoring. Applied to curation decisions (skill acceptance, release gating). Distinguishes reversible from expensive-to-undo decisions.
+- **`status-reporting.instructions.md`** (`applyTo: **/*status*,**/*report*,**/*update*`) — Routing pointer to `status-reporting` skill for stakeholder-friendly project updates.
+
+**Skills (3)**:
+
+- **`ai-memory-setup/SKILL.md`** — Resolve and use the `Alex_ACT_Memory` sibling repository as shared memory bus without silently cloning, syncing, or exposing protected data. Covers announcements, feedback, shared knowledge, explicit setup. Heirs who don't use the Memory sibling can safely ignore.
+- **`code-review/SKILL.md`** — Systematic code review for correctness, security, and growth — not just style enforcement. Composes with `security-and-hardening` (Batch 6) for OWASP-scoped review and `adversarial-review` instruction (Batch 1) for structured skepticism.
+- **`status-reporting/SKILL.md`** — Create stakeholder-friendly project status updates and progress reports. Audience-adapted. Composes with `communication-craft` (Batch 4) for So-What/What/Now-What audience lead.
+
+**Prompts (4)**:
+
+- **`banner.prompt.md`** (`/banner`) — User-invokable trigger for SVG banner generation via the `svg-banner` skill (Batch 9). Produces 1200×320 branded banner using `.github/config/{banner-brand,brand-palette}.json`.
+- **`configure-vscode.prompt.md`** (`/configure-vscode`) — Apply VS Code user-scope baseline settings for policy compliance. Heirs adapt for their project's baseline config.
+- **`configure-vscode-verify.prompt.md`** (`/configure-vscode-verify`) — Read-only audit of user-level VS Code/Copilot settings compliance. Companion to `/configure-vscode`.
+- **`status.prompt.md`** (`/status`) — Terse read-only project orientation report: identity, git state, HANDOFF.md continuity, optional brain-QA health, announcements. Audience-adapted output leading with material state.
+
+**Adaptation applied**:
+
+- 9 of 11 files ported verbatim.
+- `risk-analysis.instructions.md`: (a) rewrote "Applied to Supervisor curation: accepting a bad skill is reversible... Shipping a broken release to 5+ heirs is expensive to undo" to "Applied to curation work: ... Shipping a broken release to consumers is expensive to undo" — heirs don't necessarily have downstream heirs; generalized; (b) reframed `operations/ledgers/brain-qa-changelog.md` tracking ref as "your project's audit trail (Alex ACT itself uses ...)".
+- `status.prompt.md`: substantially rewritten from Steward-specific to project-generic. Original said "Produce a terse read-only orientation report for `Alex_ACT_Steward`" and hardcoded `node scripts/brain-qa.cjs` invocations. Rewrote to: "Produce a terse orientation report for the current project", made brain-QA step conditional ("If your project ships brain-QA muscles ... otherwise skip and note absence"), made Memory sibling reference conditional ("If the project configures a shared memory bus ..."). Preserves the shape (identity + git state + continuity + brain health + announcements + output) as an audience-adapted status pattern.
+- `ai-memory-setup/SKILL.md` retains all `Alex_ACT_Memory` sibling-repo references as-is — they're by design (the skill IS about Alex_ACT_Memory). Heirs who don't use Memory ignore this skill safely.
+
+**Composition with earlier batches**:
+
+- `agent-delegation` (this batch) + `plan` (Batch 2): plan-mode discipline names when to invoke a subagent; agent-delegation names how.
+- `code-review` instruction + skill (this batch) + `security-and-hardening` (Batch 6): OWASP-scoped review composes into general code review.
+- `code-review` + `adversarial-review` (Batch 1): structured skepticism at review time.
+- `risk-analysis` (this batch) + `problem-framing-audit` (Batches 1+2): frame first, then assess risk.
+- `status-reporting` (this batch) + `communication-craft` (Batch 4): status reports use audience lead + stakeholder-adapted framing.
+- `/banner` (this batch) invokes `svg-banner` skill (Batch 9) — resolves the composition surface between prompt and skill.
+- `/status` (this batch) reads `HANDOFF.md` per `proactive-awareness` (Batch 4) + `memory-triggers` (Batch 3) cross-session-continuity patterns.
+
 ### Added — Batch 9: Craft skills cluster (2026-07-30)
 
 Thirteen artifacts covering authoring craft (big-idea, humanizer, doc-hygiene, markdown-mermaid, markdown-sanitization-chain, lint-clean-markdown, svg-banner) and engineering craft (mutation-testing, systematic-debugging, test-driven-development, token-waste-elimination). Largest batch to date and closes the pending `svg-banner` cross-ref from Batch 7 (browser-tools).

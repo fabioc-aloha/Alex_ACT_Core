@@ -1,16 +1,18 @@
 # Instructions
 
-29 always-on instructions ship as of Batch 9 (2026-07-30):
+33 always-on instructions ship as of Batch 10 (2026-07-30):
 
 | File | Role | applyTo |
 | --- | --- | --- |
 | [`act-foundations.instructions.md`](act-foundations.instructions.md) | The 10 tenets of ACT with rationale | `**/*ACT*,**/*tenet*,**/*reason*,**/*think*,**/*epistem*,**/*framework*,**/*manifesto*` |
 | [`act-pass.instructions.md`](act-pass.instructions.md) | 7-step runtime procedure over the tenets | `**/*` |
 | [`adversarial-review.instructions.md`](adversarial-review.instructions.md) | Structured devil's advocate methods (6 including Cross-Model External Critic) | `**/*review*,**/*validate*,**/*challenge*` |
+| [`agent-delegation.instructions.md`](agent-delegation.instructions.md) | Delegate mechanical work (markdown/diagrams/conversion/assembly) to worker subagents so parent keeps reasoning capacity | `**/*agent*,**/*delegate*,**/*subagent*,**/*author*,**/*diagram*,**/*convert*,**/*assembl*` |
 | [`communication-craft.instructions.md`](communication-craft.instructions.md) | SBI feedback + stakes calibration + audience lead + need elicitation | `**` |
 | [`converter.instructions.md`](converter.instructions.md) | Document conversion routing — detect source/target format, delegate to matching skill + muscle | `**/*convert*,**/*docx*,**/*word*,**/*eml*,**/*html-to-md*,**/*md-to-*` |
 | [`critical-thinking.instructions.md`](critical-thinking.instructions.md) | 7-discipline content-oriented protocol | `**/*` |
 | [`cross-project-isolation.instructions.md`](cross-project-isolation.instructions.md) | Strip project specifics before writing to shared fleet channels; refuses on-request override | `**/Alex_ACT_Memory/**,**/announcements/**,**/*fleet*` |
+| [`code-review.instructions.md`](code-review.instructions.md) | Code review quality gate protocols and feedback guidelines; routes to code-review skill | `**/*review*,**/*audit*,**/*pr*` |
 | [`doc-hygiene.instructions.md`](doc-hygiene.instructions.md) | Routing pointer to doc-hygiene skill — fires on doc-audit / drift / hygiene patterns | `**/*doc*audit*,**/*doc*quality*,**/*drift*,**/*hygiene*` |
 | [`emotional-intelligence.instructions.md`](emotional-intelligence.instructions.md) | 6-signal detection with per-signal adaptation + mimicry prevention | `**` |
 | [`epistemic-calibration.instructions.md`](epistemic-calibration.instructions.md) | Confidence calibration + anti-hallucination + anti-sycophancy | `**` |
@@ -27,7 +29,9 @@
 | [`proactive-awareness.instructions.md`](proactive-awareness.instructions.md) | Cross-session context recovery + uncommitted-work detection + focus routing + silence-as-signal | `**` |
 | [`problem-framing-audit.instructions.md`](problem-framing-audit.instructions.md) | Discipline -1 frame audit before solving + verify-before-parroting | `**/*` |
 | [`reliance-nudges.instructions.md`](reliance-nudges.instructions.md) | Detect 6 over-reliance failure modes; one targeted nudge per turn with 5 inhibition rules | `**` |
+| [`risk-analysis.instructions.md`](risk-analysis.instructions.md) | Risk assessment via probability×impact scoring for curation decisions | `**/*risk*,**/*plan*,**/*assess*,**/docs/**,**/feedback/**` |
 | [`session-health-monitoring.instructions.md`](session-health-monitoring.instructions.md) | Context-window monitoring + graceful handoff at session limits | `**` |
+| [`status-reporting.instructions.md`](status-reporting.instructions.md) | Routing pointer to status-reporting skill — fires on status / report / update patterns | `**/*status*,**/*report*,**/*update*` |
 | [`system-prompt-skepticism.instructions.md`](system-prompt-skepticism.instructions.md) | Tenet IV operational rule — instructions as hypotheses | `**/*` |
 | [`terminal-command-safety.instructions.md`](terminal-command-safety.instructions.md) | Backtick Hazard + heredoc + output-capture + hanging-command prevention | `**` |
 | [`tool-awareness.instructions.md`](tool-awareness.instructions.md) | Deferred tools require tool_search; slash picker skill surfacing (VS Code 1.118+) | `**` |

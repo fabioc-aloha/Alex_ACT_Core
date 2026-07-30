@@ -1,12 +1,14 @@
 # Skills
 
-28 skills ship as of Batch 9 (2026-07-30):
+31 skills ship as of Batch 10 (2026-07-30):
 
 | File | Role |
 | --- | --- |
 | [`anti-hallucination/SKILL.md`](anti-hallucination/SKILL.md) | Prevent fabrication at generation point (input-discipline + output-discipline signals). First leg of the epistemic triad. |
+| [`ai-memory-setup/SKILL.md`](ai-memory-setup/SKILL.md) | Resolve and use the `Alex_ACT_Memory` sibling repo as shared memory bus — announcements, feedback, shared knowledge; optional per project. |
 | [`big-idea/SKILL.md`](big-idea/SKILL.md) | Distill the central claim before summary-shaped output (hero copy, commit subjects, PR titles, ADR titles, executive summaries). 6-step distill tested against Saint-Exupéry's removal rule. |
 | [`browser-tools/SKILL.md`](browser-tools/SKILL.md) | VS Code 1.127+ browser tools — file:// local rendering (HTML/SVG/PNG/PDF), bot-protection escape, password-hand-off protocol (never `type_in_page` on secrets). |
+| [`code-review/SKILL.md`](code-review/SKILL.md) | Systematic code review for correctness, security, and growth — not just style. Composes with security-and-hardening + adversarial-review. |
 | [`critical-thinking/SKILL.md`](critical-thinking/SKILL.md) | 7 disciplines for challenging AI reasoning at decision points. Detailed body for `critical-thinking.instructions.md`. Second leg of the epistemic triad. |
 | [`deep-review/SKILL.md`](deep-review/SKILL.md) | Three-perspective adversarial review (Advocate / Skeptic / Architect). Composes with cross-model external critic. |
 | [`doc-hygiene/SKILL.md`](doc-hygiene/SKILL.md) | Anti-drift rules for living documents — count elimination, single source of truth per metric, link-integrity checker, orphan detection, docs-as-architecture. |
@@ -28,6 +30,7 @@
 | [`problem-framing-audit/SKILL.md`](problem-framing-audit/SKILL.md) | Detailed body for Discipline -1 frame audit — 8-check step-back protocol. |
 | [`security-and-hardening/SKILL.md`](security-and-hardening/SKILL.md) | OWASP-aware hardening for user input, auth, storage, external integrations. Three-tier boundary system (Always Do / Ask First / Never Do) + OWASP Top 10 prevention patterns. |
 | [`spike/SKILL.md`](spike/SKILL.md) | Throwaway feasibility experiments — decompose, prototype, return VALIDATED/PARTIAL/INVALIDATED verdicts. Disposable by design. |
+| [`status-reporting/SKILL.md`](status-reporting/SKILL.md) | Create stakeholder-friendly project status updates and progress reports — audience-adapted output. Composes with communication-craft. |
 | [`svg-banner/SKILL.md`](svg-banner/SKILL.md) | Generate 1200×320 SVG banners with pluggable brand config (default Alex ACT). Bundled generator + mark PNG; brand config at `.github/config/{banner-brand,brand-palette}.json`. |
 | [`systematic-debugging/SKILL.md`](systematic-debugging/SKILL.md) | 4-phase root-cause-first method (investigate → pattern-analyze → hypothesize → implement); beats guess-and-check thrashing. |
 | [`test-driven-development/SKILL.md`](test-driven-development/SKILL.md) | Enforce RED-GREEN-REFACTOR for any feature/bug fix/refactor. Write failing test first, watch it fail, minimal code to pass, refactor. |
