@@ -1,6 +1,6 @@
 # Instructions
 
-17 always-on instructions ship as of Batch 4 (2026-07-30):
+18 always-on instructions ship as of Batch 5 (2026-07-30):
 
 | File | Role | applyTo |
 | --- | --- | --- |
@@ -8,6 +8,7 @@
 | [`act-pass.instructions.md`](act-pass.instructions.md) | 7-step runtime procedure over the tenets | `**/*` |
 | [`adversarial-review.instructions.md`](adversarial-review.instructions.md) | Structured devil's advocate methods (6 including Cross-Model External Critic) | `**/*review*,**/*validate*,**/*challenge*` |
 | [`communication-craft.instructions.md`](communication-craft.instructions.md) | SBI feedback + stakes calibration + audience lead + need elicitation | `**` |
+| [`converter.instructions.md`](converter.instructions.md) | Document conversion routing — detect source/target format, delegate to matching skill + muscle | `**/*convert*,**/*docx*,**/*word*,**/*eml*,**/*html-to-md*,**/*md-to-*` |
 | [`critical-thinking.instructions.md`](critical-thinking.instructions.md) | 7-discipline content-oriented protocol | `**/*` |
 | [`emotional-intelligence.instructions.md`](emotional-intelligence.instructions.md) | 6-signal detection with per-signal adaptation + mimicry prevention | `**` |
 | [`epistemic-calibration.instructions.md`](epistemic-calibration.instructions.md) | Confidence calibration + anti-hallucination + anti-sycophancy | `**` |

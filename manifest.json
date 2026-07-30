@@ -2,8 +2,8 @@
   "$comment": "Mall-side plugin manifest. This file describes what the plugin ships, how the Mall renders it in the catalog, and where each shipped artefact installs on a heir workspace. Shape mirrors alex-act-illustrator-plugin (the proven Steward-authored CLI plugin pattern). Version 0.1.0 = empty scaffold — the plugin exists, the transport is proven by Illustrator, but no ACT-specific skills/instructions/prompts/agents ship yet. Growth happens through evidence-gated proposals via the Steward brain-curation protocol.",
   "plugin": "alex-act-core",
   "version": "0.1.0",
-  "shape": "seventeen-instructions + seven-skills + five-prompts (ACT canon + cognitive discipline + reasoning muscles + meditation loop)",
-  "description": "The Alex ACT baseline plugin — the plugin-native successor to Alex_ACT_Edition v4.2.0. Distributes the always-on epistemic discipline and the reusable framework skills that heirs install via the Alex_ACT_Plugin_Mall catalog. Batch 1 (2026-07-30) shipped the ACT canon: 8 always-on instructions. Batch 2 (2026-07-30) added 6 reasoning + planning muscles as skills plus 2 paired slash-command prompts. Batch 3 (2026-07-30) added the meditation loop — 2 instructions, 1 skill, 3 prompts. Batch 4 (2026-07-30) added the craft + cognitive-discipline set — 7 always-on instructions completing the cognitive foundation (communication-craft, emotional-intelligence, knowledge-coverage, no-deferred-debt, proactive-awareness, reliance-nudges, session-health-monitoring). Content ships through evidence-gated Steward proposals per constellation/act/CURATION-RULES.md. Maintained by Alex_ACT_Steward.",
+  "shape": "eighteen-instructions + thirteen-skills + six-prompts (ACT canon + cognitive discipline + reasoning muscles + meditation loop + document converters)",
+  "description": "The Alex ACT baseline plugin — the plugin-native successor to Alex_ACT_Edition v4.2.0. Distributes the always-on epistemic discipline and the reusable framework skills that heirs install via the Alex_ACT_Plugin_Mall catalog. Batch 1 (2026-07-30) shipped the ACT canon: 8 always-on instructions. Batch 2 (2026-07-30) added 6 reasoning + planning muscles as skills plus 2 paired slash-command prompts. Batch 3 (2026-07-30) added the meditation loop — 2 instructions, 1 skill, 3 prompts. Batch 4 (2026-07-30) added the craft + cognitive-discipline set — 7 always-on instructions completing the cognitive foundation. Batch 5 (2026-07-30) added the document converters cluster — 1 routing instruction (converter) + 1 slash-command prompt (/convert) + 6 conversion skills (md-to-html, md-to-word, md-to-eml, md-to-txt, docx-to-md, html-to-md) with executable muscles under each skill's scripts/ subfolder + a shared runtime toolkit at .github/scripts/shared/ (tool-runner, markdown-preprocessor, mermaid-pipeline, data-uri). Requires pandoc on PATH; md-to-word optionally uses jszip (falls back to pandoc). Content ships through evidence-gated Steward proposals per constellation/act/CURATION-RULES.md. Maintained by Alex_ACT_Steward.",
   "homepage": "https://github.com/fabioc-aloha/Alex_ACT_Core",
   "license": "MIT",
   "authors": [
@@ -59,6 +59,42 @@
         "path": ".github/skills/meditation/SKILL.md",
         "install_to": ".github/skills/meditation/SKILL.md",
         "role": "consolidate session learning into permanent architecture — 5-step protocol (review + extract + write + chronicle + handoff) that routes patterns to skills/instructions/prompts/scripts/memory tiers by type"
+      },
+      {
+        "name": "docx-to-md",
+        "path": ".github/skills/docx-to-md/SKILL.md",
+        "install_to": ".github/skills/docx-to-md/SKILL.md",
+        "role": "convert Word documents (.docx) to clean Markdown with image extraction + pandoc cleanup — bundled muscle at .github/skills/docx-to-md/scripts/docx-to-md.cjs; requires pandoc on PATH"
+      },
+      {
+        "name": "html-to-md",
+        "path": ".github/skills/html-to-md/SKILL.md",
+        "install_to": ".github/skills/html-to-md/SKILL.md",
+        "role": "convert HTML to clean Markdown via pandoc — bundled muscle at .github/skills/html-to-md/scripts/html-to-md.cjs; requires pandoc on PATH"
+      },
+      {
+        "name": "md-to-eml",
+        "path": ".github/skills/md-to-eml/SKILL.md",
+        "install_to": ".github/skills/md-to-eml/SKILL.md",
+        "role": "convert Markdown to RFC 5322 email (.eml) with inline CSS + CID images — bundled muscle at .github/skills/md-to-eml/scripts/md-to-eml.cjs"
+      },
+      {
+        "name": "md-to-html",
+        "path": ".github/skills/md-to-html/SKILL.md",
+        "install_to": ".github/skills/md-to-html/SKILL.md",
+        "role": "convert Markdown to standalone HTML with embedded CSS + images + Mermaid diagrams — bundled muscle at .github/skills/md-to-html/scripts/md-to-html.cjs"
+      },
+      {
+        "name": "md-to-txt",
+        "path": ".github/skills/md-to-txt/SKILL.md",
+        "install_to": ".github/skills/md-to-txt/SKILL.md",
+        "role": "strip Markdown formatting and produce clean plain text via pandoc — bundled muscle at .github/skills/md-to-txt/scripts/md-to-txt.cjs"
+      },
+      {
+        "name": "md-to-word",
+        "path": ".github/skills/md-to-word/SKILL.md",
+        "install_to": ".github/skills/md-to-word/SKILL.md",
+        "role": "convert Markdown (with Mermaid + SVG) to Word (.docx) — bundled muscle at .github/skills/md-to-word/scripts/md-to-word.cjs; uses jszip when available, falls back to pandoc"
       }
     ],
     "instructions": [
@@ -89,6 +125,13 @@
         "install_to": ".github/instructions/communication-craft.instructions.md",
         "role": "communication craft — SBI feedback model, stakes calibration, code-review voice, audience lead (So-What/What/Now-What), need-elicitation ladder (Need vs Solution vs Feature)",
         "applyTo": "**"
+      },
+      {
+        "name": "converter",
+        "path": ".github/instructions/converter.instructions.md",
+        "install_to": ".github/instructions/converter.instructions.md",
+        "role": "document conversion routing — detect source/target format from user request, delegate to matching md-to-* / docx-to-md / html-to-md skill + muscle at .github/skills/<format>/scripts/<format>.cjs",
+        "applyTo": "**/*convert*,**/*docx*,**/*word*,**/*eml*,**/*html-to-md*,**/*md-to-*"
       },
       {
         "name": "critical-thinking",
@@ -217,6 +260,13 @@
         "install_to": ".github/prompts/note.prompt.md",
         "slash_command": "/note",
         "role": "short alias for /save-session-note — skip the 'what should I capture?' question if user's request already includes the note text"
+      },
+      {
+        "name": "convert",
+        "path": ".github/prompts/convert.prompt.md",
+        "install_to": ".github/prompts/convert.prompt.md",
+        "slash_command": "/convert",
+        "role": "user-invokable trigger for document conversion — detects source + target format from user's request, loads matching format skill, runs .github/skills/<format>/scripts/<format>.cjs, validates + reports output"
       }
     ],
     "agents": []

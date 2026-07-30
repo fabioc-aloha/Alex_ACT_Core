@@ -6,6 +6,52 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — Batch 5: Document converters (2026-07-30)
+
+First batch to ship executable code — a self-contained conversion cluster with one routing instruction, one slash-command prompt, six format skills each with their own executable muscle, and a shared runtime toolkit under `.github/scripts/shared/`.
+
+**Instruction (1)**:
+
+- **`converter.instructions.md`** — Document conversion routing. Detects source and target format from the user's request, delegates to the matching format skill + muscle. Applies on `**/*convert*,**/*docx*,**/*word*,**/*eml*,**/*html-to-md*,**/*md-to-*`.
+
+**Prompt (1)**:
+
+- **`convert.prompt.md`** (`/convert`) — User-invokable trigger. Steps: detect formats → load format skill → run muscle → validate output → report.
+
+**Skills (6)** with bundled executable muscles under `<skill>/scripts/`:
+
+- **`docx-to-md/`** — Word (.docx) → clean Markdown with image extraction and pandoc cleanup.
+- **`html-to-md/`** — HTML → clean Markdown via pandoc.
+- **`md-to-eml/`** — Markdown → RFC 5322 email (.eml) with inline CSS and CID images.
+- **`md-to-html/`** — Markdown → standalone HTML with embedded CSS, images, and Mermaid diagrams.
+- **`md-to-txt/`** — Markdown → clean plain text via pandoc.
+- **`md-to-word/`** — Markdown (with Mermaid + SVG) → Word (.docx). Uses jszip when available, falls back to pandoc.
+
+**Shared runtime (4 modules under `.github/scripts/shared/`)** — bundled with the plugin, not declared as separate assets in `assets[]` because they're used by the converter skills, not independently invokable:
+
+- **`tool-runner.cjs`** — Shell-invocation helper with structured error handling.
+- **`markdown-preprocessor.cjs`** — Frontmatter parsing, Mermaid extraction, SVG resolution.
+- **`mermaid-pipeline.cjs`** — Mermaid diagram rendering via mermaid-cli.
+- **`data-uri.cjs`** — Base64 encoding for embedded images.
+
+**Adaptation applied**:
+
+- All 8 markdown files + 6 skill scripts + 4 shared runtime modules ported **byte-identically** from Steward (which itself byte-identically ported them from Edition v4.2.0). Zero content edits.
+- `SKILL.md` cross-references to `../../../operations/ledgers/curation-log.md` and other Steward paths retained as-is (heirs' own repo layout dictates whether these resolve; the muscles run without them).
+- The `converter.instructions.md` routing table points at `node .github/skills/<format>/scripts/<format>.cjs` paths — these resolve locally in Core because the scripts ship at those exact paths.
+
+**Runtime prerequisites** (heirs must install separately):
+
+- **pandoc** on PATH (required for all 6 converters) — `winget install --id JohnMacFarlane.Pandoc -e` or [pandoc.org](https://pandoc.org/installing.html).
+- **mermaid-cli** on PATH (required for md-to-html + md-to-word when Mermaid diagrams present) — `npm install -g @mermaid-js/mermaid-cli`.
+- **jszip** (optional; only used by md-to-word for faster .docx generation) — `npm install jszip` inside a Node project or globally.
+
+**Composition with earlier batches**:
+
+- `converter.instructions.md` fires on document conversion requests → routes to format skill → `convert.prompt.md` (Batch 5) provides the user-facing slash command.
+- `no-deferred-debt.instructions.md` (Batch 4) composes: if a converter surfaces stale references in the middle of a conversion, fix in the same turn.
+- `problem-framing-audit.instructions.md` (Batch 1 + skill Batch 2) fires when the user says "convert this" without a target format — frame audit surfaces the ambiguity before the converter runs.
+
 ### Added — Batch 4: Craft + cognitive-discipline (2026-07-30)
 
 Seven always-on instructions completing the cognitive foundation that runs alongside the ACT canon. Same-shape port as Batch 1 (instructions only, no cross-artifact coupling).

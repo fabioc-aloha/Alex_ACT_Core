@@ -1,9 +1,10 @@
 # Prompts
 
-5 slash-command prompts ship as of Batch 3 (2026-07-30):
+6 slash-command prompts ship as of Batch 5 (2026-07-30):
 
 | File | Slash command | Role |
 | --- | --- | --- |
+| [`convert.prompt.md`](convert.prompt.md) | `/convert` | Convert a document between Markdown, HTML, Word, email, and plain text. Detects source + target format, runs the bundled converter, validates and reports output. |
 | [`critical-thinking.prompt.md`](critical-thinking.prompt.md) | `/critical-thinking` | Forces the full critical-thinking pass on a specific claim; produces visible markers |
 | [`meditate.prompt.md`](meditate.prompt.md) | `/meditate` | Runs the meditation protocol — review + extract + write + chronicle + handoff + `/compact` |
 | [`note.prompt.md`](note.prompt.md) | `/note` | Short alias for `/save-session-note` — skip the "what should I capture?" question if the note text is already provided |
