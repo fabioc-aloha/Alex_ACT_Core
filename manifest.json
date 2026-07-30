@@ -2,8 +2,8 @@
   "$comment": "Mall-side plugin manifest. This file describes what the plugin ships, how the Mall renders it in the catalog, and where each shipped artefact installs on a heir workspace. Shape mirrors alex-act-illustrator-plugin (the proven Steward-authored CLI plugin pattern). Version 0.1.0 = empty scaffold — the plugin exists, the transport is proven by Illustrator, but no ACT-specific skills/instructions/prompts/agents ship yet. Growth happens through evidence-gated proposals via the Steward brain-curation protocol.",
   "plugin": "alex-act-core",
   "version": "0.1.0",
-  "shape": "twenty-four-instructions + fifteen-skills + six-prompts (ACT canon + cognitive discipline + reasoning muscles + meditation loop + document converters + security & privacy + tooling awareness)",
-  "description": "The Alex ACT baseline plugin — the plugin-native successor to Alex_ACT_Edition v4.2.0. Distributes the always-on epistemic discipline and the reusable framework skills that heirs install via the Alex_ACT_Plugin_Mall catalog. Batch 1 (2026-07-30) shipped the ACT canon: 8 always-on instructions. Batch 2 (2026-07-30) added 6 reasoning + planning muscles as skills plus 2 paired slash-command prompts. Batch 3 (2026-07-30) added the meditation loop — 2 instructions, 1 skill, 3 prompts. Batch 4 (2026-07-30) added the craft + cognitive-discipline set — 7 always-on instructions completing the cognitive foundation. Batch 5 (2026-07-30) added the document converters cluster — 1 routing instruction (converter) + 1 slash-command prompt (/convert) + 6 conversion skills + shared runtime toolkit at .github/scripts/shared/. Batch 6 (2026-07-30) added the security & privacy cluster — 3 always-on instructions (pii-memory-filter, cross-project-isolation, privacy-responsible-ai) + 1 skill (security-and-hardening). Batch 7 (2026-07-30) added the tooling awareness cluster — 3 always-on instructions (terminal-command-safety for backtick-hazard + heredoc + output-capture prevention, tool-awareness for VS Code 1.117+ deferred-tool discipline + slash picker skill surfacing, tool-awareness-categories as scoped companion reference) + 1 skill (browser-tools for VS Code internal browser patterns including file:// local rendering + password-hand-off + bot-protected sites). Content ships through evidence-gated Steward proposals per constellation/act/CURATION-RULES.md. Maintained by Alex_ACT_Steward.",
+  "shape": "twenty-seven-instructions + seventeen-skills + six-prompts (ACT canon + cognitive discipline + reasoning muscles + meditation loop + document converters + security & privacy + tooling awareness + git/lint/mcp)",
+  "description": "The Alex ACT baseline plugin — the plugin-native successor to Alex_ACT_Edition v4.2.0. Distributes the always-on epistemic discipline and the reusable framework skills that heirs install via the Alex_ACT_Plugin_Mall catalog. Batch 1 (2026-07-30) shipped the ACT canon: 8 always-on instructions. Batch 2 (2026-07-30) added 6 reasoning + planning muscles as skills plus 2 paired slash-command prompts. Batch 3 (2026-07-30) added the meditation loop — 2 instructions, 1 skill, 3 prompts. Batch 4 (2026-07-30) added the craft + cognitive-discipline set — 7 always-on instructions. Batch 5 (2026-07-30) added the document converters cluster — 1 routing instruction + 1 slash-command prompt + 6 conversion skills + shared runtime toolkit. Batch 6 (2026-07-30) added the security & privacy cluster — 3 always-on instructions + 1 skill (security-and-hardening). Batch 7 (2026-07-30) added the tooling awareness cluster — 3 always-on instructions (terminal-command-safety, tool-awareness, tool-awareness-categories) + 1 skill (browser-tools). Batch 8 (2026-07-30) added the git/lint/mcp cluster — 3 always-on instructions (git-workflow for branch hygiene + recovery patterns, lint-discipline for own-lint-state-on-touched-files, mcp-development for routing to MCP work) + 2 skills (git-workflow for detailed procedures, mcp-builder for authoring MCP servers in Python/Node/C#). Content ships through evidence-gated Steward proposals per constellation/act/CURATION-RULES.md. Maintained by Alex_ACT_Steward.",
   "homepage": "https://github.com/fabioc-aloha/Alex_ACT_Core",
   "license": "MIT",
   "authors": [
@@ -41,6 +41,12 @@
         "path": ".github/skills/deep-review/SKILL.md",
         "install_to": ".github/skills/deep-review/SKILL.md",
         "role": "three-perspective adversarial review (Advocate / Skeptic / Architect) with productive tension; composes with cross-model external critic per adversarial-review instruction"
+      },
+      {
+        "name": "git-workflow",
+        "path": ".github/skills/git-workflow/SKILL.md",
+        "install_to": ".github/skills/git-workflow/SKILL.md",
+        "role": "detailed git procedures — branch hygiene, safe-commit patterns, recovery from lost commits + bad merges + accidental pushes; complements git-workflow instruction with worked examples"
       },
       {
         "name": "plan",
@@ -101,6 +107,12 @@
         "path": ".github/skills/md-to-word/SKILL.md",
         "install_to": ".github/skills/md-to-word/SKILL.md",
         "role": "convert Markdown (with Mermaid + SVG) to Word (.docx) — bundled muscle at .github/skills/md-to-word/scripts/md-to-word.cjs; uses jszip when available, falls back to pandoc"
+      },
+      {
+        "name": "mcp-builder",
+        "path": ".github/skills/mcp-builder/SKILL.md",
+        "install_to": ".github/skills/mcp-builder/SKILL.md",
+        "role": "build MCP servers in Python (FastMCP), Node/TypeScript (MCP SDK), or C#/.NET (Microsoft MCP SDK) — Build vs Use Existing decision matrix (Azure/Foundry/Fabric/Playwright/GitHub MCPs), implementation patterns, testing checklist, common issues"
       },
       {
         "name": "security-and-hardening",
@@ -174,11 +186,32 @@
         "applyTo": "**"
       },
       {
+        "name": "git-workflow",
+        "path": ".github/instructions/git-workflow.instructions.md",
+        "install_to": ".github/instructions/git-workflow.instructions.md",
+        "role": "consistent git practices — branch hygiene, safe commits (severity-tagged), and recovery patterns (lost commits, bad merges, accidental pushes)",
+        "applyTo": "**/.*git*,**/.github/**"
+      },
+      {
         "name": "knowledge-coverage",
         "path": ".github/instructions/knowledge-coverage.instructions.md",
         "install_to": ".github/instructions/knowledge-coverage.instructions.md",
         "role": "coverage taxonomy (High / Medium / Low / Unknown) with per-level language calibration + optional visible-confidence badge gated on heir cognitive-config.json",
         "applyTo": "**"
+      },
+      {
+        "name": "lint-discipline",
+        "path": ".github/instructions/lint-discipline.instructions.md",
+        "install_to": ".github/instructions/lint-discipline.instructions.md",
+        "role": "if you touched a file you own its lint state on exit — pre-existing findings become yours the moment you open the file; use VS Code 1.122+ 'Search only in changed files' to enumerate scope",
+        "applyTo": "**"
+      },
+      {
+        "name": "mcp-development",
+        "path": ".github/instructions/mcp-development.instructions.md",
+        "install_to": ".github/instructions/mcp-development.instructions.md",
+        "role": "MCP server development routing — fires on mcp / mcp-server file patterns; points at mcp-builder skill for detailed authoring guide",
+        "applyTo": "**/*mcp*,**/*mcp-server*,**/*mcp*/**,**/*mcp-server*/**"
       },
       {
         "name": "problem-framing-audit",

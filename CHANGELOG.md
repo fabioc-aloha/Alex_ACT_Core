@@ -6,6 +6,33 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — Batch 8: Git + lint + MCP cluster (2026-07-30)
+
+Five artifacts covering the highest-frequency developer disciplines heirs need after platform safety: version control, lint ownership, and Model Context Protocol server construction.
+
+**Instructions (3)**:
+
+- **`git-workflow.instructions.md`** (`applyTo: **/.*git*,**/.github/**`) — Branch hygiene, safe-commit patterns (severity-tagged per `[typo|clarification|behaviour|constitutional]` convention), recovery from lost commits + bad merges + accidental pushes.
+- **`lint-discipline.instructions.md`** (`applyTo: **`) — If you touched a file, you own its lint state on exit. Pre-existing findings become yours the moment you open the file — no "not my edit" excuses. Use VS Code 1.122+ **"Search only in changed files"** toggle to enumerate the scope. Codified 2026-04-30 from a real defect where 10 MD060 findings were shipped as "pre-existing."
+- **`mcp-development.instructions.md`** (`applyTo: **/*mcp*,**/*mcp-server*,...`) — Routing pointer that fires on MCP file patterns and delegates to the `mcp-builder` skill for detailed authoring guidance.
+
+**Skills (2)**:
+
+- **`git-workflow/SKILL.md`** — Detailed procedures backing the git-workflow instruction. Worked examples for branch creation, staging discipline, commit message shape, recovery from `git reset --hard` mistakes, `git reflog` triage, force-push protection.
+- **`mcp-builder/SKILL.md`** — Complete authoring guide for MCP servers in Python (FastMCP), Node/TypeScript (MCP SDK), and C#/.NET (Microsoft MCP SDK). Includes: (1) **Build vs Use Existing** decision matrix listing Microsoft's built-in MCPs (Azure MCP with 48+ services, Foundry MCP, Fabric MCP, Playwright MCP, GitHub MCP); (2) implementation patterns per language; (3) authentication with `DefaultAzureCredential` for Azure-targeted servers; (4) testing checklist; (5) common-issues table (connection failures, auth expiry, tool discovery, timeouts, schema validation).
+
+**Adaptation applied**:
+
+- `git-workflow.instructions.md`, `lint-discipline.instructions.md`, `mcp-development.instructions.md`, `git-workflow/SKILL.md` — ported verbatim. Zero content edits.
+- `mcp-builder/SKILL.md` — dropped the `## Supervisor Curation Use` section (lines 11-38: three Steward-only duties around Mall MCP curation, evaluating heir MCP requests, and triaging heir MCP escalations; heirs don't curate the Mall or triage other heirs' work). Rewrote the opening paragraph from "Build, curate, and triage MCP servers for ACT heirs and the Plugin Mall. Three Supervisor duties below..." to a heir-appropriate framing. Dropped the `mall-curation` cross-reference from Related Skills. Everything else preserved verbatim.
+
+**Composition with earlier batches**:
+
+- `git-workflow` (this batch) + `no-deferred-debt` (Batch 4): if a git operation surfaces stale references, fix in the same turn.
+- `lint-discipline` (this batch) + `no-deferred-debt` (Batch 4): pre-existing lint findings on a touched file are debt — both rules converge on "fix now."
+- `mcp-builder` (this batch) + `security-and-hardening` (Batch 6): MCP servers accept untrusted tool arguments — hardening principles apply.
+- `mcp-development` (this batch) + `tool-awareness` (Batch 7): both address the tool ecosystem from different angles — tool-awareness for consumption, mcp-development for production.
+
 ### Added — Batch 7: Tooling awareness cluster (2026-07-30)
 
 Four artifacts covering the platform-safety discipline heirs need before their first terminal command, deferred-tool call, or browser interaction.

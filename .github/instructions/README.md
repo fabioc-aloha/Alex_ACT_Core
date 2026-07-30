@@ -1,6 +1,6 @@
 # Instructions
 
-24 always-on instructions ship as of Batch 7 (2026-07-30):
+27 always-on instructions ship as of Batch 8 (2026-07-30):
 
 | File | Role | applyTo |
 | --- | --- | --- |
@@ -13,7 +13,10 @@
 | [`cross-project-isolation.instructions.md`](cross-project-isolation.instructions.md) | Strip project specifics before writing to shared fleet channels; refuses on-request override | `**/Alex_ACT_Memory/**,**/announcements/**,**/*fleet*` |
 | [`emotional-intelligence.instructions.md`](emotional-intelligence.instructions.md) | 6-signal detection with per-signal adaptation + mimicry prevention | `**` |
 | [`epistemic-calibration.instructions.md`](epistemic-calibration.instructions.md) | Confidence calibration + anti-hallucination + anti-sycophancy | `**` |
+| [`git-workflow.instructions.md`](git-workflow.instructions.md) | Branch hygiene + safe-commit patterns + recovery from lost commits / bad merges / accidental pushes | `**/.*git*,**/.github/**` |
 | [`knowledge-coverage.instructions.md`](knowledge-coverage.instructions.md) | Coverage taxonomy (High / Medium / Low / Unknown) with language calibration | `**` |
+| [`lint-discipline.instructions.md`](lint-discipline.instructions.md) | Own the lint state of every file you touched — pre-existing findings become yours | `**` |
+| [`mcp-development.instructions.md`](mcp-development.instructions.md) | MCP server development routing — points at mcp-builder skill for detailed guide | `**/*mcp*,**/*mcp-server*,**/*mcp*/**,**/*mcp-server*/**` |
 | [`meditation.instructions.md`](meditation.instructions.md) | 6-step meditation ritual for consolidating session learning | `**/*meditat*,**/*consolidat*` |
 | [`memory-triggers.instructions.md`](memory-triggers.instructions.md) | Automatic memory formation triggers (correction / pattern-3× / preference / session-end) | `**` |
 | [`no-deferred-debt.instructions.md`](no-deferred-debt.instructions.md) | Fix tech debt in the same turn it surfaces; deferral requires named decision-blocker | `**` |
