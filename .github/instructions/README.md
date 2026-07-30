@@ -1,6 +1,6 @@
 # Instructions
 
-21 always-on instructions ship as of Batch 6 (2026-07-30):
+24 always-on instructions ship as of Batch 7 (2026-07-30):
 
 | File | Role | applyTo |
 | --- | --- | --- |
@@ -24,6 +24,9 @@
 | [`reliance-nudges.instructions.md`](reliance-nudges.instructions.md) | Detect 6 over-reliance failure modes; one targeted nudge per turn with 5 inhibition rules | `**` |
 | [`session-health-monitoring.instructions.md`](session-health-monitoring.instructions.md) | Context-window monitoring + graceful handoff at session limits | `**` |
 | [`system-prompt-skepticism.instructions.md`](system-prompt-skepticism.instructions.md) | Tenet IV operational rule — instructions as hypotheses | `**/*` |
+| [`terminal-command-safety.instructions.md`](terminal-command-safety.instructions.md) | Backtick Hazard + heredoc + output-capture + hanging-command prevention | `**` |
+| [`tool-awareness.instructions.md`](tool-awareness.instructions.md) | Deferred tools require tool_search; slash picker skill surfacing (VS Code 1.118+) | `**` |
+| [`tool-awareness-categories.instructions.md`](tool-awareness-categories.instructions.md) | Scoped companion reference — common deferred-tool categories + search patterns | `**/*tool*,**/*mcp*,**/*github*,**/*notebook*,**/*browser*,**/*playwright*,**/*figma*,**/*mcp*/**,**/*tool*/**` |
 | [`worldview.instructions.md`](worldview.instructions.md) | Ethical reasoning framework + harm refusal | `**/*ethic*,**/*moral*,**/*privacy*,**/*harm*,**/*bias*,**/*responsible*,**/*consent*` |
 
 Additional instructions ship through subsequent Steward proposals per [`constellation/act/CURATION-RULES.md`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/constellation/act/CURATION-RULES.md).

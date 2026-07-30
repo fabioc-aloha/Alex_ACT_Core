@@ -1,10 +1,11 @@
 # Skills
 
-14 skills ship as of Batch 6 (2026-07-30):
+15 skills ship as of Batch 7 (2026-07-30):
 
 | File | Role |
 | --- | --- |
 | [`anti-hallucination/SKILL.md`](anti-hallucination/SKILL.md) | Prevent fabrication at generation point (input-discipline + output-discipline signals). First leg of the epistemic triad. |
+| [`browser-tools/SKILL.md`](browser-tools/SKILL.md) | VS Code 1.127+ browser tools — file:// local rendering (HTML/SVG/PNG/PDF), bot-protection escape, password-hand-off protocol (never `type_in_page` on secrets). |
 | [`critical-thinking/SKILL.md`](critical-thinking/SKILL.md) | 7 disciplines for challenging AI reasoning at decision points. Detailed body for `critical-thinking.instructions.md`. Second leg of the epistemic triad. |
 | [`deep-review/SKILL.md`](deep-review/SKILL.md) | Three-perspective adversarial review (Advocate / Skeptic / Architect). Composes with cross-model external critic. |
 | [`docx-to-md/SKILL.md`](docx-to-md/SKILL.md) | Convert Word (.docx) → clean Markdown with image extraction and pandoc cleanup. Muscle at [`docx-to-md/scripts/docx-to-md.cjs`](docx-to-md/scripts/docx-to-md.cjs). |
@@ -18,6 +19,8 @@
 | [`problem-framing-audit/SKILL.md`](problem-framing-audit/SKILL.md) | Detailed body for Discipline -1 frame audit — 8-check step-back protocol. |
 | [`security-and-hardening/SKILL.md`](security-and-hardening/SKILL.md) | OWASP-aware hardening for user input, auth, storage, external integrations. Three-tier boundary system (Always Do / Ask First / Never Do) + OWASP Top 10 prevention patterns. |
 | [`spike/SKILL.md`](spike/SKILL.md) | Throwaway feasibility experiments — decompose, prototype, return VALIDATED/PARTIAL/INVALIDATED verdicts. Disposable by design. |
+
+The six converter skills bundle executable muscles under `<skill>/scripts/<skill>.cjs` and depend on the shared runtime at `.github/scripts/shared/` (`tool-runner.cjs`, `markdown-preprocessor.cjs`, `mermaid-pipeline.cjs`, `data-uri.cjs`). Runtime prerequisites: **pandoc** on PATH (all 6), **mermaid-cli** on PATH (md-to-html + md-to-word when Mermaid present), **jszip** optional (md-to-word).
 
 The six converter skills bundle executable muscles under `<skill>/scripts/<skill>.cjs` and depend on the shared runtime at `.github/scripts/shared/` (`tool-runner.cjs`, `markdown-preprocessor.cjs`, `mermaid-pipeline.cjs`, `data-uri.cjs`). Runtime prerequisites: **pandoc** on PATH (all 6), **mermaid-cli** on PATH (md-to-html + md-to-word when Mermaid present), **jszip** optional (md-to-word).
 

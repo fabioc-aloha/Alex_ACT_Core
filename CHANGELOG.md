@@ -6,6 +6,33 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — Batch 7: Tooling awareness cluster (2026-07-30)
+
+Four artifacts covering the platform-safety discipline heirs need before their first terminal command, deferred-tool call, or browser interaction.
+
+**Instructions (3)**:
+
+- **`terminal-command-safety.instructions.md`** (`applyTo: **`) — Backtick Hazard prevention (always temp-file for backticks / multi-line / heredoc; place temp file OUTSIDE working tree to prevent commit leak; git commit-message pattern with `$env:TEMP` + `-F $m`). Output capture failures (redirect-then-read pattern). Terminal hanging (`mode=async` for >15s commands, non-interactive flags, network timeouts, no heredoc blocks). VS Code 1.117-1.128 platform-change table.
+- **`tool-awareness.instructions.md`** (`applyTo: **`) — Deferred tools (VS Code 1.118+) require `tool_search` before use. External ingest (VS Code 1.119+) provides context in remote workspaces. VS Code 1.122-1.128 conveniences table. Skill picker surfacing (VS Code 1.118+): SKILL.md descriptions appear in the slash picker alongside prompts; **never strip descriptions to declutter the picker** — three-consumer discipline (agent discovery + brain QA + picker tooltip).
+- **`tool-awareness-categories.instructions.md`** (`applyTo: **/*tool*,**/*mcp*,**/*github*,...`) — Scoped companion reference. Common deferred-tool categories (GitHub, Azure, Fabric, Microsoft docs, browser, notebook, mermaid, bicep, figma, Microsoft Graph) with search-query patterns. Loads only when working with tools / MCP / GitHub — not always-on.
+
+**Skills (1)**:
+
+- **`browser-tools/SKILL.md`** — VS Code 1.127+ browser tools (`open_browser_page`, `screenshot_page`, `click_element`, `navigate_page`, `run_playwright_code`). Five patterns: (1) bot-protected sites (`fetch_webpage` returns challenge → browser tools clear it naturally); (2) password-hand-off protocol (**never** `type_in_page` on password / MFA / OTP fields — route to user, they type into visible browser); (3) file:// local rendering (HTML with `fetch()` of sibling .md/.json/.svg works under Playwright's file-access flags; no HTTP server needed); (4) SVG/PNG/JPG/WebP/GIF/AVIF/PDF viewing via file://; (5) design/UI validation via screenshot-driven review. Empirically verified 2026-07-26 against Alex_ACT_Steward's docs shell + branding SVGs (evidence preserved as illustration; heirs adapt paths to their workspace).
+
+**Adaptation applied**:
+
+- All 4 files ported from Steward. Minimal adaptation: one line in `tool-awareness.instructions.md` changed "Supervisor ships one" → "Alex_ACT_Steward ships one" (accurate historical reference for current-state Steward, still names a concrete example).
+- `browser-tools/SKILL.md` retains the 2026-07-26 empirically-verified paths from Alex_ACT_Steward's workspace as illustration — the framing already labels them as verification evidence + template. Heirs adapt paths to their own workspace.
+- Intra-Core cross-refs resolve locally: `browser-tools/SKILL.md` references `tool-awareness.instructions.md` (this batch) + `system-prompt-skepticism.instructions.md` (Batch 1) + `terminal-command-safety.instructions.md` (this batch); `browser-tools` also references [`svg-banner`](../svg-banner/SKILL.md) (**pending future batch — will not resolve yet**).
+
+**Composition with earlier batches**:
+
+- `tool-awareness` (this batch) + `tool-awareness-categories` (this batch) form a scoped pair: always-on rule + on-demand lookup table.
+- `terminal-command-safety` (this batch) + `security-and-hardening` (Batch 6): OWASP boundary in code, safety boundary in the shell that generates code. Complementary layers.
+- `browser-tools` (this batch) + `pii-memory-filter` (Batch 6): screenshots can capture PII — PMF's write-boundary rules apply to any image the agent persists to `../Alex_ACT_Memory/`.
+- `terminal-command-safety` (this batch) + `no-deferred-debt` (Batch 4): temp-file commit-message leaks are debt — the rule surfaces both the prevention AND "clean up the temp file this turn".
+
 ### Added — Batch 6: Security & privacy cluster (2026-07-30)
 
 Four artifacts covering the always-on privacy + safety discipline heirs need before their first interaction with untrusted data or shared fleet channels.
