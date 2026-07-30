@@ -19,10 +19,13 @@ This filter applies whenever you write to ANY persistent tier:
 | User Memory | `memory create /memories/` | Yes (200 lines) |
 | Repo Memory | `memory create /memories/repo/` | No |
 | Session Memory | `memory create /memories/session/` | No |
-| Shared Memory | File creation in `../Alex_ACT_Memory/` | No |
-| Feedback | File creation in `../Alex_ACT_Memory/feedback/` | No |
+| Shared Memory — announcements | File creation in `../Alex_ACT_Memory/announcements/` | No |
+| Shared Memory — feedback | File creation in `../Alex_ACT_Memory/feedback/` | No |
+| Shared Memory — knowledge | File creation in `../Alex_ACT_Memory/knowledge/` | No |
+| Shared Memory — insights | File creation in `../Alex_ACT_Memory/insights/` | No |
+| Shared Memory — profile (encrypted) | Envelope write to `../Alex_ACT_Memory/profile/<user>/*.encrypted.json` | No |
 
-For tier *selection* (where content goes), see [memory-triggers.instructions.md § Memory Tier Selection](memory-triggers.instructions.md). This filter constrains *what* may be written; MT constrains *where*.
+For tier *selection* (where content goes), see [memory-triggers.instructions.md § Memory Tier Selection](memory-triggers.instructions.md). This filter constrains *what* may be written; MT constrains *where*. Only the five channels above are approved on the shared bus; ad-hoc paths (for example a shared `notes.md`) fail Memory's strict validator.
 
 ## Never Write These Categories
 

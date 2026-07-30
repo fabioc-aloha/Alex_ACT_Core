@@ -11,7 +11,7 @@
 | [`meditate.prompt.md`](meditate.prompt.md) | `/meditate` | Runs the meditation protocol — review + extract + write + chronicle + handoff + `/compact` |
 | [`note.prompt.md`](note.prompt.md) | `/note` | Short alias for `/save-session-note` — skip the "what should I capture?" question if the note text is already provided |
 | [`problem-framing-audit.prompt.md`](problem-framing-audit.prompt.md) | `/problem-framing-audit` | Forces the step-back protocol on a non-trivial problem; produces frame markers when reframes surface |
-| [`save-session-note.prompt.md`](save-session-note.prompt.md) | `/save-session-note` | Capture a short pending-action note in repo-root `HANDOFF.md`; optional mirror to shared memory with stripping |
+| [`save-session-note.prompt.md`](save-session-note.prompt.md) | `/save-session-note` | Capture a short pending-action note in repo-root `HANDOFF.md` |
 | [`status.prompt.md`](status.prompt.md) | `/status` | Terse read-only project orientation report: identity, git state, HANDOFF.md continuity, optional brain-QA health, announcements. |
 
 All prompts invoke their companion skill bodies from `.github/skills/` and their always-on instructions from `.github/instructions/`. Intra-Core references resolve locally.

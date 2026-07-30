@@ -1,7 +1,7 @@
 ---
 description: "Strip project specifics before writing to user-shared fleet channels — prevent one heir's project context from leaking into the rest of the fleet"
 applyTo: "**/Alex_ACT_Memory/**,**/announcements/**,**/*fleet*"
-lastReviewed: 2026-05-28
+lastReviewed: 2026-07-30
 ---
 
 # Cross-Project Isolation
@@ -12,15 +12,20 @@ Always-active filter for fleet channels. Distinct from `pii-memory-filter` (whic
 
 Whenever I am about to write to a channel that other heirs in the user's fleet will read:
 
-| Channel                                          | Path                                                          |
-| ------------------------------------------------ | ------------------------------------------------------------- |
-| Fleet notes                                      | `../Alex_ACT_Memory/notes.md`                                 |
-| Fleet announcements                              | `../Alex_ACT_Memory/announcements/` (Supervisor or user only) |
-| Anything else under shared `../Alex_ACT_Memory/` |
+| Channel                              | Path                                                        |
+| ------------------------------------ | ----------------------------------------------------------- |
+| Fleet announcements                  | `../Alex_ACT_Memory/announcements/`                         |
+| Fleet feedback                       | `../Alex_ACT_Memory/feedback/`                              |
+| Shared knowledge packages            | `../Alex_ACT_Memory/knowledge/`                             |
+| Cross-session insights               | `../Alex_ACT_Memory/insights/`                              |
+
+Encrypted user profile envelopes under `../Alex_ACT_Memory/profile/**` carry
+user-authorized identity content; they are governed by the Memory contract's
+encryption rules and are out of scope for this project-boundary filter.
 
 This does **not** fire for:
 
-- Writes to my own repo (`/memories/`, `.github/episodic/`, project files)
+- Writes to my own repo (`/memories/`, `.github/episodic/`, project files, `HANDOFF.md`)
 - Replies in the current chat
 - Local logs that no other heir reads
 
@@ -68,9 +73,9 @@ If the user explicitly says "just write it, don't strip" — **refuse**. The fle
 
 ## Falsifiability
 
-This instruction is decorative if, after 30 days of fleet activity, an audit of `../Alex_ACT_Memory/announcements/` finds zero entries that required stripping (over-restrictive) or any entries containing un-stripped project-identifying detail (under-restrictive). Mitigation: when the Supervisor writes any announcement or note to the shared memory bus, it explicitly verifies stripping before publish.
+This instruction is decorative if, after 30 days of fleet activity, an audit of `../Alex_ACT_Memory/announcements/`, `feedback/`, `knowledge/`, and `insights/` finds zero entries that required stripping (over-restrictive) or any entries containing un-stripped project-identifying detail (under-restrictive). Mitigation: whenever an authorized writer publishes to any shared channel, it explicitly verifies stripping before writing and re-runs `npm run validate` against the Memory root.
 
 ## Related
 
 - [pii-memory-filter.instructions.md](pii-memory-filter.instructions.md) — sibling filter for identity-grade leakage
-- [note.prompt.md](../prompts/note.prompt.md), [save-session-note.prompt.md](../prompts/save-session-note.prompt.md) — primary callers (writes to `notes.md` mirror)
+- [ai-memory-setup](../skills/ai-memory-setup/SKILL.md) — approved channels and discovery contract for the shared bus

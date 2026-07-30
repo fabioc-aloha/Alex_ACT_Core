@@ -1,5 +1,5 @@
 ---
-description: "Save session state for handoff in repo-root HANDOFF.md (and optionally mirror to shared memory)"
+description: "Save session state for handoff in repo-root HANDOFF.md"
 lastReviewed: 2026-07-30
 ---
 
@@ -28,23 +28,13 @@ Capture a short observation, reminder, or open thread in repo-root `HANDOFF.md` 
    ```
 
    If it exists, update `Last updated` and append the new item under `## Pending Actions` as `- [ ] <user note>`.
-4. **Mirror to shared memory (optional)**: if a shared memory bus is configured (sibling `../Alex_ACT_Memory` per the Alex ACT constellation, or heir-configured equivalent), append to `notes.md` at that root, creating the file if needed. Format:
-
-   ```markdown
-   ## YYYY-MM-DD HH:MM (project: <project-id>)
-   <user's note>
-   ```
-
-   Use today's local date and time. Include a short project identifier if easily available (e.g. repo name); otherwise omit the parenthetical.
-
-5. **Strip project specifics before writing to shared memory** — no file paths, no client names, no PII. If the mirrored note contains those, ask the user to rephrase before writing to shared memory. (Project-local `HANDOFF.md` can include full project context — the stripping rule applies only to the shared-memory mirror.)
-6. **Confirm** by quoting the line added to `HANDOFF.md` and its file path.
+4. **Confirm** by quoting the line added to `HANDOFF.md` and its file path.
 
 ## Notes
 
 - Canonical handoff artifact is repo-root `HANDOFF.md`.
-- Shared memory mirror is optional; it enables cross-project continuity and searchability when a memory bus is available.
 - Keep notes terse and action-oriented.
+- The shared `Alex_ACT_Memory` bus is not a lightweight scratch surface — its contract requires structured, contract-valid entries per file (see [ai-memory-setup](../skills/ai-memory-setup/SKILL.md)). Cross-session notes stay local; publish to Memory only via a channel-appropriate structured entry.
 
 ## Would Revise If
 

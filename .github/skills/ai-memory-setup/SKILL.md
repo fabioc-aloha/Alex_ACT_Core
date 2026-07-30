@@ -1,24 +1,24 @@
 ---
 name: ai-memory-setup
 description: "Resolve and use the Alex_ACT_Memory sibling repository without silently cloning, syncing, or exposing protected data. Use for announcements, feedback, shared knowledge, and explicit memory setup."
-lastReviewed: 2026-07-28
+lastReviewed: 2026-07-30
 ---
 
 # AI Memory Setup
 
 Use the local `Alex_ACT_Memory` Git repository as the shared memory bus. The
-store has its own contract and release cycle; Steward is a consumer and policy
+store has its own contract and release cycle; Core is a consumer and policy
 author, not an implicit sync service.
 
 ## Resolve the Store
 
-Read `scripts/repos.config.json` and resolve `siblings.memory.path`. The current
-default is `../Alex_ACT_Memory`.
+Discovery order (first match wins):
 
 | State | Action |
 | --- | --- |
-| Configured sibling exists | Use it without pulling |
 | Environment variable `ALEX_MEMORY_PATH` points to a clone | Use that explicit path |
+| Sibling `../Alex_ACT_Memory` exists (relative to the project root) | Use it without pulling |
+| `~/Alex_ACT_Memory` exists | Use it without pulling |
 | No clone exists | Report Memory unavailable; ask before cloning or scaffolding |
 | Clone has no remote | Local-only operation is valid |
 
@@ -34,6 +34,11 @@ change a remote merely because Memory was mentioned.
 | `knowledge/` | Shared reusable technical knowledge | Contract-valid, project-independent content |
 | `insights/` | Cross-session analytical insights | Evidence-backed and non-sensitive |
 | `profile/` | Encrypted user profile envelopes | On-demand only; never inspect raw secrets |
+
+Only these five directories are approved. The validator rejects unknown
+top-level paths, so ad-hoc files at the Memory root (for example a shared
+`notes.md`) fail contract validation. Cross-session notes belong in the local
+project's `HANDOFF.md`, not in the shared bus.
 
 Do not bulk-copy Memory content into VS Code `/memories/`. User memory stores
 workflow preferences; the sibling repository stores shared, contract-governed
@@ -91,6 +96,6 @@ When the user explicitly asks to configure Memory:
 ## Would Revise If
 
 Revisit by **2026-10-28** or sooner if the Memory contract changes its channel
-model, `scripts/repos.config.json` stops being the sibling source, the validator
-entry point changes, or this skill causes an unrequested clone, sync, or
-protected-profile read.
+model, the sibling / `ALEX_MEMORY_PATH` discovery order stops matching heir
+layouts, the validator entry point changes, or this skill causes an unrequested
+clone, sync, or protected-profile read.
