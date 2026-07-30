@@ -1,6 +1,6 @@
 # Skills
 
-13 skills ship as of Batch 5 (2026-07-30):
+14 skills ship as of Batch 6 (2026-07-30):
 
 | File | Role |
 | --- | --- |
@@ -16,7 +16,10 @@
 | [`meditation/SKILL.md`](meditation/SKILL.md) | 5-step protocol for consolidating session learning into permanent architecture. Routes patterns to skills/instructions/prompts/scripts/memory tiers by type. |
 | [`plan/SKILL.md`](plan/SKILL.md) | Plan-mode discipline — concrete markdown plans with bite-sized tasks, exact file paths, complete code, verification steps. |
 | [`problem-framing-audit/SKILL.md`](problem-framing-audit/SKILL.md) | Detailed body for Discipline -1 frame audit — 8-check step-back protocol. |
+| [`security-and-hardening/SKILL.md`](security-and-hardening/SKILL.md) | OWASP-aware hardening for user input, auth, storage, external integrations. Three-tier boundary system (Always Do / Ask First / Never Do) + OWASP Top 10 prevention patterns. |
 | [`spike/SKILL.md`](spike/SKILL.md) | Throwaway feasibility experiments — decompose, prototype, return VALIDATED/PARTIAL/INVALIDATED verdicts. Disposable by design. |
+
+The six converter skills bundle executable muscles under `<skill>/scripts/<skill>.cjs` and depend on the shared runtime at `.github/scripts/shared/` (`tool-runner.cjs`, `markdown-preprocessor.cjs`, `mermaid-pipeline.cjs`, `data-uri.cjs`). Runtime prerequisites: **pandoc** on PATH (all 6), **mermaid-cli** on PATH (md-to-html + md-to-word when Mermaid present), **jszip** optional (md-to-word).
 
 The six converter skills bundle executable muscles under `<skill>/scripts/<skill>.cjs` and depend on the shared runtime at `.github/scripts/shared/` (`tool-runner.cjs`, `markdown-preprocessor.cjs`, `mermaid-pipeline.cjs`, `data-uri.cjs`). Runtime prerequisites: **pandoc** on PATH (all 6), **mermaid-cli** on PATH (md-to-html + md-to-word when Mermaid present), **jszip** optional (md-to-word).
 

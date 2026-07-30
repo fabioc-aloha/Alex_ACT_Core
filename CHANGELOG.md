@@ -6,6 +6,33 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — Batch 6: Security & privacy cluster (2026-07-30)
+
+Four artifacts covering the always-on privacy + safety discipline heirs need before their first interaction with untrusted data or shared fleet channels.
+
+**Instructions (3)**:
+
+- **`pii-memory-filter.instructions.md`** (`applyTo: **`) — PII filter at persistent-storage write boundaries. Never-write categories: contact info, DOB, health, financial, credentials, file paths with usernames, client names. Per-tier allow/deny table for User / Repo / Session / Shared memory + escalation paths when PII is genuinely required (contact → encrypted profile, health → decline, credentials → SecretStorage, work patterns → generalize).
+- **`cross-project-isolation.instructions.md`** (`applyTo: **/Alex_ACT_Memory/**,**/announcements/**,**/*fleet*`) — Distinct from `pii-memory-filter`: protects **project boundaries** (scope), not identity. Fires before writes to shared fleet channels. Strip project-identifying detail (paths, product names, domain IDs, niche stack); keep shared vocabulary (skill names, severity, ACT terms). Refuses on-request override ("just write it, don't strip").
+- **`privacy-responsible-ai.instructions.md`** (`applyTo: **/*privacy*,**/*pii*,**/*responsible*ai*,**/*ethic*`) — Privacy by design 5-step (minimize / purpose-limit / anonymize / encrypt / expire), PII classification table (Personal / Sensitive / Anonymized), Responsible AI principles (fairness, transparency, human oversight, safety).
+
+**Skills (1)**:
+
+- **`security-and-hardening/SKILL.md`** — OWASP-aware hardening for user input, authentication, data storage, and external integrations. Three-tier boundary system: **Always Do** (parameterized queries, output encoding, HTTPS, hashed passwords, security headers, httpOnly cookies, dependency audits), **Ask First** (new auth flows, new sensitive data categories, new external integrations, CORS changes, file uploads), **Never Do** (commit secrets, log sensitive data, trust client validation, disable security headers, `eval`, session in localStorage). OWASP Top 10 prevention patterns with TypeScript examples applicable to any language.
+
+**Adaptation applied**:
+
+- All 4 files ported **verbatim** from Steward. Zero content edits.
+- Intra-Core cross-refs resolve locally: `pii-memory-filter` references `memory-triggers` (Batch 3) ✅; `cross-project-isolation` references `pii-memory-filter` (this batch) ✅, `note.prompt.md` + `save-session-note.prompt.md` (both Batch 3) ✅.
+- References to `../Alex_ACT_Memory/` retained as-is (heir workspace layout determines whether the sibling repo exists; the filter fires without it).
+
+**Composition with earlier batches**:
+
+- `pii-memory-filter` (this batch) + `memory-triggers` (Batch 3): MT decides *where* to write; PMF decides *what* may be written. Both fire together on any persistence.
+- `cross-project-isolation` (this batch) + `save-session-note` (Batch 3): the note prompt writes to `HANDOFF.md` (local, no strip) or shared memory (strip fires).
+- `security-and-hardening` (this batch) + `no-deferred-debt` (Batch 4): if security review surfaces a vulnerability, fix in the same turn per no-deferred-debt.
+- `security-and-hardening` (this batch) + `problem-framing-audit` (Batch 1+2): a security-review request without a specific attack surface is a framing failure — audit before hardening.
+
 ### Added — Batch 5: Document converters (2026-07-30)
 
 First batch to ship executable code — a self-contained conversion cluster with one routing instruction, one slash-command prompt, six format skills each with their own executable muscle, and a shared runtime toolkit under `.github/scripts/shared/`.
