@@ -20,12 +20,12 @@ Load this skill whenever the user asks to:
 - match their voice in writing they're producing
 - review text for AI tells before publishing
 
-Also apply this skill to **your own** output when writing user-facing prose — release notes, PR descriptions, documentation, long-form explanations, summaries. Edition's baseline voice (via the `markdown-author` agent and Cardinal Rule 2) already strips the worst tells; a focused humanizer pass catches what slips through when the user explicitly cares about voice quality.
+Also apply this skill to **your own** output when writing user-facing prose — release notes, PR descriptions, documentation, long-form explanations, summaries. If your project ships a prose-authoring worker agent with a banned-vocabulary filter (for example, Steward's `markdown-author` or the illustrator plugin's), the always-on filter strips the worst tells; humanizer is the deeper on-demand pass that catches what slips through when the user explicitly cares about voice quality.
 
 **Composes with — not replaces — other prose disciplines:**
 
-- The `markdown-author` agent always-on body carries a 15-word banned-vocabulary filter (`delve`, `myriad`, `tapestry`, `seamlessly`, `leverage`, etc.) and a 6-step quick audit. That fires on every markdown-authoring task. Humanizer is the **deeper, on-demand pass** — 29 patterns with before/after examples, voice calibration, and an iterative draft-audit-final loop.
-- Cardinal Rule 2 in the heir brain bans em-dashes outright in shipped prose. Humanizer Pattern 14 documents the _reason_ (em-dash overuse is a well-known AI tell), useful when humanizing third-party text that already contains them.
+- A prose-authoring worker agent (like `markdown-author` in projects that ship one) typically carries a short banned-vocabulary filter (`delve`, `myriad`, `tapestry`, `seamlessly`, `leverage`, etc.) and a quick audit that fires on every markdown task. Humanizer is the **deeper, on-demand pass** — 29 patterns with before/after examples, voice calibration, and an iterative draft-audit-final loop.
+- Some project brains ban em-dashes outright in shipped prose (Alex ACT itself does, per Steward's Cardinal Rule 2). Humanizer Pattern 14 documents the _reason_ (em-dash overuse is a well-known AI tell), useful when humanizing third-party text that already contains them.
 
 ## How to apply it
 
@@ -550,11 +550,11 @@ End-to-end demonstration of the draft → self-audit → final rewrite loop is i
 
 ## Related
 
-- `markdown-author` agent (`.github/agents/markdown-author.agent.md`) — always-on prose worker with a 15-word banned-vocabulary filter and 6-step quick audit; humanizer is the deeper on-demand pass when the user explicitly wants AI-tell removal
+- Optional: a prose-authoring worker agent (`.github/agents/markdown-author.agent.md` in projects that ship one) — always-on prose worker with a banned-vocabulary filter and a quick audit; humanizer is the deeper on-demand pass when the user explicitly wants AI-tell removal
 - [code-review](../code-review/SKILL.md) — post-write review skill; humanizer is post-write _prose_ cleanup with a different rubric
 - [doc-hygiene](../doc-hygiene/SKILL.md) — anti-drift rules for living documents; humanizer is anti-AI-tells for any prose
 - [meditation](../meditation/SKILL.md) — when a humanizer pass surfaces a recurring AI tell in your own output, that's the signal a discipline addition might be earned; route through meditation
-- Heir Cardinal Rule 2 in `.github/copilot-instructions.md` — em-dashes banned outright; Pattern 14 above documents the underlying reason
+- Some project brains ban em-dashes outright in shipped prose (see for example Steward's Cardinal Rule 2 in `.github/copilot-instructions.md`); Pattern 14 above documents the underlying reason
 
 ## Would Revise If
 

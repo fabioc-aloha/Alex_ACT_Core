@@ -58,9 +58,9 @@ Applied to curation work: accepting a bad skill is reversible (revert next patch
 
 Maintained in your project's audit trail (Alex ACT itself uses `operations/ledgers/brain-qa-changelog.md`) — every entry carries implicit risk assessment via the Severity column. Explicit risk registers warranted only for:
 
-- Release candidates (use `/cut-release` prompt)
-- Store additions scoring <8/10 on store-evaluation
-- Structural changes to Edition brain architecture
+- Release candidates (per your project's release process)
+- Adopting an external artifact that scored below your project's acceptance bar
+- Structural changes to your project's brain architecture
 
 ## Would Revise If
 

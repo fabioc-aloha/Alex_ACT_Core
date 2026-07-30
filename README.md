@@ -2,7 +2,7 @@
 
 The plugin-native successor to [`Alex_ACT_Edition`](https://github.com/fabioc-aloha/Alex_ACT_Edition) v4.2.0. Distributes the always-on epistemic discipline and reusable framework skills that heirs install via the [Alex ACT Plugin Mall](https://github.com/fabioc-aloha/Alex_Skill_Mall).
 
-**Status**: v0.1.0 — **empty scaffold**. Repository created 2026-07-30. Content ships through evidence-gated Steward proposals per [`Alex_ACT_Steward/constellation/act/CURATION-RULES.md`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/constellation/act/CURATION-RULES.md).
+**Status**: v0.1.0 (unreleased). 72 baseline items ship as of 2026-07-30: 33 always-on instructions, 30 skills, 9 slash-command prompts, plus a shared runtime for the bundled document converters. Content lands through evidence-gated Steward proposals per [`Alex_ACT_Steward/constellation/act/CURATION-RULES.md`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/constellation/act/CURATION-RULES.md).
 
 **Maintainer**: [`Alex_ACT_Steward`](https://github.com/fabioc-aloha/Alex_ACT_Steward) (top-of-chain in the plugin-architecture lineage since 2026-07-26 fork-and-freeze).
 
@@ -11,17 +11,17 @@ The plugin-native successor to [`Alex_ACT_Edition`](https://github.com/fabioc-al
 Alex ACT Core is the **baseline plugin** — the minimal always-on brain that every heir needs regardless of domain. It sits at the bottom of a three-layer stack:
 
 | Layer | What it ships | Example |
-|---|---|---|
-| **Baseline** (this plugin) | Always-on epistemic discipline + framework review muscles | `act-pass`, `critical-thinking`, `problem-framing-audit`, `skill-review`, `meditation` |
+| --- | --- | --- |
+| **Baseline** (this plugin) | Always-on epistemic discipline + reusable framework skills, including document converters and a shared runtime | `act-pass`, `critical-thinking`, `problem-framing-audit`, `meditation`, `md-to-word`, `docx-to-md`, `lint-clean-markdown` |
 | **Specialization** (Mall opt-in) | Domain plugins heirs install as needed | `alex-act-illustrator-plugin` (visual authoring), future Azure / Fabric / M365 plugins |
 | **Local customization** (`.github/skills/local/` in each heir) | Heir-specific customizations | Whatever the heir invented for their own project |
 
 **What Core is NOT**:
 
-- Not a document conversion or lint runner — those are heir-scope or specialization plugins
 - Not the Copilot CLI itself — Core rides on top of Copilot CLI + Chat
 - Not the shared Memory bus — that lives in [`Alex_ACT_Memory`](https://github.com/fabioc-aloha/Alex_ACT_Memory) as a Git-backed sibling repo (per Steward Plan)
 - Not the Mall itself — the Mall lives in [`Alex_ACT_Plugin_Mall`](https://github.com/fabioc-aloha/Alex_Skill_Mall) and self-curates per ADR-008
+- Not a visual-authoring bundle — chart authoring, SVG banners, print figures, and AI imagery live in [`alex-act-illustrator-plugin`](https://github.com/fabioc-aloha/Alex_ACT_Illustrator_Plugin), not Core
 
 ## Why the plugin?
 
@@ -41,11 +41,13 @@ Alex_ACT_Core/
 ├── .markdownlint.json
 ├── .github/                    # Copilot Chat + CLI discovery surface
 │   ├── copilot-instructions.md
-│   ├── skills/                 # empty in v0.1.0
-│   ├── instructions/           # empty in v0.1.0
-│   ├── prompts/                # empty in v0.1.0
-│   └── agents/                 # empty in v0.1.0
-└── .vscode/                    # workspace settings (for self-dogfooding)
+│   ├── config/                 # brand-palette.json, welcome-baseline.json
+│   ├── scripts/shared/         # runtime helpers used by the converter skills
+│   ├── skills/                 # 30 skills (framework + craft + converters)
+│   ├── instructions/           # 33 always-on instructions
+│   ├── prompts/                # 9 slash-command prompts
+│   └── agents/                 # (empty; agents ship through heir workspaces or specialization plugins)
+└── .vscode/                    # workspace settings for self-dogfooding
 ```
 
 Same layout as [`alex-act-illustrator-plugin`](https://github.com/fabioc-aloha/Alex_ACT_Illustrator_Plugin) — the proven Steward-authored CLI plugin pattern.
@@ -60,17 +62,15 @@ copilot plugin install alex-act-core@alex-mall
 copilot plugin install fabioc-aloha/Alex_ACT_Core
 ```
 
-Empty scaffold today — installing v0.1.0 registers the plugin but ships no artefacts.
+Runtime prerequisites for the bundled converters (heirs install separately, once):
+
+- **pandoc** on PATH — required for all 6 converters
+- **mermaid-cli** (`mmdc`) on PATH — required for `md-to-html` and `md-to-word` when the source contains Mermaid diagrams
+- **jszip** in the workspace `node_modules` — optional; `md-to-word` uses it for a faster path and falls back to pandoc otherwise
 
 ## Roadmap
 
-Growth happens through evidence-gated proposals per [`Alex_ACT_Steward/constellation/act/CURATION-RULES.md`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/constellation/act/CURATION-RULES.md). Candidate content (recorded in Steward's [brain plan](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/brain/plan.md) Part II under **Both** classification):
-
-- **Always-on instructions** — `act-pass`, `critical-thinking`, `problem-framing-audit`, `system-prompt-skepticism`, `epistemic-calibration`, `memory-triggers`, `no-deferred-debt`, `communication-craft`, `emotional-intelligence`, `proactive-awareness`, `terminal-command-safety`, `tool-awareness`, `session-health-monitoring`, `worldview` (~32 candidates)
-- **Framework skills** — `skill-review`, `instruction-review`, `prompt-review`, `agent-review`, `skill-creator`, `instruction-creator`, `prompt-creator`, `agent-creator`, `meditation`, `critical-thinking`, `deep-review`, `plan`, `spike`, `problem-framing-audit`, `systematic-debugging`, `browser-tools`, `anti-hallucination` (~29 candidates)
-- **Prompts + agents** — the subset of Steward's slash-command + worker-agent lineup that's genuinely reusable across heirs (~10 candidates)
-
-None of these ship in v0.1.0. Each future promotion requires a proposal in [`Alex_ACT_Steward/constellation/proposals/`](https://github.com/fabioc-aloha/Alex_ACT_Steward/tree/main/constellation/proposals) with explicit Fabio approval before landing.
+Growth continues through evidence-gated proposals per [`Alex_ACT_Steward/constellation/act/CURATION-RULES.md`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/constellation/act/CURATION-RULES.md). The Both-classified inventory (framework baseline shipped to Core) is complete as of Batch 10 (2026-07-30). Future additions come from Steward's brain plan Part II under **Both** classification or as new proposals. See Steward's [brain plan](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/brain/plan.md) Part II for the current candidate pipeline.
 
 ## Related
 

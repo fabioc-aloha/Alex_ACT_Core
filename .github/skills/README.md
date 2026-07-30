@@ -1,6 +1,6 @@
 # Skills
 
-31 skills ship as of Batch 10 (2026-07-30):
+30 skills ship as of Batch 10 (2026-07-30):
 
 | File | Role |
 | --- | --- |

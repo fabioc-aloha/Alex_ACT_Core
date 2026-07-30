@@ -6,6 +6,49 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Audit remediation batch (2026-07-30)
+
+Six-item severity-ranked fix batch closing the standing audit findings against v0.1.0 content. Covers a High-severity security defect in the shared runtime, three Medium documentation-parity issues, and one Low count-accuracy fix.
+
+**Security — `.github/scripts/shared/tool-runner.cjs`** (High):
+
+- `execFileSync` on Windows was called with `shell: true` to resolve `.cmd`/`.bat` shims for `pandoc` / `mmdc` / other Node-CLI tools. That path re-parses the argument vector through `cmd.exe`, which reintroduces the DEP0190 command-injection surface even when caller code passed args as an array. A synthetic probe demonstrated the defect: passing `['-e', 'console.log("SAFE_CHILD")', '&', 'echo', 'CORE_INJECTION_MARKER']` executed both the intended command and the injected `echo` because `cmd.exe` treated `&` as a command separator.
+- Replaced with a `resolveWindowsTool()` helper that uses `where.exe` to resolve the tool name to an absolute path (preferring `.cmd`, `.exe`, then `.bat`), caches the result per tool, then invokes `execFileSync(resolved, args, { shell: false })`. Argument injection is now structurally impossible because the child process never sees a shell.
+- Verified post-fix: same probe now returns only `SAFE_CHILD` with no injected marker output, and `md-to-html` / `md-to-txt` / `md-to-word` / `docx-to-md` all round-trip successfully against a sample workspace. No user-facing behavior change; internal safety upgrade only.
+
+**Documentation parity — README + copilot-instructions + manifest $comment + agents/README** (Medium):
+
+- Removed "empty scaffold" language from Core's public identity surfaces. As of Batch 10, 72 baseline items ship (33 always-on instructions + 30 skills + 9 slash-command prompts) plus a shared runtime for the bundled converters. README status line, layout tree, "What Core is NOT" section, and Install prerequisites now describe the actual shipped state; copilot-instructions status paragraph updated; manifest `$comment` refreshed.
+- Removed the incorrect "Not a document conversion or lint runner" claim from README's "What Core is NOT" — Core ships 6 converters and `lint-clean-markdown`. Replaced with a positive claim that visual-authoring capability lives in the illustrator plugin, not Core.
+- `.github/agents/README.md` updated: Core intentionally ships zero worker agents (agents come from heir workspaces or specialization plugins), so "Empty in v0.1.0. Content ships here through..." was inaccurate. Reframed to reflect the design intent.
+
+**Compatibility — `.github/instructions/agent-delegation.instructions.md`** (Medium):
+
+- Original instruction stated "Before authoring any markdown document... the model must check whether a loaded worker SA matches the task." Core ships 0 agents; a heir without any prior `markdown-author`/`illustrator`/`document-assembler` workers in their agent set would find the instruction referencing named workers that do not exist.
+- Reframed as **conditional**: the instruction fires only when a matching worker is currently loaded in the session. The three workers (`markdown-author`, `illustrator`, `document-assembler`) are named as common examples heirs may install, not as required infrastructure. If no matching worker is loaded, the parent handles the work directly and the instruction adds no friction. Added an anti-pattern entry against fabricating a worker name that is not loaded.
+
+**Missing baseline — `.github/config/welcome-baseline.json`** (Medium):
+
+- `/configure-vscode` and its verify counterpart both reference `.github/config/welcome-baseline.json` to load the ACT-critical settings they apply or audit. That file did not exist in Core, so both prompts had a broken load step.
+- Added a Core-scoped baseline (spec_version 1.0) with 23 settings across 7 categories: update infrastructure, chat agent core (chat.useAgentSkills / chat.includeReferencedInstructions / chat.agent.enabled), Copilot chat features (memory tiers / codesearch / deferred tool loading / skill picker), terminal safety, UX cohesion, experimental opt-outs (implicitContext / symbolTools.cacheStable), and safety locks against dangerous Claude Agent permission modes.
+
+**Steward-only assumption softening — `humanizer/SKILL.md` + `risk-analysis.instructions.md`** (Medium):
+
+- `humanizer/SKILL.md` referenced Steward's `markdown-author` agent and Cardinal Rule 2 (Steward-only em-dash ban) as if they were baseline heir infrastructure. Reworded to name them as example patterns some project brains ship, not requirements the humanizer skill depends on.
+- `risk-analysis.instructions.md` routed to a `/cut-release` prompt (not shipped in Core), `store-evaluation` (Steward-only), and "Edition brain architecture" (v1 language). Generalized to "your project's release process", "an external artifact that scored below your project's acceptance bar", and "your project's brain architecture".
+
+**Count accuracy — `.github/skills/README.md`** (Low):
+
+- Header said "31 skills ship as of Batch 10" but Core ships 30 (svg-banner un-ported to illustrator on 2026-07-30). Updated to 30.
+
+**Verification**:
+
+- `manifest.json` + `.github/config/welcome-baseline.json` parse strictly (`node -e JSON.parse(...)`).
+- Filesystem inventory matches manifest.assets counts: 30 skills / 33 instructions / 9 prompts / 0 agents / 2 config files / 4 shared runtime modules.
+- `get_errors` clean on all 9 modified files.
+- Command-injection probe returns only `SAFE_CHILD`; four-converter round-trip returns exit 0 on md-to-html (3249 bytes), md-to-txt (23 bytes), md-to-word (11166 bytes), docx-to-md (26 bytes).
+- No lingering "empty scaffold" / "empty in v0.1.0" / `/cut-release` / `store-evaluation` references in the active brain.
+
 ### svg-banner un-ported to Alex_ACT_Illustrator_Plugin (2026-07-30)
 
 Per Fabio directive 2026-07-30 ("svg-banner should only be in the illustrator"), the `svg-banner` skill + `/banner` prompt un-ported from Core to `Alex_ACT_Illustrator_Plugin` (v0.6.0, commit `e6ad02f`). Rationale: banner authoring is visual-authoring capability and belongs alongside `docs-shell` + `flint-chart` + `chart-big-idea` + `chart-vocabulary` + `render-verify` + `print-svg-style-guide` + `figure-generator` + `replicate-imagery` in the illustrator plugin — not in the Core baseline that every heir installs.

@@ -1,10 +1,28 @@
 // @ts-check
 'use strict';
 
-const { execFileSync } = require('node:child_process');
+const path = require('node:path');
+const { execFileSync, spawnSync } = require('node:child_process');
 
 function envKeyForTool(tool) {
     return `ACT_TOOL_${String(tool).replace(/[^a-zA-Z0-9]/g, '_').toUpperCase()}`;
+}
+
+// Windows lookup cache so we do not re-run `where.exe` per invocation.
+const windowsResolveCache = new Map();
+
+function resolveWindowsTool(tool) {
+    if (path.isAbsolute(tool)) return tool;
+    if (windowsResolveCache.has(tool)) return windowsResolveCache.get(tool);
+    const probe = spawnSync('where.exe', [tool], { encoding: 'utf8' });
+    if (probe.status !== 0 || !probe.stdout) {
+        throw new Error(`Tool not found in PATH: ${tool}`);
+    }
+    // Prefer .cmd/.exe/.bat over .ps1 so execFileSync can spawn without a PowerShell host.
+    const candidates = probe.stdout.split(/\r?\n/).filter(Boolean).map((line) => line.trim());
+    const preferred = candidates.find((c) => /\.(cmd|exe|bat)$/i.test(c)) || candidates[0];
+    windowsResolveCache.set(tool, preferred);
+    return preferred;
 }
 
 function runTool(tool, args, options = {}) {
@@ -12,14 +30,12 @@ function runTool(tool, args, options = {}) {
     if (overrideScript) {
         return execFileSync(process.execPath, [overrideScript, ...args], options);
     }
-    // Windows: npm-installed CLIs (npx, npm, mmdc, svgexport, etc.) are .cmd
-    // shims that execFileSync cannot resolve without shell:true. On POSIX these
-    // are native executables and shell:true is unnecessary. Args are constructed
-    // in-source (not user input) so the shell-concat security caveat does not
-    // apply here.
     const isWindows = process.platform === 'win32';
-    const runOptions = isWindows ? { ...options, shell: true } : options;
-    return execFileSync(tool, args, runOptions);
+    if (!isWindows) return execFileSync(tool, args, options);
+    // Resolve the absolute .cmd/.exe path so we can drop `shell: true` and avoid the
+    // Node DEP0190 argument-concatenation vulnerability with user-supplied paths.
+    const resolved = resolveWindowsTool(tool);
+    return execFileSync(resolved, args, { ...options, shell: false });
 }
 
 module.exports = { runTool, envKeyForTool };
