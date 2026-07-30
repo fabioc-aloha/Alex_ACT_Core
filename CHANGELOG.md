@@ -6,6 +6,35 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — Batch 4: Craft + cognitive-discipline (2026-07-30)
+
+Seven always-on instructions completing the cognitive foundation that runs alongside the ACT canon. Same-shape port as Batch 1 (instructions only, no cross-artifact coupling).
+
+**Instructions (7)**:
+
+- **`communication-craft.instructions.md`** — SBI feedback model, stakes calibration, code-review voice, So-What/What/Now-What audience lead, Need/Solution/Feature elicitation ladder.
+- **`emotional-intelligence.instructions.md`** — 6-signal detection (frustration / confusion / success / flow / excitement / disengagement) with per-signal adaptation. Mimicry prevention (don't adopt user distress vocabulary).
+- **`knowledge-coverage.instructions.md`** — High / Medium / Low / Unknown taxonomy with per-level language calibration. Optional visible-confidence badge gated on heir workspace's `.github/config/cognitive-config.json`.
+- **`no-deferred-debt.instructions.md`** — If a turn surfaces tech debt (stale references, dead links, outdated content), fix it in the same turn. Deferral requires a named decision-blocker, not vague 'follow-up'. Composes with `lint-discipline` (pending future batch).
+- **`proactive-awareness.instructions.md`** — PA1 cross-session context recovery (check `HANDOFF.md` at session start), PA2 uncommitted-work detection (count-only nudges >24h old), PA4 focus routing (`goals.json`), silence-as-signal inhibitor (never interrupt flow).
+- **`reliance-nudges.instructions.md`** — 6 over-reliance signal patterns (prompt roulette, zero verification, instant high-stakes acceptance, verbatim acceptance, confidence cascade, repeated same error) with per-pattern one-sentence nudge and 5 inhibition rules.
+- **`session-health-monitoring.instructions.md`** — Monitor context window via proxy heuristics (~4 chars/token) + BYOK token counter (VS Code 1.120+). Graceful handoff to `HANDOFF.md` when approaching session limits.
+
+**Adaptation applied** (same moderate rules as Batches 1–3):
+
+- Frontmatter, body content, `## Would Revise If` sections preserved verbatim
+- Intra-Core cross-references resolve locally (`memory-triggers` ↔ `proactive-awareness`)
+- References to heir-workspace config files (`.github/config/cognitive-config.json`, `.github/config/goals.json`, `.github/quality/dream-report.json`) preserved as-is — heirs can adopt or ignore these optional signals
+- Reference to `lint-discipline.instructions.md` in `no-deferred-debt` preserved as-is (will resolve when a later batch ships lint-discipline)
+- Reference to `tool-awareness.instructions.md` in `session-health-monitoring` preserved as-is (will resolve when a later batch ships tool-awareness)
+- References to Mall skills in `reliance-nudges` `## What This Replaces` section preserved as-is (educational Mall skills exist independently of Core)
+- Steward-specific origin note in `no-deferred-debt` (`Alyva_Master heir-side discipline (FOUR-REPOS-COMPARISON.md Tier A §0.1 row 3)`) dropped from the Origin section; the discipline itself is preserved
+- `lastReviewed` dates preserved from source
+
+**Composition with Batches 1–3**: `memory-triggers` (Batch 3) and `proactive-awareness` (Batch 4) both reference `HANDOFF.md` as the canonical cross-session continuity surface. `epistemic-calibration` (Batch 1) and `knowledge-coverage` (Batch 4) both address confidence expression — different angles: calibration is the always-on floor; coverage is the per-topic assessment. `reliance-nudges` composes with `critical-thinking` (Batch 1 + skill Batch 2) by nudging the user when they skip verification the critical-thinking discipline would have caught.
+
+**Cumulative content in this Unreleased range**: 17 instructions + 7 skills + 5 prompts = 29 total items (0 agents). Version bump to 0.2.0 will happen when the first release is cut.
+
 ### Added — Batch 3: Meditation loop (2026-07-30)
 
 Two instructions + one skill + three prompts — the meditation cluster that lets heirs consolidate session learning into permanent architecture. First cross-artifact bundle (instruction ↔ skill ↔ prompt loop) ships in this batch, proving the pattern at small scale.
