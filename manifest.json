@@ -2,8 +2,8 @@
   "$comment": "Mall-side plugin manifest. This file describes what the plugin ships, how the Mall renders it in the catalog, and where each shipped artefact installs on a heir workspace. Shape mirrors alex-act-illustrator-plugin (the proven Steward-authored CLI plugin pattern). Version 0.1.0 = empty scaffold — the plugin exists, the transport is proven by Illustrator, but no ACT-specific skills/instructions/prompts/agents ship yet. Growth happens through evidence-gated proposals via the Steward brain-curation protocol.",
   "plugin": "alex-act-core",
   "version": "0.1.0",
-  "shape": "eight-instructions (ACT canon Batch 1)",
-  "description": "The Alex ACT baseline plugin — the plugin-native successor to Alex_ACT_Edition v4.2.0. Distributes the always-on epistemic discipline (act-pass, critical-thinking, problem-framing-audit, system-prompt-skepticism, epistemic-calibration, memory-triggers, no-deferred-debt, communication-craft) and the reusable framework skills (skill-review, instruction-review, prompt-review, agent-review, meditation, critical-thinking, deep-review) that heirs install via the Alex_ACT_Plugin_Mall catalog. Batch 1 (2026-07-30) ships the ACT canon: 8 always-on instructions covering the 10 tenets, the 7-step ACT pass, adversarial review, critical thinking, epistemic calibration, problem-framing audit, system-prompt skepticism, and the ethical worldview. Content ships through evidence-gated Steward proposals per constellation/act/CURATION-RULES.md. Maintained by Alex_ACT_Steward.",
+  "shape": "eight-instructions + six-skills + two-prompts (ACT canon + reasoning muscles)",
+  "description": "The Alex ACT baseline plugin — the plugin-native successor to Alex_ACT_Edition v4.2.0. Distributes the always-on epistemic discipline (act-pass, critical-thinking, problem-framing-audit, system-prompt-skepticism, epistemic-calibration, memory-triggers, no-deferred-debt, communication-craft) and the reusable framework skills (skill-review, instruction-review, prompt-review, agent-review, meditation, critical-thinking, deep-review) that heirs install via the Alex_ACT_Plugin_Mall catalog. Batch 1 (2026-07-30) shipped the ACT canon: 8 always-on instructions. Batch 2 (2026-07-30) added 6 reasoning + planning muscles as skills (critical-thinking, problem-framing-audit, deep-review, plan, spike, anti-hallucination) plus the 2 paired slash-command prompts (/critical-thinking, /problem-framing-audit) whose skill bodies now exist to invoke. Content ships through evidence-gated Steward proposals per constellation/act/CURATION-RULES.md. Maintained by Alex_ACT_Steward.",
   "homepage": "https://github.com/fabioc-aloha/Alex_ACT_Core",
   "license": "MIT",
   "authors": [
@@ -17,7 +17,44 @@
     }
   ],
   "assets": {
-    "skills": [],
+    "skills": [
+      {
+        "name": "anti-hallucination",
+        "path": ".github/skills/anti-hallucination/SKILL.md",
+        "install_to": ".github/skills/anti-hallucination/SKILL.md",
+        "role": "first leg of the epistemic triad — prevent fabrication at generation point (input-discipline + output-discipline signals)"
+      },
+      {
+        "name": "critical-thinking",
+        "path": ".github/skills/critical-thinking/SKILL.md",
+        "install_to": ".github/skills/critical-thinking/SKILL.md",
+        "role": "second leg of the epistemic triad — 7 disciplines for challenging AI reasoning at decision points (frame audit + materiality gate + 7 disciplines + never-guess floor + domain adaptation)"
+      },
+      {
+        "name": "deep-review",
+        "path": ".github/skills/deep-review/SKILL.md",
+        "install_to": ".github/skills/deep-review/SKILL.md",
+        "role": "three-perspective adversarial review (Advocate / Skeptic / Architect) with productive tension; composes with cross-model external critic per adversarial-review instruction"
+      },
+      {
+        "name": "plan",
+        "path": ".github/skills/plan/SKILL.md",
+        "install_to": ".github/skills/plan/SKILL.md",
+        "role": "plan-mode discipline — write a concrete actionable markdown plan with bite-sized tasks (2-5 min each), exact file paths, complete code, verification steps; no execution during the plan turn"
+      },
+      {
+        "name": "problem-framing-audit",
+        "path": ".github/skills/problem-framing-audit/SKILL.md",
+        "install_to": ".github/skills/problem-framing-audit/SKILL.md",
+        "role": "detailed body for Discipline -1 frame audit — 8-check step-back protocol (restate, generalise, specialise, invert, five whys, pre-mortem, stakeholder, frame audit)"
+      },
+      {
+        "name": "spike",
+        "path": ".github/skills/spike/SKILL.md",
+        "install_to": ".github/skills/spike/SKILL.md",
+        "role": "throwaway feasibility experiments — decompose into 2-5 questions, build minimal observable prototypes, return VALIDATED/PARTIAL/INVALIDATED verdicts; disposable by design"
+      }
+    ],
     "instructions": [
       {
         "name": "act-foundations",
@@ -76,7 +113,22 @@
         "applyTo": "**/*ethic*,**/*moral*,**/*privacy*,**/*harm*,**/*bias*,**/*responsible*,**/*consent*"
       }
     ],
-    "prompts": [],
+    "prompts": [
+      {
+        "name": "critical-thinking",
+        "path": ".github/prompts/critical-thinking.prompt.md",
+        "install_to": ".github/prompts/critical-thinking.prompt.md",
+        "slash_command": "/critical-thinking",
+        "role": "user-invokable trigger for the full critical-thinking pass — invokes the critical-thinking skill; produces visible markers for alternatives/missing-data/evidence-quality/bias/falsifiability/adversarial-review"
+      },
+      {
+        "name": "problem-framing-audit",
+        "path": ".github/prompts/problem-framing-audit.prompt.md",
+        "install_to": ".github/prompts/problem-framing-audit.prompt.md",
+        "slash_command": "/problem-framing-audit",
+        "role": "user-invokable trigger for the step-back protocol — invokes the problem-framing-audit skill; produces frame/cause-frame/considered-framings markers when reframes surface"
+      }
+    ],
     "agents": []
   },
   "prerequisites": {

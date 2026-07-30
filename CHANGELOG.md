@@ -6,6 +6,38 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — Batch 2: Reasoning + planning muscles (2026-07-30)
+
+Six skills + two paired slash-command prompts. Batch 2 completes the reasoning loop that Batch 1's ACT canon instructions gestured at: the instructions declared *when* to think critically; the Batch 2 skills declare *how*.
+
+**Skills (6)**:
+
+- **`anti-hallucination/SKILL.md`** — First leg of the epistemic triad. Prevents fabrication at generation point via input-discipline + output-discipline signals. Composes with `epistemic-calibration` (always-on) + `critical-thinking` (skill).
+- **`critical-thinking/SKILL.md`** — Second leg of the epistemic triad. Detailed body for the always-on `critical-thinking.instructions.md` from Batch 1. Ships Discipline -1 (frame audit), Discipline 0 (materiality gate), 7 disciplines (alternatives / missing-data / evidence-quality / self-report-skepticism / bias-detection / falsifiability / devil's-advocate), never-guess floor, domain adaptation guidance.
+- **`deep-review/SKILL.md`** — Three-perspective adversarial review (Advocate / Skeptic / Architect). Same-model role separation for high-stakes reviews. Composes with cross-model external critic from `adversarial-review.instructions.md` Batch 1 when stakes justify the switching cost.
+- **`plan/SKILL.md`** — Plan-mode discipline. Writes concrete actionable markdown plans with bite-sized tasks (2-5 min each), exact file paths, complete code, verification steps. No execution during the plan turn — output is the plan file itself.
+- **`problem-framing-audit/SKILL.md`** — Detailed body for Discipline -1 frame audit. 8-check step-back protocol (restate / generalise / specialise / invert / five-whys / pre-mortem / stakeholder / frame-audit). Companion to `problem-framing-audit.instructions.md` from Batch 1.
+- **`spike/SKILL.md`** — Throwaway feasibility experiments. Decompose into 2-5 independent questions, research per spike, build minimal observable prototype, return VALIDATED/PARTIAL/INVALIDATED verdicts. Disposable by design.
+
+**Prompts (2)** — deferred from Batch 1; now the skill bodies exist to invoke:
+
+- **`critical-thinking.prompt.md`** (`/critical-thinking`) — User-invokable trigger for the full critical-thinking pass. Invokes the `critical-thinking` skill; produces visible markers.
+- **`problem-framing-audit.prompt.md`** (`/problem-framing-audit`) — User-invokable trigger for the step-back protocol. Invokes the `problem-framing-audit` skill; produces frame/cause-frame/considered-framings markers when reframes surface.
+
+**Adaptation applied** (same moderate rules as Batch 1):
+
+- Frontmatter, body content, `## Would Revise If` sections preserved verbatim from Steward source
+- Intra-Core cross-references (skill ↔ skill, skill ↔ instruction, prompt ↔ skill, prompt ↔ instruction) resolve locally within the plugin
+- Framework canon references externalized to GitHub URLs pointing at `fabioc-aloha/Alex_ACT_Steward`
+- References to instructions not yet in Core (`agent-delegation`, `reliance-nudges`) preserved as-is; will resolve when a future batch ships them
+- References to skills not yet in Core (`test-driven-development` from `plan`) preserved as-is; noted in prose as pending
+- `local/` heir-customization pattern preserved (critical-thinking skill's domain-extension section still tells heirs to create `.github/skills/local/<domain>-critical-thinking/`)
+- `lastReviewed` dates preserved from source
+
+**Resolves Batch 1 dangling references**: the two skill refs from Batch 1 instructions (`critical-thinking.instructions.md` → `critical-thinking/SKILL.md`, `problem-framing-audit.instructions.md` → `problem-framing-audit/SKILL.md`) now resolve inside Core.
+
+**Cumulative content in this Unreleased range**: 8 instructions + 6 skills + 2 prompts = 16 total (0 agents). Version bump to 0.2.0 will happen when the first release is cut.
+
 ### Added — Batch 1: ACT canon (2026-07-30)
 
 First content ships. Eight always-on instructions cover the ACT epistemic canon:
