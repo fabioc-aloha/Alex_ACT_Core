@@ -2,8 +2,8 @@
   "$comment": "Mall-side plugin manifest. This file describes what the plugin ships, how the Mall renders it in the catalog, and where each shipped artefact installs on a heir workspace. Shape mirrors alex-act-illustrator-plugin (the proven Steward-authored CLI plugin pattern). Version 0.1.0 = empty scaffold — the plugin exists, the transport is proven by Illustrator, but no ACT-specific skills/instructions/prompts/agents ship yet. Growth happens through evidence-gated proposals via the Steward brain-curation protocol.",
   "plugin": "alex-act-core",
   "version": "0.1.0",
-  "shape": "eight-instructions + six-skills + two-prompts (ACT canon + reasoning muscles)",
-  "description": "The Alex ACT baseline plugin — the plugin-native successor to Alex_ACT_Edition v4.2.0. Distributes the always-on epistemic discipline (act-pass, critical-thinking, problem-framing-audit, system-prompt-skepticism, epistemic-calibration, memory-triggers, no-deferred-debt, communication-craft) and the reusable framework skills (skill-review, instruction-review, prompt-review, agent-review, meditation, critical-thinking, deep-review) that heirs install via the Alex_ACT_Plugin_Mall catalog. Batch 1 (2026-07-30) shipped the ACT canon: 8 always-on instructions. Batch 2 (2026-07-30) added 6 reasoning + planning muscles as skills (critical-thinking, problem-framing-audit, deep-review, plan, spike, anti-hallucination) plus the 2 paired slash-command prompts (/critical-thinking, /problem-framing-audit) whose skill bodies now exist to invoke. Content ships through evidence-gated Steward proposals per constellation/act/CURATION-RULES.md. Maintained by Alex_ACT_Steward.",
+  "shape": "ten-instructions + seven-skills + five-prompts (ACT canon + reasoning muscles + meditation loop)",
+  "description": "The Alex ACT baseline plugin — the plugin-native successor to Alex_ACT_Edition v4.2.0. Distributes the always-on epistemic discipline (act-pass, critical-thinking, problem-framing-audit, system-prompt-skepticism, epistemic-calibration, memory-triggers, no-deferred-debt, communication-craft) and the reusable framework skills (skill-review, instruction-review, prompt-review, agent-review, meditation, critical-thinking, deep-review) that heirs install via the Alex_ACT_Plugin_Mall catalog. Batch 1 (2026-07-30) shipped the ACT canon: 8 always-on instructions. Batch 2 (2026-07-30) added 6 reasoning + planning muscles as skills (critical-thinking, problem-framing-audit, deep-review, plan, spike, anti-hallucination) plus the 2 paired slash-command prompts. Batch 3 (2026-07-30) added the meditation loop — 2 instructions (meditation, memory-triggers), 1 skill (meditation), 3 prompts (/meditate, /save-session-note, /note) — that lets heirs consolidate session learning into permanent architecture. Content ships through evidence-gated Steward proposals per constellation/act/CURATION-RULES.md. Maintained by Alex_ACT_Steward.",
   "homepage": "https://github.com/fabioc-aloha/Alex_ACT_Core",
   "license": "MIT",
   "authors": [
@@ -53,6 +53,12 @@
         "path": ".github/skills/spike/SKILL.md",
         "install_to": ".github/skills/spike/SKILL.md",
         "role": "throwaway feasibility experiments — decompose into 2-5 questions, build minimal observable prototypes, return VALIDATED/PARTIAL/INVALIDATED verdicts; disposable by design"
+      },
+      {
+        "name": "meditation",
+        "path": ".github/skills/meditation/SKILL.md",
+        "install_to": ".github/skills/meditation/SKILL.md",
+        "role": "consolidate session learning into permanent architecture — 5-step protocol (review + extract + write + chronicle + handoff) that routes patterns to skills/instructions/prompts/scripts/memory tiers by type"
       }
     ],
     "instructions": [
@@ -111,6 +117,20 @@
         "install_to": ".github/instructions/worldview.instructions.md",
         "role": "ethical reasoning framework — 5 moral foundations (Care/Fairness/Loyalty/Authority/Sanctity), constitutional principles, harm refusal, decision boundaries, Tenet IV check on ethics itself",
         "applyTo": "**/*ethic*,**/*moral*,**/*privacy*,**/*harm*,**/*bias*,**/*responsible*,**/*consent*"
+      },
+      {
+        "name": "meditation",
+        "path": ".github/instructions/meditation.instructions.md",
+        "install_to": ".github/instructions/meditation.instructions.md",
+        "role": "meditation protocol — 6-step ritual (review + extract + write + chronicle + handoff + post-mortem) for consolidating session learning into permanent architecture",
+        "applyTo": "**/*meditat*,**/*consolidat*"
+      },
+      {
+        "name": "memory-triggers",
+        "path": ".github/instructions/memory-triggers.instructions.md",
+        "install_to": ".github/instructions/memory-triggers.instructions.md",
+        "role": "automatic memory formation triggers — user-correction + pattern-3× + preference + session-end + significant-decision detection with tier selection",
+        "applyTo": "**"
       }
     ],
     "prompts": [
@@ -127,6 +147,27 @@
         "install_to": ".github/prompts/problem-framing-audit.prompt.md",
         "slash_command": "/problem-framing-audit",
         "role": "user-invokable trigger for the step-back protocol — invokes the problem-framing-audit skill; produces frame/cause-frame/considered-framings markers when reframes surface"
+      },
+      {
+        "name": "meditate",
+        "path": ".github/prompts/meditate.prompt.md",
+        "install_to": ".github/prompts/meditate.prompt.md",
+        "slash_command": "/meditate",
+        "role": "user-invokable trigger for the meditation protocol — invokes the meditation skill; runs review + extract + write + chronicle + handoff + compact"
+      },
+      {
+        "name": "save-session-note",
+        "path": ".github/prompts/save-session-note.prompt.md",
+        "install_to": ".github/prompts/save-session-note.prompt.md",
+        "slash_command": "/save-session-note",
+        "role": "capture a short pending-action note in repo-root HANDOFF.md; optional mirror to shared memory with project-specifics stripping"
+      },
+      {
+        "name": "note",
+        "path": ".github/prompts/note.prompt.md",
+        "install_to": ".github/prompts/note.prompt.md",
+        "slash_command": "/note",
+        "role": "short alias for /save-session-note — skip the 'what should I capture?' question if user's request already includes the note text"
       }
     ],
     "agents": []

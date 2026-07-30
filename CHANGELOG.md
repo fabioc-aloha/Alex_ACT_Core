@@ -6,6 +6,43 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — Batch 3: Meditation loop (2026-07-30)
+
+Two instructions + one skill + three prompts — the meditation cluster that lets heirs consolidate session learning into permanent architecture. First cross-artifact bundle (instruction ↔ skill ↔ prompt loop) ships in this batch, proving the pattern at small scale.
+
+**Instructions (2)**:
+
+- **`meditation.instructions.md`** — 6-step ritual protocol (review + extract + write + chronicle + handoff + post-mortem). Fires on session end, hard-problem resolution, or explicit user request ("let's meditate", `/meditate`). Includes memory tier routing table.
+- **`memory-triggers.instructions.md`** — Always-on triggers for proactive memory formation. Fires on user correction, 3× pattern recurrence, preference declaration, session-end continuity risk. Includes tier selection table + cross-session continuity rules (`HANDOFF.md` at repo root, NOT `/memories/session/`).
+
+**Skills (1)**:
+
+- **`meditation/SKILL.md`** — Detailed body for the always-on `meditation.instructions.md`. 5-step protocol with routing table (which artifact type to write, per pattern). Companion to the meditation instruction; invoked by the `/meditate` prompt.
+
+**Prompts (3)**:
+
+- **`meditate.prompt.md`** (`/meditate`) — User-invokable trigger for the meditation protocol. Loads the meditation skill, runs review + extract + write + chronicle + handoff + `/compact`.
+- **`save-session-note.prompt.md`** (`/save-session-note`) — Capture a short pending-action note in repo-root `HANDOFF.md`. Optional mirror to shared memory (`../Alex_ACT_Memory/notes.md` per the Alex ACT constellation, or heir-configured equivalent) with project-specifics stripping.
+- **`note.prompt.md`** (`/note`) — Short alias for `/save-session-note`. Skip the "what should I capture?" question if user's request already includes the note text.
+
+**Adaptation applied** (same moderate rules as Batches 1 + 2):
+
+- Frontmatter, body content, `## Would Revise If` sections preserved verbatim where heir-generic
+- Intra-Core cross-references (instruction ↔ skill ↔ prompt within the meditation cluster) resolve locally
+- `.act-heir.json` reference in `save-session-note.prompt.md` dropped — it's v1 heir-template infrastructure (`Alex_ACT_Edition` marker) that plugin-native heirs don't have. Replaced with generic "project identifier if available".
+- `Legacy migration` section in `save-session-note.prompt.md` dropped — it described a 2026-05-18 `SESSION-HANDOFF.md` → `HANDOFF.md` rename that only applies to Steward-era heirs; plugin-native heirs have no legacy state.
+- `Brain Retraining (longer cycles)` section in `meditation/SKILL.md` heavily trimmed — the original described Steward's weekly `brain-qa` queue, monthly `/audit-coherence`, quarterly retraining ADR cadence (all Steward-curator work). Replaced with a short heir-appropriate "per release / per quarter (optional)" cadence note.
+- References to `../skills/append-and-review/SKILL.md` (Steward-only) dropped
+- References to `../instructions/brain-curation-rules.instructions.md` (Steward-only) dropped
+- References to `docs/templates/quarterly-retraining-ADR.md` (Steward-only template) dropped
+- Cardinal Rule 3 audit-criteria section dropped (Cardinal Rule 3 is Steward's rule, not heir's)
+- Reference to `../../Alex_ACT_Memory` sibling repo preserved as-is (per the Alex ACT constellation shape)
+- `lastReviewed` dates preserved from source
+
+**Cross-artifact loop verified**: the meditation cluster forms a self-contained loop where `meditation.instructions.md` (always-on) triggers `meditation/SKILL.md` (detailed body) which is invoked by `/meditate` (slash command). `memory-triggers.instructions.md` (always-on) triggers automatic writes to `HANDOFF.md` via `/save-session-note` or its short alias `/note`. All refs within the cluster resolve locally within Core.
+
+**Cumulative content in this Unreleased range**: 10 instructions + 7 skills + 5 prompts = 22 total items (0 agents). Version bump to 0.2.0 will happen when the first release is cut.
+
 ### Added — Batch 2: Reasoning + planning muscles (2026-07-30)
 
 Six skills + two paired slash-command prompts. Batch 2 completes the reasoning loop that Batch 1's ACT canon instructions gestured at: the instructions declared *when* to think critically; the Batch 2 skills declare *how*.
