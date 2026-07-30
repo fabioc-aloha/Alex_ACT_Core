@@ -13,8 +13,8 @@ Steps:
 2. Verify Copilot CLI version (`copilot --version` >= 1.0.75); if missing or too old, stop.
 3. Run `copilot plugin list` to detect any of the four constellation plugins already installed.
 4. Ask the user which plugins to install ("all four" is the default) and, if `alex-act-msft` is in the list, tenant-check per the skill's Step 2 (Microsoft employee + on corp network).
-5. Register the required marketplaces (`alex-mall`; `alex-mall-private` only if MSFT confirmed).
-6. Install each approved plugin in order — Core → Illustrator → Enterprise → MSFT.
+5. Register the `alex-mall` marketplace (needed for Core, Illustrator, Enterprise). MSFT does not need a marketplace — it installs directly from private GitHub via `gh auth`.
+6. Install each approved plugin in order — Core → Illustrator → Enterprise from `alex-mall`; MSFT via `copilot plugin install fabioc-aloha/alex-act-msft`.
 7. Merge `enabledPlugins` entries into `~/.copilot/settings.json` (preserve existing entries).
 8. Re-verify each install via `copilot plugin info <name>` at user scope.
 9. Report installed / skipped / failed with reasons.

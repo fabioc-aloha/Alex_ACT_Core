@@ -19,12 +19,12 @@ Install the Alex ACT constellation plugins at their correct default scope, in th
 
 Per [`PLUGIN-INTEGRATION.md`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/constellation/PLUGIN-INTEGRATION.md) § 2, all four install at **user scope** (they describe *who the heir is*, not *what any single project needs*):
 
-| Order | Plugin | Marketplace | Tenant check | Purpose |
+| Order | Plugin | Distribution | Tenant check | Purpose |
 |---|---|---|---|---|
-| 1 | `alex-act-core` | `alex-mall` | None | Always-on epistemic discipline — every heir installs Core first |
-| 2 | `alex-act-illustrator-plugin` | `alex-mall` | None | Visual authoring: charts, docs shells, SVG banners, print figures, AI imagery |
-| 3 | `alex-act-enterprise` | `alex-mall` | None | Config-template plugin for the public Microsoft ecosystem (Azure, Fabric, Power BI, M365) |
-| 4 | `alex-act-msft` | `alex-mall-private` | **Microsoft-internal only** | Agency framework + config template for internal Microsoft plugins (WorkIQ, org-report) |
+| 1 | `alex-act-core` | `alex-mall` marketplace | None | Always-on epistemic discipline — every heir installs Core first |
+| 2 | `alex-act-illustrator-plugin` | `alex-mall` marketplace | None | Visual authoring: charts, docs shells, SVG banners, print figures, AI imagery |
+| 3 | `alex-act-enterprise` | `alex-mall` marketplace | None | Config-template plugin for the public Microsoft ecosystem (Azure, Fabric, Power BI, M365) |
+| 4 | `alex-act-msft` | **Direct install** from private GitHub (`fabioc-aloha/alex-act-msft`), gated by `gh auth` | **Microsoft-internal only** | Agency framework + config template for internal Microsoft plugins (WorkIQ, org-report). Never published to any mall. |
 
 ## Install order
 
@@ -57,12 +57,13 @@ Both yes → include MSFT in the install. Either no → drop MSFT from the list,
 
 ### Step 3 — Marketplace registration
 
-For each plugin, if its marketplace is not already registered in `~/.copilot/settings.json` `extraKnownMarketplaces`, prepare a registration command:
+Register the `alex-mall` marketplace in `~/.copilot/settings.json` `extraKnownMarketplaces` if it is not already there:
 
 - `alex-mall` → `copilot plugin marketplace add fabioc-aloha/Alex_Skill_Mall`
-- `alex-mall-private` → `copilot plugin marketplace add fabioc-aloha/Alex_Skill_Mall_Private` (only if MSFT is being installed)
 
-If the heir has never installed anything from these marketplaces, run `copilot plugin marketplace list` first to confirm — do not re-register.
+`alex-act-msft` does **not** need a marketplace — it installs directly from its private GitHub repo, gated by the heir's `gh auth` session. Verify with `gh auth status` that the heir is authenticated before including MSFT in the install.
+
+If the heir has never installed anything from `alex-mall`, run `copilot plugin marketplace list` first to confirm — do not re-register.
 
 ### Step 4 — Install commands
 
@@ -72,8 +73,8 @@ Run the install commands in order:
 copilot plugin install alex-act-core@alex-mall
 copilot plugin install alex-act-illustrator-plugin@alex-mall
 copilot plugin install alex-act-enterprise@alex-mall
-# Only if MSFT check passed both:
-copilot plugin install alex-act-msft@alex-mall-private
+# Only if MSFT check passed both (Microsoft employee AND on corp network):
+copilot plugin install fabioc-aloha/alex-act-msft
 ```
 
 After each install, run `copilot plugin info <name>` and verify the plugin registered at user scope. If any install fails, report the failure and stop — do not attempt to continue past a broken install.
