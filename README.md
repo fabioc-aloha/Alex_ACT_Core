@@ -61,21 +61,23 @@ Same layout as [`alex-act-illustrator-plugin`](https://github.com/fabioc-aloha/A
 
 Full brand-new-user walkthrough (four personas, five install stages, anti-patterns): see [`Alex_ACT_Steward/constellation/USER-EXPERIENCE.md`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/constellation/USER-EXPERIENCE.md).
 
-### Method A — direct install from GitHub (works today)
+### Install from the Alex ACT Mall
+
+Register the mall as a marketplace (one-time, per machine):
 
 ```powershell
-copilot plugin install fabioc-aloha/Alex_ACT_Core
+copilot plugin marketplace add fabioc-aloha/Alex_Skill_Mall
 ```
 
-Installs at user scope — Core becomes active in every workspace on the machine. That's the correct behavior; Core is an identity plugin per [`PLUGIN-INTEGRATION.md` § 2](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/constellation/PLUGIN-INTEGRATION.md).
-
-### Method B — via the Alex ACT Mall (future path)
+Then install Core:
 
 ```powershell
 copilot plugin install alex-act-core@alex-mall
 ```
 
-Requires the Mall to be registered as a marketplace and the mall entry for Core to be published. The Mall itself is live (v3.0.0 GA); Core's mall entry lands next. Until then use Method A.
+Installs at user scope — Core becomes active in every workspace on the machine. That's the correct behavior; Core is an identity plugin per [`PLUGIN-INTEGRATION.md` § 2](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/constellation/PLUGIN-INTEGRATION.md).
+
+> **Publication status.** The Mall itself is live (v3.0.0 GA, 2026-07-28). Core's Mall entry lands in a coordinated Steward + Mall publication turn; until it's live, `copilot plugin install alex-act-core@alex-mall` returns "plugin not found." Watch [Alex_Skill_Mall's catalog](https://github.com/fabioc-aloha/Alex_Skill_Mall/blob/main/catalog/plugins.json) or the [Steward curation log](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/operations/ledgers/curation-log.md) for the publication commit.
 
 ### Verify the install
 
@@ -83,7 +85,7 @@ Requires the Mall to be registered as a marketplace and the mall entry for Core 
 copilot plugin list
 ```
 
-You should see `alex-act-core@_direct` (Method A) or `alex-act-core@alex-mall` (Method B) with the current version.
+You should see `alex-act-core@alex-mall` with the current version.
 
 ## Configure specializations (optional)
 
