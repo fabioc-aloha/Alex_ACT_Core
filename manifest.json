@@ -1,9 +1,9 @@
 {
-  "$comment": "Mall-side plugin manifest. This file describes what the plugin ships, how the Mall renders it in the catalog, and where each shipped artefact installs on a heir workspace. Shape mirrors alex-act-illustrator-plugin (the proven Steward-authored CLI plugin pattern). Version 0.1.0 (unreleased) ships 33 always-on instructions, 30 skills, and 9 slash-command prompts as the Both-classified baseline. Growth continues through evidence-gated proposals via the Steward brain-curation protocol.",
+  "$comment": "Mall-side plugin manifest. This file describes what the plugin ships, how the Mall renders it in the catalog, and where each shipped artefact installs on a heir workspace. Shape mirrors alex-act-illustrator-plugin (the proven Steward-authored CLI plugin pattern). Version 0.1.0 (unreleased) ships 34 always-on instructions, 33 skills, and 12 slash-command prompts as the Both-classified baseline plus the plugin-management operational surface. Growth continues through evidence-gated proposals via the Steward brain-curation protocol.",
   "plugin": "alex-act-core",
   "version": "0.1.0",
-  "shape": "thirty-three-instructions + thirty-skills + nine-prompts (ACT canon + cognitive discipline + reasoning muscles + meditation loop + document converters + security & privacy + tooling awareness + git/lint/mcp + craft skills + sundries; svg-banner + /banner un-ported to Alex_ACT_Illustrator_Plugin on 2026-07-30)",
-  "description": "The Alex ACT baseline plugin — the plugin-native successor to Alex_ACT_Edition v4.2.0. Distributes the always-on epistemic discipline and the reusable framework skills that heirs install via the Alex_ACT_Plugin_Mall catalog. Batches 1-9 (2026-07-30) shipped 63 items covering ACT canon, cognitive discipline, reasoning muscles, meditation loop, document converters, security & privacy, tooling awareness, git/lint/mcp, and authoring + engineering craft. Batch 10 (2026-07-30) added the sundries cluster — 4 always-on instructions (agent-delegation for delegating mechanical work to worker subagents, code-review as routing pointer + skill body, risk-analysis for probability×impact scoring, status-reporting as routing pointer + skill body) + 3 skills (ai-memory-setup for Alex_ACT_Memory sibling-repo integration, code-review for systematic review, status-reporting for stakeholder updates) + 3 slash-command prompts (/configure-vscode + /configure-vscode-verify for workspace setup, /status for project orientation report). Completes the Both-classified inventory. On 2026-07-30, svg-banner + /banner un-ported to Alex_ACT_Illustrator_Plugin per Fabio directive (banner authoring is visual-authoring capability, belongs with docs-shell + flint-chart in the illustrator plugin). Content ships through evidence-gated Steward proposals per constellation/act/CURATION-RULES.md. Maintained by Alex_ACT_Steward.",
+  "shape": "thirty-four-instructions + thirty-three-skills + twelve-prompts (ACT canon + cognitive discipline + reasoning muscles + meditation loop + document converters + security & privacy + tooling awareness + git/lint/mcp + craft skills + sundries + plugin-management operational surface; svg-banner + /banner un-ported to Alex_ACT_Illustrator_Plugin on 2026-07-30)",
+  "description": "The Alex ACT baseline plugin — the plugin-native successor to Alex_ACT_Edition v4.2.0. Distributes the always-on epistemic discipline and the reusable framework skills that heirs install via the Alex_ACT_Plugin_Mall catalog. Batches 1-10 (2026-07-30) shipped 72 items covering ACT canon, cognitive discipline, reasoning muscles, meditation loop, document converters, security & privacy, tooling awareness, git/lint/mcp, authoring + engineering craft, and the sundries cluster (agent-delegation, code-review, risk-analysis, status-reporting, ai-memory-setup, configure-vscode workflows). Batch 11 (2026-07-30) added the plugin-management operational surface — 3 skills (plugin-management for general Copilot CLI plugin operations, install-constellation for the four Alex ACT plugin install flow, update-plugins for safe diff-summary + per-breaking consent update flow) + 3 slash-command prompts (/plugin-status audit, /install-constellation four-plugin install, /update-plugins update flow) + 1 always-on routing instruction (plugin-management.instructions.md). Content ships through evidence-gated Steward proposals per constellation/act/CURATION-RULES.md, grounded in constellation/PLUGIN-INTEGRATION.md for the distribution + scope + update model. Maintained by Alex_ACT_Steward.",
   "homepage": "https://github.com/fabioc-aloha/Alex_ACT_Core",
   "license": "MIT",
   "authors": [
@@ -195,6 +195,24 @@
         "path": ".github/skills/status-reporting/SKILL.md",
         "install_to": ".github/skills/status-reporting/SKILL.md",
         "role": "create stakeholder-friendly project status updates and progress reports — audience-adapted; composes with communication-craft for So-What/What/Now-What audience lead"
+      },
+      {
+        "name": "plugin-management",
+        "path": ".github/skills/plugin-management/SKILL.md",
+        "install_to": ".github/skills/plugin-management/SKILL.md",
+        "role": "general Copilot CLI plugin operations — install/list/update/remove/marketplace commands, scope precedence (user vs repo), enabledPlugins + extraKnownMarketplaces settings shape, safe merge-not-overwrite settings edits; delegates from install-constellation + update-plugins for the mechanical layer"
+      },
+      {
+        "name": "install-constellation",
+        "path": ".github/skills/install-constellation/SKILL.md",
+        "install_to": ".github/skills/install-constellation/SKILL.md",
+        "role": "install the four Alex ACT constellation plugins (alex-act-core, alex-act-illustrator-plugin, alex-act-enterprise, alex-act-msft) at user scope in the correct order with tenant-check for MSFT (Microsoft-internal only); consent-gated, idempotent, delegates to plugin-management for raw commands"
+      },
+      {
+        "name": "update-plugins",
+        "path": ".github/skills/update-plugins/SKILL.md",
+        "install_to": ".github/skills/update-plugins/SKILL.md",
+        "role": "safe copilot plugin update wrap — reads each plugin's CHANGELOG between installed and latest, extracts Breaking sections, presents per-plugin diff summary before running update; three modes (audit only / non-breaking only / all with per-breaking consent); delegates to plugin-management for raw commands"
       }
     ],
     "instructions": [
@@ -426,6 +444,13 @@
         "install_to": ".github/instructions/status-reporting.instructions.md",
         "role": "routing pointer to status-reporting skill — fires on status / report / update file patterns and delegates to the skill body",
         "applyTo": "**/*status*,**/*report*,**/*update*"
+      },
+      {
+        "name": "plugin-management",
+        "path": ".github/instructions/plugin-management.instructions.md",
+        "install_to": ".github/instructions/plugin-management.instructions.md",
+        "role": "always-on router — Copilot CLI plugin operations (install, list, update, remove, marketplace management, scope decisions) route to plugin-management skill and its Alex ACT-specific siblings (install-constellation, update-plugins); enforces emit-before-apply + merge-not-overwrite universal rules",
+        "applyTo": "**/copilot/settings.json,**/.copilot/**,**/*plugin*,**/*mall*,**/*marketplace*"
       }
     ],
     "prompts": [
@@ -491,6 +516,27 @@
         "install_to": ".github/prompts/status.prompt.md",
         "slash_command": "/status",
         "role": "terse read-only project orientation report — identity, git state, HANDOFF.md continuity, optional brain-QA health, announcements; audience-adapted output leading with material state"
+      },
+      {
+        "name": "plugin-status",
+        "path": ".github/prompts/plugin-status.prompt.md",
+        "install_to": ".github/prompts/plugin-status.prompt.md",
+        "slash_command": "/plugin-status",
+        "role": "read-only Copilot CLI plugin inventory — user-scope + repo-scope + direct-installed + registered marketplaces + Alex ACT constellation status + updates-available detection; invokes plugin-management in audit-only mode"
+      },
+      {
+        "name": "install-constellation",
+        "path": ".github/prompts/install-constellation.prompt.md",
+        "install_to": ".github/prompts/install-constellation.prompt.md",
+        "slash_command": "/install-constellation",
+        "role": "user-invokable four-plugin install flow for the Alex ACT constellation (Core → Illustrator → Enterprise → MSFT-conditional); tenant-check for MSFT; consent-gated; idempotent"
+      },
+      {
+        "name": "update-plugins",
+        "path": ".github/prompts/update-plugins.prompt.md",
+        "install_to": ".github/prompts/update-plugins.prompt.md",
+        "slash_command": "/update-plugins",
+        "role": "user-invokable update flow with per-plugin diff summary + per-breaking-change consent; three modes (audit / non-breaking only / all with per-breaking consent); invokes update-plugins skill"
       }
     ],
     "agents": []

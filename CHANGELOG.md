@@ -6,6 +6,50 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added — Batch 11: Plugin management operational surface (2026-07-30)
+
+Seven artifacts implementing the plugin-management model defined in Steward's `constellation/PLUGIN-INTEGRATION.md` § 4. Closes the gap where heirs had to invoke raw `copilot plugin` commands with no scope guidance, no diff summaries, and no breaking-change protection.
+
+**Skills (3)**:
+
+- **`plugin-management/SKILL.md`** — general Copilot CLI plugin operations. Command reference (install / list / update / remove / marketplace add / marketplace list / marketplace remove / search / info). Scope precedence rules (user vs repo, first-loaded-wins for skills, last-wins for MCP). Settings shape (`enabledPlugins`, `extraKnownMarketplaces`). Safe merge-not-overwrite settings edits with a documented merge algorithm. Three install modes (emit only / consent-gated apply / audit only). Scope-decision heuristic ("am I this? → user; am I working on this? → repo") with a concrete plugin-type table. Safety rules + anti-patterns table.
+- **`install-constellation/SKILL.md`** — Alex ACT-specific install list. Four-plugin table with user-scope defaults + install order (Core → Illustrator → Enterprise → MSFT). Six-step consent flow: (1) confirm target list, (2) tenant-check for MSFT (Microsoft employee + on corp network — fail closed on either "no"), (3) marketplace registration, (4) install commands in order, (5) settings merge, (6) report. Idempotent (skips already-installed). Delegates to plugin-management for mechanical commands.
+- **`update-plugins/SKILL.md`** — safe `copilot plugin update` wrap. Version resolution (latest stable = highest non-prerelease GitHub Release). CHANGELOG reading in Keep-a-Changelog format between installed and latest, aggregating `### Breaking` + `### Removed` sections. Per-plugin diff summary table before running anything. Three modes (audit only / non-breaking only / all with per-breaking consent). Session-start reminder pattern that pairs with install-constellation. Never runs `update --all` without the per-plugin flow.
+
+**Prompts (3)**:
+
+- **`/plugin-status`** — read-only Copilot CLI plugin inventory. Reports user-scope, repo-scope, direct-installed plugins, registered marketplaces, Alex ACT constellation status, and updates-available detection. Invokes `plugin-management` in audit-only mode. Safe on any workspace, online or off.
+- **`/install-constellation`** — four-plugin install flow. Verifies CLI version, detects existing installs, asks which plugins + tenant-checks MSFT, registers marketplaces, installs in order, merges `enabledPlugins`, verifies each install via `copilot plugin info`, reports installed / skipped / failed with reasons.
+- **`/update-plugins`** — update flow with diff summary. Enumerates installed plugins, queries latest stable, parses CHANGELOGs, produces per-plugin table, asks for mode, executes with per-breaking consent, re-verifies installed versions after each update.
+
+**Instruction (1)**:
+
+- **`plugin-management.instructions.md`** — always-on router. Ten-row routing table mapping heir requests ("install X plugin", "install Alex ACT", "update my plugins", "add the Alex mall", "should X be user scope or repo scope?", etc.) to the correct sibling skill or prompt. Two universal rules: (1) emit before apply, (2) merge, don't overwrite. When-quiet list for adjacent scopes (VS Code extensions → configure-vscode, Memory sibling → ai-memory-setup, brain authoring → skill-creator/etc.). `applyTo` scoped to `**/copilot/settings.json,**/.copilot/**,**/*plugin*,**/*mall*,**/*marketplace*`.
+
+**Manifest updates**:
+
+- `shape`: `thirty-three-instructions + thirty-skills + nine-prompts` → `thirty-four-instructions + thirty-three-skills + twelve-prompts`
+- `$comment`: refreshed to include Batch 11 counts
+- `description`: refreshed to include the Batch 11 content set + reference the constellation `PLUGIN-INTEGRATION.md` grounding
+- `assets.skills[]`: 30 → 33 (plugin-management, install-constellation, update-plugins appended)
+- `assets.instructions[]`: 33 → 34 (plugin-management appended)
+- `assets.prompts[]`: 9 → 12 (plugin-status, install-constellation, update-plugins appended)
+
+**Composition with earlier batches**:
+
+- `plugin-management` skill delegates from and to Batch 10's `configure-vscode` prompts (VS Code settings scope) and Batch 10's `ai-memory-setup` skill (Memory sibling scope) — the three concerns (Copilot CLI plugins vs VS Code settings vs Memory repo) are kept separate.
+- The always-on `plugin-management` instruction composes with `no-deferred-debt` (Batch 4) and `problem-framing-audit` (Batch 1 + skill Batch 2): when a plugin update surfaces stale references or the heir's scope framing looks off, the always-on partners fire in the same session.
+- `install-constellation` + `update-plugins` compose with `configure-vscode` / `configure-vscode-verify` (Batch 10) for a full first-run experience: VS Code settings + Copilot CLI plugins + Memory sibling all set up together.
+
+**Grounding**:
+
+Content grounded in Steward's [`constellation/PLUGIN-INTEGRATION.md`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/constellation/PLUGIN-INTEGRATION.md) (adopted 2026-07-30) — the constellation's canonical source for pull-at-install distribution model, user-vs-repo scope split, and manual update workflow.
+
+**Follow-up (not blocking release)**:
+
+- `alex-act-enterprise`'s `setup-enterprise-stack` skill defaults to `~/.copilot/settings.json` (user scope) for its target block. Per PLUGIN-INTEGRATION § 2, azure / fabric / powerbi / m365 are project-specific and should default to `.github/copilot/settings.json` (repo scope) with an explicit `--user` opt-in. Fix ships in enterprise repo, not Core.
+- Future proposal: session-start hint from `install-constellation` when constellation plugins have updates available — currently the pattern is documented in `update-plugins/SKILL.md` § Session-start reminder pattern but not wired into `install-constellation`'s startup.
+
 ### Audit remediation batch (2026-07-30)
 
 Six-item severity-ranked fix batch closing the standing audit findings against v0.1.0 content. Covers a High-severity security defect in the shared runtime, three Medium documentation-parity issues, and one Low count-accuracy fix.
