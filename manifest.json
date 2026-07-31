@@ -1,8 +1,8 @@
 {
-  "$comment": "Mall-side plugin manifest. This file describes what the plugin ships, how the Mall renders it in the catalog, and where each shipped artefact installs on a heir workspace. Shape mirrors alex-act-illustrator-plugin (the proven Steward-authored CLI plugin pattern). Ships 21 always-on instructions, 36 skills, and 12 slash-command prompts as the Both-classified baseline plus the plugin-management operational surface and the ACT discipline bootstrap that closes the plugin instruction-scope gap. Disposition D1 (2026-07-31) folded 7 routing-only instructions into their paired skills, preserving the unique safety and protocol content each carried. Growth continues through evidence-gated proposals via the Steward brain-curation protocol.",
+  "$comment": "Mall-side plugin manifest. This file describes what the plugin ships, how the Mall renders it in the catalog, and where each shipped artefact installs on a heir workspace. Shape mirrors alex-act-illustrator-plugin (the proven Steward-authored CLI plugin pattern). Ships 18 always-on instructions, 40 skills, and 12 slash-command prompts as the Both-classified baseline plus the plugin-management operational surface and the ACT discipline bootstrap that closes the plugin instruction-scope gap. Disposition D6 (2026-07-31) split 4 reference-heavy instructions (worldview, tool-awareness, memory-triggers, communication-craft) into rule-only always-on + noun-form skill pairs; deleted privacy-responsible-ai (folded into pii-memory-filter + ethical-reasoning), tool-awareness-categories (absorbed into platform-awareness skill), and communication-craft.instructions.md (promoted to skill). Bootstrap payload grew from 13 → 16 files, ~68 KB, ~17.5K tokens. Growth continues through evidence-gated proposals via the Steward brain-curation protocol.",
   "plugin": "alex-act-core",
   "version": "0.2.1",
-  "shape": "twenty-one-instructions + thirty-six-skills + twelve-prompts (ACT canon + cognitive discipline + reasoning muscles + meditation loop + document converters + security & privacy + tooling awareness + git/lint/mcp + craft skills + sundries + plugin-management operational surface; svg-banner + /banner un-ported to Alex_ACT_Illustrator_Plugin on 2026-07-30; 9 routing-only instructions folded and 3 promoted to skills into their paired skills on 2026-07-31 per dispositions D1-D4 (all 2026-07-31))",
+  "shape": "eighteen-instructions + forty-skills + twelve-prompts (ACT canon + cognitive discipline + reasoning muscles + meditation loop + document converters + security & privacy + tooling awareness + git/lint/mcp + craft skills + sundries + plugin-management operational surface; svg-banner + /banner un-ported to Alex_ACT_Illustrator_Plugin on 2026-07-30; D1-D6 dispositions completed 2026-07-31: 9 routing-only instructions folded, 3 promoted to skills, 4 reference-heavy instructions split into rule-only + skill pairs, 3 instructions deleted after content absorbed elsewhere)",
   "description": "The Alex ACT baseline plugin — the plugin-native successor to Alex_ACT_Edition v4.2.0. Distributes the always-on epistemic discipline and the reusable framework skills that heirs install via the Alex_ACT_Plugin_Mall catalog. A plugin install delivers the skills and prompts but not the instructions (plugin.json has no instructions component field); /install-constellation Step 6 bootstraps the seven load-bearing instructions to ~/.copilot/instructions/. Batches 1-10 (2026-07-30) shipped 72 items covering ACT canon, cognitive discipline, reasoning muscles, meditation loop, document converters, security & privacy, tooling awareness, git/lint/mcp, authoring + engineering craft, and the sundries cluster (agent-delegation, code-review, risk-analysis, status-reporting, ai-memory-setup, configure-vscode workflows). Batch 11 (2026-07-30) added the plugin-management operational surface — 3 skills (plugin-management for general Copilot CLI plugin operations, install-constellation for the four Alex ACT plugin install flow, update-plugins for safe diff-summary + per-breaking consent update flow) + 3 slash-command prompts (/plugin-status audit, /install-constellation four-plugin install, /update-plugins update flow). Disposition D1 (2026-07-31) folded 7 routing-only instructions (status-reporting, doc-hygiene, markdown-mermaid, code-review, plugin-management, git-workflow, meditation) into their paired skills, which a plugin install does deliver — the unique safety rules and protocol content each instruction carried was merged into the skill body first. Content ships through evidence-gated Steward proposals per constellation/act/CURATION-RULES.md, grounded in constellation/PLUGIN-INTEGRATION.md for the distribution + scope + update model. Maintained by Alex_ACT_Steward.",
   "homepage": "https://github.com/fabioc-aloha/Alex_ACT_Core",
   "license": "MIT",
@@ -61,6 +61,12 @@
         "role": "systematic code review for correctness, security, and growth — not just style enforcement; composes with security-and-hardening for OWASP-scoped review + adversarial-review for structured skepticism"
       },
       {
+        "name": "communication-craft",
+        "path": ".github/skills/communication-craft/SKILL.md",
+        "install_to": ".github/skills/communication-craft/SKILL.md",
+        "role": "communication patterns for feedback (SBI Situation-Behavior-Impact + stakes calibration + code-review voice), audience lead (So-What/What/Now-What), and eliciting needs (Need/Solution/Feature three-layer ladder)"
+      },
+      {
         "name": "critical-thinking",
         "path": ".github/skills/critical-thinking/SKILL.md",
         "install_to": ".github/skills/critical-thinking/SKILL.md",
@@ -83,6 +89,12 @@
         "path": ".github/skills/docx-to-md/SKILL.md",
         "install_to": ".github/skills/docx-to-md/SKILL.md",
         "role": "convert Word documents (.docx) to clean Markdown with image extraction + pandoc cleanup — bundled muscle at .github/skills/docx-to-md/scripts/docx-to-md.cjs; requires pandoc on PATH"
+      },
+      {
+        "name": "ethical-reasoning",
+        "path": ".github/skills/ethical-reasoning/SKILL.md",
+        "install_to": ".github/skills/ethical-reasoning/SKILL.md",
+        "role": "ethical reasoning framework — 5 moral foundations (Care/Fairness/Loyalty/Authority/Sanctity) with priority ordering; 5 constitutional principles (human agency + transparency + beneficence + justice + privacy); 5-step ethical decision process; Privacy by Design (Minimize/Purpose limit/Anonymize/Encrypt/Expire) + Responsible AI (fairness / transparency / human oversight / safety); cultural sensitivity + self-monitoring"
       },
       {
         "name": "git-workflow",
@@ -163,6 +175,12 @@
         "role": "consolidate session learning into permanent architecture — 5-step protocol (review + extract + write + chronicle + handoff) that routes patterns to skills/instructions/prompts/scripts/memory tiers by type"
       },
       {
+        "name": "memory-management",
+        "path": ".github/skills/memory-management/SKILL.md",
+        "install_to": ".github/skills/memory-management/SKILL.md",
+        "role": "memory-tier selection + writing mechanics — where content goes based on type (user preference / project convention / cross-session state / failure analysis / reusable knowledge); HANDOFF.md at repo root NOT /memories/session/ for cross-session handoffs; templates for handoff / chronicle / post-mortem"
+      },
+      {
         "name": "mutation-testing",
         "path": ".github/skills/mutation-testing/SKILL.md",
         "install_to": ".github/skills/mutation-testing/SKILL.md",
@@ -173,6 +191,12 @@
         "path": ".github/skills/plan/SKILL.md",
         "install_to": ".github/skills/plan/SKILL.md",
         "role": "plan-mode discipline — write a concrete actionable markdown plan with bite-sized tasks (2-5 min each), exact file paths, complete code, verification steps; no execution during the plan turn"
+      },
+      {
+        "name": "platform-awareness",
+        "path": ".github/skills/platform-awareness/SKILL.md",
+        "install_to": ".github/skills/platform-awareness/SKILL.md",
+        "role": "VS Code Copilot platform changes affecting tool usage — deferred-tool categories with example search queries (GitHub, Azure MCP, Fabric, Microsoft docs, browser, notebook, mermaid, Bicep, Figma, MS Graph); VS Code 1.117-1.128 platform-change table (BYOK, sandboxing, browser tools GA, Ollama, Claude BYOK); skill-picker surfacing behavior (github.copilot.chat.skillTool.enabled)"
       },
       {
         "name": "plugin-management",
@@ -251,13 +275,6 @@
         "applyTo": "**/*agent*,**/*delegate*,**/*subagent*,**/*author*,**/*diagram*,**/*convert*,**/*assembl*"
       },
       {
-        "name": "communication-craft",
-        "path": ".github/instructions/communication-craft.instructions.md",
-        "install_to": ".github/instructions/communication-craft.instructions.md",
-        "role": "communication craft — SBI feedback model, stakes calibration, code-review voice, audience lead (So-What/What/Now-What), need-elicitation ladder (Need vs Solution vs Feature)",
-        "applyTo": "**"
-      },
-      {
         "name": "critical-thinking",
         "path": ".github/instructions/critical-thinking.instructions.md",
         "install_to": ".github/instructions/critical-thinking.instructions.md",
@@ -321,13 +338,6 @@
         "applyTo": "**"
       },
       {
-        "name": "tool-awareness-categories",
-        "path": ".github/instructions/tool-awareness-categories.instructions.md",
-        "install_to": ".github/instructions/tool-awareness-categories.instructions.md",
-        "role": "scoped reference companion to tool-awareness — common deferred-tool categories (GitHub, Azure, Fabric, browser, notebook, mermaid, bicep, figma, MS docs) + search-query patterns; loads only when working with tools/MCP/GitHub",
-        "applyTo": "**/*tool*,**/*mcp*,**/*github*,**/*notebook*,**/*browser*,**/*playwright*,**/*figma*,**/*mcp*/**,**/*tool*/**"
-      },
-      {
         "name": "worldview",
         "path": ".github/instructions/worldview.instructions.md",
         "install_to": ".github/instructions/worldview.instructions.md",
@@ -354,13 +364,6 @@
         "install_to": ".github/instructions/pii-memory-filter.instructions.md",
         "role": "PII filter at persistent-storage write boundaries (User/Repo/Session memory tiers + shared Alex_ACT_Memory channels) — never-write categories (contact/DOB/health/financial/credentials/paths/client-names) + per-tier allow/deny + PII-requested escalation paths",
         "applyTo": "**"
-      },
-      {
-        "name": "privacy-responsible-ai",
-        "path": ".github/instructions/privacy-responsible-ai.instructions.md",
-        "install_to": ".github/instructions/privacy-responsible-ai.instructions.md",
-        "role": "privacy-by-design 5-step (minimize + purpose-limit + anonymize + encrypt + expire) + PII classification table + responsible AI principles (fairness, transparency, oversight, safety)",
-        "applyTo": "**/*privacy*,**/*pii*,**/*responsible*ai*,**/*ethic*"
       },
       {
         "name": "proactive-awareness",

@@ -1,14 +1,12 @@
 ---
-description: "Communication craft — give feedback, explain concepts, tailor to audience, elicit needs"
-applyTo: "**"
-lastReviewed: 2026-05-29
+name: communication-craft
+description: "Communication patterns for feedback, cross-audience content, and eliciting needs. SBI feedback model (Situation → Behavior → Impact), stakes-calibrated review voice, So-What/What/Now-What audience lead for PRs and status reports, and the three-layer Need/Solution/Feature elicitation ladder. Use when giving feedback in a review, writing for a mixed audience (decision-makers + peers + newcomers + skeptics), clarifying an ambiguous ask before committing to a solution, or coaching someone else's communication."
+lastReviewed: 2026-07-31
 ---
 
 # Communication Craft
 
-**Always-on rationale**: every response is communication. Feedback shape, audience calibration, and need-elicitation discipline apply on every turn regardless of file context, so the glob is `**` rather than a content-pattern.
-
-Core patterns for feedback, audience, and elicitation. Inherited LLM behaviors (clear prose, jargon-defining, signposting) are assumed and not re-stated.
+Patterns for feedback, audience, and elicitation. Inherited LLM behaviors (clear prose, jargon-defining, signposting) are assumed and not re-stated. Fires on description-match when the request is *about how to communicate* — for the always-on tone/attunement rules that fire on every user message, see [emotional-intelligence.instructions.md](../../instructions/emotional-intelligence.instructions.md).
 
 ## 1. Giving Feedback
 
@@ -64,6 +62,12 @@ When the user says "build me X," distinguish three layers:
 | **Feature** (how)   | What specific thing to build? | "GitHub Action running tests on PR" |
 
 Validate the need before committing to a solution. One sharp question beats five generic ones. Ask "why" up to five times when the root need is unclear.
+
+## Related
+
+- [emotional-intelligence.instructions.md](../../instructions/emotional-intelligence.instructions.md) — the always-on tone/attunement rules that read every user message; this skill fires when the user's request is *about how to communicate* (feedback, audience, elicitation)
+- [big-idea skill](../big-idea/SKILL.md) — the compression discipline that distills the "So-What" that this skill's audience-lead pattern requires
+- [status-reporting skill](../status-reporting/SKILL.md) — a specific application of the audience-lead pattern for status updates
 
 ## Would Revise If
 

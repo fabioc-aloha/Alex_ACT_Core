@@ -103,7 +103,7 @@ The close is to copy a scoped subset of Core's unconditional instructions to `~/
 
 #### What gets copied
 
-Thirteen files, roughly 58 KB, about 14.8K always-on tokens. Not all of Core's instructions — only those whose value depends on firing unconditionally. Two groups: the epistemic spine plus safety rails (the original seven-file set from v0.2.1) and the six per-turn disciplines added in D5 (2026-07-31):
+Sixteen files, roughly 68 KB, about 17.5K always-on tokens. Not all of Core's instructions — only those whose value depends on firing unconditionally. Three groups: the epistemic spine plus safety rails (the original seven-file set from v0.2.1), the six per-turn disciplines added in D5 (2026-07-31), and three more added in D6 (2026-07-31: memory-triggers routes ledger writes, worldview + tool-awareness carry harm-refusal and deferred-tool disciplines that must fire before the first message):
 
 | Source in Core | Written as | Why it must be unconditional |
 |---|---|---|
@@ -120,14 +120,17 @@ Thirteen files, roughly 58 KB, about 14.8K always-on tokens. Not all of Core's i
 | `reliance-nudges` | `alex-act-reliance-nudges.instructions.md` | Reads user *epistemic behavior* (verbatim acceptance, zero verification) on every message |
 | `session-health-monitoring` | `alex-act-session-health-monitoring.instructions.md` | Continuous context-capacity monitoring; per-conversation, not per-file |
 | `proactive-awareness` | `alex-act-proactive-awareness.instructions.md` | Session-boundary discipline; must fire *before* the user's first message |
+| `memory-triggers` | `alex-act-memory-triggers.instructions.md` | Detects correction / preference / handoff / decision triggers on every message; routing decisions cannot be recovered post-hoc |
+| `worldview` | `alex-act-worldview.instructions.md` | Harm-refusal and Tenet-IV ethics check must fire on every request regardless of file scope |
+| `tool-awareness` | `alex-act-tool-awareness.instructions.md` | The `search before calling` rule for deferred tools must fire on every tool-using turn |
 
-Core's remaining instructions stay plugin-resident and therefore inactive. Behavioral and craft instructions degrade gracefully when absent; these thirteen do not.
+Core's remaining instructions stay plugin-resident and therefore inactive. Behavioral and craft instructions degrade gracefully when absent; these sixteen do not.
 
 The `alex-act-` prefix is mandatory. A heir may already have their own `~/.copilot/instructions/act-pass.instructions.md`, and a collision would silently replace their file.
 
 #### Source — where the files come from
 
-The thirteen files ship **inside this skill** at `bootstrap/`, already carrying their `alex-act-` target names. The copy is a straight file copy; no renaming, no fetching, no network.
+The sixteen files ship **inside this skill** at `bootstrap/`, already carrying their `alex-act-` target names. The copy is a straight file copy; no renaming, no fetching, no network.
 
 Resolve the source in this order:
 
@@ -145,7 +148,7 @@ Source 1 exists because a Mall install vendors a component-shape subset (skills,
 
 #### Overlap scan, before writing anything
 
-Compare the thirteen target names against the current workspace's `.github/instructions/`. Instruction scopes **compose rather than replace**: user-scope and workspace-scope files both load into the same context, with no documented dedup. A heir whose workspace already carries `act-pass` would load it twice after the bootstrap, paying the tokens twice and risking two copies drifting apart.
+Compare the sixteen target names against the current workspace's `.github/instructions/`. Instruction scopes **compose rather than replace**: user-scope and workspace-scope files both load into the same context, with no documented dedup. A heir whose workspace already carries `act-pass` would load it twice after the bootstrap, paying the tokens twice and risking two copies drifting apart.
 
 If overlap is found, report it and recommend declining:
 
@@ -157,7 +160,7 @@ Report and recommend. Do not hard-block, because the heir may legitimately want 
 
 Print the exact file list, the byte total, and the token estimate. Then ask:
 
-> "Copy these 7 instruction files to `~/.copilot/instructions/`? They will apply in **every** workspace on this machine, not only where Core is enabled. Roughly 9.4K tokens per session. Reply yes, no, or 'list' to see the contents first."
+> "Copy these sixteen instruction files to `~/.copilot/instructions/`? They will apply in **every** workspace on this machine, not only where Core is enabled. Roughly 17.5K tokens per session. Reply yes, no, or 'list' to see the contents first."
 
 Never bootstrap as a silent side effect of the install. Default is no.
 
@@ -183,7 +186,10 @@ After writing, record exactly what was placed at `~/.copilot/instructions/.alex-
     "alex-act-emotional-intelligence.instructions.md",
     "alex-act-reliance-nudges.instructions.md",
     "alex-act-session-health-monitoring.instructions.md",
-    "alex-act-proactive-awareness.instructions.md"
+    "alex-act-proactive-awareness.instructions.md",
+    "alex-act-memory-triggers.instructions.md",
+    "alex-act-worldview.instructions.md",
+    "alex-act-tool-awareness.instructions.md"
   ]
 }
 ```
@@ -192,7 +198,7 @@ Uninstall reads this receipt. It never globs and deletes, because the heir's own
 
 #### Idempotency
 
-On re-run, compare the receipt's `coreVersion` against the installed Core version. Equal means skip and report "discipline bootstrap is current". Different means rewrite the thirteen files and update the receipt. Missing receipt with files present means a hand-edited state; report it and ask before touching anything.
+On re-run, compare the receipt's `coreVersion` against the installed Core version. Equal means skip and report "discipline bootstrap is current". Different means rewrite the sixteen files and update the receipt. Missing receipt with files present means a hand-edited state; report it and ask before touching anything.
 
 #### Verify
 
@@ -238,7 +244,7 @@ The skill is safe to re-run. On subsequent runs:
 | Write bootstrap files without the `alex-act-` prefix | A bare `act-pass.instructions.md` can clobber the heir's own file. Prefix always. |
 | Skip the overlap scan because the workspace "probably" has no brain | Scopes compose. Scan, then report the real number. |
 | Uninstall by globbing `~/.copilot/instructions/*` | Read the receipt. The heir's own instructions live in that folder too. |
-| Bootstrap all of Core's unconditional instructions | Thirteen only. All 17 costs roughly 20.5K tokens in every workspace, which inverts the minimal-user-scope principle. |
+| Bootstrap all of Core's unconditional instructions | Sixteen only. All 18 costs roughly 20K tokens in every workspace, which inverts the minimal-user-scope principle. |
 | Assume the instruction files are somewhere on disk without checking | Resolve the source explicitly per the Source table. A Mall install vendors no `.github/instructions/`; only the skill-bundled `bootstrap/` is guaranteed. This shipped broken in v0.2.0. |
 | Fetch the instruction files from GitHub when the local source is missing | Never. A missing source is a packaging defect and must be reported as one, not papered over with a network call that can fail, hang, or pull an unpinned version. |
 
@@ -259,10 +265,10 @@ Sunset or revise this skill by **2027-01-30** (6 months) if:
 - The tenant check for MSFT proves inadequate (heirs off-network complete the install and hit failures) — the check needs tightening.
 - **Copilot CLI or VS Code ships plugin-scope instruction discovery.** Step 6 becomes dead weight; delete it and the receipt machinery outright.
 - **The overlap scan reports a conflict on more than half of observed installs.** User scope is the wrong target for heirs who already run a repo brain; make the bootstrap opt-in per workspace instead.
-- **Heirs report ACT discipline firing where they did not want it, twice or more.** The thirteen-file set is still too broad; cut back toward the original seven-file epistemic spine plus safety rails and hold the D5 additions for opt-in.
+- **Heirs report ACT discipline firing where they did not want it, twice or more.** The sixteen-file set is still too broad; cut back toward the original seven-file epistemic spine plus safety rails and hold the D5/D6 additions for opt-in.
 - The install order proves wrong (dependency inversion surfaces) — the order needs adjustment.
 - ≥2 heirs report the idempotent re-run pattern doing damage (deleting pre-existing entries, re-installing when already current) — merge algorithm needs a regression fix.
-- **The bundled `bootstrap/` drifts from `.github/instructions/`.** The thirteen files are copies, and copies rot. If a source instruction is edited without the bundled copy following, heirs bootstrap a stale rule. Either add a release check that diffs the two sets, or replace the copies with a build step that generates them.
+- **The bundled `bootstrap/` drifts from `.github/instructions/`.** The sixteen files are copies, and copies rot. If a source instruction is edited without the bundled copy following, heirs bootstrap a stale rule. Either add a release check that diffs the two sets, or replace the copies with a build step that generates them.
 
 Track outcomes in the maintaining repo's curation log.
 
