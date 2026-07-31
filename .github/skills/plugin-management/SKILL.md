@@ -185,6 +185,7 @@ A "no" means the removal took. Running that check inside a workspace that has it
 
 ## Safety rules
 
+- **Emit before apply.** Print the target settings block and the exact command list *before* running anything. Filesystem writes and CLI invocations happen only after explicit heir consent. Applying first and reporting after is a P0 violation, not a shortcut.
 - **Never** overwrite a settings file without explicit consent.
 - **Never** disable a plugin the heir did not ask to disable — merge, don't replace.
 - **Never** silently install a plugin without naming it in the consent prompt.
@@ -230,5 +231,4 @@ Track outcomes in the maintaining repo's curation log.
 - `/plugin-status` prompt — read-only audit-mode entry point
 - [install-constellation](../install-constellation/SKILL.md) — Alex ACT-specific install list
 - [update-plugins](../update-plugins/SKILL.md) — safe update flow with breaking-change detection
-- [plugin-management.instructions.md](../../instructions/plugin-management.instructions.md) — always-on routing rules
 - Constellation doc: `constellation/PLUGIN-INTEGRATION.md` in Steward (or your project's equivalent) — the design decisions that ground this skill's scope defaults
