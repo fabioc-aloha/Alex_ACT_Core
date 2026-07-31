@@ -6,7 +6,22 @@ lastReviewed: 2026-07-31
 
 # Platform Awareness
 
-Companion to [tool-awareness.instructions.md](../../instructions/tool-awareness.instructions.md). The always-on rules (search before calling, external ingest, never strip description) live in that file; this skill carries the reference material — deferred-tool categories, VS Code platform-change tracking, and skill-picker surfacing behavior.
+Owns the deferred-tool discipline, the VS Code Copilot platform-change tracking, and the SKILL.md description discipline that platform surfaces expose. This skill's description front-loads discovery vocabulary (GitHub, Azure, Fabric, Microsoft docs, browser, notebook, mermaid, Bicep, Figma, Microsoft Graph, MCP) so it fires reliably on any request that touches those surfaces.
+
+## Deferred Tools — Search Before Calling
+
+Many tools are **deferred** (lazy-loaded) as of VS Code 1.118+. They appear in `availableDeferredTools` but cannot be called directly. Load via `tool_search` first with a natural-language capability description.
+
+### Rules
+
+1. **Search before calling.** Calling a deferred tool without loading via `tool_search` fails silently.
+2. **Search once per tool.** After load, the tool stays available for the session.
+3. **Use broad queries.** One broad search beats multiple narrow ones.
+4. **No results means unavailable.** Don't retry with synonyms.
+
+## External Ingest (VS Code 1.119+)
+
+In remote or virtual-filesystem workspaces (GitHub.dev, VS Code Remote, Codespaces), the editor provides codebase context automatically. `semantic_search` and file operations work transparently — no agent action needed.
 
 ## Common Deferred Tool Categories
 
@@ -53,30 +68,21 @@ Do not hardcode tool names from `availableDeferredTools` without loading them vi
 | 1.128   | Custom endpoint model options for BYOK                 | Enables BYOK against strict-schema providers (Moonshot, Kimi, etc.) that reject non-standard params. `temperature` and provider-specific options now configurable. Unblocks heirs who reported provider-rejection errors before this.                                                                                                     |
 | 1.128   | Claude agent → integrated browser DOM/tools            | Feature parity with the Copilot agent's browser tools GA (1.127). Same `BrowserChatTools` + `ChatAgentNetworkFilter` enterprise policies apply.                                                                                                                                                                                           |
 
-## Skill Picker Surfacing (VS Code 1.118+)
+## Skill Picker — Never Strip the Description
 
-In 1.118+, `.github/skills/<name>/SKILL.md` files with a non-empty `description` in their frontmatter ALSO surface in the chat slash-command picker (alongside `.github/prompts/*.prompt.md`). Controlled by the experimental setting `github.copilot.chat.skillTool.enabled` (default on).
+The SKILL.md `description` field has three consumers and the slash-picker tooltip is the least important of them:
 
-### Consequence for the brain
+1. **Agent skill discovery (primary)** — every session loads SKILL.md descriptions into the `<skills>` block; this is how the parent agent decides whether to invoke the skill
+2. **Brain QA enforcement** — where a brain-qa script exists (Alex_ACT_Steward ships one as `scripts/brain-qa.cjs`), it hard-fails on missing/empty description
+3. **Chat picker tooltip** — the surface visible to humans
 
-When a prompt and a skill share a base name (`/meditate` prompt + `meditation` skill), the picker shows both. This is not a brain defect — the verb-prompt / noun-skill pairing is intentional (prompts are workflow entry points, skills are knowledge bodies). The picker noise is a side effect of the platform surface postdating the brain's design.
-
-### Lever, not stripping
-
-If picker noise is the problem, the lever is the user-level setting:
-
-```jsonc
-// settings.json (user scope)
-"github.copilot.chat.skillTool.enabled": false
-```
-
-The `tool-awareness` instruction covers the discipline (never strip the description — three consumers, only one visible); this skill documents the platform behavior that discipline guards against.
+**Never strip the description to declutter the picker.** If picker noise is the problem, the user-level `github.copilot.chat.skillTool.enabled = false` setting is the lever.
 
 ## Related
 
-- [tool-awareness.instructions.md](../../instructions/tool-awareness.instructions.md) — the always-on rules this skill provides reference material for
-- [browser-tools skill](../browser-tools/SKILL.md) — Playwright / browser automation specifics
+- [browser-tools skill](../browser-tools/SKILL.md) — Playwright / browser automation specifics (uses the deferred-tool discipline this skill owns)
 - [mcp-builder skill](../mcp-builder/SKILL.md) — authoring new MCP servers rather than just consuming them
+- [skill-review / skill-creator](../skill-review/SKILL.md) — the frontmatter description discipline this skill guards against being stripped
 
 ## Would Revise If
 
