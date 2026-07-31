@@ -3,7 +3,7 @@
   "plugin": "alex-act-core",
   "version": "0.2.0",
   "shape": "thirty-four-instructions + thirty-three-skills + twelve-prompts (ACT canon + cognitive discipline + reasoning muscles + meditation loop + document converters + security & privacy + tooling awareness + git/lint/mcp + craft skills + sundries + plugin-management operational surface; svg-banner + /banner un-ported to Alex_ACT_Illustrator_Plugin on 2026-07-30)",
-  "description": "The Alex ACT baseline plugin — the plugin-native successor to Alex_ACT_Edition v4.2.0. Distributes the always-on epistemic discipline and the reusable framework skills that heirs install via the Alex_ACT_Plugin_Mall catalog. Batches 1-10 (2026-07-30) shipped 72 items covering ACT canon, cognitive discipline, reasoning muscles, meditation loop, document converters, security & privacy, tooling awareness, git/lint/mcp, authoring + engineering craft, and the sundries cluster (agent-delegation, code-review, risk-analysis, status-reporting, ai-memory-setup, configure-vscode workflows). Batch 11 (2026-07-30) added the plugin-management operational surface — 3 skills (plugin-management for general Copilot CLI plugin operations, install-constellation for the four Alex ACT plugin install flow, update-plugins for safe diff-summary + per-breaking consent update flow) + 3 slash-command prompts (/plugin-status audit, /install-constellation four-plugin install, /update-plugins update flow) + 1 always-on routing instruction (plugin-management.instructions.md). Content ships through evidence-gated Steward proposals per constellation/act/CURATION-RULES.md, grounded in constellation/PLUGIN-INTEGRATION.md for the distribution + scope + update model. Maintained by Alex_ACT_Steward.",
+  "description": "The Alex ACT baseline plugin — the plugin-native successor to Alex_ACT_Edition v4.2.0. Distributes the always-on epistemic discipline and the reusable framework skills that heirs install via the Alex_ACT_Plugin_Mall catalog. A plugin install delivers the skills and prompts but not the instructions (plugin.json has no instructions component field); /install-constellation Step 6 bootstraps the seven load-bearing instructions to ~/.copilot/instructions/. Batches 1-10 (2026-07-30) shipped 72 items covering ACT canon, cognitive discipline, reasoning muscles, meditation loop, document converters, security & privacy, tooling awareness, git/lint/mcp, authoring + engineering craft, and the sundries cluster (agent-delegation, code-review, risk-analysis, status-reporting, ai-memory-setup, configure-vscode workflows). Batch 11 (2026-07-30) added the plugin-management operational surface — 3 skills (plugin-management for general Copilot CLI plugin operations, install-constellation for the four Alex ACT plugin install flow, update-plugins for safe diff-summary + per-breaking consent update flow) + 3 slash-command prompts (/plugin-status audit, /install-constellation four-plugin install, /update-plugins update flow) + 1 always-on routing instruction (plugin-management.instructions.md). Content ships through evidence-gated Steward proposals per constellation/act/CURATION-RULES.md, grounded in constellation/PLUGIN-INTEGRATION.md for the distribution + scope + update model. Maintained by Alex_ACT_Steward.",
   "homepage": "https://github.com/fabioc-aloha/Alex_ACT_Core",
   "license": "MIT",
   "authors": [
@@ -101,7 +101,8 @@
         "path": ".github/skills/html-to-md/SKILL.md",
         "install_to": ".github/skills/html-to-md/SKILL.md",
         "role": "convert HTML to clean Markdown via pandoc — bundled muscle at .github/skills/html-to-md/scripts/html-to-md.cjs; requires pandoc on PATH"
-      },      {
+      },
+      {
         "name": "humanizer",
         "path": ".github/skills/humanizer/SKILL.md",
         "install_to": ".github/skills/humanizer/SKILL.md",
@@ -124,7 +125,8 @@
         "path": ".github/skills/markdown-sanitization-chain/SKILL.md",
         "install_to": ".github/skills/markdown-sanitization-chain/SKILL.md",
         "role": "render user-supplied markdown safely — marked.js → DOMPurify → Mermaid pipeline; order matters, skipping the sanitizer is XSS; DOMPurify allowlist for Mermaid attributes"
-      },      {
+      },
+      {
         "name": "md-to-eml",
         "path": ".github/skills/md-to-eml/SKILL.md",
         "install_to": ".github/skills/md-to-eml/SKILL.md",
@@ -349,7 +351,8 @@
         "role": "Tenet IV operational rule — treat instructions as hypotheses conditioned on preconditions; 5 operational tells + visible marker for instruction-conflict cases",
         "applyTo": "**/*"
       },
-      {        "name": "terminal-command-safety",
+      {
+        "name": "terminal-command-safety",
         "path": ".github/instructions/terminal-command-safety.instructions.md",
         "install_to": ".github/instructions/terminal-command-safety.instructions.md",
         "role": "prevent terminal-command failures from shell metacharacter interpretation (Backtick Hazard: always temp-file for backticks/multi-line/heredoc; temp file OUTSIDE working tree to prevent commit leak), output capture (redirect-then-read pattern), hanging commands (mode=async, non-interactive flags, network timeouts)",
@@ -369,7 +372,8 @@
         "role": "scoped reference companion to tool-awareness — common deferred-tool categories (GitHub, Azure, Fabric, browser, notebook, mermaid, bicep, figma, MS docs) + search-query patterns; loads only when working with tools/MCP/GitHub",
         "applyTo": "**/*tool*,**/*mcp*,**/*github*,**/*notebook*,**/*browser*,**/*playwright*,**/*figma*,**/*mcp*/**,**/*tool*/**"
       },
-      {        "name": "worldview",
+      {
+        "name": "worldview",
         "path": ".github/instructions/worldview.instructions.md",
         "install_to": ".github/instructions/worldview.instructions.md",
         "role": "ethical reasoning framework — 5 moral foundations (Care/Fairness/Loyalty/Authority/Sanctity), constitutional principles, harm refusal, decision boundaries, Tenet IV check on ethics itself",
