@@ -144,11 +144,52 @@ Concrete calls:
 
 If a heir is unsure, ask: "Is this plugin about you or about this project?"
 
+## Instruction bootstrap files (user scope)
+
+Plugins deliver skills, prompts, and agents. They do **not** deliver instructions: `plugin.json` has no `instructions` component field, and the CLI's loading-order model covers only agents, skills, and MCP servers. Claude Code and the Open Plugin Spec draw the same boundary, so treat it as architecture rather than a bug.
+
+The workaround is to copy instruction files into `~/.copilot/instructions/`, which the Copilot CLI and VS Code Chat both read at user scope. `install-constellation` § Step 6 does this for Core's seven always-on files. This section owns the shared rules any plugin bootstrap must follow.
+
+### Rules
+
+1. **Prefix every written file** with the owning plugin's name, for example `alex-act-act-pass.instructions.md`. The folder is shared with the heir's own instructions; an unprefixed write can clobber their work.
+2. **Write a receipt** at `~/.copilot/instructions/.<plugin-name>-bootstrap.json` listing `files`, the source plugin, its version, and a timestamp.
+3. **Never glob-delete.** Removal reads the receipt and deletes only the files it names.
+4. **Scan for overlap first.** Instruction scopes compose rather than replace. If the current workspace's `.github/instructions/` already defines a same-named rule, both copies load and both cost tokens. Report the overlap and let the heir decide.
+5. **Consent separately from install.** User scope reaches every workspace on the machine, which is a broader blast radius than a plugin install. It gets its own yes.
+
+### Reading a receipt
+
+```powershell
+$r = "$env:USERPROFILE\.copilot\instructions\.alex-act-bootstrap.json"
+if (Test-Path $r) { (Get-Content $r -Raw | ConvertFrom-Json) } else { "no bootstrap receipt" }
+```
+
+### Removing a bootstrap
+
+```powershell
+$dir = "$env:USERPROFILE\.copilot\instructions"
+$r = Join-Path $dir ".alex-act-bootstrap.json"
+$m = Get-Content $r -Raw | ConvertFrom-Json
+foreach ($f in $m.files) { Remove-Item (Join-Path $dir $f) -Force -ErrorAction SilentlyContinue }
+Remove-Item $r -Force
+```
+
+Confirm with the heir before running it, then verify from a directory with no `.github/`:
+
+```powershell
+copilot -p "Do you have an instruction named act-pass available in this session? One sentence."
+```
+
+A "no" means the removal took. Running that check inside a workspace that has its own brain proves nothing, because a repo-scope file can answer.
+
 ## Safety rules
 
 - **Never** overwrite a settings file without explicit consent.
 - **Never** disable a plugin the heir did not ask to disable — merge, don't replace.
 - **Never** silently install a plugin without naming it in the consent prompt.
+- **Never** write into `~/.copilot/instructions/` without the owning plugin's name as a filename prefix and a matching receipt.
+- **Never** remove bootstrap files by globbing the folder — read the receipt.
 - **Never** modify `.github/copilot/settings.json` in a heir's workspace without also telling them the file gets committed (it belongs in source control; teammates will pull the change).
 - **Do** verify the CLI version (`copilot --version` >= 1.0.75) before offering any install / update / marketplace command that depends on newer syntax.
 - **Do** run `copilot plugin list` before install operations to detect duplicates (installing the same plugin from two marketplaces).

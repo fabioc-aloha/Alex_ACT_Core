@@ -1,6 +1,6 @@
 {
   "name": "alex-act-core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The Alex ACT baseline plugin. Ships the always-on epistemic discipline (ACT canon, critical thinking, problem-framing audit, meditation loop) and reusable framework skills (document converters, security + privacy, tooling awareness, git/lint/mcp, authoring + engineering craft) that every Alex ACT heir needs regardless of domain. Composes with the Alex ACT constellation (illustrator, enterprise, msft plugins). Batches 1-11 (2026-07-30) shipped 34 always-on instructions + 33 skills + 12 slash-command prompts. Content ships through evidence-gated Steward proposals per Alex_ACT_Steward/constellation/act/CURATION-RULES.md, grounded in Alex_ACT_Steward/constellation/PLUGIN-INTEGRATION.md for the distribution + scope + update model. Maintained by Alex_ACT_Steward.",
   "keywords": [
     "alex-act",

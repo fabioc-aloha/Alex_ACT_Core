@@ -4,7 +4,22 @@ All notable changes to `alex-act-core` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.2.0] - 2026-07-30
+
+### Added — ACT discipline bootstrap, closing the instruction-scope gap (2026-07-30)
+
+A `copilot plugin install` delivers a plugin's skills, prompts, and agents but **not** its instructions. `plugin.json` has no `instructions` component field and the CLI's loading-order model covers only agents, skills, and MCP servers. Claude Code documents the same boundary ("to ship instructions that load into Claude's context, put them in a skill") and Open Plugin Spec v1.0 defines the portable core as `skills/` plus `mcp.json` only. This is architecture, not a defect.
+
+Consequence before this change: heirs installing Core received its skills while all 34 instructions stayed inactive, including the ACT discipline layer that governs *how* those skills fire.
+
+**Verified fix**: `~/.copilot/instructions/` is read by the Copilot CLI **and** VS Code Chat, with no settings change required. Probed 2026-07-30 against CLI 1.0.77 and VS Code 1.131 using a sentinel instruction with `applyTo: '**'`; both surfaces discovered, parsed, and applied it.
+
+- **`install-constellation/SKILL.md`** — new **Step 6, ACT discipline bootstrap**, between the settings merge and the report (the former Step 6 is now Step 7). Copies seven of Core's unconditional instructions to `~/.copilot/instructions/` under an `alex-act-` filename prefix, writes a `.alex-act-bootstrap.json` receipt, and verifies from an empty directory. Separately consent-gated from the plugin install, since user scope reaches every workspace on the machine. Includes an overlap scan against the current workspace's `.github/instructions/`, because instruction scopes compose rather than replace and a same-named repo-scope file would double-load. Idempotency keyed on the receipt's `coreVersion`.
+- **`plugin-management/SKILL.md`** — new **Instruction bootstrap files (user scope)** section owning the shared rules for any plugin that bootstraps instructions: mandatory filename prefix, mandatory receipt, never glob-delete, scan for overlap first, consent separately from install. Ships read-receipt and remove-bootstrap procedures plus the empty-directory verification check. Two new entries in Safety rules.
+
+**Scoped deliberately.** Seven files, roughly 37 KB, about 9.4K always-on tokens: `act-pass`, `problem-framing-audit`, `epistemic-calibration`, `system-prompt-skepticism`, `critical-thinking`, `terminal-command-safety`, `pii-memory-filter`. Core's other 10 unconditional instructions stay plugin-resident. Bootstrapping all 17 would cost roughly 20.5K tokens in every workspace on the machine, which inverts the minimal-user-scope principle. Behavioral and craft instructions degrade gracefully when absent; these seven do not.
+
+**Not adopted here**: converting instructions to skills. That is the vendor-documented answer and it is correct for the 17 pattern-applied instructions, which is a separate change. It is wrong for the unconditional set, because skills fire on model description-match rather than deterministically, and "the model decides whether to apply the discipline" is the failure mode the discipline exists to prevent.
 
 ### Added — Batch 11: Plugin management operational surface (2026-07-30)
 
