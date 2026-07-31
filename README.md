@@ -2,7 +2,7 @@
 
 The plugin-native successor to [`Alex_ACT_Edition`](https://github.com/fabioc-aloha/Alex_ACT_Edition) v4.2.0. Distributes the always-on epistemic discipline and reusable framework skills that heirs install via the [Alex ACT Plugin Mall](https://github.com/fabioc-aloha/Alex_Skill_Mall).
 
-**Status**: v0.1.0 (unreleased). 72 baseline items ship as of 2026-07-30: 33 always-on instructions, 30 skills, 9 slash-command prompts, plus a shared runtime for the bundled document converters. Content lands through evidence-gated Steward proposals per [`Alex_ACT_Steward/constellation/act/CURATION-RULES.md`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/constellation/act/CURATION-RULES.md).
+**Status**: v0.1.0 (unreleased). 70 baseline items ship as of 2026-07-31: 22 always-on instructions, 36 skills, 12 slash-command prompts, plus a shared runtime for the bundled document converters. Content lands through evidence-gated Steward proposals per [`Alex_ACT_Steward/architecture/act/CURATION-RULES.md`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/architecture/act/CURATION-RULES.md).
 
 **Maintainer**: [`Alex_ACT_Steward`](https://github.com/fabioc-aloha/Alex_ACT_Steward) (top-of-chain in the plugin-architecture lineage since 2026-07-26 fork-and-freeze).
 
@@ -130,7 +130,7 @@ The document-conversion skills (`docx-to-md`, `html-to-md`, `md-to-word`, `md-to
 
 ## Roadmap
 
-Growth continues through evidence-gated proposals per [`Alex_ACT_Steward/constellation/act/CURATION-RULES.md`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/constellation/act/CURATION-RULES.md). The Both-classified inventory (framework baseline shipped to Core) is complete as of Batch 10 (2026-07-30). Future additions come from Steward's brain plan Part II under **Both** classification or as new proposals. See Steward's [brain plan](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/brain/plan.md) Part II for the current candidate pipeline.
+Growth continues through evidence-gated proposals per [`Alex_ACT_Steward/architecture/act/CURATION-RULES.md`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/architecture/act/CURATION-RULES.md). The Both-classified inventory (framework baseline shipped to Core) is complete as of Batch 10 (2026-07-30). Future additions come from Steward's brain plan Part II under **Both** classification or as new proposals. See Steward's [brain plan](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/brain/plan.md) Part II for the current candidate pipeline.
 
 ## Related
 

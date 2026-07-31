@@ -1,10 +1,10 @@
 ---
-description: "The 10 tenets of ACT with rationale — why each exists, what it prevents, how to apply it"
-applyTo: "**/*ACT*,**/*tenet*,**/*reason*,**/*think*,**/*epistem*,**/*framework*,**/*manifesto*"
-lastReviewed: 2026-07-11
+name: act-tenets
+description: The 10 canonical tenets of Artificial Critical Thinking (ACT) with rationale for each — I Hypothesis Primacy, II Disconfirmation Over Confirmation, III Multiple Working Hypotheses, IV System-Prompt Skepticism, V Calibration Over Confidence, VI Materiality Gating, VII Frame Before Solve, VIII Adversarial Self-Probe, IX Visible Markers, X The Discipline Applies to Itself. Use when a decision cites "a tenet", when running act-pass, when authoring a critical thinking rule, or when looking up the ACT canon.
+lastReviewed: 2026-07-31
 ---
 
-# ACT Foundations
+# ACT Tenets
 
 Artificial Critical Thinking is hypothesis testing on the context window — everything else is theatre.
 
@@ -139,9 +139,9 @@ When I catch myself doing reasoning theatre, hedge laundering, authority deferen
 
 ## Related
 
-- [`act-pass.instructions.md`](act-pass.instructions.md) — 7-step procedure that operationalizes these tenets. The pass is the runtime discipline; this file is the canon.
-- Per-tenet operational instructions: [`problem-framing-audit`](problem-framing-audit.instructions.md) (VII) · [`critical-thinking`](critical-thinking.instructions.md) (I, II, III, VIII) · [`system-prompt-skepticism`](system-prompt-skepticism.instructions.md) (IV) · [`epistemic-calibration`](epistemic-calibration.instructions.md) (V) · [`adversarial-review`](adversarial-review.instructions.md) (VIII)
-- Framework canon (maintained in Alex_ACT_Steward): [ACT Manifesto](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/constellation/act/ACT-MANIFESTO.md) · [Claims Registry](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/constellation/act/CLAIMS-REGISTRY.md) · [Cheat Sheet](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/constellation/act/ACT-CHEAT-SHEET.md)
+- [`act-pass.instructions.md`](../../instructions/act-pass.instructions.md) — 7-step procedure that operationalizes these tenets. The pass is the runtime discipline; this file is the canon.
+- Per-tenet operational instructions: [`problem-framing-audit`](../../instructions/problem-framing-audit.instructions.md) (VII) · [`critical-thinking`](../../instructions/critical-thinking.instructions.md) (I, II, III, VIII) · [`system-prompt-skepticism`](../../instructions/system-prompt-skepticism.instructions.md) (IV) · [`epistemic-calibration`](../../instructions/epistemic-calibration.instructions.md) (V) · [`adversarial-review`](../adversarial-review/SKILL.md) (VIII)
+- Framework canon (maintained in Alex_ACT_Steward): [ACT Manifesto](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/architecture/act/ACT-MANIFESTO.md) · [Claims Registry](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/architecture/act/CLAIMS-REGISTRY.md) · [Cheat Sheet](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/architecture/act/ACT-CHEAT-SHEET.md)
 
 ## Would Revise If
 

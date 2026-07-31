@@ -1,14 +1,14 @@
 ---
-description: "Structured devil's advocate and adversarial review — supports ACT Tenet VIII (Adversarial Self-Probe)"
-applyTo: "**/*review*,**/*validate*,**/*challenge*"
-lastReviewed: 2026-07-29
+name: adversarial-review
+description: Structured skepticism for high-stakes decisions and reviews. Six methods — Red Team/Blue Team, Pre-Mortem, Steel Manning, Murphyjitsu, 10/10/10, Cross-Model External Critic. Use before publishing an ADR, plan, proposal, framework edit, or release; when "this seems too good to be true" fires; when groupthink is forming; or when routing critique to a different model or context to escape shared-context blind spots.
+lastReviewed: 2026-07-31
 ---
 
 # Adversarial Review
 
 > **ACT Tenet VIII**: If you cannot steelman the counter-argument, you have not understood the argument.
 
-This instruction provides methods for **structured skepticism** beyond self-critique.
+Methods for **structured skepticism** beyond self-critique.
 
 ## When to Use
 

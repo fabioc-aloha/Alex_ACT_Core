@@ -1,8 +1,8 @@
 {
-  "$comment": "Mall-side plugin manifest. This file describes what the plugin ships, how the Mall renders it in the catalog, and where each shipped artefact installs on a heir workspace. Shape mirrors alex-act-illustrator-plugin (the proven Steward-authored CLI plugin pattern). Ships 25 always-on instructions, 33 skills, and 12 slash-command prompts as the Both-classified baseline plus the plugin-management operational surface and the ACT discipline bootstrap that closes the plugin instruction-scope gap. Disposition D1 (2026-07-31) folded 7 routing-only instructions into their paired skills, preserving the unique safety and protocol content each carried. Growth continues through evidence-gated proposals via the Steward brain-curation protocol.",
+  "$comment": "Mall-side plugin manifest. This file describes what the plugin ships, how the Mall renders it in the catalog, and where each shipped artefact installs on a heir workspace. Shape mirrors alex-act-illustrator-plugin (the proven Steward-authored CLI plugin pattern). Ships 22 always-on instructions, 36 skills, and 12 slash-command prompts as the Both-classified baseline plus the plugin-management operational surface and the ACT discipline bootstrap that closes the plugin instruction-scope gap. Disposition D1 (2026-07-31) folded 7 routing-only instructions into their paired skills, preserving the unique safety and protocol content each carried. Growth continues through evidence-gated proposals via the Steward brain-curation protocol.",
   "plugin": "alex-act-core",
   "version": "0.2.1",
-  "shape": "twenty-five-instructions + thirty-three-skills + twelve-prompts (ACT canon + cognitive discipline + reasoning muscles + meditation loop + document converters + security & privacy + tooling awareness + git/lint/mcp + craft skills + sundries + plugin-management operational surface; svg-banner + /banner un-ported to Alex_ACT_Illustrator_Plugin on 2026-07-30; 9 routing-only instructions folded into their paired skills on 2026-07-31 per dispositions D1 (2026-07-31) and D2 (2026-07-31))",
+  "shape": "twenty-two-instructions + thirty-six-skills + twelve-prompts (ACT canon + cognitive discipline + reasoning muscles + meditation loop + document converters + security & privacy + tooling awareness + git/lint/mcp + craft skills + sundries + plugin-management operational surface; svg-banner + /banner un-ported to Alex_ACT_Illustrator_Plugin on 2026-07-30; 9 routing-only instructions folded and 3 promoted to skills into their paired skills on 2026-07-31 per dispositions D1, D2, and D3 (all 2026-07-31))",
   "description": "The Alex ACT baseline plugin — the plugin-native successor to Alex_ACT_Edition v4.2.0. Distributes the always-on epistemic discipline and the reusable framework skills that heirs install via the Alex_ACT_Plugin_Mall catalog. A plugin install delivers the skills and prompts but not the instructions (plugin.json has no instructions component field); /install-constellation Step 6 bootstraps the seven load-bearing instructions to ~/.copilot/instructions/. Batches 1-10 (2026-07-30) shipped 72 items covering ACT canon, cognitive discipline, reasoning muscles, meditation loop, document converters, security & privacy, tooling awareness, git/lint/mcp, authoring + engineering craft, and the sundries cluster (agent-delegation, code-review, risk-analysis, status-reporting, ai-memory-setup, configure-vscode workflows). Batch 11 (2026-07-30) added the plugin-management operational surface — 3 skills (plugin-management for general Copilot CLI plugin operations, install-constellation for the four Alex ACT plugin install flow, update-plugins for safe diff-summary + per-breaking consent update flow) + 3 slash-command prompts (/plugin-status audit, /install-constellation four-plugin install, /update-plugins update flow). Disposition D1 (2026-07-31) folded 7 routing-only instructions (status-reporting, doc-hygiene, markdown-mermaid, code-review, plugin-management, git-workflow, meditation) into their paired skills, which a plugin install does deliver — the unique safety rules and protocol content each instruction carried was merged into the skill body first. Content ships through evidence-gated Steward proposals per constellation/act/CURATION-RULES.md, grounded in constellation/PLUGIN-INTEGRATION.md for the distribution + scope + update model. Maintained by Alex_ACT_Steward.",
   "homepage": "https://github.com/fabioc-aloha/Alex_ACT_Core",
   "license": "MIT",
@@ -18,6 +18,24 @@
   ],
   "assets": {
     "skills": [
+      {
+        "name": "act-tenets",
+        "path": ".github/skills/act-tenets/SKILL.md",
+        "install_to": ".github/skills/act-tenets/SKILL.md",
+        "role": "the 10 canonical tenets of ACT with rationale for each; reference canon consulted by act-pass, critical-thinking, problem-framing-audit, and adversarial-review"
+      },
+      {
+        "name": "adversarial-review",
+        "path": ".github/skills/adversarial-review/SKILL.md",
+        "install_to": ".github/skills/adversarial-review/SKILL.md",
+        "role": "structured skepticism for high-stakes decisions and reviews; six methods (Red Team/Blue Team, Pre-Mortem, Steel Manning, Murphyjitsu, 10/10/10, Cross-Model External Critic)"
+      },
+      {
+        "name": "ai-memory-setup",
+        "path": ".github/skills/ai-memory-setup/SKILL.md",
+        "install_to": ".github/skills/ai-memory-setup/SKILL.md",
+        "role": "resolve and use the Alex_ACT_Memory sibling repository as shared memory bus — without silently cloning, syncing, or exposing protected data; announcements + feedback + shared knowledge + explicit setup"
+      },
       {
         "name": "anti-hallucination",
         "path": ".github/skills/anti-hallucination/SKILL.md",
@@ -35,6 +53,12 @@
         "path": ".github/skills/browser-tools/SKILL.md",
         "install_to": ".github/skills/browser-tools/SKILL.md",
         "role": "VS Code internal browser patterns (open_browser_page + screenshot_page + click_element + navigate_page + run_playwright_code) — file:// local rendering for HTML/SVG/PNG/PDF, bot-protection escape, password-hand-off protocol (user types secret in visible browser; agent never types via type_in_page)"
+      },
+      {
+        "name": "code-review",
+        "path": ".github/skills/code-review/SKILL.md",
+        "install_to": ".github/skills/code-review/SKILL.md",
+        "role": "systematic code review for correctness, security, and growth — not just style enforcement; composes with security-and-hardening for OWASP-scoped review + adversarial-review for structured skepticism"
       },
       {
         "name": "critical-thinking",
@@ -55,46 +79,16 @@
         "role": "anti-drift rules for living documents — count elimination (hardcoded counts become stale), single source of truth per metric, link-integrity checker, orphan detection, docs-as-architecture principle"
       },
       {
-        "name": "git-workflow",
-        "path": ".github/skills/git-workflow/SKILL.md",
-        "install_to": ".github/skills/git-workflow/SKILL.md",
-        "role": "detailed git procedures — branch hygiene, safe-commit patterns, recovery from lost commits + bad merges + accidental pushes; complements git-workflow instruction with worked examples"
-      },
-      {
-        "name": "plan",
-        "path": ".github/skills/plan/SKILL.md",
-        "install_to": ".github/skills/plan/SKILL.md",
-        "role": "plan-mode discipline — write a concrete actionable markdown plan with bite-sized tasks (2-5 min each), exact file paths, complete code, verification steps; no execution during the plan turn"
-      },
-      {
-        "name": "problem-framing-audit",
-        "path": ".github/skills/problem-framing-audit/SKILL.md",
-        "install_to": ".github/skills/problem-framing-audit/SKILL.md",
-        "role": "detailed body for Discipline -1 frame audit — 8-check step-back protocol (restate, generalise, specialise, invert, five whys, pre-mortem, stakeholder, frame audit)"
-      },
-      {
-        "name": "spike",
-        "path": ".github/skills/spike/SKILL.md",
-        "install_to": ".github/skills/spike/SKILL.md",
-        "role": "throwaway feasibility experiments — decompose into 2-5 questions, build minimal observable prototypes, return VALIDATED/PARTIAL/INVALIDATED verdicts; disposable by design"
-      },
-      {
-        "name": "meditation",
-        "path": ".github/skills/meditation/SKILL.md",
-        "install_to": ".github/skills/meditation/SKILL.md",
-        "role": "consolidate session learning into permanent architecture — 5-step protocol (review + extract + write + chronicle + handoff) that routes patterns to skills/instructions/prompts/scripts/memory tiers by type"
-      },
-      {
-        "name": "mutation-testing",
-        "path": ".github/skills/mutation-testing/SKILL.md",
-        "install_to": ".github/skills/mutation-testing/SKILL.md",
-        "role": "meta-test the test harness — apply small intentional defects to production code, expect suite to catch each one; surfaces silent coverage gaps that 100% line coverage hides"
-      },
-      {
         "name": "docx-to-md",
         "path": ".github/skills/docx-to-md/SKILL.md",
         "install_to": ".github/skills/docx-to-md/SKILL.md",
         "role": "convert Word documents (.docx) to clean Markdown with image extraction + pandoc cleanup — bundled muscle at .github/skills/docx-to-md/scripts/docx-to-md.cjs; requires pandoc on PATH"
+      },
+      {
+        "name": "git-workflow",
+        "path": ".github/skills/git-workflow/SKILL.md",
+        "install_to": ".github/skills/git-workflow/SKILL.md",
+        "role": "detailed git procedures — branch hygiene, safe-commit patterns, recovery from lost commits + bad merges + accidental pushes; complements git-workflow instruction with worked examples"
       },
       {
         "name": "html-to-md",
@@ -107,6 +101,12 @@
         "path": ".github/skills/humanizer/SKILL.md",
         "install_to": ".github/skills/humanizer/SKILL.md",
         "role": "remove 29 documented AI-writing patterns (Wikipedia's 'Signs of AI writing') via draft → self-audit → rewrite — optional voice-calibration from user-provided writing sample; adapted from Hermes Agent / blader/humanizer"
+      },
+      {
+        "name": "install-constellation",
+        "path": ".github/skills/install-constellation/SKILL.md",
+        "install_to": ".github/skills/install-constellation/SKILL.md",
+        "role": "install the four Alex ACT constellation plugins (alex-act-core, alex-act-illustrator-plugin, alex-act-enterprise, alex-act-msft) at user scope in the correct order with tenant-check for MSFT (Microsoft-internal only); consent-gated, idempotent, delegates to plugin-management for raw commands"
       },
       {
         "name": "lint-clean-markdown",
@@ -125,6 +125,12 @@
         "path": ".github/skills/markdown-sanitization-chain/SKILL.md",
         "install_to": ".github/skills/markdown-sanitization-chain/SKILL.md",
         "role": "render user-supplied markdown safely — marked.js → DOMPurify → Mermaid pipeline; order matters, skipping the sanitizer is XSS; DOMPurify allowlist for Mermaid attributes"
+      },
+      {
+        "name": "mcp-builder",
+        "path": ".github/skills/mcp-builder/SKILL.md",
+        "install_to": ".github/skills/mcp-builder/SKILL.md",
+        "role": "build MCP servers in Python (FastMCP), Node/TypeScript (MCP SDK), or C#/.NET (Microsoft MCP SDK) — Build vs Use Existing decision matrix (Azure/Foundry/Fabric/Playwright/GitHub MCPs), implementation patterns, testing checklist, common issues"
       },
       {
         "name": "md-to-eml",
@@ -151,16 +157,58 @@
         "role": "convert Markdown (with Mermaid + SVG) to Word (.docx) — bundled muscle at .github/skills/md-to-word/scripts/md-to-word.cjs; uses jszip when available, falls back to pandoc"
       },
       {
-        "name": "mcp-builder",
-        "path": ".github/skills/mcp-builder/SKILL.md",
-        "install_to": ".github/skills/mcp-builder/SKILL.md",
-        "role": "build MCP servers in Python (FastMCP), Node/TypeScript (MCP SDK), or C#/.NET (Microsoft MCP SDK) — Build vs Use Existing decision matrix (Azure/Foundry/Fabric/Playwright/GitHub MCPs), implementation patterns, testing checklist, common issues"
+        "name": "meditation",
+        "path": ".github/skills/meditation/SKILL.md",
+        "install_to": ".github/skills/meditation/SKILL.md",
+        "role": "consolidate session learning into permanent architecture — 5-step protocol (review + extract + write + chronicle + handoff) that routes patterns to skills/instructions/prompts/scripts/memory tiers by type"
+      },
+      {
+        "name": "mutation-testing",
+        "path": ".github/skills/mutation-testing/SKILL.md",
+        "install_to": ".github/skills/mutation-testing/SKILL.md",
+        "role": "meta-test the test harness — apply small intentional defects to production code, expect suite to catch each one; surfaces silent coverage gaps that 100% line coverage hides"
+      },
+      {
+        "name": "plan",
+        "path": ".github/skills/plan/SKILL.md",
+        "install_to": ".github/skills/plan/SKILL.md",
+        "role": "plan-mode discipline — write a concrete actionable markdown plan with bite-sized tasks (2-5 min each), exact file paths, complete code, verification steps; no execution during the plan turn"
+      },
+      {
+        "name": "plugin-management",
+        "path": ".github/skills/plugin-management/SKILL.md",
+        "install_to": ".github/skills/plugin-management/SKILL.md",
+        "role": "general Copilot CLI plugin operations — install/list/update/remove/marketplace commands, scope precedence (user vs repo), enabledPlugins + extraKnownMarketplaces settings shape, safe merge-not-overwrite settings edits; delegates from install-constellation + update-plugins for the mechanical layer"
+      },
+      {
+        "name": "problem-framing-audit",
+        "path": ".github/skills/problem-framing-audit/SKILL.md",
+        "install_to": ".github/skills/problem-framing-audit/SKILL.md",
+        "role": "detailed body for Discipline -1 frame audit — 8-check step-back protocol (restate, generalise, specialise, invert, five whys, pre-mortem, stakeholder, frame audit)"
+      },
+      {
+        "name": "risk-analysis",
+        "path": ".github/skills/risk-analysis/SKILL.md",
+        "install_to": ".github/skills/risk-analysis/SKILL.md",
+        "role": "probability * impact risk assessment for curation and planning decisions; risk categories, matrix scoring, and decision routing by risk score"
       },
       {
         "name": "security-and-hardening",
         "path": ".github/skills/security-and-hardening/SKILL.md",
         "install_to": ".github/skills/security-and-hardening/SKILL.md",
         "role": "OWASP-aware hardening for user input, auth, storage, external integrations — Always Do / Ask First / Never Do boundaries + Top 10 prevention patterns (injection, auth, XSS, CSRF, deserialization, misconfiguration, secrets, rate limiting, dependency audits, security headers)"
+      },
+      {
+        "name": "spike",
+        "path": ".github/skills/spike/SKILL.md",
+        "install_to": ".github/skills/spike/SKILL.md",
+        "role": "throwaway feasibility experiments — decompose into 2-5 questions, build minimal observable prototypes, return VALIDATED/PARTIAL/INVALIDATED verdicts; disposable by design"
+      },
+      {
+        "name": "status-reporting",
+        "path": ".github/skills/status-reporting/SKILL.md",
+        "install_to": ".github/skills/status-reporting/SKILL.md",
+        "role": "create stakeholder-friendly project status updates and progress reports — audience-adapted; composes with communication-craft for So-What/What/Now-What audience lead"
       },
       {
         "name": "systematic-debugging",
@@ -181,36 +229,6 @@
         "role": "audit active brain artifacts for context cost, duplicated guidance, oversized routing files, stale metadata — use during brain audits, quarterly review, or when instructions feel heavy"
       },
       {
-        "name": "ai-memory-setup",
-        "path": ".github/skills/ai-memory-setup/SKILL.md",
-        "install_to": ".github/skills/ai-memory-setup/SKILL.md",
-        "role": "resolve and use the Alex_ACT_Memory sibling repository as shared memory bus — without silently cloning, syncing, or exposing protected data; announcements + feedback + shared knowledge + explicit setup"
-      },
-      {
-        "name": "code-review",
-        "path": ".github/skills/code-review/SKILL.md",
-        "install_to": ".github/skills/code-review/SKILL.md",
-        "role": "systematic code review for correctness, security, and growth — not just style enforcement; composes with security-and-hardening for OWASP-scoped review + adversarial-review for structured skepticism"
-      },
-      {
-        "name": "status-reporting",
-        "path": ".github/skills/status-reporting/SKILL.md",
-        "install_to": ".github/skills/status-reporting/SKILL.md",
-        "role": "create stakeholder-friendly project status updates and progress reports — audience-adapted; composes with communication-craft for So-What/What/Now-What audience lead"
-      },
-      {
-        "name": "plugin-management",
-        "path": ".github/skills/plugin-management/SKILL.md",
-        "install_to": ".github/skills/plugin-management/SKILL.md",
-        "role": "general Copilot CLI plugin operations — install/list/update/remove/marketplace commands, scope precedence (user vs repo), enabledPlugins + extraKnownMarketplaces settings shape, safe merge-not-overwrite settings edits; delegates from install-constellation + update-plugins for the mechanical layer"
-      },
-      {
-        "name": "install-constellation",
-        "path": ".github/skills/install-constellation/SKILL.md",
-        "install_to": ".github/skills/install-constellation/SKILL.md",
-        "role": "install the four Alex ACT constellation plugins (alex-act-core, alex-act-illustrator-plugin, alex-act-enterprise, alex-act-msft) at user scope in the correct order with tenant-check for MSFT (Microsoft-internal only); consent-gated, idempotent, delegates to plugin-management for raw commands"
-      },
-      {
         "name": "update-plugins",
         "path": ".github/skills/update-plugins/SKILL.md",
         "install_to": ".github/skills/update-plugins/SKILL.md",
@@ -219,25 +237,11 @@
     ],
     "instructions": [
       {
-        "name": "act-foundations",
-        "path": ".github/instructions/act-foundations.instructions.md",
-        "install_to": ".github/instructions/act-foundations.instructions.md",
-        "role": "framework canon — the 10 tenets with rationale, what each prevents, how to apply",
-        "applyTo": "**/*ACT*,**/*tenet*,**/*reason*,**/*think*,**/*epistem*,**/*framework*,**/*manifesto*"
-      },
-      {
         "name": "act-pass",
         "path": ".github/instructions/act-pass.instructions.md",
         "install_to": ".github/instructions/act-pass.instructions.md",
         "role": "runtime procedure — 7-step ACT pass on medium and high stakes work, materiality-gated",
         "applyTo": "**/*"
-      },
-      {
-        "name": "adversarial-review",
-        "path": ".github/instructions/adversarial-review.instructions.md",
-        "install_to": ".github/instructions/adversarial-review.instructions.md",
-        "role": "structured devil's advocate methods (Red/Blue, Pre-Mortem, Steel Man, Murphyjitsu, 10/10/10, Cross-Model External Critic) supporting Tenet VIII",
-        "applyTo": "**/*review*,**/*validate*,**/*challenge*"
       },
       {
         "name": "agent-delegation",
@@ -378,13 +382,6 @@
         "install_to": ".github/instructions/reliance-nudges.instructions.md",
         "role": "detect human over-reliance failure modes (prompt roulette, zero verification, instant high-stakes acceptance, verbatim acceptance, confidence cascade, repeated same error) and surface one targeted nudge per turn with inhibition rules",
         "applyTo": "**"
-      },
-      {
-        "name": "risk-analysis",
-        "path": ".github/instructions/risk-analysis.instructions.md",
-        "install_to": ".github/instructions/risk-analysis.instructions.md",
-        "role": "risk assessment for curation decisions — probability×impact scoring for skill acceptance, store pruning, release gating",
-        "applyTo": "**/*risk*,**/*plan*,**/*assess*,**/docs/**,**/feedback/**"
       },
       {
         "name": "session-health-monitoring",

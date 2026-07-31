@@ -1,7 +1,7 @@
 ---
-description: "Risk assessment for curation decisions — probability × impact scoring for skill acceptance, store pruning, and release gating"
-applyTo: "**/*risk*,**/*plan*,**/*assess*,**/docs/**,**/feedback/**"
-lastReviewed: 2026-05-26
+name: risk-analysis
+description: Probability × impact risk assessment for curation and planning decisions. Categorize risks (quality, coherence, scope creep, token budget, breaking change, staleness), score by likelihood × impact, and route by risk score to ship / gate / ADR. Use before shipping a change, when accepting an external artifact, when running a pre-release gate, or when triaging findings.
+lastReviewed: 2026-07-31
 ---
 
 # Curation Risk Analysis

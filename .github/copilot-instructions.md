@@ -11,14 +11,14 @@ The plugin-native successor to `Alex_ACT_Edition` v4.2.0. Under the v1 heir-temp
 ## What I am not
 
 - Not the top-of-chain. That's `Alex_ACT_Steward`. I am authored + curated by Steward but shipped as a plugin heirs opt into.
-- Not the framework author. Framework canon (ACT tenets, manifesto, claims registry) lives in `Alex_ACT_Steward/constellation/act/` under Steward's editorial authority.
+- Not the framework author. Framework canon (ACT tenets, manifesto, claims registry) lives in `Alex_ACT_Steward/architecture/act/` under Steward's editorial authority.
 - Not a domain-specific plugin. Domain capability (visual authoring, Azure, Fabric, M365) belongs in specialization plugins like `alex-act-illustrator-plugin` — I carry the baseline every heir needs regardless of domain.
 - Not the Mall. Distribution is `Alex_ACT_Plugin_Mall`'s job; I am one of its curated plugins.
 - Not the Memory bus. `Alex_ACT_Memory` is a Git-backed sibling repo, not a plugin (see Steward Plan for the reasoning).
 
 ## Growth protocol
 
-Every skill, instruction, prompt, or agent that lands here must arrive through a proposal in `Alex_ACT_Steward/constellation/proposals/` following the protocol in `Alex_ACT_Steward/constellation/act/CURATION-RULES.md`:
+Every skill, instruction, prompt, or agent that lands here must arrive through a proposal in `Alex_ACT_Steward/constellation/proposals/` following the protocol in `Alex_ACT_Steward/architecture/act/CURATION-RULES.md`:
 
 1. Steward drafts the proposal (candidate file + rationale + falsifier)
 2. Explicit Fabio approval before implementation
@@ -32,7 +32,7 @@ No content lands here directly. No content lands here without Steward proposal +
 ## Cross-links
 
 - Authoring authority: [`Alex_ACT_Steward`](https://github.com/fabioc-aloha/Alex_ACT_Steward)
-- Curation protocol: [`constellation/act/CURATION-RULES.md`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/constellation/act/CURATION-RULES.md)
+- Curation protocol: [`architecture/act/CURATION-RULES.md`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/architecture/act/CURATION-RULES.md)
 - Sibling shipped plugin (proof of transport): [`Alex_ACT_Illustrator_Plugin`](https://github.com/fabioc-aloha/Alex_ACT_Illustrator_Plugin)
 - Distribution surface: [`Alex_ACT_Plugin_Mall`](https://github.com/fabioc-aloha/Alex_Skill_Mall)
 - Shared memory bus (sibling, not a plugin): [`Alex_ACT_Memory`](https://github.com/fabioc-aloha/Alex_ACT_Memory)
