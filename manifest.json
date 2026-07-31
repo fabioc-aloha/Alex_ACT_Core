@@ -1,8 +1,8 @@
 {
-  "$comment": "Mall-side plugin manifest. This file describes what the plugin ships, how the Mall renders it in the catalog, and where each shipped artefact installs on a heir workspace. Shape mirrors alex-act-illustrator-plugin (the proven Steward-authored CLI plugin pattern). Ships 27 always-on instructions, 33 skills, and 12 slash-command prompts as the Both-classified baseline plus the plugin-management operational surface and the ACT discipline bootstrap that closes the plugin instruction-scope gap. Disposition D1 (2026-07-31) folded 7 routing-only instructions into their paired skills, preserving the unique safety and protocol content each carried. Growth continues through evidence-gated proposals via the Steward brain-curation protocol.",
+  "$comment": "Mall-side plugin manifest. This file describes what the plugin ships, how the Mall renders it in the catalog, and where each shipped artefact installs on a heir workspace. Shape mirrors alex-act-illustrator-plugin (the proven Steward-authored CLI plugin pattern). Ships 25 always-on instructions, 33 skills, and 12 slash-command prompts as the Both-classified baseline plus the plugin-management operational surface and the ACT discipline bootstrap that closes the plugin instruction-scope gap. Disposition D1 (2026-07-31) folded 7 routing-only instructions into their paired skills, preserving the unique safety and protocol content each carried. Growth continues through evidence-gated proposals via the Steward brain-curation protocol.",
   "plugin": "alex-act-core",
   "version": "0.2.1",
-  "shape": "twenty-seven-instructions + thirty-three-skills + twelve-prompts (ACT canon + cognitive discipline + reasoning muscles + meditation loop + document converters + security & privacy + tooling awareness + git/lint/mcp + craft skills + sundries + plugin-management operational surface; svg-banner + /banner un-ported to Alex_ACT_Illustrator_Plugin on 2026-07-30; 7 routing-only instructions folded into their paired skills on 2026-07-31 per disposition D1)",
+  "shape": "twenty-five-instructions + thirty-three-skills + twelve-prompts (ACT canon + cognitive discipline + reasoning muscles + meditation loop + document converters + security & privacy + tooling awareness + git/lint/mcp + craft skills + sundries + plugin-management operational surface; svg-banner + /banner un-ported to Alex_ACT_Illustrator_Plugin on 2026-07-30; 9 routing-only instructions folded into their paired skills on 2026-07-31 per dispositions D1 (2026-07-31) and D2 (2026-07-31))",
   "description": "The Alex ACT baseline plugin — the plugin-native successor to Alex_ACT_Edition v4.2.0. Distributes the always-on epistemic discipline and the reusable framework skills that heirs install via the Alex_ACT_Plugin_Mall catalog. A plugin install delivers the skills and prompts but not the instructions (plugin.json has no instructions component field); /install-constellation Step 6 bootstraps the seven load-bearing instructions to ~/.copilot/instructions/. Batches 1-10 (2026-07-30) shipped 72 items covering ACT canon, cognitive discipline, reasoning muscles, meditation loop, document converters, security & privacy, tooling awareness, git/lint/mcp, authoring + engineering craft, and the sundries cluster (agent-delegation, code-review, risk-analysis, status-reporting, ai-memory-setup, configure-vscode workflows). Batch 11 (2026-07-30) added the plugin-management operational surface — 3 skills (plugin-management for general Copilot CLI plugin operations, install-constellation for the four Alex ACT plugin install flow, update-plugins for safe diff-summary + per-breaking consent update flow) + 3 slash-command prompts (/plugin-status audit, /install-constellation four-plugin install, /update-plugins update flow). Disposition D1 (2026-07-31) folded 7 routing-only instructions (status-reporting, doc-hygiene, markdown-mermaid, code-review, plugin-management, git-workflow, meditation) into their paired skills, which a plugin install does deliver — the unique safety rules and protocol content each instruction carried was merged into the skill body first. Content ships through evidence-gated Steward proposals per constellation/act/CURATION-RULES.md, grounded in constellation/PLUGIN-INTEGRATION.md for the distribution + scope + update model. Maintained by Alex_ACT_Steward.",
   "homepage": "https://github.com/fabioc-aloha/Alex_ACT_Core",
   "license": "MIT",
@@ -254,13 +254,6 @@
         "applyTo": "**"
       },
       {
-        "name": "converter",
-        "path": ".github/instructions/converter.instructions.md",
-        "install_to": ".github/instructions/converter.instructions.md",
-        "role": "document conversion routing — detect source/target format from user request, delegate to matching md-to-* / docx-to-md / html-to-md skill + muscle at .github/skills/<format>/scripts/<format>.cjs",
-        "applyTo": "**/*convert*,**/*docx*,**/*word*,**/*eml*,**/*html-to-md*,**/*md-to-*"
-      },
-      {
         "name": "critical-thinking",
         "path": ".github/instructions/critical-thinking.instructions.md",
         "install_to": ".github/instructions/critical-thinking.instructions.md",
@@ -301,13 +294,6 @@
         "install_to": ".github/instructions/lint-discipline.instructions.md",
         "role": "if you touched a file you own its lint state on exit — pre-existing findings become yours the moment you open the file; use VS Code 1.122+ 'Search only in changed files' to enumerate scope",
         "applyTo": "**"
-      },
-      {
-        "name": "mcp-development",
-        "path": ".github/instructions/mcp-development.instructions.md",
-        "install_to": ".github/instructions/mcp-development.instructions.md",
-        "role": "MCP server development routing — fires on mcp / mcp-server file patterns; points at mcp-builder skill for detailed authoring guide",
-        "applyTo": "**/*mcp*,**/*mcp-server*,**/*mcp*/**,**/*mcp-server*/**"
       },
       {
         "name": "problem-framing-audit",
