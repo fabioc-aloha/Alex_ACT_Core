@@ -4,6 +4,31 @@ All notable changes to `alex-act-core` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - 2026-07-30
+
+### Fixed — the v0.2.0 bootstrap had no source to copy from on Mall installs
+
+v0.2.0 shipped the ACT discipline bootstrap as `install-constellation` Step 6, and on a Mall install it could not run. The step specified what to copy, how to name it, when to ask, and how to record the result — but never where the files come from.
+
+That omission was invisible during authoring because a direct GitHub install clones the whole repository, so `.github/instructions/` happens to be on disk. A Mall install vendors a component-shape subset (skills, commands, scripts, config) and deliberately excludes instructions, since instructions are not a `plugin.json` component type. The 69-file Mall payload contained zero instruction files, so Step 6 had nothing to copy on the very install path the public READMEs now advertise as primary.
+
+Root cause was a conflation: "the platform will not *load* these from a plugin path" is true, and it does not imply "these should not *ship*." Step 6 never needed the platform to load them; it needed to read them off disk and copy them.
+
+**Fix**:
+
+- The seven instruction files now ship inside the skill at `skills/install-constellation/bootstrap/`, already carrying their `alex-act-` target names, byte-identical to `.github/instructions/`. Present in every install path.
+- Step 6 gained a **Source** subsection with an explicit three-row resolution order: skill-bundled `bootstrap/` first, plugin-root `.github/instructions/` as a direct-install fallback, and an explicit failure message otherwise.
+- Missing source now stops the step and reports a packaging defect. It never silently no-ops, and it never falls back to fetching over the network.
+- Two anti-pattern rows added (assuming files are on disk without resolving; network fallback) and one falsifier added for drift between the bundled copies and their sources.
+
+Payload grows from 69 to 76 files, within the 100-file Copilot CLI Windows limit.
+
+Found by running the round-trip acceptance check against the published artifact — the one check from the original proposal that had never been executed end to end.
+
+### Known follow-up
+
+`bootstrap/` holds copies, and copies rot. Core has no test harness today, so nothing yet fails a build when a source instruction is edited and its bundled copy is not. Tracked as a falsifier in the skill; needs either a release-time diff check or a generation step.
+
 ## [0.2.0] - 2026-07-30
 
 ### Added — ACT discipline bootstrap, closing the instruction-scope gap (2026-07-30)
