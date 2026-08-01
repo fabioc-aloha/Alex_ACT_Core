@@ -4,6 +4,47 @@ All notable changes to `alex-act-core` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.1] - 2026-08-01
+
+### Added — bootstrap drift detection in `session-health-monitoring`
+
+Closes the chicken-and-egg gap that shipped in v0.4.0: `greeting-checkin` was designed to detect bootstrap drift on greeting messages, but it can only fire if it's physically present at `~/.copilot/instructions/`. After a user runs `copilot plugin update --all` on Core (v0.3.1 → v0.4.0 or later), the plugin tree updates but the always-on discipline layer at `~/.copilot/instructions/` still has the previous bootstrap set. Users who never re-run `install-constellation` after an update stay on the old discipline layer forever, and `greeting-checkin` can't detect it because the bump doesn't install it.
+
+`session-health-monitoring` has been part of the bootstrap since v0.3.0, so it's present on every user machine that ran `install-constellation` at least once. Patching its body with a once-per-session drift check gives us a fallback path that reaches users `greeting-checkin` can't.
+
+**How it works** (documented in the instruction body):
+
+1. Reads `~/.copilot/instructions/.alex-act-bootstrap.json` for `coreVersion` (the version that installed the current bootstrap)
+2. Reads `~/.copilot/installed-plugins/alex-mall/alex-act-core/plugin.json` for `version` (the currently installed Core plugin)
+3. Reads `~/.copilot/instructions/.alex-act-session-hint.json` for `driftNudgeSurfacedThisSession` (once-per-session guard)
+4. If versions differ AND no nudge given yet this session, prints a one-line non-blocking nudge: *"Alex ACT discipline layer is from Core v`<X>` but installed Core is v`<Y>`. Run `/alex-act-core install-constellation` (Step 6 refreshes the bootstrap)."*
+5. Writes `driftNudgeSurfacedThisSession: true` to the session hint file — no repeats within the same session
+
+**Do-NOT-fire guards**:
+
+- Either file missing (fresh install — `install-constellation` owns that path)
+- Versions match exactly
+- Nudge already surfaced this session
+- Greeting patterns (deferred to `greeting-checkin`; no double-nudge)
+- User invoked `/alex-act-core install-constellation` in the same session
+
+**What ships**:
+
+- **Modified**: `.github/instructions/session-health-monitoring.instructions.md` — new `## Bootstrap Drift Detection (Alex ACT constellation)` section; `description` frontmatter expanded to mention drift-detection; `lastReviewed` bumped to 2026-08-01
+- **Modified**: `.github/skills/install-constellation/bootstrap/alex-act-session-health-monitoring.instructions.md` — byte-identical mirror
+- **Modified**: `plugin.json` version 0.4.0 → 0.4.1
+- **Modified**: `manifest.json` version 0.4.0 → 0.4.1
+
+**No new files, no bootstrap count change.** Bootstrap payload remains 16 files, ~78 KB / ~20K tokens.
+
+**Design constraints** — the drift-detection lives in `session-health-monitoring` because it's the least-scope-creeping home for a session-level health signal. Alternative placements considered:
+
+- `plugin-management` skill (but skills fire on description-match, not deterministically — cannot guarantee it runs)
+- `update-plugins` skill (only fires if user goes through `/alex-act-core update-plugins`, not bare `copilot plugin update --all`)
+- `sessionStart` hook (plugin-native but hooks don't fire in VS Code Chat per empirical probes — CLI-only)
+
+Only an always-on instruction that is already in the pre-v0.4.0 bootstrap can reach every user with a stale discipline layer. `session-health-monitoring` is the only fit.
+
 ## [0.4.0] - 2026-08-01
 
 ### Added — `/uninstall-constellation` skill + prompt + `greeting-checkin` install-experience overhaul (lifecycle capstone)
