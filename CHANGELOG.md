@@ -4,6 +4,46 @@ All notable changes to `alex-act-core` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-08-01
+
+### Changed — instruction inventory consolidated to align with the plugin-delivery boundary (D-batch)
+
+v0.2.x shipped 34 instruction files, treating the instruction folder as the primary curation surface. That framing predated the empirical verification recorded in v0.2.0's CHANGELOG that `plugin.json` has no `instructions` component field and Copilot CLI's loading-order model covers only agents, skills, and MCP servers. The instruction inventory needed to be triaged against that boundary: which instructions carry content the plugin can actually deliver, and which are routing-only pointers whose job is already done by the paired skill's description-match discovery?
+
+The D-batch (2026-07-31) performed that triage across seven passes:
+
+- **D1** (`5e75a40`) — folded 7 routing-only instructions into their paired skills. Semantic review found 4 of the 7 carried content absent from the paired skill (three of it safety-relevant); each block was merged into the skill body before the instruction was removed. `plugin-management.instructions.md` was one of the seven — its routing table now lives in `plugin-management/SKILL.md` § When to fire.
+- **D2** (`a5e0c07`) — folded 2 differently-named routing instructions into their targets, aligning the instruction names with the skills they routed to.
+- **D3** (`8f15511`) — promoted 3 always-on instructions to Core skills (`worldview` → skill; two others regrouped); fixed broken ACT canon links.
+- **D4** (`1f04d8b`) — merged `knowledge-coverage` into `epistemic-calibration` (they were addressing the same content class with different vocabulary).
+- **D5** (`84c9fdc`) — expanded the `install-constellation` bootstrap payload from 7 to 13 files. Added `alex-act-lint-discipline`, `alex-act-no-deferred-debt`, `alex-act-emotional-intelligence`, `alex-act-reliance-nudges`, `alex-act-session-health-monitoring`, `alex-act-proactive-awareness` — each earning always-on status because their trigger is a per-message signal (feeling state, epistemic behavior, context-capacity, session-boundary) that cannot be recovered post-hoc. Mutual cross-refs added between `emotional-intelligence` and `reliance-nudges` because they read complementary axes of every user message.
+- **D6** (`8ffd3b2`) — split reference-heavy instructions into rule-only + skill pairs, keeping the always-on load minimal.
+- **D6.1** (`39b4423`) — reclassified `tool-awareness` D6→D3 mid-execution after audit found its three rules were absorbed into `platform-awareness` skill; description-match discovery covered the trigger vocabulary, so the always-on rule was redundant.
+
+**Net effect**:
+
+- Instruction count: 34 → 17
+- Bootstrap payload: 7 → 15 files (adds the D5 six + `worldview` + `memory-triggers`)
+- Bootstrap byte size: ~24 KB → 65.4 KB
+- Bootstrap token cost: ~7K → ~16.7K always-on tokens per session at user scope
+- Zero renamed / removed skills, prompts, or agents that heirs invoke by name
+
+**Migration**: heirs installing v0.3.0 fresh receive the 15-file bootstrap on their first `/install-constellation` Step 6. Heirs upgrading from v0.2.x will see Step 6's idempotency check detect the `coreVersion` mismatch and offer to rewrite the receipt with 8 additional bootstrap files. Consent-gated as always; declining leaves the workspace on the 7-file discipline set.
+
+### Added — `plugin-management` verify-marketplace-exists Safety rule
+
+`plugin-management/SKILL.md` (`df8b676`) grew a new Safety rule: verify a plugin exists in its claimed marketplace via `copilot plugin marketplace browse` before install, especially when the plugin name came from an external agent's recommendation. Description-match discovery + LLM inference can hallucinate plugin names — this rule closes the anti-hallucination gap. Learned from the 4-round GH-APP-SUPPORT feedback loop (§ 5.1 in-session plugin discovery gap). Matching anti-pattern row added.
+
+### Added — `install-constellation` visual workflow companions Step 7
+
+`install-constellation/SKILL.md` (`a2de9d4`) gained an "Optional: visual workflow companions" section cataloguing 9 marketplace plugins that compose with Core's constellation to close common visual-authoring workloads: `chromium-control-canvas` + `eyeball` + `diagram-viewer` + `napkin` + `image-annotations` + `chart-interpretation` + `visual-artifact-qa` + `visual-pr` + `storytelling-requirements`. Includes the vision-loop composition pattern (`chromium-control-canvas.screenshot → chart-interpretation → image-annotations` + `eyeball` for claim-audit) — the pattern that closed GH-APP-SUPPORT § 5.5's P1 recommendation ("multimodal vision as first-class runtime capability") by composition rather than new runtime capability.
+
+**Step 1 explicitly does NOT offer these companions** — they belong in Step 7 with per-plugin consent, never bundled with the core 4-plugin install. Step 7 report bullet updated to name the specific companion plugins that fit the heir's declared workload (never listing all 9 unconditionally).
+
+### Known follow-up carried forward
+
+- The `bootstrap/` copies still ship without a diff-time verification against `.github/instructions/`. Same falsifier as v0.2.1.
+- Steward's `constellation/PLUGIN-INTEGRATION.md` § 4 was reconciled against the D-batch state on 2026-08-01 (Steward commit `1c336b9`), and Steward's `constellation/USER-EXPERIENCE.md` on the same date (Steward commit `b2f602d`). Both now cite the 17-instruction + 15-file bootstrap counts consistent with this release.
 ## [0.2.1] - 2026-07-30
 
 ### Fixed — the v0.2.0 bootstrap had no source to copy from on Mall installs
