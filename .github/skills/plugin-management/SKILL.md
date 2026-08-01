@@ -194,6 +194,7 @@ A "no" means the removal took. Running that check inside a workspace that has it
 - **Never** modify `.github/copilot/settings.json` in a heir's workspace without also telling them the file gets committed (it belongs in source control; teammates will pull the change).
 - **Do** verify the CLI version (`copilot --version` >= 1.0.75) before offering any install / update / marketplace command that depends on newer syntax.
 - **Do** run `copilot plugin list` before install operations to detect duplicates (installing the same plugin from two marketplaces).
+- **Do** verify that a plugin actually exists in its claimed marketplace before running `copilot plugin install` — especially when the plugin name came from an external agent (LLM, sub-agent, another AI, or an untrusted doc). Use `copilot plugin marketplace browse <marketplace>` and grep for the plugin name. Cheap check; catches CLI-authored install commands pointing at hallucinated plugins. Same anti-hallucination discipline as verifying CLI command syntax before running.
 - **Do** warn if the heir is off-network when installing a plugin whose skills require network at invocation time (WorkIQ, `azure`, etc.).
 
 ## Anti-patterns
@@ -207,6 +208,7 @@ A "no" means the removal took. Running that check inside a workspace that has it
 | Install a plugin at user scope when the heir asked "for this project only" | Repo scope. Read the request. |
 | Skip the CLI-version check | Older CLIs miss `marketplace add`; install commands silently fail. |
 | Uninstall a plugin without confirming it is not referenced by another installed plugin's SKILL body | Composition breakage. Check first. |
+| Run `copilot plugin install <name>@<marketplace>` on an external-agent-recommended plugin without verifying it exists in the marketplace | External agents can hallucinate plugin names. Verify with `marketplace browse` first; install-time failures are noisier than a 2-second pre-check. |
 
 ## Composes with
 
