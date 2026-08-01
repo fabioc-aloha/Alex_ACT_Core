@@ -4,6 +4,26 @@ All notable changes to `alex-act-core` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] - 2026-08-01
+
+### Changed — install-constellation Step 7 visual-companions catalog moved to Illustrator
+
+Per Fabio directive: *"The visual companions should be bundled with the illustrator."* The 9-plugin visual-workflow-companions catalog + install offer that v0.3.0 shipped in `install-constellation` Step 7 (via commit `a2de9d4`) has moved ownership to `alex-act-illustrator-plugin` v0.6.0's new `install-visual-companions` skill (2026-08-01). Reverses the 2026-07-31 Option A (route-only) decision recorded in [Steward's illustrator/plan.md](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/illustrator/plan.md) — "visual-workflow ownership belongs with the visual-authoring plugin that anchors it" is a stronger architectural fit than "constellation-installer offers all downstream companions".
+
+**What changed in this skill**:
+
+- `install-constellation/SKILL.md` § "Optional: visual workflow companions" — replaced the 9-plugin catalog + install-time caveats + vision-loop composition + verified-status list with a routing pointer at Illustrator's `/install-visual-companions`. The single-source-of-truth for the catalog now lives in Illustrator to prevent drift across two plugins.
+- `install-constellation/SKILL.md` § Consent flow Step 1 — the "do not offer visual-workflow companions here" note now names Illustrator's `/install-visual-companions` as the correct offer surface.
+- `install-constellation/SKILL.md` § Step 7 Report bullet — simplified from "name the specific companion plugins that fit + print install commands + caveats" to "tell them to invoke `/install-visual-companions` after this install completes".
+
+**No behavior change for heirs on the four-plugin core install** — the constellation install flow (Core, Illustrator, Enterprise, MSFT with tenant-check) is unchanged. Only the visual-companions offer surface moved.
+
+**Upgrade path**: heirs already on v0.3.0 upgrade to v0.3.1 as a patch; the routing pointer in this skill assumes Illustrator v0.6.0+ is installed alongside (which any heir who completed `install-constellation` already has, since Illustrator is Stage 2 of the four-plugin flow). Older Illustrator (v0.5.1 or earlier) does not carry `install-visual-companions` — heirs would need to update Illustrator to see the new offer surface.
+
+Patch bump (0.3.0 → 0.3.1) rationale per Steward's version-management convention: internal doc-reorganization + cross-plugin ownership move, no removed skills, no renamed skills, no behavior change for heir workflows on the primary path.
+
+Companion Illustrator release: `alex-act-illustrator-plugin` v0.6.0 (2026-08-01) ships the new `install-visual-companions` skill + `/install-visual-companions` prompt with the full catalog.
+
 ## [0.3.0] - 2026-08-01
 
 ### Changed — instruction inventory consolidated to align with the plugin-delivery boundary (D-batch)
