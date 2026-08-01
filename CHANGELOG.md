@@ -4,6 +4,22 @@ All notable changes to `alex-act-core` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.2] - 2026-08-01
+
+### Fixed - fresh-install and plugin CLI contracts
+
+1. Fresh installs now honestly require `/alex-act-core install-constellation`. `greeting-checkin` is post-bootstrap repair and update only because the instruction itself is copied by Step 6.
+2. Unsupported Copilot CLI 1.0.77 subcommands `plugin info`, `plugin remove`, and `plugin search` were removed from active guidance. Supported paths now use `plugin list`, `marketplace browse`, `uninstall`, settings inspection, and installed `plugin.json` fallback checks.
+3. The install prompt now includes a separately consented Step 6 bootstrap path and a final structured report.
+4. Direct `alex-act-msft` install now explicitly merges bare `alex-act-msft: true` into `enabledPlugins` and surfaces the direct-install deprecation warning.
+5. Plugin command prompts are now self-contained when the VS Code generic skill tool omits installed plugin skills, and they no longer report missing capability from that tool result alone.
+6. `plugin.json` and `manifest.json` living counts were corrected to 18 instructions, with 16 bootstrapped.
+7. A new `npm test` gate now runs 8 tests covering supported verbs, first-run command path, prompt fallback, bootstrap count, source and mirror SHA equality, receipt parity, and metadata parity.
+
+Evidence: helper-repo transcript session `b85246f6-4075-414c-a5d9-41b84d5c97f5`, VS Code 1.131, Copilot CLI 1.0.77, and `helper/meta/plugin-testing-feedback.md`.
+
+Patch scope: no skill, prompt, or instruction additions or removals. The 16-file bootstrap set is unchanged.
+
 ## [0.4.1] - 2026-08-01
 
 ### Added — bootstrap drift detection in `session-health-monitoring`
