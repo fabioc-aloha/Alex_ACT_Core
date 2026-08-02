@@ -1,8 +1,8 @@
 {
   "name": "alex-act-core",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "private": true,
   "scripts": {
-    "test": "node --test scripts/test-bootstrap-contract.cjs scripts/test-plugin-cli-contract.cjs scripts/test-memory-filesystem-contract.cjs scripts/test-personality-reference.cjs"
+    "test": "node --test scripts/test-bootstrap-contract.cjs scripts/test-plugin-cli-contract.cjs scripts/test-memory-filesystem-contract.cjs scripts/test-personality-reference.cjs scripts/test-workspace-bootstrap.cjs"
   }
 }

@@ -1,0 +1,10 @@
+{
+  "settings": {
+    "markdown.styles": [
+      ".vscode/markdown-light.css"
+    ]
+  },
+  "mergeMode": {
+    "markdown.styles": "set-if-absent"
+  }
+}

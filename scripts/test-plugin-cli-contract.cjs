@@ -1,5 +1,7 @@
 const assert = require('node:assert/strict');
+const { execFileSync, spawnSync } = require('node:child_process');
 const fs = require('node:fs');
+const os = require('node:os');
 const path = require('node:path');
 const test = require('node:test');
 
@@ -62,14 +64,9 @@ test('install prompt includes separately consented bootstrap', () => {
 });
 
 test('plugin command prompts survive an unavailable generic skill tool', () => {
-  const prompts = [
-    '.github/prompts/install-constellation.prompt.md',
-    '.github/prompts/meditate.prompt.md',
-    '.github/prompts/plugin-status.prompt.md',
-    '.github/prompts/status.prompt.md',
-    '.github/prompts/update-plugins.prompt.md',
-    '.github/prompts/uninstall-constellation.prompt.md',
-  ];
+  const prompts = fs.readdirSync(path.join(root, '.github', 'prompts'))
+    .filter((name) => name.endsWith('.prompt.md'))
+    .map((name) => `.github/prompts/${name}`);
 
   for (const promptPath of prompts) {
     const prompt = read(promptPath);
@@ -79,4 +76,62 @@ test('plugin command prompts survive an unavailable generic skill tool', () => {
       `${promptPath} needs an explicit skill-tool fallback`,
     );
   }
+});
+
+test('workspace bootstrap has a namespaced prompt and detailed skill contract', () => {
+  const prompt = read('.github/prompts/bootstrap-workspace.prompt.md');
+  const skill = read('.github/skills/bootstrap-workspace/SKILL.md');
+
+  assert.match(prompt, /bootstrap-workspace/);
+  assert.match(prompt, /generic skill tool.*unavailable/i);
+  assert.match(prompt, /preview/i);
+  assert.match(prompt, /explicit consent/i);
+  assert.match(skill, /markdown\.styles/);
+  assert.match(skill, /set-if-absent/i);
+  assert.match(skill, /preserve/i);
+  assert.match(skill, /user settings/i);
+});
+
+test('install flow verifies exact versions and reports activation by plane', () => {
+  const prompt = read('.github/prompts/install-constellation.prompt.md');
+  const skill = read('.github/skills/install-constellation/SKILL.md');
+  const management = read('.github/skills/plugin-management/SKILL.md');
+
+  assert.match(management, /\.github\/plugin\/marketplace\.json/);
+  assert.match(management, /exact (?:plugin )?record/i);
+  assert.match(skill, /bootstrap-only/i);
+  assert.match(skill, /AI.*smoke.*optional|optional.*AI.*smoke/is);
+  for (const plane of ['installed', 'enabled', 'instruction-loaded', 'skill-invokable']) {
+    assert.match(`${prompt}\n${skill}`, new RegExp(plane, 'i'));
+  }
+});
+
+test('marketplace version resolver selects exact records and fails on missing plugins', (t) => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'core-marketplace-versions-'));
+  t.after(() => fs.rmSync(directory, { recursive: true, force: true }));
+  const fixture = path.join(directory, 'marketplace.json');
+  fs.writeFileSync(fixture, JSON.stringify({
+    plugins: [
+      { name: 'alex-act-core', version: '0.5.1', source: 'plugins/core' },
+      { name: 'alex-act-enterprise', version: '0.1.2', source: 'plugins/enterprise' },
+    ],
+  }));
+  const script = path.join(root, '.github', 'skills', 'plugin-management', 'scripts', 'marketplace-versions.cjs');
+  const output = JSON.parse(execFileSync(process.execPath, [
+    script,
+    '--file', fixture,
+    '--plugins', 'alex-act-core,alex-act-enterprise',
+  ], { encoding: 'utf8' }));
+  assert.deepEqual(output, [
+    { name: 'alex-act-core', version: '0.5.1', source: 'plugins/core' },
+    { name: 'alex-act-enterprise', version: '0.1.2', source: 'plugins/enterprise' },
+  ]);
+
+  const missing = spawnSync(process.execPath, [
+    script,
+    '--file', fixture,
+    '--plugins', 'not-real',
+  ], { encoding: 'utf8' });
+  assert.notEqual(missing.status, 0);
+  assert.match(missing.stderr, /plugin record not found: not-real/);
 });

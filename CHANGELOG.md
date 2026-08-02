@@ -6,7 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-08-02
+
+### Added
+
+- Added `/alex-act-core bootstrap-workspace`, a preview-first deterministic repository setup flow for workspace-relative Markdown Preview CSS, JSONC-safe set-if-absent settings, and selective `.gitignore` tracking.
+- Added exact `alex-mall` marketplace-record version resolution through `plugin-management/scripts/marketplace-versions.cjs`.
+
 ### Changed
+
+- Generalized installed-file fallback across every Core namespaced command when the host's generic skill tool rejects a plugin-shipped skill.
+- Added compact bootstrap-only repair, deterministic receipt/hash verification by default, separately consented AI smoke testing, and four-plane activation reporting to `install-constellation`.
+- Corrected CSS scope guidance: local stylesheets are workspace-relative; user-scope `markdown.styles` guidance uses HTTPS rather than an absolute local path.
 
 - Moved the shared-Memory project-isolation boundary to its enforcement points: the always-on `memory-triggers` instruction now routes every shared write through `ai-memory-setup`, and that skill owns the detailed stripping, direct-write, refusal, validation, and local-fallback procedure.
 
