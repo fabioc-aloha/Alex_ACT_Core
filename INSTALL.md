@@ -10,7 +10,7 @@ Last verified: 2026-08-02.
 
 | Component | Version | Distribution |
 | --- | --- | --- |
-| Core | `0.6.4` | `alex-act-core@alex-mall` |
+| Core | `0.6.5` | `alex-act-core@alex-mall` |
 | Illustrator | `0.6.4` | `alex-act-illustrator-plugin@alex-mall` |
 | Enterprise | `0.1.4` | `alex-act-enterprise@alex-mall` |
 | MSFT | `0.1.3` | Private direct install, tenant-gated |
