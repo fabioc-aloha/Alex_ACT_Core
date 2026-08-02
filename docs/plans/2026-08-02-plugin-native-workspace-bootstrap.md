@@ -132,7 +132,7 @@ Expected: failure because the prompt, skill, and script do not yet exist.
 
 **Files:**
 
-- Create: `C:\Development\Alex_ACT_Core\.github\skills\bootstrap-workspace\scripts\workspace-settings-merger.cjs`
+- Implement JSONC merge helpers inside `bootstrap-workspace.cjs`; the initially planned separate helper was consolidated in v0.6.1 to keep the Mall payload within its 100-file Windows limit.
 - Test: `C:\Development\Alex_ACT_Core\scripts\test-workspace-bootstrap.cjs`
 - Source reference: `C:\Development\Alex_ACT_Edition\.github\scripts\shared\workspace-settings-merger.cjs`
 

@@ -52,7 +52,7 @@ test('existing CSS and custom markdown.styles are preserved', (t) => {
   fs.writeFileSync(settingsPath, originalSettings);
   const plan = JSON.parse(run(target, '--apply'));
   const currentSettings = fs.readFileSync(settingsPath, 'utf8');
-  const { stripJsonc } = require('../.github/skills/bootstrap-workspace/scripts/workspace-settings-merger.cjs');
+  const { stripJsonc } = require('../.github/skills/bootstrap-workspace/scripts/bootstrap-workspace.cjs');
   const settings = JSON.parse(stripJsonc(currentSettings));
   assert.equal(fs.readFileSync(path.join(target, '.vscode', 'markdown-light.css'), 'utf8'), 'custom-css\n');
   assert.equal(currentSettings, originalSettings);
