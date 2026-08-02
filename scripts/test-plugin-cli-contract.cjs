@@ -106,6 +106,17 @@ test('install flow verifies exact versions and reports activation by plane', () 
   }
 });
 
+test('generic consent apply registers marketplaces before installing plugins', () => {
+  const management = read('.github/skills/plugin-management/SKILL.md');
+  const applySection = management.match(/### 2\. Consent-gated apply([\s\S]*?)### 3\. Audit only/)?.[1];
+  assert(applySection, 'plugin-management consent-gated apply section is missing');
+  const registerIndex = applySection.indexOf('Run `copilot plugin marketplace add`');
+  const installIndex = applySection.indexOf('Run `copilot plugin install`');
+  assert(registerIndex >= 0, 'consent apply must register new marketplaces');
+  assert(installIndex >= 0, 'consent apply must install newly enabled plugins');
+  assert(registerIndex < installIndex, 'marketplaces must be registered before plugin installation');
+});
+
 test('marketplace version resolver selects exact records and fails on missing plugins', (t) => {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'core-marketplace-versions-'));
   t.after(() => fs.rmSync(directory, { recursive: true, force: true }));
