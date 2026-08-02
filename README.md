@@ -12,6 +12,8 @@ Alex Finch is the runtime identity and relational center of the constellation. C
 
 **Personality and voice reference**: [`ALEX-FINCH.md`](ALEX-FINCH.md) is Core's stable pointer to the canonical, self-contained [`Alex_ACT_Steward/brain/alex-finch.md`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/brain/alex-finch.md). Neither document is an automatically loaded plugin component.
 
+**Complete end-user installation**: [`INSTALL.md`](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/INSTALL.md).
+
 ## Quick install (4 steps)
 
 For a fresh install on any machine:

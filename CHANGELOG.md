@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Added a reset-free end-user `INSTALL.md` covering full constellation setup, Core instruction bootstrap, activation verification, optional workloads, and updates.
+
 ## [0.6.3] - 2026-08-02
 
 ### Fixed
