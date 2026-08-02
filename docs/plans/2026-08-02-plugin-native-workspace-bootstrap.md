@@ -132,7 +132,7 @@ Expected: failure because the prompt, skill, and script do not yet exist.
 
 **Files:**
 
-- Implement JSONC merge helpers inside `bootstrap-workspace.cjs`; the initially planned separate helper was consolidated in v0.6.1 to keep the Mall payload within its 100-file Windows limit.
+- Implement JSONC merge helpers inside `plugin-management/scripts/core-operations.cjs`; the initially planned separate files were consolidated by v0.6.2 to keep the complete Mall payload within its 100-file Windows limit.
 - Test: `C:\Development\Alex_ACT_Core\scripts\test-workspace-bootstrap.cjs`
 - Source reference: `C:\Development\Alex_ACT_Edition\.github\scripts\shared\workspace-settings-merger.cjs`
 
@@ -170,8 +170,8 @@ Expected: merger tests pass; full bootstrap tests still fail because the command
 
 **Files:**
 
-- Create: `C:\Development\Alex_ACT_Core\.github\skills\bootstrap-workspace\scripts\bootstrap-workspace.cjs`
-- Create: `C:\Development\Alex_ACT_Core\.github\skills\bootstrap-workspace\workspace-settings-baseline.json`
+- Create one shared deterministic runtime: `C:\Development\Alex_ACT_Core\.github\skills\plugin-management\scripts\core-operations.cjs`
+- Embed the one-key workspace baseline in that runtime to preserve Mall packaging headroom
 - Reuse: `C:\Development\Alex_ACT_Core\.github\skills\markdown-mermaid\markdown-light.css`
 - Test: `C:\Development\Alex_ACT_Core\scripts\test-workspace-bootstrap.cjs`
 

@@ -8,7 +8,7 @@ const path = require('node:path');
 const test = require('node:test');
 
 const root = path.resolve(__dirname, '..');
-const script = path.join(root, '.github', 'skills', 'bootstrap-workspace', 'scripts', 'bootstrap-workspace.cjs');
+const script = path.join(root, '.github', 'skills', 'plugin-management', 'scripts', 'core-operations.cjs');
 
 function workspace(t) {
   const value = fs.mkdtempSync(path.join(os.tmpdir(), 'core-workspace-bootstrap-'));
@@ -17,7 +17,7 @@ function workspace(t) {
 }
 
 function run(target, ...args) {
-  return execFileSync(process.execPath, [script, '--target', target, ...args], {
+  return execFileSync(process.execPath, [script, 'bootstrap-workspace', '--target', target, ...args], {
     cwd: root,
     encoding: 'utf8',
   });
@@ -52,7 +52,7 @@ test('existing CSS and custom markdown.styles are preserved', (t) => {
   fs.writeFileSync(settingsPath, originalSettings);
   const plan = JSON.parse(run(target, '--apply'));
   const currentSettings = fs.readFileSync(settingsPath, 'utf8');
-  const { stripJsonc } = require('../.github/skills/bootstrap-workspace/scripts/bootstrap-workspace.cjs');
+  const { stripJsonc } = require('../.github/skills/plugin-management/scripts/core-operations.cjs');
   const settings = JSON.parse(stripJsonc(currentSettings));
   assert.equal(fs.readFileSync(path.join(target, '.vscode', 'markdown-light.css'), 'utf8'), 'custom-css\n');
   assert.equal(currentSettings, originalSettings);
@@ -66,7 +66,7 @@ test('malformed JSONC stops before any write', (t) => {
   fs.mkdirSync(path.join(target, '.vscode'), { recursive: true });
   const settings = path.join(target, '.vscode', 'settings.json');
   fs.writeFileSync(settings, '{ broken');
-  const result = spawnSync(process.execPath, [script, '--target', target, '--apply'], {
+  const result = spawnSync(process.execPath, [script, 'bootstrap-workspace', '--target', target, '--apply'], {
     cwd: root,
     encoding: 'utf8',
   });

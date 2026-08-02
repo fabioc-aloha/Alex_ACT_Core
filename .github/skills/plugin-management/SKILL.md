@@ -63,7 +63,7 @@ Self-contained prompts do not need a skill read; they continue their numbered st
 The bundled resolver returns only requested records:
 
 ```powershell
-node <plugin-management-skill>/scripts/marketplace-versions.cjs `
+node <plugin-management-skill>/scripts/core-operations.cjs marketplace-versions `
   --plugins alex-act-core,alex-act-illustrator-plugin,alex-act-enterprise
 ```
 

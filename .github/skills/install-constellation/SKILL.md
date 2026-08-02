@@ -60,7 +60,7 @@ If a plugin is already installed at the target version, skip it and continue wit
 Resolve target versions deterministically before deciding that a marketplace plugin is current:
 
 ```powershell
-node <plugin-management-skill>/scripts/marketplace-versions.cjs `
+node <plugin-management-skill>/scripts/core-operations.cjs marketplace-versions `
   --plugins alex-act-core,alex-act-illustrator-plugin,alex-act-enterprise
 ```
 

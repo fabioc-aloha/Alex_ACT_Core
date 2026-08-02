@@ -24,12 +24,12 @@ Provision the current repository's workspace files for plugin-native Alex ACT us
 
 ## Runtime
 
-The deterministic runtime already exists at `scripts/bootstrap-workspace.cjs` in this skill folder.
+The deterministic runtime is shared at `../plugin-management/scripts/core-operations.cjs` so Core's complete plugin payload stays within the Copilot CLI Windows file limit.
 
 Command surface:
 
 ```text
-node <skill>/scripts/bootstrap-workspace.cjs [--target <path>] [--apply]
+node <plugin-management-skill>/scripts/core-operations.cjs bootstrap-workspace [--target <path>] [--apply]
 ```
 
 Rules:

@@ -5,7 +5,17 @@ const crypto = require('node:crypto');
 const fs = require('node:fs');
 const path = require('node:path');
 
-function parseArgs(args) {
+const DEFAULT_MARKETPLACE_URL = 'https://raw.githubusercontent.com/fabioc-aloha/Alex_Skill_Mall/main/.github/plugin/marketplace.json';
+const WORKSPACE_BASELINE = Object.freeze({
+  settings: {
+    'markdown.styles': ['.vscode/markdown-light.css'],
+  },
+  mergeMode: {
+    'markdown.styles': 'set-if-absent',
+  },
+});
+
+function parseWorkspaceArgs(args) {
   const parsed = { apply: false, target: process.cwd() };
   for (let index = 0; index < args.length; index++) {
     const value = args[index];
@@ -15,6 +25,20 @@ function parseArgs(args) {
       parsed.target = args[++index];
     } else throw new Error(`unknown argument: ${value}`);
   }
+  return parsed;
+}
+
+function parseMarketplaceArgs(args) {
+  const parsed = { file: null, url: DEFAULT_MARKETPLACE_URL, plugins: [] };
+  for (let index = 0; index < args.length; index++) {
+    const value = args[index];
+    if (value === '--file' || value === '--url' || value === '--plugins') {
+      if (!args[index + 1] || args[index + 1].startsWith('--')) throw new Error(`${value} requires a value`);
+      parsed[value.slice(2)] = args[++index];
+    } else throw new Error(`unknown argument: ${value}`);
+  }
+  parsed.plugins = String(parsed.plugins).split(',').map((name) => name.trim()).filter(Boolean);
+  if (!parsed.plugins.length) throw new Error('--plugins requires at least one plugin name');
   return parsed;
 }
 
@@ -69,14 +93,7 @@ function stripJsonc(text) {
   return output.replace(/,\s*([}\]])/g, '$1');
 }
 
-function mergeWorkspaceSettings(workspaceRoot, baselinePath) {
-  let baseline;
-  try {
-    baseline = JSON.parse(fs.readFileSync(baselinePath, 'utf8'));
-  } catch (error) {
-    return { ok: false, error: `Cannot read baseline at ${baselinePath}: ${error.message}` };
-  }
-
+function mergeWorkspaceSettings(workspaceRoot, baseline = WORKSPACE_BASELINE) {
   const settingsFile = path.join(workspaceRoot, '.vscode', 'settings.json');
   const existed = fs.existsSync(settingsFile);
   let existing = {};
@@ -116,10 +133,6 @@ function writeAtomic(file, content) {
   fs.renameSync(temporary, file);
 }
 
-function writeMerged(result) {
-  writeAtomic(result.settingsFile, `${JSON.stringify(result.merged, null, 2)}\n`);
-}
-
 function planGitignore(target) {
   const file = path.join(target, '.gitignore');
   if (!fs.existsSync(file)) return { action: 'none', file, content: null, changes: [] };
@@ -139,35 +152,32 @@ function planGitignore(target) {
   };
 }
 
-function buildPlan(target, apply) {
+function buildWorkspacePlan(target, apply) {
   const workspace = path.resolve(target);
   if (!fs.existsSync(workspace) || !fs.statSync(workspace).isDirectory()) {
     throw new Error(`workspace target is not a directory: ${workspace}`);
   }
 
-  const skillRoot = path.resolve(__dirname, '..');
-  const cssSource = path.resolve(skillRoot, '..', 'markdown-mermaid', 'markdown-light.css');
+  const skillsRoot = path.resolve(__dirname, '..', '..');
+  const cssSource = path.join(skillsRoot, 'markdown-mermaid', 'markdown-light.css');
   if (!fs.existsSync(cssSource)) throw new Error(`packaging defect: Markdown CSS missing at ${cssSource}`);
   const cssContent = fs.readFileSync(cssSource);
   const cssDestination = path.join(workspace, '.vscode', 'markdown-light.css');
-  const cssExists = fs.existsSync(cssDestination);
-  const baseline = path.join(skillRoot, 'workspace-settings-baseline.json');
-  const settings = mergeWorkspaceSettings(workspace, baseline);
+  const settings = mergeWorkspaceSettings(workspace);
   if (!settings.ok) throw new Error(settings.error);
-  const settingsAction = !settings.existed ? 'create' : settings.changes.length ? 'merge' : 'preserve';
 
   return {
     target: workspace,
     apply,
     css: {
-      action: cssExists ? 'preserve' : 'create',
+      action: fs.existsSync(cssDestination) ? 'preserve' : 'create',
       source: cssSource,
       destination: cssDestination,
       bytes: cssContent.length,
       sha256: sha256(cssContent),
     },
     settings: {
-      action: settingsAction,
+      action: !settings.existed ? 'create' : settings.changes.length ? 'merge' : 'preserve',
       destination: settings.settingsFile,
       changes: settings.changes,
       skipped: settings.skipped,
@@ -179,7 +189,7 @@ function buildPlan(target, apply) {
   };
 }
 
-function applyPlan(plan) {
+function applyWorkspacePlan(plan) {
   if (plan.css.action === 'create') {
     fs.mkdirSync(path.dirname(plan.css.destination), { recursive: true });
     const temporary = `${plan.css.destination}.tmp-${process.pid}`;
@@ -189,34 +199,76 @@ function applyPlan(plan) {
       throw new Error('Markdown CSS hash verification failed after copy');
     }
   }
-  if (plan.settings.action !== 'preserve') writeMerged(plan._settingsResult);
+  if (plan.settings.action !== 'preserve') {
+    writeAtomic(plan._settingsResult.settingsFile, `${JSON.stringify(plan._settingsResult.merged, null, 2)}\n`);
+  }
   if (plan.gitignore.action !== 'none') writeAtomic(plan.gitignore.file, plan.gitignore.content);
 }
 
-function publicPlan(plan) {
+function publicWorkspacePlan(plan) {
   const { _settingsResult, _cssContent, ...output } = plan;
   const { content, ...gitignore } = output.gitignore;
   return { ...output, gitignore };
 }
 
-function main() {
-  const args = parseArgs(process.argv.slice(2));
-  const plan = buildPlan(args.target, args.apply);
-  if (args.apply) applyPlan(plan);
-  process.stdout.write(`${JSON.stringify(publicPlan(plan), null, 2)}\n`);
+async function loadMarketplace(args) {
+  if (args.file) return JSON.parse(fs.readFileSync(args.file, 'utf8'));
+  const response = await fetch(args.url, {
+    headers: { 'user-agent': 'alex-act-core-marketplace-version-check' },
+    signal: AbortSignal.timeout(10000),
+  });
+  if (!response.ok) throw new Error(`marketplace fetch failed: HTTP ${response.status}`);
+  return response.json();
+}
+
+function selectMarketplaceRecords(marketplace, requested) {
+  if (!Array.isArray(marketplace.plugins)) throw new Error('marketplace plugins array is missing');
+  return requested.map((name) => {
+    const matches = marketplace.plugins.filter((plugin) => plugin.name === name);
+    if (!matches.length) throw new Error(`plugin record not found: ${name}`);
+    if (matches.length > 1) throw new Error(`duplicate plugin records found: ${name}`);
+    const { version, source } = matches[0];
+    if (!version || !source) throw new Error(`plugin record is incomplete: ${name}`);
+    return { name, version, source };
+  });
+}
+
+async function main() {
+  const [command, ...args] = process.argv.slice(2);
+  if (command === 'bootstrap-workspace') {
+    const parsed = parseWorkspaceArgs(args);
+    const plan = buildWorkspacePlan(parsed.target, parsed.apply);
+    if (parsed.apply) applyWorkspacePlan(plan);
+    process.stdout.write(`${JSON.stringify(publicWorkspacePlan(plan), null, 2)}\n`);
+    return;
+  }
+  if (command === 'marketplace-versions') {
+    const parsed = parseMarketplaceArgs(args);
+    const marketplace = await loadMarketplace(parsed);
+    process.stdout.write(`${JSON.stringify(selectMarketplaceRecords(marketplace, parsed.plugins), null, 2)}\n`);
+    return;
+  }
+  throw new Error(`unknown command: ${command || '<missing>'}`);
 }
 
 if (require.main === module) {
-  try { main(); }
-  catch (error) { console.error(`ERROR: ${error.message}`); process.exitCode = 1; }
+  main().catch((error) => {
+    console.error(`ERROR: ${error.message}`);
+    process.exitCode = 1;
+  });
 }
 
 module.exports = {
-  buildPlan,
+  DEFAULT_MARKETPLACE_URL,
+  WORKSPACE_BASELINE,
+  applyWorkspacePlan,
+  buildWorkspacePlan,
+  loadMarketplace,
   mergeWorkspaceSettings,
-  parseArgs,
+  parseMarketplaceArgs,
+  parseWorkspaceArgs,
   planGitignore,
+  selectMarketplaceRecords,
   stripJsonc,
   writeAtomic,
-  writeMerged,
 };

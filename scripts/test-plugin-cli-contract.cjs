@@ -116,9 +116,10 @@ test('marketplace version resolver selects exact records and fails on missing pl
       { name: 'alex-act-enterprise', version: '0.1.2', source: 'plugins/enterprise' },
     ],
   }));
-  const script = path.join(root, '.github', 'skills', 'plugin-management', 'scripts', 'marketplace-versions.cjs');
+  const script = path.join(root, '.github', 'skills', 'plugin-management', 'scripts', 'core-operations.cjs');
   const output = JSON.parse(execFileSync(process.execPath, [
     script,
+    'marketplace-versions',
     '--file', fixture,
     '--plugins', 'alex-act-core,alex-act-enterprise',
   ], { encoding: 'utf8' }));
@@ -129,6 +130,7 @@ test('marketplace version resolver selects exact records and fails on missing pl
 
   const missing = spawnSync(process.execPath, [
     script,
+    'marketplace-versions',
     '--file', fixture,
     '--plugins', 'not-real',
   ], { encoding: 'utf8' });
