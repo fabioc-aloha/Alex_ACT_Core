@@ -26,8 +26,8 @@ const bootstrapFiles = fs.readdirSync(bootstrapDirectory)
   .filter((name) => name.endsWith('.instructions.md'))
   .sort();
 
-test('bootstrap contains exactly sixteen instruction files', () => {
-  assert.equal(bootstrapFiles.length, 16);
+test('bootstrap contains exactly seventeen instruction files', () => {
+  assert.equal(bootstrapFiles.length, 17);
 });
 
 test('every bootstrap instruction matches its Core source', () => {
@@ -55,13 +55,13 @@ test('install skill receipt names every bootstrap file', () => {
   assert.deepEqual(declared, bootstrapFiles);
 });
 
-test('living metadata reports eighteen instructions and sixteen bootstrap files', () => {
+test('living metadata reports nineteen instructions and seventeen bootstrap files', () => {
   const manifest = JSON.parse(read('manifest.json'));
   const plugin = JSON.parse(read('plugin.json'));
 
-  assert.equal(manifest.assets.instructions.length, 18);
-  assert.match(manifest.description, /sixteen/i);
-  assert.doesNotMatch(manifest.description, /fifteen load-bearing/i);
-  assert.match(plugin.description, /18 ACT instructions/);
-  assert.match(plugin.description, /sixteen load-bearing/i);
+  assert.equal(manifest.assets.instructions.length, 19);
+  assert.match(manifest.description, /seventeen/i);
+  assert.doesNotMatch(manifest.description, /sixteen load-bearing/i);
+  assert.match(plugin.description, /19 instructions/);
+  assert.match(plugin.description, /seventeen load-bearing/i);
 });
