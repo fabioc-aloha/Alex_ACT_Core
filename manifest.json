@@ -1,9 +1,9 @@
 {
-  "$comment": "Mall-side plugin manifest. Describes the Core payload and install destinations. Ships 19 instructions (17 always-on bootstrap resources + 2 pattern-applied), 41 skills, 13 slash-command prompts, and the plugin lifecycle surface. Growth continues through evidence-gated Steward proposals.",
+  "$comment": "Mall-side plugin manifest. Describes the Core payload and install destinations. Ships 18 instructions (17 always-on bootstrap resources + 1 pattern-applied), 41 skills, 13 slash-command prompts, and the plugin lifecycle surface. Growth continues through evidence-gated Steward proposals.",
   "plugin": "alex-act-core",
   "version": "0.5.1",
-  "shape": "nineteen-instructions + forty-one-skills + thirteen-prompts (Alex Finch runtime personality + ACT canon + cognitive discipline + reasoning muscles + meditation loop + document converters + security & privacy + tooling awareness + git/lint/mcp + craft skills + sundries + plugin-management operational surface; svg-banner + /banner un-ported to Alex_ACT_Illustrator_Plugin on 2026-07-30; D1-D6 dispositions completed 2026-07-31: 9 routing-only instructions folded, 3 promoted to skills, 3 reference-heavy instructions split into rule-only + skill pairs, 4 instructions deleted after content absorbed elsewhere including a post-audit D6→D3 reclassification of tool-awareness)",
-  "description": "The Alex ACT baseline plugin and plugin-native successor to Alex_ACT_Edition v4.2.0. Installs 41 reusable skills and 13 slash-command prompts. Core authors 19 instructions; /alex-act-core install-constellation separately bootstraps the seventeen load-bearing always-on instructions, including the Alex Finch runtime personality contract, to ~/.copilot/instructions/ because plugin.json has no instructions component field. The same workflow installs and activates Illustrator, Enterprise, and tenant-gated MSFT plugins. Maintained by Alex_ACT_Steward through evidence-gated proposals.",
+  "shape": "eighteen-instructions + forty-one-skills + thirteen-prompts (Alex Finch runtime personality + ACT canon + cognitive discipline + reasoning muscles + meditation loop + document converters + security & privacy + tooling awareness + git/lint/mcp + craft skills + sundries + plugin-management operational surface; svg-banner + /banner un-ported to Alex_ACT_Illustrator_Plugin on 2026-07-30; D1-D6 dispositions completed 2026-07-31: 9 routing-only instructions folded, 3 promoted to skills, 3 reference-heavy instructions split into rule-only + skill pairs, 5 instructions deleted after content was absorbed by their owning runtime surfaces)",
+  "description": "The Alex ACT baseline plugin and plugin-native successor to Alex_ACT_Edition v4.2.0. Installs 41 reusable skills and 13 slash-command prompts. Core authors 18 instructions; /alex-act-core install-constellation separately bootstraps the seventeen load-bearing always-on instructions, including the Alex Finch runtime personality contract, to ~/.copilot/instructions/ because plugin.json has no instructions component field. The same workflow installs and activates Illustrator, Enterprise, and tenant-gated MSFT plugins. Maintained by Alex_ACT_Steward through evidence-gated proposals.",
   "homepage": "https://github.com/fabioc-aloha/Alex_ACT_Core",
   "license": "MIT",
   "authors": [
@@ -293,13 +293,6 @@
         "install_to": ".github/instructions/critical-thinking.instructions.md",
         "role": "7-discipline content-oriented critical thinking protocol (Two-Hypothesis Floor, user-framing audit, missing data, evidence quality, bias detection, falsifiability, adversarial review)",
         "applyTo": "**/*"
-      },
-      {
-        "name": "cross-project-isolation",
-        "path": ".github/instructions/cross-project-isolation.instructions.md",
-        "install_to": ".github/instructions/cross-project-isolation.instructions.md",
-        "role": "strip project specifics before writing to user-shared fleet channels (Alex_ACT_Memory, announcements) — distinct from pii-memory-filter (identity) by protecting project boundaries (scope); refuses on-request override",
-        "applyTo": "**/Alex_ACT_Memory/**,**/announcements/**,**/*fleet*"
       },
       {
         "name": "emotional-intelligence",

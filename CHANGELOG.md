@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Moved the shared-Memory project-isolation boundary to its enforcement points: the always-on `memory-triggers` instruction now routes every shared write through `ai-memory-setup`, and that skill owns the detailed stripping, direct-write, refusal, validation, and local-fallback procedure.
+
+### Removed
+
+- Removed the standalone pattern-applied `cross-project-isolation.instructions.md`. Its workspace-relative `applyTo` paths could fail open when a shared-Memory write originated from another repository, while duplicating policy already required by `ai-memory-setup`.
+
 ## [0.5.1] - 2026-08-01
 
 ### Fixed

@@ -55,13 +55,13 @@ test('install skill receipt names every bootstrap file', () => {
   assert.deepEqual(declared, bootstrapFiles);
 });
 
-test('living metadata reports nineteen instructions and seventeen bootstrap files', () => {
+test('living metadata reports eighteen instructions and seventeen bootstrap files', () => {
   const manifest = JSON.parse(read('manifest.json'));
   const plugin = JSON.parse(read('plugin.json'));
 
-  assert.equal(manifest.assets.instructions.length, 19);
+  assert.equal(manifest.assets.instructions.length, 18);
   assert.match(manifest.description, /seventeen/i);
   assert.doesNotMatch(manifest.description, /sixteen load-bearing/i);
-  assert.match(plugin.description, /19 instructions/);
+  assert.match(plugin.description, /18 instructions/);
   assert.match(plugin.description, /seventeen load-bearing/i);
 });

@@ -4,7 +4,7 @@ Alex Finch is the runtime identity and relational center of the constellation. C
 
 **Version**: 0.5.1, published in the Alex Mall as `alex-act-core@alex-mall`.
 
-**Current source shape**: 41 skills, 19 instructions (17 always-on bootstrapped to `~/.copilot/instructions/` + 2 pattern-applied), 13 slash-command prompts, plus a shared runtime for the bundled document converters.
+**Current source shape**: 41 skills, 18 instructions (17 always-on bootstrapped to `~/.copilot/instructions/` + 1 pattern-applied), 13 slash-command prompts, plus a shared runtime for the bundled document converters.
 
 **Content pipeline**: every skill, instruction, and prompt lands through evidence-gated Steward proposals per [`Alex_ACT_Steward/architecture/act/CURATION-RULES.md`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/architecture/act/CURATION-RULES.md). No content ships without an approved proposal.
 
@@ -123,7 +123,7 @@ Alex_ACT_Core/
 │   ├── config/                 # brand-palette.json, welcome-baseline.json
 │   ├── scripts/shared/         # runtime helpers used by the converter skills
 │   ├── skills/                 # 41 skills (framework + craft + converters + plugin lifecycle)
-│   ├── instructions/           # 19 instructions (17 always-on bootstrapped + 2 pattern-applied)
+│   ├── instructions/           # 18 instructions (17 always-on bootstrapped + 1 pattern-applied)
 │   └── prompts/                # 13 slash-command prompts
 └── .vscode/                    # workspace settings for self-dogfooding
 ```
