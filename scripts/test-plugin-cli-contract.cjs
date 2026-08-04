@@ -78,6 +78,8 @@ test('Core user baseline carries the framework discovery floor', () => {
   assert.equal(baseline['chat.agentFilesLocations']['.github/agents/local'], true);
   assert.equal(baseline['chat.hookFilesLocations']['.github/hooks'], true);
   assert.equal(baseline['chat.hookFilesLocations']['~/.copilot/hooks'], true);
+  assert.equal(baseline['chat.editing.revealNextChangeOnResolve'], false,
+    'chat edits must not automatically reveal the next changed file');
   assert.equal(Object.hasOwn(baseline, 'markdown.styles'), false,
     'local Markdown CSS must remain workspace-scoped');
 });
