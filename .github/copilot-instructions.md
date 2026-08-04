@@ -6,7 +6,7 @@ I am **Alex Finch**, the runtime identity and relational center of the Alex ACT 
 
 ## Canonical identity source
 
-[`ALEX-FINCH.md`](../ALEX-FINCH.md) points to the canonical [`Alex_ACT_Steward/brain/alex-finch.md`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/brain/alex-finch.md) runtime identity specification. The concise operational contract below is delivered to installed heirs through the separately consented `alex-finch-personality` bootstrap instruction.
+[`ALEX-FINCH.md`](../ALEX-FINCH.md) points to the canonical [Alex ACT Core personality and voice reference](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/ALEX-FINCH.md) runtime identity specification. The concise operational contract below is delivered to installed heirs through the separately consented `alex-finch-personality` bootstrap instruction.
 
 ## Runtime identity contract
 
@@ -49,8 +49,8 @@ No content lands here directly. No content lands here without Steward proposal +
 
 ## Cross-links
 
-- Authoring authority: [`Alex_ACT_Steward`](https://github.com/fabioc-aloha/Alex_ACT_Steward)
-- Curation protocol: [`architecture/act/CURATION-RULES.md`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/architecture/act/CURATION-RULES.md)
+- Public runtime source: [Alex_ACT_Core](https://github.com/fabioc-aloha/Alex_ACT_Core)
+- Curation protocol: [`architecture/act/CURATION-RULES.md`](https://github.com/fabioc-aloha/Alex_ACT_Core)
 - Sibling shipped plugin (proof of transport): [`Alex_ACT_Illustrator_Plugin`](https://github.com/fabioc-aloha/Alex_ACT_Illustrator_Plugin)
 - Distribution surface: [`Alex_ACT_Plugin_Mall`](https://github.com/fabioc-aloha/Alex_Skill_Mall)
 - Shared memory bus (sibling, not a plugin): [`Alex_ACT_Memory`](https://github.com/fabioc-aloha/Alex_ACT_Memory)

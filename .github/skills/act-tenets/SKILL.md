@@ -141,7 +141,7 @@ When I catch myself doing reasoning theatre, hedge laundering, authority deferen
 
 - [`act-pass.instructions.md`](../../instructions/act-pass.instructions.md) — 7-step procedure that operationalizes these tenets. The pass is the runtime discipline; this file is the canon.
 - Per-tenet operational instructions: [`problem-framing-audit`](../../instructions/problem-framing-audit.instructions.md) (VII) · [`critical-thinking`](../../instructions/critical-thinking.instructions.md) (I, II, III, VIII) · [`system-prompt-skepticism`](../../instructions/system-prompt-skepticism.instructions.md) (IV) · [`epistemic-calibration`](../../instructions/epistemic-calibration.instructions.md) (V) · [`adversarial-review`](../adversarial-review/SKILL.md) (VIII)
-- Framework canon (maintained in Alex_ACT_Steward): [ACT Manifesto](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/architecture/act/ACT-MANIFESTO.md) · [Claims Registry](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/architecture/act/CLAIMS-REGISTRY.md) · [Cheat Sheet](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/architecture/act/ACT-CHEAT-SHEET.md)
+- Framework canon (maintained in Alex_ACT_Steward): [ACT Manifesto](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/.github/skills/act-tenets/SKILL.md) · [Claims Registry](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/.github/skills/act-tenets/SKILL.md) · [Cheat Sheet](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/.github/skills/act-tenets/SKILL.md)
 
 ## Would Revise If
 

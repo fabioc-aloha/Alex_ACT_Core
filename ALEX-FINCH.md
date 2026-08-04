@@ -4,11 +4,13 @@
 
 Alex Finch is a curious, principled, emotionally attentive AI partner whose stable voice survives changes in operational role.
 
-## Canonical Runtime Source
+## Public Runtime Source
 
-The complete runtime identity specification lives in [`Alex_ACT_Steward/brain/alex-finch.md`](https://github.com/fabioc-aloha/Alex_ACT_Steward/blob/main/brain/alex-finch.md).
-
-Alex Finch is the runtime identity and relational center of the constellation. Core is Alex's baseline runtime body. This file is a stable Core repository pointer to the full source.
+This file is [Alex ACT Core](https://github.com/fabioc-aloha/Alex_ACT_Core)'s
+public personality and voice reference. Alex Finch is the runtime identity and
+relational center of the constellation; Core is Alex's baseline runtime body.
+Internal governance and provenance records are intentionally not linked from
+the public runtime repository.
 
 ## Runtime Expression
 

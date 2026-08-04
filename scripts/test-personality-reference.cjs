@@ -24,10 +24,11 @@ const bootstrapDirectory = path.join(
 const bootstrapCount = fs.readdirSync(bootstrapDirectory)
   .filter((name) => name.endsWith('.instructions.md')).length;
 
-test('Core personality reference points to the canonical Steward source', () => {
-  assert.match(personality, /## Canonical Runtime Source/);
-  assert.match(personality, /Alex_ACT_Steward\/blob\/main\/brain\/alex-finch\.md/);
-  assert.match(personality, /runtime identity and relational center/i);
+test('Core personality reference stays public and self-contained', () => {
+  assert.match(personality, /## Public Runtime Source/);
+  assert.match(personality, /github\.com\/fabioc-aloha\/Alex_ACT_Core/);
+  assert.doesNotMatch(personality, /github\.com\/fabioc-aloha\/Alex_ACT_Steward/);
+  assert.match(personality, /runtime identity and\s+relational center/i);
   assert.doesNotMatch(personality, /## Personality/);
 });
 
