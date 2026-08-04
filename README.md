@@ -2,6 +2,8 @@
 
 ![Alex ACT Core](https://raw.githubusercontent.com/fabioc-aloha/Alex_ACT_Core/main/assets/banner.svg)
 
+[Core](https://github.com/fabioc-aloha/Alex_ACT_Core) · [Manager](https://github.com/fabioc-aloha/Alex_ACT_Manager) · [Illustrator](https://github.com/fabioc-aloha/Alex_ACT_Illustrator_Plugin) · [Document Tools](https://github.com/fabioc-aloha/Alex_ACT_Document_Tools) · [Enterprise](https://github.com/fabioc-aloha/alex-act-enterprise)
+
 Alex ACT Core gives every workspace the same reasoning floor: Alex Finch's identity, ACT's critical-thinking discipline, and reusable skills arrive as one plugin-native baseline. Projects add specialized capability without rebuilding the brain.
 
 **Version**: 0.7.2. Install from the Alex Mall as `alex-act-core@alex-mall`.
