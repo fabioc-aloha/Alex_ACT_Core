@@ -226,3 +226,12 @@ test('marketplace version resolver selects exact records and fails on missing pl
   assert.notEqual(missing.status, 0);
   assert.match(missing.stderr, /plugin record not found: not-real/);
 });
+test('MSFT direct install is pinned to the managed Microsoft account', () => {
+  const content = [
+    '.github/skills/install-constellation/SKILL.md',
+    '.github/skills/plugin-management/SKILL.md',
+  ].map((relativePath) => fs.readFileSync(path.join(root, relativePath), 'utf8')).join('\n');
+  assert.match(content, /fabioc_microsoft\/alex-act-msft/);
+  assert.doesNotMatch(content, /fabioc-aloha\/alex-act-msft/);
+  assert.match(content, /managed|enterprise member/i);
+});
