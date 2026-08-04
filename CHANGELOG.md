@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Added compatibility support for preview-first user baseline merging and
+  explicit workspace CSS refresh, preserving nested user settings and failing
+  closed rather than erasing JSONC comments.
+
 ## [0.6.7] - 2026-08-03
 
 ### Fixed

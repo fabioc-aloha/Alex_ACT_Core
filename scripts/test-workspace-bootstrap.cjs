@@ -59,6 +59,23 @@ test('existing CSS and custom markdown.styles are preserved', (t) => {
   assert.deepEqual(settings['markdown.styles'], ['custom.css']);
   assert.equal(settings['editor.tabSize'], 4);
   assert.equal(plan.css.action, 'preserve');
+  assert.equal(plan.css.matchesSource, false);
+});
+
+test('explicit refresh replaces differing CSS and preserves custom settings', (t) => {
+  const target = workspace(t);
+  fs.mkdirSync(path.join(target, '.vscode'), { recursive: true });
+  const css = path.join(target, '.vscode', 'markdown-light.css');
+  const settingsPath = path.join(target, '.vscode', 'settings.json');
+  fs.writeFileSync(css, 'stale-css\n');
+  fs.writeFileSync(settingsPath, '{"markdown.styles":["custom.css"]}\n');
+  const plan = JSON.parse(run(target, '--refresh-css', '--apply'));
+  const settings = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
+  assert.equal(plan.css.action, 'refresh');
+  assert.equal(plan.css.matchesSource, false);
+  assert.equal(plan.css.sha256.length, 64);
+  assert.notEqual(fs.readFileSync(css, 'utf8'), 'stale-css\n');
+  assert.deepEqual(settings['markdown.styles'], ['custom.css']);
 });
 
 test('malformed JSONC stops before any write', (t) => {

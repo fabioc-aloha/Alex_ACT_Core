@@ -57,10 +57,75 @@ test('fresh-install guidance invokes install-constellation explicitly', () => {
 
 test('install prompt includes separately consented bootstrap', () => {
   const prompt = read('.github/prompts/install-constellation.prompt.md');
-  assert.match(prompt, /Step 6/);
+  const skill = read('.github/skills/install-constellation/SKILL.md');
+  assert.match(prompt, /Step 7/);
   assert.match(prompt, /separate consent/i);
   assert.match(prompt, /copilot plugin list/);
   assert.doesNotMatch(prompt, /copilot plugin info/);
+  assert.match(`${skill}\n${prompt}`, /\/alex-act-core configure-vscode/);
+  assert.match(`${skill}\n${prompt}`, /\/alex-act-core bootstrap-workspace/);
+  assert.match(`${skill}\n${prompt}`, /workspace.*consent|consent.*workspace/is);
+});
+
+test('Core user baseline carries the framework discovery floor', () => {
+  const baseline = JSON.parse(read('.github/config/welcome-baseline.json')).settings;
+  assert.equal(baseline['chat.agentSkillsLocations']['.github/skills'], true);
+  assert.equal(baseline['chat.agentSkillsLocations']['.github/skills/local'], true);
+  assert.equal(baseline['chat.agentSkillsLocations']['~/.copilot/skills'], true);
+  assert.equal(baseline['chat.promptFilesLocations']['.github/prompts'], true);
+  assert.equal(baseline['chat.promptFilesLocations']['.github/prompts/local'], true);
+  assert.equal(baseline['chat.agentFilesLocations']['.github/agents'], true);
+  assert.equal(baseline['chat.agentFilesLocations']['.github/agents/local'], true);
+  assert.equal(baseline['chat.hookFilesLocations']['.github/hooks'], true);
+  assert.equal(baseline['chat.hookFilesLocations']['~/.copilot/hooks'], true);
+  assert.equal(Object.hasOwn(baseline, 'markdown.styles'), false,
+    'local Markdown CSS must remain workspace-scoped');
+});
+
+test('Core user baseline merge preserves unrelated settings and gates local CSS removal', (t) => {
+  const target = fs.mkdtempSync(path.join(os.tmpdir(), 'core-user-settings-'));
+  t.after(() => fs.rmSync(target, { recursive: true, force: true }));
+  const settings = path.join(target, 'settings.json');
+  fs.writeFileSync(settings, JSON.stringify({
+    'editor.fontSize': 15,
+    'chat.agentSkillsLocations': { '.agents/skills': true },
+    'markdown.styles': ['C:/custom/markdown.css'],
+  }, null, 2));
+  const script = path.join(
+    root, '.github', 'skills', 'plugin-management', 'scripts', 'core-operations.cjs');
+
+  const preview = JSON.parse(execFileSync(process.execPath, [
+    script, 'configure-vscode', '--target-settings', settings,
+  ], { cwd: root, encoding: 'utf8' }));
+  assert.deepEqual(preview.unsupportedLocalMarkdownStyles, ['C:/custom/markdown.css']);
+  assert.equal(JSON.parse(fs.readFileSync(settings, 'utf8'))['chat.useAgentSkills'], undefined);
+
+  execFileSync(process.execPath, [
+    script, 'configure-vscode', '--target-settings', settings, '--remove-local-css', '--apply',
+  ], { cwd: root, encoding: 'utf8' });
+  const applied = JSON.parse(fs.readFileSync(settings, 'utf8'));
+  assert.equal(applied['editor.fontSize'], 15);
+  assert.equal(applied['chat.agentSkillsLocations']['.agents/skills'], true);
+  assert.equal(applied['chat.agentSkillsLocations']['.github/skills'], true);
+  assert.equal(applied['markdown.styles'], undefined);
+  assert.equal(applied['chat.useAgentSkills'], true);
+  assert.equal(applied['github.copilot.chat.skillTool.enabled'], false);
+});
+
+test('Core user baseline apply fails closed on comment-rich JSONC', (t) => {
+  const target = fs.mkdtempSync(path.join(os.tmpdir(), 'core-user-jsonc-'));
+  t.after(() => fs.rmSync(target, { recursive: true, force: true }));
+  const settings = path.join(target, 'settings.json');
+  const original = '// keep this comment\n{"editor.fontSize":15}\n';
+  fs.writeFileSync(settings, original);
+  const script = path.join(
+    root, '.github', 'skills', 'plugin-management', 'scripts', 'core-operations.cjs');
+  const result = spawnSync(process.execPath, [
+    script, 'configure-vscode', '--target-settings', settings, '--apply',
+  ], { cwd: root, encoding: 'utf8' });
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /contain comments/);
+  assert.equal(fs.readFileSync(settings, 'utf8'), original);
 });
 
 test('plugin command prompts survive an unavailable generic skill tool', () => {
@@ -101,7 +166,18 @@ test('install flow verifies exact versions and reports activation by plane', () 
   assert.match(management, /exact (?:plugin )?record/i);
   assert.match(skill, /bootstrap-only/i);
   assert.match(skill, /AI.*smoke.*optional|optional.*AI.*smoke/is);
-  for (const plane of ['installed', 'enabled', 'instruction-loaded', 'skill-invokable']) {
+  assert.match(skill, /six activation planes/);
+  assert.match(skill, /Step 7 is separately consent-gated/);
+  assert.match(skill, /greeting Y covers plugin selection only/);
+  assert.doesNotMatch(skill, /summary with four activation planes/);
+  for (const plane of [
+    'installed',
+    'enabled',
+    'instruction-loaded',
+    'skill-invokable',
+    'user-settings',
+    'workspace',
+  ]) {
     assert.match(`${prompt}\n${skill}`, new RegExp(plane, 'i'));
   }
 });
