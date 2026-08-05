@@ -1,9 +1,9 @@
 {
   "$comment": "Mall-side plugin manifest. Describes the Core payload and install destinations. Ships 18 instructions (17 always-on bootstrap resources + 1 pattern-applied), 42 skills, 14 slash-command prompts, and the plugin lifecycle surface. Growth continues through evidence-gated Steward proposals.",
   "plugin": "alex-act-core",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "shape": "eighteen-instructions + forty-two-skills + fourteen-prompts (Alex Finch runtime personality + ACT canon + cognitive discipline + reasoning muscles + meditation loop + repository workspace bootstrap + document converters + security & privacy + tooling awareness + git/lint/mcp + craft skills + sundries + plugin-management operational surface; svg-banner + /banner un-ported to Alex_ACT_Illustrator_Plugin on 2026-07-30; D1-D6 dispositions completed 2026-07-31: 9 routing-only instructions folded, 3 promoted to skills, 3 reference-heavy instructions split into rule-only + skill pairs, 5 instructions deleted after content was absorbed by their owning runtime surfaces)",
-  "description": "The Alex ACT baseline runtime plugin and plugin-native successor to Alex_ACT_Edition v4.2.0. Installs 42 reusable skills and 14 slash-command prompts, including deterministic repository workspace bootstrap. Core authors 18 instructions. Manager owns lifecycle: /alex-act-manager install-constellation separately bootstraps the seventeen load-bearing always-on instructions, including the Alex Finch runtime personality contract, and configures optional capabilities per workspace. Public source is Alex_ACT_Core; changes remain evidence-gated before release.",
+  "description": "The Alex ACT baseline runtime plugin and plugin-native successor to Alex_ACT_Edition v4.2.0. Installs 42 reusable skills and 14 slash-command prompts, including deterministic repository workspace bootstrap. Core authors 18 instructions. Manager owns lifecycle: /alex-act-manager install-constellation separately bootstraps the seventeen load-bearing always-on instructions, including the Alex Finch runtime personality contract. Public source is Alex_ACT_Core; changes remain evidence-gated before release.",
   "homepage": "https://github.com/fabioc-aloha/Alex_ACT_Core",
   "license": "MIT",
   "authors": [

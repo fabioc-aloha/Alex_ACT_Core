@@ -66,14 +66,13 @@ test('living metadata reports eighteen instructions and seventeen bootstrap file
   assert.match(plugin.description, /seventeen load-bearing/i);
 });
 
-test('greeting protects the brain spine and offers workspace optional capabilities', () => {
+test('greeting protects the brain spine without workspace capability profiles', () => {
   const greeting = read('.github/instructions/greeting-checkin.instructions.md');
   assert.match(greeting, /alex-act-manager@alex-mall/);
   assert.match(greeting, /alex-act-core@alex-mall/);
   assert.match(greeting, /Manager and Core|Manager \+ Core/i);
-  assert.match(greeting, /workspaceRoot/);
-  assert.match(greeting, /configure-workspace-capabilities/);
-  assert.match(greeting, /\/alex-act-manager configure-workspace-capabilities/);
   assert.match(greeting, /optional plugins.*(?:do not|never).*unhealthy/is);
+  assert.doesNotMatch(greeting, /workspaceProfileState|workspace-unconfigured|Response E/);
+  assert.doesNotMatch(greeting, /configure-workspace-capabilities/);
   assert.doesNotMatch(greeting, /Other constellation plugins not installed/);
 });

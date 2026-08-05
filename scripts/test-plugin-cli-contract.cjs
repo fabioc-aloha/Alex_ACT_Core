@@ -64,7 +64,7 @@ test('install prompt delegates lifecycle and consent gates to Manager', () => {
   assert.match(prompt, /separate consent/i);
   assert.match(prompt, /copilot plugin list/);
   assert.match(prompt, /Manager owns constellation lifecycle/);
-  assert.match(prompt, /optional workspace capabilities/);
+  assert.doesNotMatch(prompt, /workspace capabilities|configure-workspace-capabilities/);
   assert.doesNotMatch(prompt, /install approved plugins in order/);
   assert.doesNotMatch(prompt, /copilot plugin info/);
 });
