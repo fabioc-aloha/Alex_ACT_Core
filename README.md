@@ -6,7 +6,7 @@
 
 Alex ACT Core gives every workspace the same reasoning floor: Alex Finch's identity, ACT's critical-thinking discipline, and reusable skills arrive as one plugin-native baseline. Projects add specialized capability without rebuilding the brain.
 
-**Version**: 0.7.2. Install from the Alex Mall as `alex-act-core@alex-mall`.
+**Version**: 0.8.0. Install from the Alex Mall as `alex-act-core@alex-mall`.
 
 **Current source shape**: 42 skills, 18 instructions (17 always-on bootstrapped to `~/.copilot/instructions/` + 1 pattern-applied), 14 slash-command prompts, plus a shared runtime for the bundled document converters.
 
@@ -28,26 +28,27 @@ For a fresh install on any machine:
    copilot plugin marketplace add fabioc-aloha/Alex_Skill_Mall
    ```
 
-2. **Install Core**:
+2. **Install the brain spine**:
 
    ```powershell
+   copilot plugin install alex-act-manager@alex-mall
    copilot plugin install alex-act-core@alex-mall
    ```
 
-3. **Reload VS Code** (or restart if using CLI standalone) so Core's prompts and skills activate.
+3. **Reload VS Code** (or restart if using CLI standalone) so Manager and Core activate.
 
 4. **Open Copilot Chat and run**:
 
    ```text
-   /alex-act-core install-constellation
+   /alex-act-manager install-constellation
    ```
 
-Step 4 installs the selected constellation plugins, activates the direct MSFT
-install when applicable, and separately asks whether to bootstrap the seventeen
-always-on ACT instructions. After that first bootstrap, short greetings can use
-`greeting-checkin` for repair, drift, and update reminders. A greeting cannot
-start first-time setup because the greeting instruction is delivered by the
-bootstrap itself.
+Step 4 keeps Manager and Core enabled, separately asks whether to bootstrap the
+seventeen always-on ACT instructions, and offers optional capabilities for the
+current workspace. After that first bootstrap, short greetings can use
+`greeting-checkin` for repair, drift, updates, and workspace setup. A greeting
+cannot start first-time setup because the greeting instruction is delivered by
+the bootstrap itself.
 
 **Full walkthrough**: [`USER-EXPERIENCE.md` § Stage 1](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/INSTALL.md) in Steward.
 
@@ -72,7 +73,7 @@ Two paths:
 
 ```powershell
 # Option 1: uninstall the whole constellation cleanly (uses uninstall-constellation skill from Chat)
-# From Copilot Chat: /alex-act-core uninstall-constellation
+# From Copilot Chat: /alex-act-manager uninstall-constellation
 
 # Option 2: uninstall individual plugins manually
 copilot plugin uninstall alex-act-core@alex-mall
@@ -190,7 +191,7 @@ namespaced lifecycle commands remain available as compatibility copies.
 Use Manager's lifecycle commands from Copilot Chat for configuration and other
 lifecycle work. Core retains these compatibility copies:
 
-- **`/alex-act-core install-constellation`** — installs the four-plugin constellation flow (Core + Illustrator + Enterprise + MSFT with tenant-check)
+- **`/alex-act-manager install-constellation`** — installs and repairs the brain spine, then offers optional capabilities for the current workspace
 - **`/alex-act-core bootstrap-workspace`** — previews and consent-gates repository-scoped Markdown Preview CSS, workspace settings, and selective `.gitignore` tracking
 - **`/alex-act-core plugin-status`** — read-only inventory of what's installed at user + repo scope
 - **`/alex-act-core update-plugins`** — safe update workflow with per-plugin CHANGELOG reading and consent for breaking changes

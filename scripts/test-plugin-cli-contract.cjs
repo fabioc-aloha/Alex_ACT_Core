@@ -50,21 +50,23 @@ test('active Core guidance uses only supported Copilot plugin verbs', () => {
 
 test('fresh-install guidance invokes install-constellation explicitly', () => {
   const readme = read('README.md');
-  assert.match(readme, /\/alex-act-core install-constellation/);
+  assert.match(readme, /copilot plugin install alex-act-manager@alex-mall/);
+  assert.match(readme, /copilot plugin install alex-act-core@alex-mall/);
+  assert.match(readme, /\/alex-act-manager install-constellation/);
+  assert.doesNotMatch(readme, /\/alex-act-core install-constellation/);
   assert.doesNotMatch(readme, /greet Core/);
   assert.doesNotMatch(readme, /No slash commands to memorize/);
 });
 
-test('install prompt includes separately consented bootstrap', () => {
+test('install prompt delegates lifecycle and consent gates to Manager', () => {
   const prompt = read('.github/prompts/install-constellation.prompt.md');
-  const skill = read('.github/skills/install-constellation/SKILL.md');
-  assert.match(prompt, /Step 7/);
+  assert.match(prompt, /\/alex-act-manager install-constellation/);
   assert.match(prompt, /separate consent/i);
   assert.match(prompt, /copilot plugin list/);
+  assert.match(prompt, /Manager owns constellation lifecycle/);
+  assert.match(prompt, /optional workspace capabilities/);
+  assert.doesNotMatch(prompt, /install approved plugins in order/);
   assert.doesNotMatch(prompt, /copilot plugin info/);
-  assert.match(`${skill}\n${prompt}`, /\/alex-act-core configure-vscode/);
-  assert.match(`${skill}\n${prompt}`, /\/alex-act-core bootstrap-workspace/);
-  assert.match(`${skill}\n${prompt}`, /workspace.*consent|consent.*workspace/is);
 });
 
 test('Core user baseline carries the framework discovery floor', () => {
