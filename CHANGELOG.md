@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-08-06
+
+### Fixed
+
+- Corrected greeting-time status routing to the Manager-owned lifecycle
+  command and protected that ownership boundary with a runtime regression.
+
 ### Changed
 
 - `risk-analysis`: replaced the retired Edition and Supervisor names in the risk
