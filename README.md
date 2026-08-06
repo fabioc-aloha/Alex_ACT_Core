@@ -6,7 +6,7 @@
 
 Alex ACT Core gives every workspace the same reasoning floor: Alex Finch's identity, ACT's critical-thinking discipline, and reusable skills arrive as one plugin-native baseline. Projects add specialized capability without rebuilding the brain.
 
-**Version**: 0.9.0. Install from the Alex Mall as `alex-act-core@alex-mall`.
+**Version**: 1.0.0. Install from the Alex Mall as `alex-act-core@alex-mall`.
 
 **Current source shape**: 29 skills, 17 source instructions, and 14
 slash-command prompts. Manager distributes 16 always-on instructions to
@@ -51,7 +51,7 @@ short greetings can use `greeting-checkin` for repair, drift, and updates. A gre
 cannot start first-time setup because the greeting instruction is delivered by
 the bootstrap itself.
 
-**Full walkthrough**: [`USER-EXPERIENCE.md` § Stage 1](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/INSTALL.md) in Steward.
+**Full walkthrough**: [Install the Alex ACT constellation](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/INSTALL.md).
 
 ## Managing the Alex Mall marketplace
 
