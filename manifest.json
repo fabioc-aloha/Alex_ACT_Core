@@ -1,9 +1,9 @@
 {
-  "$comment": "Mall-side plugin manifest. Describes the Core payload and install destinations. Ships 18 instructions (17 always-on bootstrap resources + 1 pattern-applied), 42 skills, 14 slash-command prompts, and the plugin lifecycle surface. Growth continues through evidence-gated Steward proposals.",
+  "$comment": "Mall-side plugin manifest. Core ships 17 source instructions, 29 baseline skills, and 14 slash-command prompts. Manager owns lifecycle and the 16-file instruction bootstrap; Document Tools owns conversion. Eight Core commands remain temporary namespaced redirects. Growth continues through evidence-gated Steward proposals.",
   "plugin": "alex-act-core",
   "version": "0.9.0",
-  "shape": "eighteen-instructions + forty-two-skills + fourteen-prompts (Alex Finch runtime personality + ACT canon + cognitive discipline + reasoning muscles + meditation loop + repository workspace bootstrap + document converters + security & privacy + tooling awareness + git/lint/mcp + craft skills + sundries + plugin-management operational surface; svg-banner + /banner un-ported to Alex_ACT_Illustrator_Plugin on 2026-07-30; D1-D6 dispositions completed 2026-07-31: 9 routing-only instructions folded, 3 promoted to skills, 3 reference-heavy instructions split into rule-only + skill pairs, 5 instructions deleted after content was absorbed by their owning runtime surfaces)",
-  "description": "The Alex ACT baseline runtime plugin and plugin-native successor to Alex_ACT_Edition v4.2.0. Installs 42 reusable skills and 14 slash-command prompts, including deterministic repository workspace bootstrap. Core authors 18 instructions. Manager owns lifecycle: /alex-act-manager install-constellation separately bootstraps the seventeen load-bearing always-on instructions, including the Alex Finch runtime personality contract. Public source is Alex_ACT_Core; changes remain evidence-gated before release.",
+  "shape": "seventeen-instructions + twenty-nine-skills + fourteen-prompts (Alex Finch runtime personality + ACT canon + cognitive discipline + reasoning muscles + meditation loop + security & privacy + tooling awareness + git/lint/mcp + craft skills + sundries; lifecycle owned by Manager; conversion owned by Document Tools; Shared Memory default integration deprecated 2026-08-05)",
+  "description": "The Alex ACT baseline runtime plugin and plugin-native successor to Alex_ACT_Edition v4.2.0. Installs 29 reusable baseline skills and 14 slash-command prompts. Core authors 17 instructions; Manager distributes the sixteen load-bearing always-on instructions. Manager is the sole lifecycle skill owner and Document Tools is the sole converter skill owner. Eight Core commands remain temporary namespaced compatibility redirects.",
   "homepage": "https://github.com/fabioc-aloha/Alex_ACT_Core",
   "license": "MIT",
   "authors": [
@@ -31,12 +31,6 @@
         "role": "structured skepticism for high-stakes decisions and reviews; six methods (Red Team/Blue Team, Pre-Mortem, Steel Manning, Murphyjitsu, 10/10/10, Cross-Model External Critic)"
       },
       {
-        "name": "ai-memory-setup",
-        "path": ".github/skills/ai-memory-setup/SKILL.md",
-        "install_to": ".github/skills/ai-memory-setup/SKILL.md",
-        "role": "resolve and use the Alex_ACT_Memory sibling repository as shared memory bus — without silently cloning, syncing, or exposing protected data; announcements + feedback + shared knowledge + explicit setup"
-      },
-      {
         "name": "anti-hallucination",
         "path": ".github/skills/anti-hallucination/SKILL.md",
         "install_to": ".github/skills/anti-hallucination/SKILL.md",
@@ -47,12 +41,6 @@
         "path": ".github/skills/big-idea/SKILL.md",
         "install_to": ".github/skills/big-idea/SKILL.md",
         "role": "distill the central claim before summary-shaped output (hero copy, commit subjects, PR titles, ADR titles, executive summaries) — 6-step distill (context read + claim + arc + audience + stance + emit) tested against Saint-Exupéry removal rule"
-      },
-      {
-        "name": "bootstrap-workspace",
-        "path": ".github/skills/bootstrap-workspace/SKILL.md",
-        "install_to": ".github/skills/bootstrap-workspace/SKILL.md",
-        "role": "preview-first repository workspace bootstrap — safely provisions Markdown Preview CSS, set-if-absent markdown.styles, and selective .gitignore exceptions without touching user settings"
       },
       {
         "name": "browser-tools",
@@ -91,12 +79,6 @@
         "role": "anti-drift rules for living documents — count elimination (hardcoded counts become stale), single source of truth per metric, link-integrity checker, orphan detection, docs-as-architecture principle"
       },
       {
-        "name": "docx-to-md",
-        "path": ".github/skills/docx-to-md/SKILL.md",
-        "install_to": ".github/skills/docx-to-md/SKILL.md",
-        "role": "convert Word documents (.docx) to clean Markdown with image extraction + pandoc cleanup — bundled muscle at .github/skills/docx-to-md/scripts/docx-to-md.cjs; requires pandoc on PATH"
-      },
-      {
         "name": "ethical-reasoning",
         "path": ".github/skills/ethical-reasoning/SKILL.md",
         "install_to": ".github/skills/ethical-reasoning/SKILL.md",
@@ -109,22 +91,10 @@
         "role": "detailed git procedures — branch hygiene, safe-commit patterns, recovery from lost commits + bad merges + accidental pushes; complements git-workflow instruction with worked examples"
       },
       {
-        "name": "html-to-md",
-        "path": ".github/skills/html-to-md/SKILL.md",
-        "install_to": ".github/skills/html-to-md/SKILL.md",
-        "role": "convert HTML to clean Markdown via pandoc — bundled muscle at .github/skills/html-to-md/scripts/html-to-md.cjs; requires pandoc on PATH"
-      },
-      {
         "name": "humanizer",
         "path": ".github/skills/humanizer/SKILL.md",
         "install_to": ".github/skills/humanizer/SKILL.md",
         "role": "remove 29 documented AI-writing patterns (Wikipedia's 'Signs of AI writing') via draft → self-audit → rewrite — optional voice-calibration from user-provided writing sample; adapted from Hermes Agent / blader/humanizer"
-      },
-      {
-        "name": "install-constellation",
-        "path": ".github/skills/install-constellation/SKILL.md",
-        "install_to": ".github/skills/install-constellation/SKILL.md",
-        "role": "install the four Alex ACT constellation plugins (alex-act-core, alex-act-illustrator-plugin, alex-act-enterprise, alex-act-msft) at user scope in the correct order with tenant-check for MSFT (Microsoft-internal only); consent-gated, idempotent, delegates to plugin-management for raw commands"
       },
       {
         "name": "lint-clean-markdown",
@@ -151,40 +121,10 @@
         "role": "build MCP servers in Python (FastMCP), Node/TypeScript (MCP SDK), or C#/.NET (Microsoft MCP SDK) — Build vs Use Existing decision matrix (Azure/Foundry/Fabric/Playwright/GitHub MCPs), implementation patterns, testing checklist, common issues"
       },
       {
-        "name": "md-to-eml",
-        "path": ".github/skills/md-to-eml/SKILL.md",
-        "install_to": ".github/skills/md-to-eml/SKILL.md",
-        "role": "convert Markdown to RFC 5322 email (.eml) with inline CSS + CID images — bundled muscle at .github/skills/md-to-eml/scripts/md-to-eml.cjs"
-      },
-      {
-        "name": "md-to-html",
-        "path": ".github/skills/md-to-html/SKILL.md",
-        "install_to": ".github/skills/md-to-html/SKILL.md",
-        "role": "convert Markdown to standalone HTML with embedded CSS + images + Mermaid diagrams — bundled muscle at .github/skills/md-to-html/scripts/md-to-html.cjs"
-      },
-      {
-        "name": "md-to-txt",
-        "path": ".github/skills/md-to-txt/SKILL.md",
-        "install_to": ".github/skills/md-to-txt/SKILL.md",
-        "role": "strip Markdown formatting and produce clean plain text via pandoc — bundled muscle at .github/skills/md-to-txt/scripts/md-to-txt.cjs"
-      },
-      {
-        "name": "md-to-word",
-        "path": ".github/skills/md-to-word/SKILL.md",
-        "install_to": ".github/skills/md-to-word/SKILL.md",
-        "role": "convert Markdown (with Mermaid + SVG) to Word (.docx) — bundled muscle at .github/skills/md-to-word/scripts/md-to-word.cjs; uses jszip when available, falls back to pandoc"
-      },
-      {
         "name": "meditation",
         "path": ".github/skills/meditation/SKILL.md",
         "install_to": ".github/skills/meditation/SKILL.md",
         "role": "consolidate session learning into permanent architecture — 5-step protocol (review + extract + write + chronicle + handoff) that routes patterns to skills/instructions/prompts/scripts/memory tiers by type"
-      },
-      {
-        "name": "memory-management",
-        "path": ".github/skills/memory-management/SKILL.md",
-        "install_to": ".github/skills/memory-management/SKILL.md",
-        "role": "memory-tier selection + writing mechanics — where content goes based on type (user preference / project convention / cross-session state / failure analysis / reusable knowledge); HANDOFF.md at repo root NOT /memories/session/ for cross-session handoffs; templates for handoff / chronicle / post-mortem"
       },
       {
         "name": "mutation-testing",
@@ -203,12 +143,6 @@
         "path": ".github/skills/platform-awareness/SKILL.md",
         "install_to": ".github/skills/platform-awareness/SKILL.md",
         "role": "VS Code Copilot platform changes affecting tool usage — deferred-tool categories with example search queries (GitHub, Azure MCP, Fabric, Microsoft docs, browser, notebook, mermaid, Bicep, Figma, MS Graph); VS Code 1.117-1.128 platform-change table (BYOK, sandboxing, browser tools GA, Ollama, Claude BYOK); skill-picker surfacing behavior (github.copilot.chat.skillTool.enabled)"
-      },
-      {
-        "name": "plugin-management",
-        "path": ".github/skills/plugin-management/SKILL.md",
-        "install_to": ".github/skills/plugin-management/SKILL.md",
-        "role": "general Copilot CLI plugin operations — install/list/update/remove/marketplace commands, scope precedence (user vs repo), enabledPlugins + extraKnownMarketplaces settings shape, safe merge-not-overwrite settings edits; delegates from install-constellation + update-plugins for the mechanical layer"
       },
       {
         "name": "problem-framing-audit",
@@ -257,18 +191,6 @@
         "path": ".github/skills/token-waste-elimination/SKILL.md",
         "install_to": ".github/skills/token-waste-elimination/SKILL.md",
         "role": "audit active brain artifacts for context cost, duplicated guidance, oversized routing files, stale metadata — use during brain audits, quarterly review, or when instructions feel heavy"
-      },
-      {
-        "name": "uninstall-constellation",
-        "path": ".github/skills/uninstall-constellation/SKILL.md",
-        "install_to": ".github/skills/uninstall-constellation/SKILL.md",
-        "role": "cleanly uninstall the four Alex ACT constellation plugins + seventeen bootstrap discipline files + four enabledPlugins entries; detect current state, generate a machine-tailored PowerShell script at the workspace root (fallback ~/.copilot/tmp/), auto-append to .gitignore, and guide the heir to run it from a fresh shell after closing VS Code — the honest workaround for Windows os error 5 on locked plugin trees; preserves marketplace registrations and takes a settings.json backup"
-      },
-      {
-        "name": "update-plugins",
-        "path": ".github/skills/update-plugins/SKILL.md",
-        "install_to": ".github/skills/update-plugins/SKILL.md",
-        "role": "safe copilot plugin update wrap — reads each plugin's CHANGELOG between installed and latest, extracts Breaking sections, presents per-plugin diff summary before running update; three modes (audit only / non-breaking only / all with per-breaking consent); delegates to plugin-management for raw commands"
       }
     ],
     "instructions": [
@@ -357,13 +279,6 @@
         "applyTo": "**/*ethic*,**/*moral*,**/*privacy*,**/*harm*,**/*bias*,**/*responsible*,**/*consent*"
       },
       {
-        "name": "memory-triggers",
-        "path": ".github/instructions/memory-triggers.instructions.md",
-        "install_to": ".github/instructions/memory-triggers.instructions.md",
-        "role": "automatic memory formation triggers — user-correction + pattern-3× + preference + session-end + significant-decision detection with tier selection",
-        "applyTo": "**"
-      },
-      {
         "name": "no-deferred-debt",
         "path": ".github/instructions/no-deferred-debt.instructions.md",
         "install_to": ".github/instructions/no-deferred-debt.instructions.md",
@@ -374,7 +289,7 @@
         "name": "pii-memory-filter",
         "path": ".github/instructions/pii-memory-filter.instructions.md",
         "install_to": ".github/instructions/pii-memory-filter.instructions.md",
-        "role": "PII filter at persistent-storage write boundaries (User/Repo/Session memory tiers + shared Alex_ACT_Memory channels) — never-write categories (contact/DOB/health/financial/credentials/paths/client-names) + per-tier allow/deny + PII-requested escalation paths",
+        "role": "PII filter at native persistent-memory write boundaries — never-write categories (contact/DOB/health/financial/credentials/paths/client-names) plus per-tier allow/deny rules",
         "applyTo": "**"
       },
       {
@@ -397,7 +312,7 @@
         "install_to": ".github/instructions/session-health-monitoring.instructions.md",
         "role": "monitor context window health via proxy heuristics + BYOK token counter; graceful handoff to HANDOFF.md when approaching session limits",
         "applyTo": "**"
-}
+      }
     ],
     "prompts": [
       {
@@ -440,28 +355,28 @@
         "path": ".github/prompts/convert.prompt.md",
         "install_to": ".github/prompts/convert.prompt.md",
         "slash_command": "/convert",
-        "role": "user-invokable trigger for document conversion — detects source + target format from user's request, loads matching format skill, runs .github/skills/<format>/scripts/<format>.cjs, validates + reports output"
+        "role": "temporary compatibility redirect to /alex-act-document-tools convert"
       },
       {
         "name": "configure-vscode",
         "path": ".github/prompts/configure-vscode.prompt.md",
         "install_to": ".github/prompts/configure-vscode.prompt.md",
         "slash_command": "/configure-vscode",
-        "role": "apply VS Code user-scope baseline settings for policy compliance — authoritative source is welcome-baseline.json + heir-workspace-settings-baseline.json patterns; adapt for your project's baseline config"
+        "role": "temporary compatibility redirect to /alex-act-manager configure-vscode"
       },
       {
         "name": "configure-vscode-verify",
         "path": ".github/prompts/configure-vscode-verify.prompt.md",
         "install_to": ".github/prompts/configure-vscode-verify.prompt.md",
         "slash_command": "/configure-vscode-verify",
-        "role": "read-only audit of user-level VS Code/Copilot settings compliance — companion to /configure-vscode"
+        "role": "temporary compatibility redirect to /alex-act-manager configure-vscode-verify"
       },
       {
         "name": "bootstrap-workspace",
         "path": ".github/prompts/bootstrap-workspace.prompt.md",
         "install_to": ".github/prompts/bootstrap-workspace.prompt.md",
         "slash_command": "/bootstrap-workspace",
-        "role": "preview-first repository workspace bootstrap for Markdown Preview CSS, workspace-relative markdown.styles, and selective .gitignore tracking; explicit consent before apply"
+        "role": "temporary compatibility redirect to /alex-act-manager bootstrap-workspace"
       },
       {
         "name": "status",
@@ -475,28 +390,28 @@
         "path": ".github/prompts/plugin-status.prompt.md",
         "install_to": ".github/prompts/plugin-status.prompt.md",
         "slash_command": "/plugin-status",
-        "role": "read-only Copilot CLI plugin inventory — user-scope + repo-scope + direct-installed + registered marketplaces + Alex ACT constellation status + updates-available detection; invokes plugin-management in audit-only mode"
+        "role": "temporary compatibility redirect to /alex-act-manager plugin-status"
       },
       {
         "name": "install-constellation",
         "path": ".github/prompts/install-constellation.prompt.md",
         "install_to": ".github/prompts/install-constellation.prompt.md",
         "slash_command": "/install-constellation",
-        "role": "user-invokable four-plugin install flow for the Alex ACT constellation (Core → Illustrator → Enterprise → MSFT-conditional); tenant-check for MSFT; consent-gated; idempotent"
+        "role": "temporary compatibility redirect to /alex-act-manager install-constellation"
       },
       {
         "name": "update-plugins",
         "path": ".github/prompts/update-plugins.prompt.md",
         "install_to": ".github/prompts/update-plugins.prompt.md",
         "slash_command": "/update-plugins",
-        "role": "user-invokable update flow with per-plugin diff summary + per-breaking-change consent; three modes (audit / non-breaking only / all with per-breaking consent); invokes update-plugins skill"
+        "role": "temporary compatibility redirect to /alex-act-manager update-plugins"
       },
       {
         "name": "uninstall-constellation",
         "path": ".github/prompts/uninstall-constellation.prompt.md",
         "install_to": ".github/prompts/uninstall-constellation.prompt.md",
         "slash_command": "/uninstall-constellation",
-        "role": "user-invokable clean uninstall flow — reads current state, generates a machine-tailored PowerShell script at the workspace root (fallback ~/.copilot/tmp/), auto-appends to .gitignore, prints run instructions; heir closes VS Code and runs the script from a fresh PowerShell; invokes uninstall-constellation skill"
+        "role": "temporary compatibility redirect to /alex-act-manager uninstall-constellation"
       }
     ],
     "agents": []

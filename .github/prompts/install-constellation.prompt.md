@@ -15,7 +15,7 @@ below. The redirect is self-contained and does not require Core's legacy skill.
 Steps:
 
 1. Run `copilot plugin list` and verify `alex-act-manager@alex-mall` is installed.
-2. If Manager is absent, explain that Manager, Core, and the seventeen-file bootstrap are the non-optional brain spine. Provide `copilot plugin install alex-act-manager@alex-mall`, then stop until Manager is loaded.
+2. If Manager is absent, explain that Manager, Core, and the sixteen-file bootstrap are the non-optional brain spine. Provide `copilot plugin install alex-act-manager@alex-mall`, then stop until Manager is loaded.
 3. Invoke `/alex-act-manager install-constellation`.
 4. Preserve Manager's separate consent gates for user settings, instruction bootstrap, workspace files, and private plugin installation.
 5. Report that the Core command routed successfully; Manager owns the resulting activation report.

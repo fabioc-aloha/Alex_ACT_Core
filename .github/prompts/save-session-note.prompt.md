@@ -1,6 +1,6 @@
 ---
 description: "Save session state for handoff in repo-root HANDOFF.md"
-lastReviewed: 2026-07-30
+lastReviewed: 2026-08-05
 ---
 
 # Save Session Note
@@ -36,7 +36,7 @@ This prompt is self-contained. If the generic skill tool is unavailable, continu
 
 - Canonical handoff artifact is repo-root `HANDOFF.md`.
 - Keep notes terse and action-oriented.
-- The shared `Alex_ACT_Memory` bus is not a lightweight scratch surface — its contract requires structured, contract-valid entries per file (see [ai-memory-setup](../skills/ai-memory-setup/SKILL.md)). Cross-session notes stay local; publish to Memory only via a channel-appropriate structured entry.
+- Cross-session execution notes stay in the repository. Do not copy them into user memory unless the content is both project-agnostic and useful across projects.
 
 ## Would Revise If
 

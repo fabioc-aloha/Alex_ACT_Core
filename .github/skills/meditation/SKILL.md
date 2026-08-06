@@ -1,7 +1,7 @@
 ---
 name: "meditation"
-description: "Consolidate session learning into permanent architecture — extract patterns into skills, instructions, prompts, or memory"
-lastReviewed: 2026-05-13
+description: "Consolidate session learning into permanent architecture — extract patterns into skills, instructions, prompts, native memory, or repository handoffs"
+lastReviewed: 2026-08-05
 ---
 
 # Meditation
@@ -43,6 +43,11 @@ Separate signal from noise. For each candidate pattern, ask: *"Is this already c
 | User preference (cross-project) | User memory (`/memories/<name>.md`) |
 | Project / repo convention | Repo memory (`/memories/repo/<name>.md`) |
 | Cross-session handoff (next session needs to know) | Repo file (`HANDOFF.md` at repo root) — NOT session memory |
+
+This routing runs when meditation is invoked. Core no longer guarantees
+automatic capture of every correction, preference, repeated pattern, or
+significant decision. Native host memory may capture some signals, but that is
+platform behavior rather than an Alex-owned deterministic trigger.
 
 ### 3. Write
 
@@ -151,7 +156,7 @@ Cadence is per-project. Adapt or skip based on the work rhythm. Meditation as a 
 ## Related
 
 - [/meditate prompt](../../prompts/meditate.prompt.md) — slash-command entry
-- [memory-triggers.instructions.md](../../instructions/memory-triggers.instructions.md) — automatic triggers between meditations
+- [proactive-awareness.instructions.md](../../instructions/proactive-awareness.instructions.md) — session-boundary context recovery and repository handoffs
 
 ## Falsifiability
 

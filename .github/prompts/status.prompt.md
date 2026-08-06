@@ -1,6 +1,6 @@
 ---
 description: "Report the current project's repository state, recent work, brain QA health (if applicable), and pending handoff items. Use for session orientation or an on-demand project checkpoint."
-lastReviewed: 2026-07-28
+lastReviewed: 2026-08-05
 ---
 
 # Status
@@ -27,17 +27,14 @@ missing.
 
    Otherwise skip and note absence in the report.
 
-5. **Announcements**: If the project configures a shared memory bus (Alex ACT uses the Alex_ACT_Memory sibling repo), list relevant
-   unread release/compatibility announcements when requested. Do not modify
-   acknowledgment state.
-6. **Output**: Lead with material state, then blockers and next action. Omit
+5. **Output**: Lead with material state, then blockers and next action. Omit
    empty sections.
 
 ## Boundaries
 
-- Never modify sibling projects during status work.
+- Never modify sibling projects or native memory during status work.
 - Never infer health from a stale dashboard without naming its date.
-- Do not commit, pull, push, or acknowledge announcements.
+- Do not commit, pull, or push.
 - Repository absence is not evidence of retirement.
 
 ## Would Revise If

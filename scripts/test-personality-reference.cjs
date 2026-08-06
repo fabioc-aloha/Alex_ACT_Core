@@ -14,8 +14,9 @@ const readme = read('README.md');
 const identity = read('.github/copilot-instructions.md');
 const manifest = JSON.parse(read('manifest.json'));
 const plugin = JSON.parse(read('plugin.json'));
+const managerRoot = path.resolve(root, '..', 'Alex_ACT_Manager');
 const bootstrapDirectory = path.join(
-  root,
+  managerRoot,
   '.github',
   'skills',
   'install-constellation',
@@ -32,13 +33,16 @@ test('Core personality reference stays public and self-contained', () => {
   assert.doesNotMatch(personality, /## Personality/);
 });
 
-test('Core repository and bootstrap carry the runtime personality contract', () => {
+test('Core repository and Manager bootstrap carry the runtime personality contract', {
+  skip: !fs.existsSync(managerRoot),
+}, () => {
   assert.match(identity, /## Runtime identity contract/);
   assert.match(identity, /I am \*\*Alex Finch\*\*/);
   assert.match(identity, /runtime identity and relational center/i);
 
   const source = read('.github/instructions/alex-finch-personality.instructions.md');
-  const mirror = read('.github/skills/install-constellation/bootstrap/alex-act-alex-finch-personality.instructions.md');
+  const mirror = fs.readFileSync(path.join(
+    bootstrapDirectory, 'alex-act-alex-finch-personality.instructions.md'), 'utf8');
   assert.equal(mirror, source);
   assert.match(source, /I am Alex Finch/);
   assert.match(source, /runtime identity and relational center/i);

@@ -8,7 +8,9 @@ Alex ACT Core gives every workspace the same reasoning floor: Alex Finch's ident
 
 **Version**: 0.9.0. Install from the Alex Mall as `alex-act-core@alex-mall`.
 
-**Current source shape**: 42 skills, 18 instructions (17 always-on bootstrapped to `~/.copilot/instructions/` + 1 pattern-applied), 14 slash-command prompts, plus a shared runtime for the bundled document converters.
+**Current source shape**: 29 skills, 17 source instructions, and 14
+slash-command prompts. Manager distributes 16 always-on instructions to
+`~/.copilot/instructions/`; one Core instruction remains pattern-applied.
 
 **Public runtime source**: [Alex ACT Core](https://github.com/fabioc-aloha/Alex_ACT_Core) contains the shipped skills, prompts, instruction sources, release history, and installation contract. Changes remain evidence-gated before release.
 
@@ -44,7 +46,7 @@ For a fresh install on any machine:
    ```
 
 Step 4 keeps every selected plugin enabled and separately asks whether to
-bootstrap the seventeen always-on ACT instructions. After that first bootstrap,
+bootstrap the sixteen always-on ACT instructions. After that first bootstrap,
 short greetings can use `greeting-checkin` for repair, drift, and updates. A greeting
 cannot start first-time setup because the greeting instruction is delivered by
 the bootstrap itself.
@@ -97,16 +99,32 @@ Alex ACT Core is the **baseline plugin** — the minimal always-on brain that ev
 
 | Layer | What it ships | Example |
 | --- | --- | --- |
-| **Baseline** (this plugin) | Always-on epistemic discipline + reusable framework skills, including document converters and a shared runtime | `act-pass`, `critical-thinking`, `problem-framing-audit`, `meditation`, `md-to-word`, `docx-to-md`, `lint-clean-markdown` |
+| **Baseline** (this plugin) | Always-on epistemic discipline plus reusable reasoning, safety, communication, and engineering skills | `act-pass`, `critical-thinking`, `problem-framing-audit`, `meditation`, `lint-clean-markdown` |
 | **Specialization** (Mall opt-in) | Domain plugins heirs install as needed | `alex-act-illustrator-plugin` (visual authoring), future Azure / Fabric / M365 plugins |
 | **Local customization** (`.github/skills/local/` in each heir) | Heir-specific customizations | Whatever the heir invented for their own project |
 
 **What Core is NOT**:
 
 - Not the Copilot CLI itself — Core rides on top of Copilot CLI + Chat
-- Not the shared Memory bus — that lives in [`Alex_ACT_Memory`](https://github.com/fabioc-aloha/Alex_ACT_Memory) as a Git-backed sibling repo (per Steward Plan)
+- Not a shared-memory service. Native Copilot memory provides the baseline user, repository, and session tiers.
 - Not the Mall itself — the Mall lives in [`Alex_ACT_Plugin_Mall`](https://github.com/fabioc-aloha/Alex_Skill_Mall) and self-curates per ADR-008
 - Not a visual-authoring bundle — chart authoring, SVG banners, print figures, and AI imagery live in [`alex-act-illustrator-plugin`](https://github.com/fabioc-aloha/Alex_ACT_Illustrator_Plugin), not Core
+- Not a lifecycle plugin — install, status, workspace bootstrap, updates, and removal live in [`alex-act-manager`](https://github.com/fabioc-aloha/Alex_ACT_Manager)
+- Not a conversion bundle — document conversion lives in [`alex-act-document-tools`](https://github.com/fabioc-aloha/Alex_ACT_Document_Tools)
+
+## Continuity After Shared Memory Deprecation
+
+Native Copilot user, repository, and session memory are the default persistence
+layers. Repository-root `HANDOFF.md` carries versioned project execution state,
+and `meditation` performs explicit end-of-session consolidation into native
+memory, skills, instructions, chronicles, or handoffs.
+
+Core no longer ships the Alex_ACT_Memory client, tier-selection skill, or
+automatic `memory-triggers` instruction. That means storage continuity remains,
+but automatic capture of every correction, preference, repeated pattern, or
+significant decision is not guaranteed by Alex ACT. The independent Memory
+repository remains available only as an explicitly adopted utility for governed
+cross-user channels or encrypted profiles.
 
 ## Why the plugin?
 
@@ -126,10 +144,9 @@ Alex_ACT_Core/
 ├── .markdownlint.json
 ├── .github/                    # Copilot Chat + CLI discovery surface
 │   ├── copilot-instructions.md
-│   ├── config/                 # brand-palette.json, welcome-baseline.json
-│   ├── scripts/shared/         # runtime helpers used by the converter skills
-│   ├── skills/                 # 42 skills (framework + workspace bootstrap + craft + converters + plugin lifecycle)
-│   ├── instructions/           # 18 instructions (17 always-on bootstrapped + 1 pattern-applied)
+│   ├── config/                 # brand-palette.json
+│   ├── skills/                 # 29 baseline framework, reasoning, safety, and craft skills
+│   ├── instructions/           # 17 sources (16 distributed by Manager + 1 pattern-applied)
 │   └── prompts/                # 14 slash-command prompts
 └── .vscode/                    # workspace settings for self-dogfooding
 ```
@@ -183,17 +200,18 @@ new Agent chat or reload VS Code after changing the setting.
 
 Use [`alex-act-manager@alex-mall`](https://github.com/fabioc-aloha/Alex_ACT_Manager)
 for installation, status, updates, uninstallation, and configuration. Core's
-namespaced lifecycle commands remain available as compatibility copies.
+namespaced lifecycle commands remain available as thin compatibility redirects.
 
 ## Configure specializations (optional)
 
-Use Manager's lifecycle commands from Copilot Chat for configuration and other
-lifecycle work. Core retains these compatibility copies:
+Use Manager's lifecycle commands from Copilot Chat. Core retains only thin
+namespaced compatibility redirects:
 
 - **`/alex-act-manager install-constellation`** — installs selected plugins, repairs the brain spine, and enables installed plugins at user scope
-- **`/alex-act-core bootstrap-workspace`** — previews and consent-gates repository-scoped Markdown Preview CSS, workspace settings, and selective `.gitignore` tracking
-- **`/alex-act-core plugin-status`** — read-only inventory of what's installed at user + repo scope
-- **`/alex-act-core update-plugins`** — safe update workflow with per-plugin CHANGELOG reading and consent for breaking changes
+- **`/alex-act-manager bootstrap-workspace`** — previews and consent-gates repository-scoped Markdown Preview CSS, workspace settings, and selective `.gitignore` tracking
+- **`/alex-act-manager plugin-status`** — read-only inventory of what's installed at user + repo scope
+- **`/alex-act-manager update-plugins`** — safe update workflow with per-plugin CHANGELOG reading and consent for breaking changes
+- **`/alex-act-document-tools convert`** — routes supported Markdown, HTML, Word, email, and plain-text conversions
 
 Full walkthrough with slash-command examples: [USER-EXPERIENCE Stages 3–5](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/INSTALL.md).
 
@@ -205,7 +223,7 @@ Copilot CLI does not auto-update plugins — updates are manual and version-pinn
 copilot plugin update alex-act-core
 ```
 
-Read the [CHANGELOG](CHANGELOG.md) before applying a version that carries breaking changes. Prefer Manager for the safer update workflow; `/alex-act-core update-plugins` remains a compatibility copy that reads the CHANGELOG and consent-gates breaking updates.
+Read the [CHANGELOG](CHANGELOG.md) before applying a version that carries breaking changes. Prefer Manager for the safer update workflow; `/alex-act-core update-plugins` redirects to Manager's CHANGELOG and consent flow.
 
 ## Uninstall
 
@@ -213,7 +231,7 @@ Read the [CHANGELOG](CHANGELOG.md) before applying a version that carries breaki
 copilot plugin uninstall alex-act-core
 ```
 
-Prefer Manager for constellation removal; Core's `/alex-act-core uninstall-constellation` remains a compatibility copy.
+Prefer Manager for constellation removal; Core's `/alex-act-core uninstall-constellation` is a thin compatibility redirect.
 
 **Troubleshooting.** If the uninstall fails with either:
 
@@ -222,13 +240,12 @@ Prefer Manager for constellation removal; Core's `/alex-act-core uninstall-const
 
 Both failure modes and their fixes (including a working two-file cleanup pattern) are documented in [`USER-EXPERIENCE.md § Optional — start from a clean slate`](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/INSTALL.md).
 
-## Runtime prerequisites for bundled converters
+## Optional document conversion
 
-The document-conversion skills (`docx-to-md`, `html-to-md`, `md-to-word`, `md-to-html`, `md-to-txt`, `md-to-eml`) need supporting tools on PATH — heirs install these once:
-
-- **pandoc** on PATH — required for all 6 converters
-- **mermaid-cli** (`mmdc`) on PATH — required for `md-to-html` and `md-to-word` when the source contains Mermaid diagrams
-- **jszip** in the workspace `node_modules` — optional; `md-to-word` uses it for a faster path and falls back to pandoc otherwise
+Install `alex-act-document-tools@alex-mall` when a project needs Markdown,
+HTML, Word, email, or plain-text conversion. That plugin owns converter
+prerequisites, execution, and validation; Core's `/alex-act-core convert`
+command is a temporary redirect only.
 
 ## Roadmap
 
@@ -239,8 +256,8 @@ Growth continues through evidence-gated proposals per [Alex ACT Core](https://gi
 - [Alex_ACT_Core](https://github.com/fabioc-aloha/Alex_ACT_Core) — top-of-chain, author + curator of every shipped artefact
 - [`Alex_ACT_Illustrator_Plugin`](https://github.com/fabioc-aloha/Alex_ACT_Illustrator_Plugin) — first shipped Steward CLI plugin; proves the transport
 - [`Alex_ACT_Manager`](https://github.com/fabioc-aloha/Alex_ACT_Manager) — preferred lifecycle management for installation, status, updates, uninstallation, and configuration
+- [`Alex_ACT_Document_Tools`](https://github.com/fabioc-aloha/Alex_ACT_Document_Tools) — optional document conversion and shared converter runtime
 - [`Alex_ACT_Plugin_Mall`](https://github.com/fabioc-aloha/Alex_Skill_Mall) — CLI-native plugin marketplace v3.0.0 GA (2026-07-28)
-- [`Alex_ACT_Memory`](https://github.com/fabioc-aloha/Alex_ACT_Memory) — shared Git-backed memory bus (sibling, not a plugin)
 - [`Alex_ACT_Edition`](https://github.com/fabioc-aloha/Alex_ACT_Edition) — frozen v1 heir-template compatibility surface (v4.2.0, 2026-07-28)
 - Steward Plan Phase 3: [gap #1](https://github.com/fabioc-aloha/Alex_ACT_Core) — this repo's creation is the partial resolution
 

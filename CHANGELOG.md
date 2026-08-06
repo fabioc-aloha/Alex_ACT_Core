@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Removed
+
+- Removed five lifecycle skill implementations now solely owned by Manager.
+- Removed six converter skill implementations and four shared runtime modules
+  now solely owned by Document Tools.
+- Removed Core's local copy of Manager's 16-file instruction bootstrap.
+- Removed `ai-memory-setup`, `memory-management`, and the always-on
+  `memory-triggers` instruction from the default Core runtime.
+- Removed Shared Memory from the default instruction bootstrap, reducing it
+  from 17 files to 16.
+
+### Changed
+
+- Reduced Core to 29 baseline skills while retaining 14 namespaced commands.
+- Rewrote seven lifecycle commands as thin Manager redirects and `/convert` as
+  a thin Document Tools redirect.
+- Narrowed `pii-memory-filter` to native user, repository, and session memory.
+- Kept repository handoff continuity in `proactive-awareness` without a shared
+  Memory dependency.
+
 ## [0.9.0] - 2026-08-04
 
 ### Removed

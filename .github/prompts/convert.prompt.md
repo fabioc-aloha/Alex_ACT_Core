@@ -1,42 +1,24 @@
 ---
-description: "Convert a document between Markdown, HTML, Word, email, and plain text using the matching bundled converter. Use when the user asks to transform a supported document format."
-lastReviewed: 2026-05-26
+description: "Routes legacy Core document-conversion requests to the standalone Document Tools plugin. Use when an older caller invokes Core's compatibility command."
+lastReviewed: 2026-08-05
 ---
 
 
 
 # /convert
 
-Convert a document to another format.
-
-If the generic skill tool is unavailable for a plugin-shipped converter, resolve the installed Core root and read the matching `skills/<format>/SKILL.md` directly. Do not declare the converter absent when its installed file exists.
+This is a compatibility command. Document Tools owns all six converters and
+their shared runtime. Do not invoke the generic skill tool or reproduce the
+format router in Core.
 
 ## Steps
 
-1. **Detect formats**: Identify the source file and target format from the user's request. If ambiguous, ask.
-2. **Load format skill**: Read the matching skill from `.github/skills/<format>/SKILL.md` for format-specific rules and options.
-3. **Run script**: Execute the conversion script with the user's options:
-   ```
-   node .github/skills/<format>/scripts/<format>.cjs <source> [output] [options]
-   ```
-4. **Validate**: Confirm the output exists, is non-empty, and opens in the appropriate viewer. Use converter diagnostics for format-specific failures.
-5. **Report**: Show the output path, file size, and any diagnostics.
-
-## Format Detection
-
-| User says | Source | Target | Script |
-| --- | --- | --- | --- |
-| "convert to word" / "make a docx" | .md | .docx | skills/md-to-word/scripts/md-to-word.cjs |
-| "convert to html" / "make a webpage" | .md | .html | skills/md-to-html/scripts/md-to-html.cjs |
-| "convert to email" / "make an eml" | .md | .eml | skills/md-to-eml/scripts/md-to-eml.cjs |
-| "convert to plain text" | .md | .txt | skills/md-to-txt/scripts/md-to-txt.cjs |
-| "convert this word doc" / "docx to md" | .docx | .md | skills/docx-to-md/scripts/docx-to-md.cjs |
-| "convert this html" / "html to md" | .html | .md | skills/html-to-md/scripts/html-to-md.cjs |
-
-## If the user provides no file
-
-Ask which file to convert. Do not guess.
+1. Verify `alex-act-document-tools@alex-mall` is installed with `copilot plugin list`.
+2. If Document Tools is absent, provide `copilot plugin install alex-act-document-tools@alex-mall` and stop until it is loaded.
+3. Invoke `/alex-act-document-tools convert` with the original request and files.
+4. Preserve Document Tools' format detection, execution, and output validation.
 
 ## Would Revise If
 
-Revisit this prompt by **2026-08-26** (90 days) or sooner if any of the following fires: the workflow it invokes ceases to produce its intended output (skill body changed but prompt steps stale); the visible markers / verification steps in its body are consistently skipped; or the slash-command name is no longer discoverable in the prompt picker.
+Remove this compatibility prompt after **2026-11-05** if supported callers no
+longer use the Core namespace.
