@@ -113,7 +113,9 @@ test('greeting and drift signals route repair to Manager', () => {
   assert.match(greeting, /alex-act-manager@alex-mall/);
   assert.match(greeting, /\/alex-act-manager install-constellation/);
   assert.match(greeting, /\/alex-act-manager update-plugins/);
+  assert.match(greeting, /\/alex-act-manager plugin-status/);
   assert.doesNotMatch(greeting, /\/alex-act-core update-plugins/);
+  assert.doesNotMatch(greeting, /\/alex-act-core plugin-status/);
   assert.match(health, /\/alex-act-manager install-constellation/);
   assert.doesNotMatch(health, /\/alex-act-core install-constellation/);
 });
