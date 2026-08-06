@@ -4,6 +4,14 @@ All notable changes to `alex-act-core` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- `risk-analysis`: replaced the retired Edition and Supervisor names in the risk
+  category table with Core and Steward. Prose only; the categories and their
+  scoring are unchanged.
+
 ## [1.0.0] - 2026-08-06
 
 ### Added

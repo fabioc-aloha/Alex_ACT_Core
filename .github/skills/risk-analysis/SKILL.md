@@ -16,8 +16,8 @@ Applied to curation work: accepting a bad skill is reversible (revert next patch
 |----------|----------|
 | **Quality** | Skill has bugs, stale references, or misleading content |
 | **Coherence** | New content conflicts with existing brain architecture |
-| **Scope creep** | Feature belongs in a different repo or surface (not Edition / Mall / Supervisor) |
-| **Token budget** | Addition pushes Edition past 25K instruction budget |
+| **Scope creep** | Feature belongs in a different repo or surface (not Core / Mall / Steward) |
+| **Token budget** | Addition pushes Core past 25K instruction budget |
 | **Breaking change** | Rename/remove that breaks heir upgrades |
 | **Staleness** | Store/skill stays past its useful life, misleading by presence |
 
