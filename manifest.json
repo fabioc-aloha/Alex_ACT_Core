@@ -1,7 +1,7 @@
 {
   "$comment": "Mall-side plugin manifest. Core ships 17 source instructions, 29 baseline skills, and 14 slash-command prompts. Manager owns lifecycle and the 16-file instruction bootstrap; Document Tools owns conversion. Eight Core commands remain temporary namespaced redirects. Growth continues through evidence-gated Steward proposals.",
   "plugin": "alex-act-core",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "shape": "seventeen-instructions + twenty-nine-skills + fourteen-prompts (Alex Finch runtime personality + ACT canon + cognitive discipline + reasoning muscles + meditation loop + security & privacy + tooling awareness + git/lint/mcp + craft skills + sundries; lifecycle owned by Manager; conversion owned by Document Tools; Shared Memory default integration deprecated 2026-08-05)",
   "description": "The Alex ACT baseline runtime plugin and plugin-native successor to Alex_ACT_Edition v4.2.0. Installs 29 reusable baseline skills and 14 slash-command prompts. Core authors 17 instructions; Manager distributes the sixteen load-bearing always-on instructions. Manager is the sole lifecycle skill owner and Document Tools is the sole converter skill owner. Eight Core commands remain temporary namespaced compatibility redirects.",
   "homepage": "https://github.com/fabioc-aloha/Alex_ACT_Core",
