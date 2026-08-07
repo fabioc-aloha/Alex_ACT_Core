@@ -3,6 +3,6 @@
   "version": "1.0.1",
   "private": true,
   "scripts": {
-    "test": "node --test scripts/test-runtime-boundary.cjs scripts/test-native-memory-contract.cjs scripts/test-personality-reference.cjs"
+    "test": "node --test scripts/test-runtime-boundary.cjs scripts/test-native-memory-contract.cjs scripts/test-personality-reference.cjs scripts/test-doc-hygiene.cjs"
   }
 }

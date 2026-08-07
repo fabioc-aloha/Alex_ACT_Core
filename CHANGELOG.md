@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Extended `doc-hygiene` with a tested five-layer code-documentation ladder for
+  invariant-focused comments, portable adoption guides, stable technical
+  references, changelogs, and decision records.
+
 ## [1.0.1] - 2026-08-06
 
 ### Fixed

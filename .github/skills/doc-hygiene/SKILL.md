@@ -1,7 +1,7 @@
 ---
 name: doc-hygiene
-description: Documentation hygiene — anti-drift rules, count elimination, and living document maintenance. Use when auditing docs for drift or staleness, fixing hardcoded counts and dead links, checking doc quality, or deciding whether a document is living or historical.
-lastReviewed: 2026-05-31
+description: Documentation hygiene — anti-drift rules, code-documentation placement, count elimination, and living document maintenance. Use when auditing docs or comments for drift, fixing hardcoded counts and dead links, documenting code for adopters, or deciding whether a document is living or historical.
+lastReviewed: 2026-08-07
 ---
 
 # Doc Hygiene
@@ -78,6 +78,39 @@ Documentation in a cognitive architecture IS architecture. Apply the same engine
 | Dead code | Archived content still linked from living docs |
 
 **Principle**: If a doc change would break another doc's accuracy, it's a breaking change. Treat it as such.
+
+## Code Documentation Ladder
+
+Put each claim at the narrowest layer that can own it without duplication. Comments explain why and invariants; broader documents explain use, contracts, history, or decisions.
+
+| Layer | Owns | Keep out |
+|---|---|---|
+| **Inline comment** | A non-obvious invariant, workaround, safety boundary, or reason the local implementation has its shape | Line-by-line narration, tutorial prose, or behavior the code already states clearly |
+| **Adoption guide** | Setup, upgrade, verification, extension points, and environment-specific pitfalls for someone consuming a detached bundle | Internal implementation history or repository-only paths that disappear when copied |
+| **Technical reference** | Stable contracts, schemas, supported modes, and externally observable semantics | Volatile control flow or implementation details that belong beside the code |
+| **Changelog** | What changed, compatibility impact, and required user action | The complete rationale or operating instructions |
+| **Decision record** | Why one architecture or policy won over credible alternatives | Current usage instructions or details already visible in code |
+
+### Rules
+
+| Condition | Action |
+|---|---|
+| Code changes invalidate a nearby explanation | Change or delete the comment in the same change; a stale comment is a defect, not history |
+| A load-bearing documentation claim affects routing, security, compatibility, or supported behavior | Back the claim with an executable check at the closest stable boundary |
+| Behavior changes by origin, path, exit-code, or trust-boundary semantics | Document the distinction beside the boundary and cover each material branch in tests |
+| A starter, template, or other detached bundle can leave its repository | Ship a local adoption guide with the bundle; repository-level links are supporting context, not the only instructions |
+| A list or count can be derived from files or metadata | Generate or test it instead of maintaining prose by hand |
+
+Do not narrate what each line does. Explain the constraint a future maintainer might otherwise remove, the consequence of violating it, and the evidence that protects it.
+
+### Anti-Patterns
+
+| Anti-pattern | Correction |
+|---|---|
+| Comment says code sets body padding after the implementation moved to an in-flow spacer | Rewrite it around the layout invariant, then add a regression for the rendered spacing |
+| Reference says a feature is enabled by default while configuration keeps it opt-in | Test the default and describe the observed contract |
+| Adoption steps enumerate a fixed bundle by hand | Derive the inventory from the package manifest and test recursive completeness |
+| Copied starter points only to docs in its source repository | Include a portable guide inside the copied bundle |
 
 ## Link Integrity
 
@@ -157,3 +190,5 @@ The yield is decision buckets, not a per-file list. Surface the buckets and let 
 ## Would Revise If
 
 Revise if the anti-drift rules let stale counts ship to released artifacts twice in a quarter, or if the 'living vs historical' classification produces disputes the rules cannot resolve.
+
+By **2026-11-07**, revise the code-documentation ladder if two reviews still find stale mechanism comments, two projects duplicate one claim across three or more layers, or a recurring documentation artifact cannot be classified by the ladder.
