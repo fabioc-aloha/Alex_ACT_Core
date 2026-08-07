@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-08-07
+
 ### Changed
 
 - Extended `doc-hygiene` with a tested five-layer code-documentation ladder for
