@@ -5,14 +5,16 @@ layer, and verifies the complete constellation. Manager is the preferred
 lifecycle owner; Core remains the compatible baseline and command surface. The
 other plugins are selected according to the work you do.
 
-## Published Versions
+## Release Targets (Not Yet Published)
 
-Last verified: 2026-08-07.
+Prepared 2026-08-14 for SC-01. The Mall still publishes Manager `1.1.0` and
+Core `1.1.0`; do not use the target versions below until SC-01 publication is
+complete.
 
 | Component | Version | Distribution |
 | --- | --- | --- |
-| Manager | `1.1.0` | `alex-act-manager@alex-mall` |
-| Core | `1.1.0` | `alex-act-core@alex-mall` |
+| Manager | `1.2.0` | `alex-act-manager@alex-mall` |
+| Core | `2.0.0` | `alex-act-core@alex-mall` |
 | Illustrator | `2.0.0` | `alex-act-illustrator-plugin@alex-mall` |
 | Document Tools | `1.0.1` | `alex-act-document-tools@alex-mall` |
 | Enterprise | `1.0.1` | `alex-act-enterprise@alex-mall` |
@@ -138,7 +140,7 @@ Confirm each plane independently:
 | --- | --- |
 | `installed` | Plugin files and `plugin.json` report the published version. |
 | `enabled` | The exact plugin key is enabled at the intended scope. |
-| `instruction-loaded` | The Core receipt owns 16 files whose versions and hashes match. |
+| `instruction-loaded` | The Manager receipt owns 16 files whose versions, owners, and hashes match. |
 | `skill-invokable` | The namespaced command runs, or reports `host-limited` with a healthy installed-file fallback. |
 | `user-settings` | The consented user baseline merge is verified, or a manual JSONC merge remains pending. |
 | `workspace` | The workspace bootstrap preserves local settings and reports CSS parity. |

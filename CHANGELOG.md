@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-08-14
+
 ### Added
 
 - Added the nonoptional `surface-continuity` skill and versioned runtime
@@ -25,6 +27,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   and `HANDOFF.md` as the local fallback.
 - Extended the universal PII guard to Manager continuity records without
   selecting a transport or publication action.
+
+### Upgrade
+
+Existing users must update Manager to `1.2.0` first, update Core to `2.0.0`
+second, then invoke `/alex-act-manager install-constellation` and approve the
+bootstrap-only repair. The repair migrates the receipt to schema v2 and
+replaces the installed greeting with Manager's owned trigger while preserving
+the sixteen-file target set.
 
 ## [1.1.0] - 2026-08-07
 

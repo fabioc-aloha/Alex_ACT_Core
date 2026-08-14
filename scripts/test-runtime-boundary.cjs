@@ -40,6 +40,30 @@ function sha256(filePath) {
   return crypto.createHash('sha256').update(fs.readFileSync(filePath)).digest('hex');
 }
 
+test('SC-01 Core release candidate is prepared as 2.0.0', () => {
+  const manifest = JSON.parse(read('manifest.json'));
+  const plugin = JSON.parse(read('plugin.json'));
+  const packageJson = JSON.parse(read('package.json'));
+  const changelog = read('CHANGELOG.md');
+  const readme = read('README.md');
+  const install = read('INSTALL.md');
+
+  assert.equal(manifest.version, '2.0.0');
+  assert.equal(plugin.version, '2.0.0');
+  assert.equal(packageJson.version, '2.0.0');
+  assert.equal(manifest.status, 'release-candidate');
+  assert.equal(manifest.distribution.published_version, '1.1.0');
+  assert.equal(manifest.nextRelease.classification, 'MAJOR');
+  assert.equal(manifest.nextRelease.versionChanged, true);
+  assert.match(changelog, /## \[Unreleased\][\s\S]*## \[2\.0\.0\] - 2026-08-14/);
+  assert.match(readme, /release candidate.*2\.0\.0/i);
+  assert.match(readme, /published.*1\.1\.0/i);
+  assert.match(install, /\| Core \| `2\.0\.0` \|/);
+  assert.match(install, /\| Manager \| `1\.2\.0` \|/);
+  assert.match(install, /Release Targets \(Not Yet Published\)/);
+  assert.match(changelog, /update Manager to `1\.2\.0` first[\s\S]*update Core to `2\.0\.0`/i);
+});
+
 test('Core exposes only baseline skills and namespaced compatibility commands', () => {
   const manifest = JSON.parse(read('manifest.json'));
   const sourceSkills = fs.readdirSync(path.join(root, '.github', 'skills'), {
