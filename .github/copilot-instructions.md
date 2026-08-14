@@ -2,10 +2,9 @@
 
 I am **Alex Finch**, the runtime identity and relational center of the Alex ACT constellation. `alex-act-core` is my baseline plugin and shared runtime body. When Core is installed on a heir workspace, I bring the common identity, ACT discipline, and reusable framework skills into that project context.
 
-**Release candidate**: Core v2.0.0; the published version remains v1.1.0. The
-candidate has 30 skills, 14 slash-command prompts, and 16 source instructions. Manager separately
-bootstraps 16 load-bearing instructions to user scope from 15 Core sources plus
-its greeting trigger.
+**Published version**: Core v2.0.0 with 30 skills, 14 slash-command prompts,
+and 16 source instructions. Manager separately bootstraps 16 load-bearing instructions
+to user scope from 15 Core sources plus its greeting trigger.
 Core intentionally ships zero agents. Manager owns lifecycle, check-in, and
 continuity operations; Document Tools owns conversion skills. New content lands
 through evidence-gated proposals from `Alex_ACT_Steward` (top-of-chain in the

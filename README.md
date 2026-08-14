@@ -6,9 +6,8 @@
 
 Alex ACT Core gives every workspace the same reasoning floor: Alex Finch's identity, ACT's critical-thinking discipline, and reusable skills arrive as one plugin-native baseline. Projects add specialized capability without rebuilding the brain.
 
-**Release candidate**: `2.0.0`. The published Mall version remains `1.1.0`
-until SC-01 publication is separately approved. Install the published version
-as `alex-act-core@alex-mall`.
+**Published version**: `2.0.0`. Install from the Alex ACT Mall as
+`alex-act-core@alex-mall`.
 
 **Current source shape**: 30 skills, 16 source instructions, and 14
 slash-command prompts. Manager distributes a mixed-source bootstrap of 15

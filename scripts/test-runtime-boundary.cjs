@@ -40,7 +40,7 @@ function sha256(filePath) {
   return crypto.createHash('sha256').update(fs.readFileSync(filePath)).digest('hex');
 }
 
-test('SC-01 Core release candidate is prepared as 2.0.0', () => {
+test('Core 2.0.0 release metadata is final before tagging', () => {
   const manifest = JSON.parse(read('manifest.json'));
   const plugin = JSON.parse(read('plugin.json'));
   const packageJson = JSON.parse(read('package.json'));
@@ -51,16 +51,16 @@ test('SC-01 Core release candidate is prepared as 2.0.0', () => {
   assert.equal(manifest.version, '2.0.0');
   assert.equal(plugin.version, '2.0.0');
   assert.equal(packageJson.version, '2.0.0');
-  assert.equal(manifest.status, 'release-candidate');
-  assert.equal(manifest.distribution.published_version, '1.1.0');
-  assert.equal(manifest.nextRelease.classification, 'MAJOR');
-  assert.equal(manifest.nextRelease.versionChanged, true);
+  assert.equal(manifest.status, 'released');
+  assert.equal(manifest.distribution.status, 'published');
+  assert.equal(manifest.distribution.published_version, '2.0.0');
+  assert.equal(manifest.nextRelease, undefined);
   assert.match(changelog, /## \[Unreleased\][\s\S]*## \[2\.0\.0\] - 2026-08-14/);
-  assert.match(readme, /release candidate.*2\.0\.0/i);
-  assert.match(readme, /published.*1\.1\.0/i);
+  assert.match(readme, /published version.*2\.0\.0/i);
   assert.match(install, /\| Core \| `2\.0\.0` \|/);
   assert.match(install, /\| Manager \| `1\.2\.0` \|/);
-  assert.match(install, /Release Targets \(Not Yet Published\)/);
+  assert.match(install, /## Published Versions/);
+  assert.doesNotMatch(install, /Not Yet Published/);
   assert.match(changelog, /update Manager to `1\.2\.0` first[\s\S]*update Core to `2\.0\.0`/i);
 });
 

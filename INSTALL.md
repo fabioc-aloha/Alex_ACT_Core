@@ -5,11 +5,9 @@ layer, and verifies the complete constellation. Manager is the preferred
 lifecycle owner; Core remains the compatible baseline and command surface. The
 other plugins are selected according to the work you do.
 
-## Release Targets (Not Yet Published)
+## Published Versions
 
-Prepared 2026-08-14 for SC-01. The Mall still publishes Manager `1.1.0` and
-Core `1.1.0`; do not use the target versions below until SC-01 publication is
-complete.
+Last verified: 2026-08-14.
 
 | Component | Version | Distribution |
 | --- | --- | --- |

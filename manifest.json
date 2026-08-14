@@ -2,7 +2,7 @@
   "$comment": "Mall-side plugin manifest. Core ships 16 source instructions, 30 baseline skills, and 14 slash-command prompts. Manager owns lifecycle, greeting check-in, continuity operations, and the mixed-source 16-file instruction bootstrap; Document Tools owns conversion. Eight Core commands remain temporary namespaced redirects. Growth continues through evidence-gated Steward proposals.",
   "plugin": "alex-act-core",
   "version": "2.0.0",
-  "status": "release-candidate",
+  "status": "released",
   "shape": "sixteen-instructions + thirty-skills + fourteen-prompts (Alex Finch runtime personality + ACT canon + continuity semantics + cognitive discipline + reasoning muscles + meditation loop + security & privacy + tooling awareness + git/lint/mcp + craft skills + sundries; lifecycle, greeting, and continuity operations owned by Manager; conversion owned by Document Tools)",
   "description": "The Alex ACT baseline runtime plugin and plugin-native successor to Alex_ACT_Edition v4.2.0. Installs 30 reusable baseline skills and 14 slash-command prompts. Core authors 16 instructions and the nonoptional Surface Continuity semantics. Manager owns greeting, lifecycle, continuity operations, and the mixed-source sixteen-file bootstrap. Document Tools is the sole converter skill owner. Eight Core commands remain temporary namespaced compatibility redirects.",
   "homepage": "https://github.com/fabioc-aloha/Alex_ACT_Core",
@@ -422,15 +422,10 @@
     "os": "cross-platform (Windows, macOS, Linux)"
   },
   "distribution": {
-    "status": "published-source-unchanged",
-    "published_version": "1.1.0"
+    "status": "published",
+    "published_version": "2.0.0"
   },
   "verify_install": {
     "$comment": "Placeholder — will be filled when the first skill/instruction ships. Pattern from illustrator plugin: scripts/verify-install.mjs runs a stdio handshake against declared MCP servers + a filesystem check of installed skill paths."
-  },
-  "nextRelease": {
-    "classification": "MAJOR",
-    "versionChanged": true,
-    "reason": "Removes Core ownership of greeting-checkin while Manager preserves the installed filename; adds Surface Continuity semantics."
   }
 }
