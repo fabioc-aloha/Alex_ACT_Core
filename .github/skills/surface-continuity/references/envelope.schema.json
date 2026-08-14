@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:alex-act:continuity:v1:envelope",
+  "title": "Alex ACT Surface Continuity Envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "kind",
+    "from",
+    "to",
+    "createdAt",
+    "correlationId",
+    "causationId",
+    "subject",
+    "dataClass",
+    "retention",
+    "expiresAt",
+    "supersedes",
+    "contentHash",
+    "requiresApproval"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "id": {
+      "$ref": "#/$defs/stableId"
+    },
+    "kind": {
+      "enum": [
+        "knowledge",
+        "message",
+        "acknowledgment",
+        "result",
+        "retry",
+        "dead-letter"
+      ]
+    },
+    "from": {
+      "$ref": "#/$defs/stableId"
+    },
+    "to": {
+      "$ref": "#/$defs/stableId"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "correlationId": {
+      "$ref": "#/$defs/stableId"
+    },
+    "causationId": {
+      "$ref": "#/$defs/stableId"
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "dataClass": {
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "personal",
+        "restricted"
+      ]
+    },
+    "retention": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy",
+        "days"
+      ],
+      "properties": {
+        "policy": {
+          "enum": [
+            "ephemeral",
+            "operational",
+            "durable",
+            "legal-hold"
+          ]
+        },
+        "days": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3650
+        }
+      }
+    },
+    "expiresAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "supersedes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/stableId"
+      },
+      "uniqueItems": true
+    },
+    "contentHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "SHA-256 of UTF-8 RFC 8785 JSON Canonicalization Scheme (JCS) payload bytes or owned artifact bytes."
+    },
+    "requiresApproval": {
+      "type": "boolean"
+    },
+    "payload": {
+      "type": "object"
+    },
+    "artifactRef": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "pattern": "^(?![A-Za-z][A-Za-z0-9+.-]*:)(?!.*(?:^|/)(?:[Uu][Ss][Ee][Rr][Ss]?|[Hh][Oo][Mm][Ee])/)(?!.*(?:^|/)\\.\\.?(?:/|$))[A-Za-z0-9._-]+(?:/[A-Za-z0-9._-]+)*$"
+    }
+  },
+  "$defs": {
+    "stableId": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9][a-z0-9._:-]+$"
+    }
+  },
+  "oneOf": [
+    {
+      "required": [
+        "payload"
+      ],
+      "not": {
+        "required": [
+          "artifactRef"
+        ]
+      }
+    },
+    {
+      "required": [
+        "artifactRef"
+      ],
+      "not": {
+        "required": [
+          "payload"
+        ]
+      }
+    }
+  ]
+}

@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Added the nonoptional `surface-continuity` skill and versioned runtime
+  envelope for placement, communication, trust, retrieval, and deliberate
+  experience persistence.
+
+### Removed
+
+- Removed Core authorship of `greeting-checkin`; Manager now owns the thin
+  greeting trigger and complete operational check-in. This is a MAJOR public
+  surface change for the next Core release.
+
+### Changed
+
+- Routed meditation deposits, bootstrap health, continuity repair, and pending
+  records through Manager while preserving native memory, `.github/episodic/`,
+  and `HANDOFF.md` as the local fallback.
+- Extended the universal PII guard to Manager continuity records without
+  selecting a transport or publication action.
+
 ## [1.1.0] - 2026-08-07
 
 ### Changed

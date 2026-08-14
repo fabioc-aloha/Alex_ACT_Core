@@ -52,8 +52,8 @@ test('Core exposes only baseline skills and namespaced compatibility commands', 
     .filter((name) => name.endsWith('.prompt.md'))
     .sort();
 
-  assert.equal(manifest.assets.skills.length, 29);
-  assert.equal(manifest.assets.instructions.length, 17);
+  assert.equal(manifest.assets.skills.length, 30);
+  assert.equal(manifest.assets.instructions.length, 16);
   assert.equal(manifest.assets.prompts.length, 14);
   assert.deepEqual(manifest.assets.skills.map((entry) => entry.name).sort(), sourceSkills);
   assert.deepEqual(manifest.assets.prompts.map((entry) => `${entry.name}.prompt.md`).sort(),
@@ -88,7 +88,7 @@ test('fresh-install guidance routes lifecycle to Manager', () => {
   assert.match(install, /\/alex-act-manager bootstrap-workspace/);
 });
 
-test('Manager distributes sixteen byte-identical Core instructions', {
+test('Manager distributes fifteen Core instructions plus its greeting trigger', {
   skip: !fs.existsSync(managerRoot),
 }, () => {
   const bootstrap = path.join(
@@ -99,6 +99,11 @@ test('Manager distributes sixteen byte-identical Core instructions', {
   const mismatches = [];
   assert.equal(files.length, 16);
   for (const name of files) {
+    if (name === 'alex-act-greeting-checkin.instructions.md') {
+      const greeting = fs.readFileSync(path.join(bootstrap, name), 'utf8');
+      if (!/\/alex-act-manager checkin/.test(greeting)) mismatches.push(name);
+      continue;
+    }
     const source = path.join(root, '.github', 'instructions', name.replace(/^alex-act-/, ''));
     if (!fs.existsSync(source) || sha256(source) !== sha256(path.join(bootstrap, name))) {
       mismatches.push(name);
@@ -108,14 +113,12 @@ test('Manager distributes sixteen byte-identical Core instructions', {
 });
 
 test('greeting and drift signals route repair to Manager', () => {
-  const greeting = read('.github/instructions/greeting-checkin.instructions.md');
+  const greeting = fs.readFileSync(path.join(
+    managerRoot,
+    '.github/skills/install-constellation/bootstrap/alex-act-greeting-checkin.instructions.md'),
+  'utf8');
   const health = read('.github/instructions/session-health-monitoring.instructions.md');
-  assert.match(greeting, /alex-act-manager@alex-mall/);
-  assert.match(greeting, /\/alex-act-manager install-constellation/);
-  assert.match(greeting, /\/alex-act-manager update-plugins/);
-  assert.match(greeting, /\/alex-act-manager plugin-status/);
-  assert.doesNotMatch(greeting, /\/alex-act-core update-plugins/);
-  assert.doesNotMatch(greeting, /\/alex-act-core plugin-status/);
-  assert.match(health, /\/alex-act-manager install-constellation/);
-  assert.doesNotMatch(health, /\/alex-act-core install-constellation/);
+  assert.match(greeting, /\/alex-act-manager checkin/);
+  assert.match(health, /\/alex-act-manager checkin/);
+  assert.doesNotMatch(health, /\.alex-act-bootstrap\.json|installed-plugins/);
 });

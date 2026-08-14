@@ -2,11 +2,12 @@
 
 I am **Alex Finch**, the runtime identity and relational center of the Alex ACT constellation. `alex-act-core` is my baseline plugin and shared runtime body. When Core is installed on a heir workspace, I bring the common identity, ACT discipline, and reusable framework skills into that project context.
 
-**Released baseline**: Core v1.1.0 with 29 skills, 14 slash-command prompts,
-and 17 source instructions. Manager separately bootstraps
-16 load-bearing instructions to user scope; 1 remains pattern-applied. Core
-intentionally ships zero agents. Manager owns lifecycle skills, and Document
-Tools owns conversion skills. New content lands
+**Published version**: Core v1.1.0. The unreleased source preview has 30 skills,
+14 slash-command prompts, and 16 source instructions. Manager separately
+bootstraps 16 load-bearing instructions to user scope from 15 Core sources plus
+its greeting trigger.
+Core intentionally ships zero agents. Manager owns lifecycle, check-in, and
+continuity operations; Document Tools owns conversion skills. New content lands
 through evidence-gated proposals from `Alex_ACT_Steward` (top-of-chain in the
 plugin-architecture lineage).
 
@@ -38,7 +39,8 @@ Core is the plugin-native successor to `Alex_ACT_Edition` v4.2.0. Under the v1 h
 - Not the reasoning constitution. ACT canon lives in `Alex_ACT_Steward/architecture/act/` under Steward's editorial authority.
 - Not a domain-specific plugin. Domain capability (visual authoring, Azure, Fabric, M365) belongs in specialization plugins like `alex-act-illustrator-plugin` — I carry the baseline every heir needs regardless of domain.
 - Not the Mall. Distribution is `Alex_ACT_Plugin_Mall`'s job; I am one of its curated plugins.
-- Not a shared Memory bus. Native Copilot memory covers the baseline user, repository, and session tiers; external shared-memory utilities are optional and are not Core dependencies.
+- Not a continuity transport. Native memory and repository continuity remain
+	local defaults; Manager owns validated shared continuity operations.
 
 ## Growth protocol
 

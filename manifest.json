@@ -1,9 +1,10 @@
 {
-  "$comment": "Mall-side plugin manifest. Core ships 17 source instructions, 29 baseline skills, and 14 slash-command prompts. Manager owns lifecycle and the 16-file instruction bootstrap; Document Tools owns conversion. Eight Core commands remain temporary namespaced redirects. Growth continues through evidence-gated Steward proposals.",
+  "$comment": "Mall-side plugin manifest. Core ships 16 source instructions, 30 baseline skills, and 14 slash-command prompts. Manager owns lifecycle, greeting check-in, continuity operations, and the mixed-source 16-file instruction bootstrap; Document Tools owns conversion. Eight Core commands remain temporary namespaced redirects. Growth continues through evidence-gated Steward proposals.",
   "plugin": "alex-act-core",
   "version": "1.1.0",
-  "shape": "seventeen-instructions + twenty-nine-skills + fourteen-prompts (Alex Finch runtime personality + ACT canon + cognitive discipline + reasoning muscles + meditation loop + security & privacy + tooling awareness + git/lint/mcp + craft skills + sundries; lifecycle owned by Manager; conversion owned by Document Tools; Shared Memory default integration deprecated 2026-08-05)",
-  "description": "The Alex ACT baseline runtime plugin and plugin-native successor to Alex_ACT_Edition v4.2.0. Installs 29 reusable baseline skills and 14 slash-command prompts. Core authors 17 instructions; Manager distributes the sixteen load-bearing always-on instructions. Manager is the sole lifecycle skill owner and Document Tools is the sole converter skill owner. Eight Core commands remain temporary namespaced compatibility redirects.",
+  "status": "source-preview",
+  "shape": "sixteen-instructions + thirty-skills + fourteen-prompts (Alex Finch runtime personality + ACT canon + continuity semantics + cognitive discipline + reasoning muscles + meditation loop + security & privacy + tooling awareness + git/lint/mcp + craft skills + sundries; lifecycle, greeting, and continuity operations owned by Manager; conversion owned by Document Tools)",
+  "description": "The Alex ACT baseline runtime plugin and plugin-native successor to Alex_ACT_Edition v4.2.0. Installs 30 reusable baseline skills and 14 slash-command prompts. Core authors 16 instructions and the nonoptional Surface Continuity semantics. Manager owns greeting, lifecycle, continuity operations, and the mixed-source sixteen-file bootstrap. Document Tools is the sole converter skill owner. Eight Core commands remain temporary namespaced compatibility redirects.",
   "homepage": "https://github.com/fabioc-aloha/Alex_ACT_Core",
   "license": "MIT",
   "authors": [
@@ -175,6 +176,12 @@
         "role": "create stakeholder-friendly project status updates and progress reports — audience-adapted; composes with communication-craft for So-What/What/Now-What audience lead"
       },
       {
+        "name": "surface-continuity",
+        "path": ".github/skills/surface-continuity/SKILL.md",
+        "install_to": ".github/skills/surface-continuity/SKILL.md",
+        "role": "transport-neutral placement, communication, trust, retrieval, and experience-persistence semantics; routes operational continuity through Manager"
+      },
+      {
         "name": "systematic-debugging",
         "path": ".github/skills/systematic-debugging/SKILL.md",
         "install_to": ".github/skills/systematic-debugging/SKILL.md",
@@ -234,13 +241,6 @@
         "path": ".github/instructions/epistemic-calibration.instructions.md",
         "install_to": ".github/instructions/epistemic-calibration.instructions.md",
         "role": "confidence calibration + anti-hallucination signals (input-discipline + output-discipline) + confidence-trigger anti-sycophancy rule",
-        "applyTo": "**"
-      },
-      {
-        "name": "greeting-checkin",
-        "path": ".github/instructions/greeting-checkin.instructions.md",
-        "install_to": ".github/instructions/greeting-checkin.instructions.md",
-        "role": "session-start orientation — on short greeting patterns (hi/hello/hey/howdy/good morning/help/getting started; ≤40 chars), silently check constellation state (bootstrap present, plugins current, Mall updates) via 60-minute session-hint cache; offer setup / drift refresh / update reminders through consolidated consent gate; silent when healthy; never installs without explicit consent",
         "applyTo": "**"
       },
       {
@@ -421,7 +421,16 @@
     "alex_host": "GitHub Copilot Chat (VS Code 1.117+) OR Copilot CLI",
     "os": "cross-platform (Windows, macOS, Linux)"
   },
+  "distribution": {
+    "status": "published-source-unchanged",
+    "published_version": "1.1.0"
+  },
   "verify_install": {
     "$comment": "Placeholder — will be filled when the first skill/instruction ships. Pattern from illustrator plugin: scripts/verify-install.mjs runs a stdio handshake against declared MCP servers + a filesystem check of installed skill paths."
+  },
+  "nextRelease": {
+    "classification": "MAJOR",
+    "versionChanged": false,
+    "reason": "Removes Core ownership of greeting-checkin while Manager preserves the installed filename; adds Surface Continuity semantics."
   }
 }

@@ -8,9 +8,10 @@ Alex ACT Core gives every workspace the same reasoning floor: Alex Finch's ident
 
 **Version**: 1.1.0. Install from the Alex Mall as `alex-act-core@alex-mall`.
 
-**Current source shape**: 29 skills, 17 source instructions, and 14
-slash-command prompts. Manager distributes 16 always-on instructions to
-`~/.copilot/instructions/`; one Core instruction remains pattern-applied.
+**Current source shape**: 30 skills, 16 source instructions, and 14
+slash-command prompts. Manager distributes a mixed-source bootstrap of 15
+Core-owned instructions plus its greeting trigger to
+`~/.copilot/instructions/`.
 
 **Public runtime source**: [Alex ACT Core](https://github.com/fabioc-aloha/Alex_ACT_Core) contains the shipped skills, prompts, instruction sources, release history, and installation contract. Changes remain evidence-gated before release.
 
@@ -47,9 +48,10 @@ For a fresh install on any machine:
 
 Step 4 keeps every selected plugin enabled and separately asks whether to
 bootstrap the sixteen always-on ACT instructions. After that first bootstrap,
-short greetings can use `greeting-checkin` for repair, drift, and updates. A greeting
-cannot start first-time setup because the greeting instruction is delivered by
-the bootstrap itself.
+short greetings invoke Manager check-in for prioritized repair, updates,
+workspace setup, repository continuity, and shared continuity health. A
+greeting cannot start first-time setup because the Manager-owned greeting
+instruction is delivered by the bootstrap itself.
 
 **Full walkthrough**: [Install the Alex ACT constellation](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/INSTALL.md).
 
@@ -106,25 +108,24 @@ Alex ACT Core is the **baseline plugin** — the minimal always-on brain that ev
 **What Core is NOT**:
 
 - Not the Copilot CLI itself — Core rides on top of Copilot CLI + Chat
-- Not a shared-memory service. Native Copilot memory provides the baseline user, repository, and session tiers.
+- Not a continuity transport. Core owns placement and trust semantics; Manager owns continuity operations and adapters.
 - Not the Mall itself — the Mall lives in [`Alex_ACT_Plugin_Mall`](https://github.com/fabioc-aloha/Alex_Skill_Mall) and self-curates per ADR-008
 - Not a visual-authoring bundle — chart authoring, SVG banners, print figures, and AI imagery live in [`alex-act-illustrator-plugin`](https://github.com/fabioc-aloha/Alex_ACT_Illustrator_Plugin), not Core
 - Not a lifecycle plugin — install, status, workspace bootstrap, updates, and removal live in [`alex-act-manager`](https://github.com/fabioc-aloha/Alex_ACT_Manager)
 - Not a conversion bundle — document conversion lives in [`alex-act-document-tools`](https://github.com/fabioc-aloha/Alex_ACT_Document_Tools)
 
-## Continuity After Shared Memory Deprecation
+## Surface Continuity
 
-Native Copilot user, repository, and session memory are the default persistence
-layers. Repository-root `HANDOFF.md` carries versioned project execution state,
-and `meditation` performs explicit end-of-session consolidation into native
-memory, skills, instructions, chronicles, or handoffs.
+Native Copilot user, repository, and session memory remain the default
+persistence layers. Repository-root `HANDOFF.md` carries active project state,
+`.github/episodic/` carries durable project summaries, and the
+`surface-continuity` skill places reviewed cross-project knowledge and
+cross-surface work into Manager-owned continuity operations.
 
-Core no longer ships the Alex_ACT_Memory client, tier-selection skill, or
-automatic `memory-triggers` instruction. That means storage continuity remains,
-but automatic capture of every correction, preference, repeated pattern, or
-significant decision is not guaranteed by Alex ACT. The independent Memory
-repository remains available only as an explicitly adopted utility for governed
-cross-user channels or encrypted profiles.
+Core does not validate, stage, publish, poll, claim, or acknowledge shared
+records. If Manager continuity is unavailable, ordinary work falls back to
+native memory, `.github/episodic/`, and `HANDOFF.md` without error. No root
+`MEMORY.md` or automatic `memory-triggers` instruction is introduced.
 
 ## Why the plugin?
 
@@ -145,8 +146,8 @@ Alex_ACT_Core/
 ├── .github/                    # Copilot Chat + CLI discovery surface
 │   ├── copilot-instructions.md
 │   ├── config/                 # brand-palette.json
-│   ├── skills/                 # 29 baseline framework, reasoning, safety, and craft skills
-│   ├── instructions/           # 17 sources (16 distributed by Manager + 1 pattern-applied)
+│   ├── skills/                 # 30 baseline framework, continuity, reasoning, safety, and craft skills
+│   ├── instructions/           # 16 Core-owned sources distributed by Manager as applicable
 │   └── prompts/                # 14 slash-command prompts
 └── .vscode/                    # workspace settings for self-dogfooding
 ```
