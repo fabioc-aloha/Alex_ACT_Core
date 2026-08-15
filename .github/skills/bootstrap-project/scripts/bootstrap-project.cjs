@@ -84,8 +84,35 @@ function analyzeJsonc(text) {
             index++;
         } else output += character;
     }
-    const normalized = output.replace(/,\s*([}\]])/g, '$1');
-    return { value: JSON.parse(normalized), hadComments };
+    return { value: JSON.parse(stripTrailingCommas(output)), hadComments };
+}
+
+function stripTrailingCommas(text) {
+    let output = '';
+    let inString = false;
+    let escaped = false;
+    for (let index = 0; index < text.length; index++) {
+        const character = text[index];
+        if (inString) {
+            output += character;
+            if (escaped) escaped = false;
+            else if (character === '\\') escaped = true;
+            else if (character === '"') inString = false;
+            continue;
+        }
+        if (character === '"') {
+            inString = true;
+            output += character;
+            continue;
+        }
+        if (character === ',') {
+            let next = index + 1;
+            while (/\s/.test(text[next] || '')) next++;
+            if (text[next] === '}' || text[next] === ']') continue;
+        }
+        output += character;
+    }
+    return output;
 }
 
 function isPlainObject(value) {

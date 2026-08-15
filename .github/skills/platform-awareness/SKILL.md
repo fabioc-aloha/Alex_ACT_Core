@@ -94,7 +94,6 @@ signal.
 ## Related
 
 - [browser-tools skill](../browser-tools/SKILL.md) — Playwright / browser automation specifics (uses the deferred-tool discipline this skill owns)
-- [mcp-builder skill](../mcp-builder/SKILL.md) — authoring new MCP servers rather than just consuming them
 - `skill-review` / `skill-creator` (Alex ACT Steward, not shipped in Core) — the frontmatter description discipline this skill guards against being stripped
 
 ## Would Revise If

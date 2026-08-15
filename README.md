@@ -6,10 +6,10 @@
 
 Alex ACT Core gives every workspace the same reasoning floor: Alex Finch's identity, ACT's critical-thinking discipline, and reusable skills arrive as one plugin-native baseline. Projects add specialized capability without rebuilding the brain.
 
-**Published version**: `2.0.0`. Install from the Alex ACT Mall as
+**Published version**: `3.0.0`. Install from the Alex ACT Mall as
 `alex-act-core@alex-mall`.
 
-**Current source shape**: 31 skills, 16 source instructions, and 8
+**Current source shape**: 32 skills, 16 source instructions, and 9
 slash-command prompts. Core activates its own 16 instructions through the
 consent-gated `bootstrap-core` command and records a Core-owned receipt.
 
@@ -50,6 +50,74 @@ runtime instructions. Core project bootstrap and native Copilot CLI lifecycle
 commands cover the remaining baseline operations.
 
 **Full walkthrough**: [Install the Alex ACT constellation](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/INSTALL.md).
+
+## Constellation Plugins
+
+Core is the baseline. The other five plugins are optional capabilities: their
+manifests declare no dependency on Core or on one another, so users install only
+the capabilities their work needs.
+
+| Plugin | Published version | Delivery | Use it for |
+| --- | --- | --- | --- |
+| `alex-act-core` | `3.0.0` | `alex-mall` | Baseline identity, ACT discipline, instruction activation, and project bootstrap. |
+| `alex-act-illustrator-plugin` | `2.1.0` | `alex-mall` | Charts, figures, imagery, shells, banners, and visual companions. |
+| `alex-act-document-tools` | `1.1.0` | `alex-mall` | Markdown, HTML, Word, email, and plain-text production. |
+| `alex-act-ai-operations` | `0.2.0` | `alex-mall` | Consent-gated model planning and provider execution. |
+| `alex-act-enterprise` | `1.0.1` | `alex-mall` | Public Azure, Fabric, Power BI, and Microsoft 365 setup. |
+| `alex-act-msft` | `1.1.1` | Private `agency-playground` | Microsoft-internal Agency, WorkIQ, S360, and Org Report setup. |
+
+### Dependency Matrix
+
+| Plugin | Manifest dependency | Expected composition | Additional boundary |
+| --- | --- | --- | --- |
+| Core | None | The baseline itself | Activates and verifies its 16 user-scope instructions. |
+| Illustrator | None | Core is recommended, not required | MCP-backed features provision their reviewed local runtime only when selected. |
+| Document Tools | None | Core is recommended, not required | Converter tools and local prerequisites remain Document Tools-owned. |
+| AI Operations | None | Separately installed from the brain spine | Provider login, data transfer, and cost require separate execution approval. |
+| Enterprise | None | Core is the expected discipline baseline | Configures seven public Microsoft plugins at repository scope by default. |
+| MSFT | None | Core is expected; Enterprise is optional | Requires Microsoft identity, corporate network access, and private marketplace access. |
+
+### Install Commands
+
+Close all VS Code windows before installing or updating a plugin that VS Code
+has loaded. On Windows, an active extension host can retain plugin files and
+cause `os error 5`; use a standalone PowerShell terminal when that occurs.
+
+Register and refresh the public Mall once per machine:
+
+```powershell
+copilot plugin marketplace add fabioc-aloha/Alex_Skill_Mall
+copilot plugin marketplace update alex-mall
+```
+
+Install the selected public plugins:
+
+```powershell
+copilot plugin install alex-act-core@alex-mall
+copilot plugin install alex-act-illustrator-plugin@alex-mall
+copilot plugin install alex-act-document-tools@alex-mall
+copilot plugin install alex-act-ai-operations@alex-mall
+copilot plugin install alex-act-enterprise@alex-mall
+```
+
+Install MSFT only on a Microsoft-managed account and corporate network:
+
+```powershell
+git config --global core.longpaths true
+copilot plugin marketplace add agency-microsoft/playground
+copilot plugin install alex-act-msft@agency-playground
+```
+
+If the private marketplace route is unavailable but direct installation remains
+supported, use the managed-source fallback:
+
+```powershell
+copilot plugin install fabioc_microsoft/alex-act-msft
+```
+
+After installing Core, reload the host and run
+`/alex-act-core bootstrap-core`. Run each selected plugin's namespaced setup
+command only when its workload applies.
 
 ## Managing the Alex Mall marketplace
 
@@ -94,7 +162,7 @@ Alex ACT Core is the **baseline plugin** — the minimal always-on brain that ev
 
 | Layer | What it ships | Example |
 | --- | --- | --- |
-| **Baseline** (this plugin) | Self-activated epistemic discipline plus reusable reasoning, safety, communication, and engineering skills | `act-pass`, `critical-thinking`, `problem-framing-audit`, `meditation`, `lint-clean-markdown` |
+| **Baseline** (this plugin) | Self-activated epistemic discipline plus reusable reasoning, safety, communication, engineering, and project-capability authoring skills | `act-pass`, `critical-thinking`, `problem-framing-audit`, `meditation`, `project-capability-authoring` |
 | **Specialization** (Mall opt-in) | Domain plugins heirs install as needed | `alex-act-illustrator-plugin` (visual authoring), future Azure / Fabric / M365 plugins |
 | **Local customization** (`.github/skills/local/` in each heir) | Heir-specific customizations | Whatever the heir invented for their own project |
 
@@ -106,6 +174,7 @@ Alex ACT Core is the **baseline plugin** — the minimal always-on brain that ev
 - Not a visual-authoring bundle — chart authoring, SVG banners, print figures, and AI imagery live in [`alex-act-illustrator-plugin`](https://github.com/fabioc-aloha/Alex_ACT_Illustrator_Plugin), not Core
 - Not a lifecycle wrapper — native Copilot CLI owns plugin install, list, update, and uninstall; required project bootstrap remains in Core
 - Not a conversion bundle — document conversion lives in [`alex-act-document-tools`](https://github.com/fabioc-aloha/Alex_ACT_Document_Tools)
+- Not a cross-platform surface bridge — host pairing, app adapters, MCP policy, and task execution belong in an optional capability; Core retains only local continuity and safety semantics
 
 ## Surface Continuity
 
@@ -119,6 +188,14 @@ Core does not validate, stage, publish, poll, claim, or acknowledge shared
 records. If Scout continuity is unavailable, ordinary work falls back to
 native memory, `.github/episodic/`, and `HANDOFF.md` without error. No root
 `MEMORY.md` or automatic `memory-triggers` instruction is introduced.
+
+## Project Capability Authoring
+
+When a repeated project workflow or deterministic task has caused inconsistency,
+meditation can route it to `project-capability-authoring`. That skill scans local
+prior art, previews a project-local skill or script, requires explicit approval
+before writing project files, and validates the result. It does not change Core,
+write persistent memory, or create a cross-platform adapter.
 
 ## Why the plugin?
 
@@ -139,9 +216,9 @@ Alex_ACT_Core/
 ├── .github/                    # Copilot Chat + CLI discovery surface
 │   ├── copilot-instructions.md
 │   ├── config/                 # brand-palette.json
-│   ├── skills/                 # 30 baseline framework, continuity, reasoning, safety, and craft skills
+│   ├── skills/                 # 32 baseline framework, continuity, reasoning, safety, craft, and project-capability skills
 │   ├── instructions/           # 16 Core-owned sources activated by bootstrap-core
-│   └── prompts/                # 8 slash-command prompts
+│   └── prompts/                # 9 slash-command prompts
 └── .vscode/                    # workspace settings for self-dogfooding
 ```
 
@@ -182,7 +259,7 @@ copilot plugin list
 
 You should see `alex-act-core@alex-mall` with the current version.
 
-### VS Code 1.131 compatibility
+### VS Code Skill Resolver Workaround
 
 Keep `chat.useAgentSkills` set to `true`, and set
 `github.copilot.chat.skillTool.enabled` to `false`. This works around

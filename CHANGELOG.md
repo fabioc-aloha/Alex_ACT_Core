@@ -6,8 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-08-15
+
 ### Added
 
+- Added `project-capability-authoring`, which turns demonstrated repeated
+  project work into consented local skills or validated scripts. Meditation now
+  routes those candidates to the skill while keeping persistent-memory writes
+  explicit and PII-filtered.
 - Added Core-owned `bootstrap-project` skill, prompt, deterministic script, and
   reviewed resources for project guidance, handoff/episodic files, additive
   `.vscode` settings, Markdown CSS, and selective `.gitignore` tracking.
@@ -17,6 +23,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Removed
 
+- Removed `mcp-builder` from the Core baseline. MCP construction is specialized
+  integration work, not a universal Core responsibility.
 - Removed seven temporary Manager lifecycle prompt redirects.
 - Removed Manager lifecycle, greeting, receipt, and documentation dependencies
   after ADR-032 retired the separate Manager product. Native Copilot CLI owns
@@ -24,6 +32,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- Kept cross-surface execution out of Core's baseline. Core retains only
+  bridge-neutral approval, correlation, untrusted-result, and local-fallback
+  semantics; a future optional surface bridge owns adapters and task transport.
 - Completed the transition from optional Manager ownership to full retirement.
   Native Copilot CLI owns lifecycle, Core owns project bootstrap, and Scout
   owns shared continuity.
@@ -31,6 +42,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- Project bootstrap now preserves JSON/JSONC string values containing text such
+  as `,}` while tolerating actual trailing commas, and its generated `AGENTS.md`
+  no longer routes projects to retired Manager check-in.
 - Hardened Core self-activation before release: manifest and canonical-source
   inventories must match; workspace overlap discovery is recursive; no-op apply
   preserves receipt bytes; removal rejects unsafe or foreign receipt entries;

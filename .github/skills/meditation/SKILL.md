@@ -34,22 +34,23 @@ Separate signal from noise. For each candidate pattern, ask: *"Is this already c
 
 | If pattern is... | Create / update |
 |---|---|
-| Reusable domain knowledge | Skill (`.github/skills/<name>/SKILL.md`) |
+| Reusable project workflow or deterministic task | `project-capability-authoring` (local skill or validated script) |
 | Always-on behavior or rule | Instruction (`.github/instructions/<name>.instructions.md`) |
 | Repeatable workflow / slash command | Prompt (`.github/prompts/<name>.prompt.md`) |
-| Automatable mechanical task (skill-owned) | Skill script (`.github/skills/<name>/scripts/*.cjs`) |
-| Automatable mechanical task (cross-cutting) | Repo script (`scripts/<name>.cjs`) |
 | Shared library imported by other scripts | Library module (`scripts/shared/<name>.cjs`) |
 | User preference (cross-project) | User memory (`/memories/<name>.md`) |
 | Project / repo convention | Repo memory (`/memories/repo/<name>.md`) |
 | Durable project session summary | Project chronicle (`.github/episodic/`) |
 | Cross-session handoff (next session needs to know) | Repo file (`HANDOFF.md` at repo root) — NOT session memory |
 | Cross-project reusable knowledge | Reviewed candidate via Scout `scout-knowledge-base` deposit |
+| Cross-surface delegated work | Optional surface bridge when installed; otherwise explicit handoff |
 
 This routing runs when meditation is invoked. Core no longer guarantees
 automatic capture of every correction, preference, repeated pattern, or
 significant decision. Native host memory may capture some signals, but that is
-platform behavior rather than an Alex-owned deterministic trigger.
+platform behavior rather than an Alex-owned deterministic trigger. An explicit
+request to meditate is consent to evaluate candidates, not consent to write
+project files or persistent memory.
 
 Shared continuity is also explicit. Never publish automatically from a
 meditation, `HANDOFF.md`, or `.github/episodic/`. Show the minimized knowledge
@@ -59,6 +60,12 @@ approves the deposit.
 ### 3. Write
 
 Each artifact gets correct frontmatter, concrete examples (not abstractions), and tables with real data. Avoid the "capabilities list" anti-pattern — describe behavior, not features.
+
+Route reusable project workflows and deterministic tasks to
+`project-capability-authoring`; it previews the local skill or script and
+requires explicit user approval before changing project files. For user or
+repository memory, show the minimized candidate, apply the PII filter, and get
+the relevant explicit user request or approval before writing.
 
 For skills and instructions: include a **Trigger** or **When to fire** section so future sessions know when the pattern applies.
 

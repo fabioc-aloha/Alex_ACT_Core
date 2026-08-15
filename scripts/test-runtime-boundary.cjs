@@ -59,7 +59,7 @@ test('Core bootstrap previews, applies, verifies, and repairs all canonical inst
     script, '--target-instructions', instructions,
   ], { cwd: root, encoding: 'utf8' }));
   assert.equal(preview.apply, false);
-  assert.equal(preview.coreVersion, '2.0.0');
+  assert.equal(preview.coreVersion, '3.0.0');
   assert.equal(preview.expectedFiles, 16);
   assert.equal(preview.files.filter((file) => file.action === 'create').length, 16);
   assert.equal(fs.readdirSync(instructions).length, 1);
@@ -215,6 +215,11 @@ test('Core project bootstrap previews, applies, preserves, and becomes idempoten
   assert.equal(applied.verification.pendingCreates, 0);
   assert.equal(fs.readFileSync(path.join(repository, 'README.md'), 'utf8'), 'project-owned\n');
   assert.equal(fs.existsSync(path.join(repository, 'MEMORY.md')), false);
+  const agents = fs.readFileSync(path.join(repository, 'AGENTS.md'), 'utf8');
+  assert.match(agents, /HANDOFF\.md/);
+  assert.doesNotMatch(agents, /Manager|alex-act-manager/i);
+  assert.match(agents, /Configure Scout explicitly when work must\s+cross projects\./);
+  assert.match(agents, /optional surface bridge only when host-specific agent\s+surface integration is needed\./);
   const settings = JSON.parse(fs.readFileSync(path.join(repository, '.vscode', 'settings.json')));
   assert.equal(settings['chat.agentSkillsLocations']['.github/skills'], true);
   assert.deepEqual(settings['markdown.styles'], ['.vscode/markdown-light.css']);
@@ -233,6 +238,7 @@ test('Core project bootstrap preserves custom settings and blocks agent conflict
   fs.writeFileSync(path.join(repository, '.vscode', 'settings.json'), JSON.stringify({
     'editor.fontSize': 17,
     'markdown.styles': ['custom.css'],
+    note: 'literal,}',
   }, null, 2));
   fs.writeFileSync(path.join(repository, '.vscode', 'markdown-light.css'), 'custom css\n');
   fs.writeFileSync(path.join(repository, 'AGENT.md'), '# Singular\n');
@@ -249,8 +255,31 @@ test('Core project bootstrap preserves custom settings and blocks agent conflict
   ], { cwd: root, encoding: 'utf8', stdio: 'pipe' }), /conflict/i);
   assert.equal(JSON.parse(fs.readFileSync(
     path.join(repository, '.vscode', 'settings.json')))['editor.fontSize'], 17);
+  assert.equal(JSON.parse(fs.readFileSync(
+    path.join(repository, '.vscode', 'settings.json'))).note, 'literal,}');
   assert.equal(fs.readFileSync(path.join(repository, '.vscode', 'markdown-light.css'), 'utf8'),
     'custom css\n');
+});
+
+test('Core project bootstrap preserves JSONC strings that resemble trailing commas', (t) => {
+  const target = fs.mkdtempSync(path.join(os.tmpdir(), 'core-project-jsonc-string-'));
+  t.after(() => fs.rmSync(target, { recursive: true, force: true }));
+  const repository = path.join(target, 'repo');
+  fs.mkdirSync(path.join(repository, '.vscode'), { recursive: true });
+  fs.writeFileSync(path.join(repository, '.vscode', 'settings.json'), [
+    '{',
+    '  "note": "literal,}"',
+    '}',
+  ].join('\n'));
+  const script = path.join(
+    root, '.github', 'skills', 'bootstrap-project', 'scripts', 'bootstrap-project.cjs');
+
+  execFileSync(process.execPath, [
+    script, '--repository-root', repository, '--apply',
+  ], { cwd: root, encoding: 'utf8' });
+  const settings = JSON.parse(fs.readFileSync(path.join(repository, '.vscode', 'settings.json')));
+  assert.equal(settings.note, 'literal,}');
+  assert.equal(settings['chat.agentSkillsLocations']['.github/skills'], true);
 });
 
 test('Core declares self-activation and no Manager lifecycle redirects', () => {
@@ -265,7 +294,7 @@ test('Core declares self-activation and no Manager lifecycle redirects', () => {
   }
 });
 
-test('Core 2.0.0 release metadata is final before tagging', () => {
+test('Core 3.0.0 release metadata is final before tagging', () => {
   const manifest = JSON.parse(read('manifest.json'));
   const plugin = JSON.parse(read('plugin.json'));
   const packageJson = JSON.parse(read('package.json'));
@@ -273,21 +302,40 @@ test('Core 2.0.0 release metadata is final before tagging', () => {
   const readme = read('README.md');
   const install = read('INSTALL.md');
 
-  assert.equal(manifest.version, '2.0.0');
-  assert.equal(plugin.version, '2.0.0');
-  assert.equal(packageJson.version, '2.0.0');
+  assert.equal(manifest.version, '3.0.0');
+  assert.equal(plugin.version, '3.0.0');
+  assert.equal(packageJson.version, '3.0.0');
   assert.equal(manifest.status, 'released');
   assert.equal(manifest.distribution.status, 'published');
-  assert.equal(manifest.distribution.published_version, '2.0.0');
-  assert.equal(manifest.nextRelease, 'MAJOR');
-  assert.equal(manifest.candidateVersion, '3.0.0');
-  assert.match(changelog, /## \[Unreleased\][\s\S]*## \[2\.0\.0\] - 2026-08-14/);
-  assert.match(readme, /published version.*2\.0\.0/i);
-  assert.match(install, /\| Core \| `2\.0\.0` \|/);
+  assert.equal(manifest.distribution.published_version, '3.0.0');
+  assert.equal(manifest.nextRelease, undefined);
+  assert.equal(manifest.candidateVersion, undefined);
+  assert.match(changelog, /## \[Unreleased\][\s\S]*## \[3\.0\.0\] - 2026-08-15[\s\S]*## \[2\.0\.0\] - 2026-08-14/);
+  assert.match(readme, /published version.*3\.0\.0/i);
+  assert.match(install, /\| Core \| `3\.0\.0` \|/);
   assert.doesNotMatch(install, /Manager|alex-act-manager/i);
   assert.match(install, /## Published Versions/);
   assert.doesNotMatch(install, /Not Yet Published/);
   assert.match(changelog, /update Manager to `1\.2\.0` first[\s\S]*update Core to `2\.0\.0`/i);
+});
+
+test('Core README documents the constellation installation and dependency contract', () => {
+  const readme = read('README.md');
+
+  for (const plugin of [
+    'alex-act-core',
+    'alex-act-illustrator-plugin',
+    'alex-act-document-tools',
+    'alex-act-ai-operations',
+    'alex-act-enterprise',
+    'alex-act-msft',
+  ]) {
+    assert(readme.includes(`\`${plugin}\``), `README must list ${plugin}`);
+  }
+  assert.match(readme, /manifests declare no dependency on Core or on one another/i);
+  assert.match(readme, /Close all VS Code windows before installing or updating a plugin/i);
+  assert.match(readme, /copilot plugin install alex-act-core@alex-mall/);
+  assert.match(readme, /copilot plugin install alex-act-msft@agency-playground/);
 });
 
 test('Core exposes self-activation, baseline skills, and one conversion redirect', () => {
@@ -316,6 +364,55 @@ test('Core exposes self-activation, baseline skills, and one conversion redirect
     assert.equal(fs.existsSync(path.join(root, '.github', 'skills', name, 'SKILL.md')), false,
       `${name} must be owned outside Core`);
   }
+});
+
+test('meditation routes reusable project capabilities to consented local authoring', () => {
+  const manifest = JSON.parse(read('manifest.json'));
+  const skills = manifest.assets.skills.map((entry) => entry.name);
+  const meditation = read('.github/skills/meditation/SKILL.md');
+  const prompt = read('.github/prompts/meditate.prompt.md');
+  const authoring = read('.github/skills/project-capability-authoring/SKILL.md');
+  const platformAwareness = read('.github/skills/platform-awareness/SKILL.md');
+
+  assert.equal(skills.includes('mcp-builder'), false);
+  assert.equal(skills.includes('project-capability-authoring'), true);
+  assert.match(meditation, /project-capability-authoring/);
+  assert.match(meditation, /explicit user (?:request|approval)/i);
+  assert.match(prompt, /project-capability-authoring/);
+  assert.match(authoring, /\.github\/skills\//);
+  assert.match(authoring, /scripts\//);
+  assert.match(authoring, /explicit user approval/i);
+  assert.match(authoring, /should-fire/i);
+  assert.match(authoring, /should-not-fire/i);
+  assert.match(authoring, /does not change Core,\s*build MCP servers/i);
+  assert.doesNotMatch(authoring, /FastMCP|MCP SDK|McpServer/);
+  assert.doesNotMatch(platformAwareness, /mcp-builder/);
+});
+
+test('Core keeps bridge-neutral cross-surface safeguards without owning adapters', () => {
+  const manifest = JSON.parse(read('manifest.json'));
+  const skills = manifest.assets.skills.map((entry) => entry.name);
+  const continuity = read('.github/skills/surface-continuity/SKILL.md');
+
+  assert.equal(skills.includes('surface-communication'), false);
+  assert.equal(fs.existsSync(path.join(
+    root, '.github', 'skills', 'surface-communication', 'SKILL.md')), false);
+  assert.match(continuity, /explicit user approval/i);
+  assert.match(continuity, /correlation ID/i);
+  assert.match(continuity, /untrusted/i);
+  assert.match(continuity, /optional surface bridge/i);
+  assert.doesNotMatch(continuity, /send-task|send-result|ChatGPT Desktop|GitHub Copilot app/i);
+});
+
+test('Core planning and git guidance require explicit approval before committing', () => {
+  const planning = read('.github/skills/plan/SKILL.md');
+  const git = read('.github/skills/git-workflow/SKILL.md');
+
+  assert.match(planning, /explicit user approval/i);
+  assert.doesNotMatch(planning, /Commit after every task/i);
+  assert.match(planning, /## Would Revise If/);
+  assert.match(git, /explicit user approval/i);
+  assert.doesNotMatch(git, /ALWAYS commit before risky operations/i);
 });
 
 test('Core retains only the thin Document Tools compatibility redirect', () => {

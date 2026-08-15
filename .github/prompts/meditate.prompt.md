@@ -16,8 +16,8 @@ missing based only on the skill tool's inventory.
 1. Load skill: [meditation](../skills/meditation/SKILL.md)
 2. **Review** the session — problems solved, mistakes made, patterns that emerged
 3. **Extract** only what's *new and portable* — grep existing skills, instructions, and memory before writing anything
-4. **Route** each pattern to the right artifact (skill / instruction / prompt / script / memory tier)
-5. **Write** with concrete examples, correct frontmatter, and a trigger section
+4. **Route** reusable project workflows and deterministic tasks through `project-capability-authoring`; route memory candidates through the PII filter
+5. **Preview and obtain explicit approval** before writing project files or persistent memory, then write with concrete examples, correct frontmatter, and a trigger section
 6. If session is ending, write a handoff to repo-root `HANDOFF.md`
 7. Report what was persisted (and what was deliberately *not* persisted because it was already covered)
 8. **Compact** — run `/compact` to discard transcript noise. The persisted artifacts are now the canonical record of this session. This is irreversible by design; consolidation succeeded, raw data is redundant.

@@ -1,12 +1,10 @@
 {
   "$comment": "Mall-side plugin manifest. Core ships 16 source instructions, 32 baseline skills, and 9 slash-command prompts. Core owns self-activation and project-local bootstrap; native Copilot CLI owns plugin lifecycle; Scout owns shared continuity; Document Tools owns conversion. One Document Tools command remains a temporary redirect.",
   "plugin": "alex-act-core",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "status": "released",
-  "nextRelease": "MAJOR",
-  "candidateVersion": "3.0.0",
-  "shape": "sixteen-instructions + thirty-two-skills + nine-prompts (Core self-activation + project bootstrap + Alex Finch runtime personality + ACT canon + local continuity semantics + cognitive discipline + reasoning muscles + meditation loop + security & privacy + tooling awareness + git/lint/mcp + craft skills; native plugin lifecycle; shared continuity owned by Scout; conversion owned by Document Tools)",
-  "description": "The self-activating Alex ACT baseline runtime plugin. Installs 32 reusable baseline skills and 9 slash-command prompts. Core owns its 16 runtime instructions, receipt, project scaffold, and local continuity semantics. Native Copilot CLI owns plugin lifecycle, Scout owns shared continuity, and Document Tools owns conversion.",
+  "shape": "sixteen-instructions + thirty-two-skills + nine-prompts (Core self-activation + project bootstrap + Alex Finch runtime personality + ACT canon + local continuity semantics + cognitive discipline + reasoning muscles + meditation loop + security & privacy + tooling awareness + git/lint + project-capability authoring + craft skills; native plugin lifecycle; shared continuity owned by Scout; conversion owned by Document Tools)",
+  "description": "The self-activating Alex ACT baseline runtime plugin. Installs 32 reusable baseline skills and 9 slash-command prompts. Core owns its 16 runtime instructions, receipt, project scaffold, local continuity semantics, and consented project-capability authoring. Native Copilot CLI owns plugin lifecycle, Scout owns shared continuity, and Document Tools owns conversion.",
   "homepage": "https://github.com/fabioc-aloha/Alex_ACT_Core",
   "license": "MIT",
   "authors": [
@@ -130,10 +128,10 @@
         "role": "render user-supplied markdown safely — marked.js → DOMPurify → Mermaid pipeline; order matters, skipping the sanitizer is XSS; DOMPurify allowlist for Mermaid attributes"
       },
       {
-        "name": "mcp-builder",
-        "path": ".github/skills/mcp-builder/SKILL.md",
-        "install_to": ".github/skills/mcp-builder/SKILL.md",
-        "role": "build MCP servers in Python (FastMCP), Node/TypeScript (MCP SDK), or C#/.NET (Microsoft MCP SDK) — Build vs Use Existing decision matrix (Azure/Foundry/Fabric/Playwright/GitHub MCPs), implementation patterns, testing checklist, common issues"
+        "name": "project-capability-authoring",
+        "path": ".github/skills/project-capability-authoring/SKILL.md",
+        "install_to": ".github/skills/project-capability-authoring/SKILL.md",
+        "role": "create tested project-local skills and scripts from demonstrated repeated work; meditation routes candidates here for prior-art scanning, explicit approval, and focused validation"
       },
       {
         "name": "meditation",
@@ -402,7 +400,7 @@
   },
   "distribution": {
     "status": "published",
-    "published_version": "2.0.0"
+    "published_version": "3.0.0"
   },
   "verify_install": {
     "$comment": "Placeholder — will be filled when the first skill/instruction ships. Pattern from illustrator plugin: scripts/verify-install.mjs runs a stdio handshake against declared MCP servers + a filesystem check of installed skill paths."

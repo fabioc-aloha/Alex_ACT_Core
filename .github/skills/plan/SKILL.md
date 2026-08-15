@@ -1,7 +1,7 @@
 ---
 name: plan
 description: Use when the user wants a plan instead of execution, or before any non-trivial implementation (multi-file, architectural choice, > 15 min). Writes a concrete actionable markdown plan with bite-sized tasks (2-5 min each), exact file paths, complete code, and verification steps. Adapted from Hermes Agent / obra/superpowers.
-lastReviewed: 2026-06-07
+lastReviewed: 2026-08-15
 ---
 
 # Plan Mode
@@ -15,6 +15,7 @@ For this turn, you are planning only.
 - Do not implement code
 - Do not edit project files except the plan markdown file
 - Do not run mutating terminal commands, commit, push, or perform external actions
+    without explicit user approval in a separate execution turn
 - You may inspect the repo or other context with read-only commands when needed
 - Your deliverable is a markdown plan saved to a project-appropriate docs location
 
@@ -89,7 +90,7 @@ Every step is one action:
 - "Run it to make sure it fails" — step
 - "Implement the minimal code to make the test pass" — step
 - "Run the tests and make sure they pass" — step
-- "Commit" — step
+- "Propose a commit boundary" — step, only after explicit user approval
 
 **Too big:**
 
@@ -173,12 +174,15 @@ def function(input):
 Run: `pytest tests/path/test.py::test_specific_behavior -v`
 Expected: PASS
 
-**Step 5: Commit**
+**Step 5: Propose a commit boundary**
 
 ```bash
-git add tests/path/test.py src/path/file.py
-git commit -m "feat: add specific feature"
+git status --short
+git diff --check
 ```
+
+State the suggested commit scope and message. Run `git add` or `git commit` only
+after the user explicitly authorizes that action.
 ````
 
 ## Writing Process
@@ -280,13 +284,15 @@ Every task that produces code should include the full TDD cycle:
 
 (See the `test-driven-development` skill for details.)
 
-### Frequent Commits
+### Commit Boundaries
 
-Commit after every task:
+After a cohesive implementation unit, propose a commit boundary. Do not commit
+from plan mode or assume permission carries from code-edit approval to Git write
+approval.
 
 ```bash
-git add [files]
-git commit -m "type: description"
+git status --short
+git diff --check
 ```
 
 ## Common Mistakes
@@ -315,7 +321,7 @@ git commit -m "type: description"
 
 After saving the plan, offer the execution approach:
 
-> "Plan complete and saved to `docs/plans/<slug>.md`. Ready to execute task by task — I'll work each task with TDD, run verification, and commit before moving to the next. Shall I proceed?"
+> "Plan complete and saved to `docs/plans/<slug>.md`. Ready to execute task by task with TDD and verification. I will propose a commit boundary after each cohesive unit if you want one."
 
 ## Remember
 
@@ -327,3 +333,9 @@ Exact commands with expected output
 Verification steps
 DRY, YAGNI, TDD
 ```
+
+## Would Revise If
+
+Revisit by **2026-11-15** if plans still cause unauthorized mutations, task
+granularity makes verification impractical, or users repeatedly need a
+different planning format for multi-repository work.

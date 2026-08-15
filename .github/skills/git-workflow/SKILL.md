@@ -1,7 +1,7 @@
 ---
 name: git-workflow
 description: Apply consistent git practices for branch hygiene, safe commits, and recovery from common mishaps (lost commits, bad merges, accidental pushes). Use when authoring or reviewing a git workflow, recovering broken local state, or sequencing a commit/push that needs explicit user approval before destructive steps.
-lastReviewed: 2026-05-31
+lastReviewed: 2026-08-15
 ---
 
 # Git Workflow Skill
@@ -19,7 +19,8 @@ Git core is stable, but GitHub features (Actions, CLI, Copilot integration) evol
 - New git features (e.g., `git switch`, `git restore`)
 - GitHub Copilot CLI integration
 
-**Last validated:** May 2026 (Git 2.45+, GitHub CLI 2.x)
+**Last reviewed:** August 2026. Verify installed Git and GitHub CLI behavior
+before a risky operation rather than relying on a version claim in this guide.
 
 **Check current state:** [Git Release Notes](https://git-scm.com/docs/git/RelNotes), [GitHub CLI](https://cli.github.com/)
 
@@ -32,7 +33,7 @@ Git core is stable, but GitHub features (Actions, CLI, Copilot integration) evol
 | Undo last commit, keep changes | `git reset --soft HEAD~1` | Safe, preserves work |
 | Restore single file | `git checkout HEAD -- path/to/file` | Discards file changes |
 | Restore entire folder | `git checkout HEAD -- .github/` | Discards folder changes |
-| Before risky operation | `git add -A; git commit -m "checkpoint"` | Always checkpoint first |
+| Before risky operation | `git status --short; git diff --check` | Propose a checkpoint; commit or tag only after explicit user approval |
 | Discard all uncommitted | `git reset --hard HEAD` | Destructive, no recovery |
 | Reset to remote state | `git reset --hard origin/main` | Destructive, syncs to remote |
 | Save work temporarily | `git stash` → `git stash pop` | For quick context switch |
@@ -64,17 +65,18 @@ chore(deps): bump typescript to 5.3
 ## Before Risky Operations
 
 ```bash
-# ALWAYS commit before risky operations
-git add -A; git commit -m "checkpoint: before [risky thing]"
-
-# For extra safety, tag it
-git tag "safe-point-$(date +%Y-%m-%d-%H%M)"
+# Inspect the current state first
+git status --short
+git diff --check
 ```
+
+After explicit user approval, create a scoped checkpoint commit or tag before a
+risky operation. Do not stage unrelated work or create a checkpoint by default.
 
 Three rules that hold regardless of the operation:
 
 1. **Never force-push to a shared branch** (`main`, `develop`, any branch someone else tracks). Rewriting history under a collaborator is not recoverable by them.
-2. **Commit or tag before rebase, reset, or filter operations.** A checkpoint you did not need costs nothing; one you needed and skipped costs the work.
+2. **With explicit user approval, create a scoped checkpoint or tag before rebase, reset, or filter operations.** Do not include unrelated work in the checkpoint.
 3. **Run `--dry-run` first when unsure.** `git clean`, `git push`, and `git rm` all support it. Read the output before dropping the flag.
 
 ## Tag-Move-Forward (Pre-Push Only)

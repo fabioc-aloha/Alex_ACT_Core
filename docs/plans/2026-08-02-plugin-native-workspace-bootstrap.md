@@ -1,5 +1,10 @@
 # Plugin-Native Workspace Bootstrap Implementation Plan
 
+> **Historical implementation plan.** This 2026-08-02 plan documents the
+> predecessor shape that was superseded by Core's current
+> [`bootstrap-project`](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/.github/skills/bootstrap-project/SKILL.md)
+> contract. Do not run the retired commands or paths below as current guidance.
+
 **Goal:** Add an explicit Core workspace bootstrap that provisions Markdown Preview CSS and safely merges `.vscode/settings.json` for new plugin-native workspaces.
 
 **Architecture:** Promote the proven Edition workspace-bootstrap behavior into a new Core skill and namespaced command. A deterministic Node script previews changes by default and applies only after consent; it preserves existing CSS, existing `markdown.styles`, unrelated JSONC settings, and unrelated `.gitignore` rules. Steward remains the governance source for the migration contract, while Core owns the runtime implementation.
@@ -132,7 +137,7 @@ Expected: failure because the prompt, skill, and script do not yet exist.
 
 **Files:**
 
-- Implement JSONC merge helpers inside `plugin-management/scripts/core-operations.cjs`; the initially planned separate files were consolidated by v0.6.2 to keep the complete Mall payload within its 100-file Windows limit.
+- Historical predecessor: `bootstrap-workspace` merged JSONC through a now-retired runtime path. The current owner is `bootstrap-project/scripts/bootstrap-project.cjs`.
 - Test: `C:\Development\Alex_ACT_Core\scripts\test-workspace-bootstrap.cjs`
 - Source reference: `C:\Development\Alex_ACT_Edition\.github\scripts\shared\workspace-settings-merger.cjs`
 
@@ -253,8 +258,7 @@ Expected: all workspace-bootstrap tests pass.
 
 **Files:**
 
-- Create: `C:\Development\Alex_ACT_Core\.github\skills\bootstrap-workspace\SKILL.md`
-- Create: `C:\Development\Alex_ACT_Core\.github\prompts\bootstrap-workspace.prompt.md`
+- Historical predecessor: `bootstrap-workspace` skill and prompt, now superseded by `bootstrap-project`.
 - Modify: `C:\Development\Alex_ACT_Core\.github\prompts\configure-vscode.prompt.md`
 - Modify: `C:\Development\Alex_ACT_Core\.github\prompts\install-constellation.prompt.md`
 
@@ -276,9 +280,8 @@ The skill must define:
 Follow the resilient command pattern:
 
 ```markdown
-Use the linked [`bootstrap-workspace`](../skills/bootstrap-workspace/SKILL.md)
-skill as the detailed contract. If the generic skill tool is unavailable for a
-plugin-shipped skill, continue with the numbered steps below.
+Historical predecessor only. The current detailed contract is
+[`bootstrap-project`](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/.github/skills/bootstrap-project/SKILL.md).
 ```
 
 The numbered fallback must preview, ask consent, apply, and verify without relying on the generic skill tool.
