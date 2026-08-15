@@ -14,16 +14,6 @@ const readme = read('README.md');
 const identity = read('.github/copilot-instructions.md');
 const manifest = JSON.parse(read('manifest.json'));
 const plugin = JSON.parse(read('plugin.json'));
-const managerRoot = path.resolve(root, '..', 'Alex_ACT_Manager');
-const bootstrapDirectory = path.join(
-  managerRoot,
-  '.github',
-  'skills',
-  'install-constellation',
-  'bootstrap',
-);
-const bootstrapCount = fs.readdirSync(bootstrapDirectory)
-  .filter((name) => name.endsWith('.instructions.md')).length;
 
 test('Core personality reference stays public and self-contained', () => {
   assert.match(personality, /## Public Runtime Source/);
@@ -33,23 +23,19 @@ test('Core personality reference stays public and self-contained', () => {
   assert.doesNotMatch(personality, /## Personality/);
 });
 
-test('Core repository and Manager bootstrap carry the runtime personality contract', {
-  skip: !fs.existsSync(managerRoot),
-}, () => {
+test('Core repository and self-activation carry the runtime personality contract', () => {
   assert.match(identity, /## Runtime identity contract/);
   assert.match(identity, /I am \*\*Alex Finch\*\*/);
   assert.match(identity, /runtime identity and relational center/i);
 
   const source = read('.github/instructions/alex-finch-personality.instructions.md');
-  const mirror = fs.readFileSync(path.join(
-    bootstrapDirectory, 'alex-act-alex-finch-personality.instructions.md'), 'utf8');
-  assert.equal(mirror, source);
   assert.match(source, /I am Alex Finch/);
   assert.match(source, /runtime identity and relational center/i);
   assert.match(source, /increase capability rather than dependence/i);
   assert.match(source, /2026-11-01/);
 
   assert(manifest.assets.instructions.some((entry) => entry.name === 'alex-finch-personality'));
+  assert(manifest.assets.skills.some((entry) => entry.name === 'bootstrap-core'));
 });
 
 test('pointer stays non-loaded while Alex identity remains runtime', () => {
@@ -67,6 +53,6 @@ test('Core repository identity reports the live composition', () => {
   assert(identity.includes(`${manifest.assets.skills.length} skills`));
   assert(identity.includes(`${manifest.assets.prompts.length} slash-command prompts`));
   assert(identity.includes(`${manifest.assets.instructions.length} source instructions`));
-  assert(identity.includes(`${bootstrapCount} load-bearing instructions`));
+  assert.match(identity, /activates\s+its own instruction layer/i);
   assert.match(identity, /zero agents/i);
 });

@@ -1,7 +1,7 @@
 ---
 name: "meditation"
 description: "Consolidate session learning into permanent architecture — extract patterns into skills, instructions, prompts, native memory, or repository handoffs"
-lastReviewed: 2026-08-14
+lastReviewed: 2026-08-15
 ---
 
 # Meditation
@@ -44,7 +44,7 @@ Separate signal from noise. For each candidate pattern, ask: *"Is this already c
 | Project / repo convention | Repo memory (`/memories/repo/<name>.md`) |
 | Durable project session summary | Project chronicle (`.github/episodic/`) |
 | Cross-session handoff (next session needs to know) | Repo file (`HANDOFF.md` at repo root) — NOT session memory |
-| Cross-project reusable knowledge | Reviewed candidate via `/alex-act-manager continuity-deposit` |
+| Cross-project reusable knowledge | Reviewed candidate via Scout `scout-knowledge-base` deposit |
 
 This routing runs when meditation is invoked. Core no longer guarantees
 automatic capture of every correction, preference, repeated pattern, or
@@ -53,8 +53,8 @@ platform behavior rather than an Alex-owned deterministic trigger.
 
 Shared continuity is also explicit. Never publish automatically from a
 meditation, `HANDOFF.md`, or `.github/episodic/`. Show the minimized knowledge
-candidate, apply the universal PII guard, and invoke Manager only after the
-user approves the deposit.
+candidate, apply the universal PII guard, and invoke Scout only after the user
+approves the deposit.
 
 ### 3. Write
 
@@ -167,6 +167,6 @@ Cadence is per-project. Adapt or skip based on the work rhythm. Meditation as a 
 
 ## Falsifiability
 
-- **Falsification deadline: 2026-11-14.** This skill adds no value if meditation sessions produce no actionable items (skill extractions, pattern recognitions, architecture insights, or reviewed continuity deposits) by that date
+- **Falsification deadline: 2026-11-15.** This skill adds no value if meditation sessions produce no actionable items (skill extractions, pattern recognitions, architecture insights, or reviewed continuity deposits) by that date
 - The protocol is wrong if chronicles written per this format are never consulted in future sessions
 - Stale if the memory tier structure changes and this skill references obsolete storage locations

@@ -1,7 +1,7 @@
 ---
-description: "Monitors context-window health and graceful handoff continuously, routing operational spine and continuity checks to Manager"
+description: "Monitors context-window health and graceful handoff continuously, using native plugin lifecycle commands and routing shared continuity to Scout"
 applyTo: "**"
-lastReviewed: 2026-08-14
+lastReviewed: 2026-08-15
 ---
 
 # Session Health Monitoring
@@ -41,15 +41,13 @@ VS Code does not expose token counts for built-in models. **BYOK models (1.120+)
 
 When approaching session limits or switching topics, write the cross-session handoff to **repo-root `HANDOFF.md`** (state, completed work, next steps, pending decisions). `/memories/session/` is for in-conversation scratch only — it clears at conversation end and is the wrong tier for handoff content. Suggest: "New session can read `HANDOFF.md` at repo root to continue."
 
-## Manager Operational Check-In
+## Operational Boundaries
 
-Manager owns brain-spine drift, updates, host/workspace state, repository
-scaffolding, and continuity repair. Route operational health to
-`/alex-act-manager checkin`; do not duplicate Manager's reads, cache, priority
-chain, or repair logic in Core. If Manager is unavailable, continue with the
-local handoff and context-health practices above and report shared continuity
-as degraded.
+Core owns its instruction and project-bootstrap health. Use native
+`copilot plugin list`, `update`, and `uninstall` commands for plugin lifecycle.
+Scout owns optional shared continuity health and repair. If Scout is
+unavailable, continue with local handoff and context-health practices above.
 
 ## Would Revise If
 
-Revise by **2026-11-14** if proxy heuristics for token counts consistently mispredict session capacity (warning signs miscalibrated for the current model class), if the BYOK token-counter assumption breaks (extension UI no longer surfaces percent-full), if graceful-handoff produces `HANDOFF.md` content that the next session cannot pick up from, or if Core starts duplicating Manager's operational check-in.
+Revise by **2026-11-15** if proxy heuristics for token counts consistently mispredict session capacity (warning signs miscalibrated for the current model class), if the BYOK token-counter assumption breaks (extension UI no longer surfaces percent-full), if graceful-handoff produces `HANDOFF.md` content that the next session cannot pick up from, or if Core duplicates Scout transport.

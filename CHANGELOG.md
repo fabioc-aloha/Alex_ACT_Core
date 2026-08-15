@@ -6,6 +6,38 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Added Core-owned `bootstrap-project` skill, prompt, deterministic script, and
+  reviewed resources for project guidance, handoff/episodic files, additive
+  `.vscode` settings, Markdown CSS, and selective `.gitignore` tracking.
+- Added Core-owned `bootstrap-core` skill, prompt, and deterministic script for
+  previewing, activating, verifying, repairing, and removing all 16 canonical
+  Core runtime instructions with a Core-owned receipt.
+
+### Removed
+
+- Removed seven temporary Manager lifecycle prompt redirects.
+- Removed Manager lifecycle, greeting, receipt, and documentation dependencies
+  after ADR-032 retired the separate Manager product. Native Copilot CLI owns
+  plugin lifecycle; Core remains self-activating and owns project bootstrap.
+
+### Changed
+
+- Completed the transition from optional Manager ownership to full retirement.
+  Native Copilot CLI owns lifecycle, Core owns project bootstrap, and Scout
+  owns shared continuity.
+- Classified the next Core release as 3.0.0 MAJOR under ADR-022 and ADR-030.
+
+### Fixed
+
+- Hardened Core self-activation before release: manifest and canonical-source
+  inventories must match; workspace overlap discovery is recursive; no-op apply
+  preserves receipt bytes; removal rejects unsafe or foreign receipt entries;
+  clean and modified-file removal branches verify their postconditions; preview
+  reports the Core version; and an isolated delivered-copy canary proves source
+  resolution without Manager or repository siblings.
+
 ## [2.0.0] - 2026-08-14
 
 ### Added

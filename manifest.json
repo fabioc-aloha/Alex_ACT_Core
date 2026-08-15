@@ -1,10 +1,12 @@
 {
-  "$comment": "Mall-side plugin manifest. Core ships 16 source instructions, 30 baseline skills, and 14 slash-command prompts. Manager owns lifecycle, greeting check-in, continuity operations, and the mixed-source 16-file instruction bootstrap; Document Tools owns conversion. Eight Core commands remain temporary namespaced redirects. Growth continues through evidence-gated Steward proposals.",
+  "$comment": "Mall-side plugin manifest. Core ships 16 source instructions, 32 baseline skills, and 9 slash-command prompts. Core owns self-activation and project-local bootstrap; native Copilot CLI owns plugin lifecycle; Scout owns shared continuity; Document Tools owns conversion. One Document Tools command remains a temporary redirect.",
   "plugin": "alex-act-core",
   "version": "2.0.0",
   "status": "released",
-  "shape": "sixteen-instructions + thirty-skills + fourteen-prompts (Alex Finch runtime personality + ACT canon + continuity semantics + cognitive discipline + reasoning muscles + meditation loop + security & privacy + tooling awareness + git/lint/mcp + craft skills + sundries; lifecycle, greeting, and continuity operations owned by Manager; conversion owned by Document Tools)",
-  "description": "The Alex ACT baseline runtime plugin and plugin-native successor to Alex_ACT_Edition v4.2.0. Installs 30 reusable baseline skills and 14 slash-command prompts. Core authors 16 instructions and the nonoptional Surface Continuity semantics. Manager owns greeting, lifecycle, continuity operations, and the mixed-source sixteen-file bootstrap. Document Tools is the sole converter skill owner. Eight Core commands remain temporary namespaced compatibility redirects.",
+  "nextRelease": "MAJOR",
+  "candidateVersion": "3.0.0",
+  "shape": "sixteen-instructions + thirty-two-skills + nine-prompts (Core self-activation + project bootstrap + Alex Finch runtime personality + ACT canon + local continuity semantics + cognitive discipline + reasoning muscles + meditation loop + security & privacy + tooling awareness + git/lint/mcp + craft skills; native plugin lifecycle; shared continuity owned by Scout; conversion owned by Document Tools)",
+  "description": "The self-activating Alex ACT baseline runtime plugin. Installs 32 reusable baseline skills and 9 slash-command prompts. Core owns its 16 runtime instructions, receipt, project scaffold, and local continuity semantics. Native Copilot CLI owns plugin lifecycle, Scout owns shared continuity, and Document Tools owns conversion.",
   "homepage": "https://github.com/fabioc-aloha/Alex_ACT_Core",
   "license": "MIT",
   "authors": [
@@ -42,6 +44,18 @@
         "path": ".github/skills/big-idea/SKILL.md",
         "install_to": ".github/skills/big-idea/SKILL.md",
         "role": "distill the central claim before summary-shaped output (hero copy, commit subjects, PR titles, ADR titles, executive summaries) — 6-step distill (context read + claim + arc + audience + stance + emit) tested against Saint-Exupéry removal rule"
+      },
+      {
+        "name": "bootstrap-core",
+        "path": ".github/skills/bootstrap-core/SKILL.md",
+        "install_to": ".github/skills/bootstrap-core/SKILL.md",
+        "role": "preview, activate, verify, repair, and remove Core's 16 canonical user-scope runtime instructions with a Core-owned receipt"
+      },
+      {
+        "name": "bootstrap-project",
+        "path": ".github/skills/bootstrap-project/SKILL.md",
+        "install_to": ".github/skills/bootstrap-project/SKILL.md",
+        "role": "preview and apply Core's minimal repository guidance, project VS Code settings, Markdown CSS, episodic scaffold, and selective .gitignore tracking"
       },
       {
         "name": "browser-tools",
@@ -179,7 +193,7 @@
         "name": "surface-continuity",
         "path": ".github/skills/surface-continuity/SKILL.md",
         "install_to": ".github/skills/surface-continuity/SKILL.md",
-        "role": "transport-neutral placement, communication, trust, retrieval, and experience-persistence semantics; routes operational continuity through Manager"
+        "role": "transport-neutral placement, communication, trust, retrieval, and experience-persistence semantics; routes shared continuity through Scout"
       },
       {
         "name": "systematic-debugging",
@@ -316,39 +330,18 @@
     ],
     "prompts": [
       {
-        "name": "critical-thinking",
-        "path": ".github/prompts/critical-thinking.prompt.md",
-        "install_to": ".github/prompts/critical-thinking.prompt.md",
-        "slash_command": "/critical-thinking",
-        "role": "user-invokable trigger for the full critical-thinking pass — invokes the critical-thinking skill; produces visible markers for alternatives/missing-data/evidence-quality/bias/falsifiability/adversarial-review"
+        "name": "bootstrap-core",
+        "path": ".github/prompts/bootstrap-core.prompt.md",
+        "install_to": ".github/prompts/bootstrap-core.prompt.md",
+        "slash_command": "/bootstrap-core",
+        "role": "preview, activate, verify, repair, or remove Core's 16 canonical user-scope instructions"
       },
       {
-        "name": "problem-framing-audit",
-        "path": ".github/prompts/problem-framing-audit.prompt.md",
-        "install_to": ".github/prompts/problem-framing-audit.prompt.md",
-        "slash_command": "/problem-framing-audit",
-        "role": "user-invokable trigger for the step-back protocol — invokes the problem-framing-audit skill; produces frame/cause-frame/considered-framings markers when reframes surface"
-      },
-      {
-        "name": "meditate",
-        "path": ".github/prompts/meditate.prompt.md",
-        "install_to": ".github/prompts/meditate.prompt.md",
-        "slash_command": "/meditate",
-        "role": "user-invokable trigger for the meditation protocol — invokes the meditation skill; runs review + extract + write + chronicle + handoff + compact"
-      },
-      {
-        "name": "save-session-note",
-        "path": ".github/prompts/save-session-note.prompt.md",
-        "install_to": ".github/prompts/save-session-note.prompt.md",
-        "slash_command": "/save-session-note",
-        "role": "capture a short pending-action note in repo-root HANDOFF.md; optional mirror to shared memory with project-specifics stripping"
-      },
-      {
-        "name": "note",
-        "path": ".github/prompts/note.prompt.md",
-        "install_to": ".github/prompts/note.prompt.md",
-        "slash_command": "/note",
-        "role": "short alias for /save-session-note — skip the 'what should I capture?' question if user's request already includes the note text"
+        "name": "bootstrap-project",
+        "path": ".github/prompts/bootstrap-project.prompt.md",
+        "install_to": ".github/prompts/bootstrap-project.prompt.md",
+        "slash_command": "/bootstrap-project",
+        "role": "preview and apply Core's project-local repository and VS Code scaffold"
       },
       {
         "name": "convert",
@@ -358,60 +351,46 @@
         "role": "temporary compatibility redirect to /alex-act-document-tools convert"
       },
       {
-        "name": "configure-vscode",
-        "path": ".github/prompts/configure-vscode.prompt.md",
-        "install_to": ".github/prompts/configure-vscode.prompt.md",
-        "slash_command": "/configure-vscode",
-        "role": "temporary compatibility redirect to /alex-act-manager configure-vscode"
+        "name": "critical-thinking",
+        "path": ".github/prompts/critical-thinking.prompt.md",
+        "install_to": ".github/prompts/critical-thinking.prompt.md",
+        "slash_command": "/critical-thinking",
+        "role": "user-invokable trigger for the full critical-thinking pass"
       },
       {
-        "name": "configure-vscode-verify",
-        "path": ".github/prompts/configure-vscode-verify.prompt.md",
-        "install_to": ".github/prompts/configure-vscode-verify.prompt.md",
-        "slash_command": "/configure-vscode-verify",
-        "role": "temporary compatibility redirect to /alex-act-manager configure-vscode-verify"
+        "name": "meditate",
+        "path": ".github/prompts/meditate.prompt.md",
+        "install_to": ".github/prompts/meditate.prompt.md",
+        "slash_command": "/meditate",
+        "role": "user-invokable trigger for the meditation protocol"
       },
       {
-        "name": "bootstrap-workspace",
-        "path": ".github/prompts/bootstrap-workspace.prompt.md",
-        "install_to": ".github/prompts/bootstrap-workspace.prompt.md",
-        "slash_command": "/bootstrap-workspace",
-        "role": "temporary compatibility redirect to /alex-act-manager bootstrap-workspace"
+        "name": "note",
+        "path": ".github/prompts/note.prompt.md",
+        "install_to": ".github/prompts/note.prompt.md",
+        "slash_command": "/note",
+        "role": "short alias for /save-session-note"
+      },
+      {
+        "name": "problem-framing-audit",
+        "path": ".github/prompts/problem-framing-audit.prompt.md",
+        "install_to": ".github/prompts/problem-framing-audit.prompt.md",
+        "slash_command": "/problem-framing-audit",
+        "role": "user-invokable trigger for the step-back protocol"
+      },
+      {
+        "name": "save-session-note",
+        "path": ".github/prompts/save-session-note.prompt.md",
+        "install_to": ".github/prompts/save-session-note.prompt.md",
+        "slash_command": "/save-session-note",
+        "role": "capture a short pending-action note in repo-root HANDOFF.md"
       },
       {
         "name": "status",
         "path": ".github/prompts/status.prompt.md",
         "install_to": ".github/prompts/status.prompt.md",
         "slash_command": "/status",
-        "role": "terse read-only project orientation report — identity, git state, HANDOFF.md continuity, optional brain-QA health, announcements; audience-adapted output leading with material state"
-      },
-      {
-        "name": "plugin-status",
-        "path": ".github/prompts/plugin-status.prompt.md",
-        "install_to": ".github/prompts/plugin-status.prompt.md",
-        "slash_command": "/plugin-status",
-        "role": "temporary compatibility redirect to /alex-act-manager plugin-status"
-      },
-      {
-        "name": "install-constellation",
-        "path": ".github/prompts/install-constellation.prompt.md",
-        "install_to": ".github/prompts/install-constellation.prompt.md",
-        "slash_command": "/install-constellation",
-        "role": "temporary compatibility redirect to /alex-act-manager install-constellation"
-      },
-      {
-        "name": "update-plugins",
-        "path": ".github/prompts/update-plugins.prompt.md",
-        "install_to": ".github/prompts/update-plugins.prompt.md",
-        "slash_command": "/update-plugins",
-        "role": "temporary compatibility redirect to /alex-act-manager update-plugins"
-      },
-      {
-        "name": "uninstall-constellation",
-        "path": ".github/prompts/uninstall-constellation.prompt.md",
-        "install_to": ".github/prompts/uninstall-constellation.prompt.md",
-        "slash_command": "/uninstall-constellation",
-        "role": "temporary compatibility redirect to /alex-act-manager uninstall-constellation"
+        "role": "terse read-only project orientation report"
       }
     ],
     "agents": []

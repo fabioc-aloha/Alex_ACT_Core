@@ -2,17 +2,16 @@
 
 ![Alex ACT Core](https://raw.githubusercontent.com/fabioc-aloha/Alex_ACT_Core/main/assets/banner.svg)
 
-[Core](https://github.com/fabioc-aloha/Alex_ACT_Core) · [Manager](https://github.com/fabioc-aloha/Alex_ACT_Manager) · [Illustrator](https://github.com/fabioc-aloha/Alex_ACT_Illustrator_Plugin) · [Document Tools](https://github.com/fabioc-aloha/Alex_ACT_Document_Tools) · [Enterprise](https://github.com/fabioc-aloha/alex-act-enterprise)
+[Core](https://github.com/fabioc-aloha/Alex_ACT_Core) · [Illustrator](https://github.com/fabioc-aloha/Alex_ACT_Illustrator_Plugin) · [Document Tools](https://github.com/fabioc-aloha/Alex_ACT_Document_Tools) · [Enterprise](https://github.com/fabioc-aloha/alex-act-enterprise)
 
 Alex ACT Core gives every workspace the same reasoning floor: Alex Finch's identity, ACT's critical-thinking discipline, and reusable skills arrive as one plugin-native baseline. Projects add specialized capability without rebuilding the brain.
 
 **Published version**: `2.0.0`. Install from the Alex ACT Mall as
 `alex-act-core@alex-mall`.
 
-**Current source shape**: 30 skills, 16 source instructions, and 14
-slash-command prompts. Manager distributes a mixed-source bootstrap of 15
-Core-owned instructions plus its greeting trigger to
-`~/.copilot/instructions/`.
+**Current source shape**: 31 skills, 16 source instructions, and 8
+slash-command prompts. Core activates its own 16 instructions through the
+consent-gated `bootstrap-core` command and records a Core-owned receipt.
 
 **Public runtime source**: [Alex ACT Core](https://github.com/fabioc-aloha/Alex_ACT_Core) contains the shipped skills, prompts, instruction sources, release history, and installation contract. Changes remain evidence-gated before release.
 
@@ -32,27 +31,23 @@ For a fresh install on any machine:
    copilot plugin marketplace add fabioc-aloha/Alex_Skill_Mall
    ```
 
-2. **Install the brain spine**:
+2. **Install Core**:
 
    ```powershell
-   copilot plugin install alex-act-manager@alex-mall
    copilot plugin install alex-act-core@alex-mall
    ```
 
-3. **Reload VS Code** (or restart if using CLI standalone) so Manager and Core activate.
+3. **Reload VS Code** (or restart if using CLI standalone) so Core activates.
 
 4. **Open Copilot Chat and run**:
 
    ```text
-   /alex-act-manager install-constellation
+   /alex-act-core bootstrap-core
    ```
 
-Step 4 keeps every selected plugin enabled and separately asks whether to
-bootstrap the sixteen always-on ACT instructions. After that first bootstrap,
-short greetings invoke Manager check-in for prioritized repair, updates,
-workspace setup, repository continuity, and shared continuity health. A
-greeting cannot start first-time setup because the Manager-owned greeting
-instruction is delivered by the bootstrap itself.
+Step 4 previews and separately asks whether to activate Core's 16 user-scope
+runtime instructions. Core project bootstrap and native Copilot CLI lifecycle
+commands cover the remaining baseline operations.
 
 **Full walkthrough**: [Install the Alex ACT constellation](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/INSTALL.md).
 
@@ -76,10 +71,7 @@ Two paths:
 **Safe path** — uninstall plugins first, then unregister:
 
 ```powershell
-# Option 1: uninstall the whole constellation cleanly (uses uninstall-constellation skill from Chat)
-# From Copilot Chat: /alex-act-manager uninstall-constellation
-
-# Option 2: uninstall individual plugins manually
+# Uninstall individual plugins explicitly
 copilot plugin uninstall alex-act-core@alex-mall
 copilot plugin uninstall alex-act-illustrator-plugin@alex-mall
 # ... and so on
@@ -94,7 +86,7 @@ copilot plugin marketplace remove alex-mall
 copilot plugin marketplace remove alex-mall --force
 ```
 
-> **Windows only**: if VS Code is running when you invoke either path, the CLI will hit `os error 5` on the plugin uninstalls because VS Code holds file handles on the installed plugin trees. Close all VS Code windows first (File → Exit), open a fresh PowerShell terminal (NOT VS Code's integrated terminal), and run the commands there. The `uninstall-constellation` skill's generated script bakes this guard in automatically.
+> **Windows only**: if VS Code is running when you invoke either path, the CLI can hit `os error 5` on loaded plugin trees. Close all VS Code windows first (File → Exit), open a fresh PowerShell terminal (not VS Code's integrated terminal), and run the commands there.
 
 ## What this is
 
@@ -102,17 +94,17 @@ Alex ACT Core is the **baseline plugin** — the minimal always-on brain that ev
 
 | Layer | What it ships | Example |
 | --- | --- | --- |
-| **Baseline** (this plugin) | Always-on epistemic discipline plus reusable reasoning, safety, communication, and engineering skills | `act-pass`, `critical-thinking`, `problem-framing-audit`, `meditation`, `lint-clean-markdown` |
+| **Baseline** (this plugin) | Self-activated epistemic discipline plus reusable reasoning, safety, communication, and engineering skills | `act-pass`, `critical-thinking`, `problem-framing-audit`, `meditation`, `lint-clean-markdown` |
 | **Specialization** (Mall opt-in) | Domain plugins heirs install as needed | `alex-act-illustrator-plugin` (visual authoring), future Azure / Fabric / M365 plugins |
 | **Local customization** (`.github/skills/local/` in each heir) | Heir-specific customizations | Whatever the heir invented for their own project |
 
 **What Core is NOT**:
 
 - Not the Copilot CLI itself — Core rides on top of Copilot CLI + Chat
-- Not a continuity transport. Core owns placement and trust semantics; Manager owns continuity operations and adapters.
+- Not a shared-continuity transport. Core owns local placement and trust semantics; Scout owns synchronized continuity operations.
 - Not the Mall itself — the Mall lives in [`Alex_ACT_Plugin_Mall`](https://github.com/fabioc-aloha/Alex_Skill_Mall) and self-curates per ADR-008
 - Not a visual-authoring bundle — chart authoring, SVG banners, print figures, and AI imagery live in [`alex-act-illustrator-plugin`](https://github.com/fabioc-aloha/Alex_ACT_Illustrator_Plugin), not Core
-- Not a lifecycle plugin — install, status, workspace bootstrap, updates, and removal live in [`alex-act-manager`](https://github.com/fabioc-aloha/Alex_ACT_Manager)
+- Not a lifecycle wrapper — native Copilot CLI owns plugin install, list, update, and uninstall; required project bootstrap remains in Core
 - Not a conversion bundle — document conversion lives in [`alex-act-document-tools`](https://github.com/fabioc-aloha/Alex_ACT_Document_Tools)
 
 ## Surface Continuity
@@ -121,10 +113,10 @@ Native Copilot user, repository, and session memory remain the default
 persistence layers. Repository-root `HANDOFF.md` carries active project state,
 `.github/episodic/` carries durable project summaries, and the
 `surface-continuity` skill places reviewed cross-project knowledge and
-cross-surface work into Manager-owned continuity operations.
+cross-surface work into Scout-owned continuity operations.
 
 Core does not validate, stage, publish, poll, claim, or acknowledge shared
-records. If Manager continuity is unavailable, ordinary work falls back to
+records. If Scout continuity is unavailable, ordinary work falls back to
 native memory, `.github/episodic/`, and `HANDOFF.md` without error. No root
 `MEMORY.md` or automatic `memory-triggers` instruction is introduced.
 
@@ -148,8 +140,8 @@ Alex_ACT_Core/
 │   ├── copilot-instructions.md
 │   ├── config/                 # brand-palette.json
 │   ├── skills/                 # 30 baseline framework, continuity, reasoning, safety, and craft skills
-│   ├── instructions/           # 16 Core-owned sources distributed by Manager as applicable
-│   └── prompts/                # 14 slash-command prompts
+│   ├── instructions/           # 16 Core-owned sources activated by bootstrap-core
+│   └── prompts/                # 8 slash-command prompts
 └── .vscode/                    # workspace settings for self-dogfooding
 ```
 
@@ -198,34 +190,28 @@ Keep `chat.useAgentSkills` set to `true`, and set
 disables only the experimental generic skill resolver, not Agent Skills. Start a
 new Agent chat or reload VS Code after changing the setting.
 
-## Lifecycle management
-
-Use [`alex-act-manager@alex-mall`](https://github.com/fabioc-aloha/Alex_ACT_Manager)
-for installation, status, updates, uninstallation, and configuration. Core's
-namespaced lifecycle commands remain available as thin compatibility redirects.
-
 ## Configure specializations (optional)
 
-Use Manager's lifecycle commands from Copilot Chat. Core retains only thin
-namespaced compatibility redirects:
+Use native Copilot CLI commands to install optional plugins, then invoke each
+plugin's namespaced setup command:
 
-- **`/alex-act-manager install-constellation`** — installs selected plugins, repairs the brain spine, and enables installed plugins at user scope
-- **`/alex-act-manager bootstrap-workspace`** — previews and consent-gates repository-scoped Markdown Preview CSS, workspace settings, and selective `.gitignore` tracking
-- **`/alex-act-manager plugin-status`** — read-only inventory of what's installed at user + repo scope
-- **`/alex-act-manager update-plugins`** — safe update workflow with per-plugin CHANGELOG reading and consent for breaking changes
+- **`/alex-act-core bootstrap-project`** — previews and consent-gates project Markdown Preview CSS, settings, repository guidance, and handoff scaffolding
 - **`/alex-act-document-tools convert`** — routes supported Markdown, HTML, Word, email, and plain-text conversions
 
 Full walkthrough with slash-command examples: [USER-EXPERIENCE Stages 3–5](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/INSTALL.md).
 
 ## Update Core
 
-Copilot CLI does not auto-update plugins — updates are manual and version-pinned.
+Copilot CLI auto-update behavior depends on marketplace configuration. Run a
+targeted update when automatic updates are disabled or when you need an
+explicit version transition:
 
 ```powershell
 copilot plugin update alex-act-core
 ```
 
-Read the [CHANGELOG](CHANGELOG.md) before applying a version that carries breaking changes. Prefer Manager for the safer update workflow; `/alex-act-core update-plugins` redirects to Manager's CHANGELOG and consent flow.
+Read the [CHANGELOG](CHANGELOG.md) before applying a version that carries
+breaking changes.
 
 ## Uninstall
 
@@ -233,7 +219,9 @@ Read the [CHANGELOG](CHANGELOG.md) before applying a version that carries breaki
 copilot plugin uninstall alex-act-core
 ```
 
-Prefer Manager for constellation removal; Core's `/alex-act-core uninstall-constellation` is a thin compatibility redirect.
+Before uninstalling Core, preview `/alex-act-core bootstrap-core` with
+`--remove` through the skill contract if you also want to remove Core-owned
+user instructions.
 
 **Troubleshooting.** If the uninstall fails with either:
 
@@ -257,7 +245,6 @@ Growth continues through evidence-gated proposals per [Alex ACT Core](https://gi
 
 - [Alex_ACT_Core](https://github.com/fabioc-aloha/Alex_ACT_Core) — top-of-chain, author + curator of every shipped artefact
 - [`Alex_ACT_Illustrator_Plugin`](https://github.com/fabioc-aloha/Alex_ACT_Illustrator_Plugin) — first shipped Steward CLI plugin; proves the transport
-- [`Alex_ACT_Manager`](https://github.com/fabioc-aloha/Alex_ACT_Manager) — preferred lifecycle management for installation, status, updates, uninstallation, and configuration
 - [`Alex_ACT_Document_Tools`](https://github.com/fabioc-aloha/Alex_ACT_Document_Tools) — optional document conversion and shared converter runtime
 - [`Alex_ACT_Plugin_Mall`](https://github.com/fabioc-aloha/Alex_Skill_Mall) — CLI-native plugin marketplace v3.0.0 GA (2026-07-28)
 - [`Alex_ACT_Edition`](https://github.com/fabioc-aloha/Alex_ACT_Edition) — frozen v1 heir-template compatibility surface (v4.2.0, 2026-07-28)

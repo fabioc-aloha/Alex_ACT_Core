@@ -1,7 +1,7 @@
 ---
-description: "Guards native memory, repository continuity, and Manager continuity write boundaries against sensitive data on every persistent write"
+description: "Guards native memory, repository continuity, and Scout shared-continuity write boundaries against sensitive data on every persistent write"
 applyTo: "**"
-lastReviewed: 2026-08-14
+lastReviewed: 2026-08-15
 ---
 
 # PII Memory Filter
@@ -13,14 +13,14 @@ Always-active unconscious behavior. Self-monitor before every write to persisten
 ## Write Boundaries
 
 This filter applies before every persistent write, including native memory,
-repository continuity, and Manager continuity records:
+repository continuity, and Scout shared-continuity records:
 
 | Tier | Write Mechanism | Auto-Loaded? |
 |------|-----------------|--------------|
 | User Memory | `memory create /memories/` | Yes (200 lines) |
 | Repo Memory | `memory create /memories/repo/` | No |
 | Session Memory | `memory create /memories/session/` | No |
-| Manager Continuity Records | Validated staged envelope | No |
+| Scout Messages and Knowledge | Validated reviewed files | No |
 
 This instruction constrains what may enter any persistent tier. It does not
 select a storage tier, transport, adapter, or publication action.
@@ -69,4 +69,4 @@ When the user asks to store something containing PII:
 
 ## Would Revise If
 
-Revise by **2026-11-14** if the never-write list catches PII so rarely that the cost of the always-on filter exceeds its protection value, if the per-tier allowed/not-allowed table has obvious gaps in real PII categories arising in heir work, or if a documented PII leak occurs through a category the filter should have caught (post-mortem the gap, then extend the table).
+Revise by **2026-11-15** if the never-write list catches PII so rarely that the cost of the always-on filter exceeds its protection value, if the per-tier allowed/not-allowed table has obvious gaps in real PII categories arising in heir work, or if a documented PII leak occurs through a category the filter should have caught (post-mortem the gap, then extend the table).
