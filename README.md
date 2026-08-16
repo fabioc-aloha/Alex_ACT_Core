@@ -6,7 +6,7 @@
 
 Alex ACT Core gives every workspace the same reasoning floor: Alex Finch's identity, ACT's critical-thinking discipline, and reusable skills arrive as one plugin-native baseline. Projects add specialized capability without rebuilding the brain.
 
-**Published version**: `3.0.0`. Install from the Alex ACT Mall as
+**Published version**: `3.0.1`. Install from the Alex ACT Mall as
 `alex-act-core@alex-mall`.
 
 **Current source shape**: 32 skills, 16 source instructions, and 9
@@ -59,9 +59,9 @@ the capabilities their work needs.
 
 | Plugin | Published version | Delivery | Use it for |
 | --- | --- | --- | --- |
-| `alex-act-core` | `3.0.0` | `alex-mall` | Baseline identity, ACT discipline, instruction activation, and project bootstrap. |
-| `alex-act-illustrator-plugin` | `2.1.0` | `alex-mall` | Charts, figures, imagery, shells, banners, and visual companions. |
-| `alex-act-document-tools` | `1.1.0` | `alex-mall` | Markdown, HTML, Word, email, and plain-text production. |
+| `alex-act-core` | `3.0.1` | `alex-mall` | Baseline identity, ACT discipline, instruction activation, and project bootstrap. |
+| `alex-act-illustrator-plugin` | `2.2.1` | `alex-mall` | Charts, figures, imagery, shells, banners, and visual companions. |
+| `alex-act-document-tools` | `1.1.1` | `alex-mall` | Markdown, HTML, Word, email, and plain-text production. |
 | `alex-act-ai-operations` | `0.2.0` | `alex-mall` | Consent-gated model planning and provider execution. |
 | `alex-act-enterprise` | `1.0.1` | `alex-mall` | Public Azure, Fabric, Power BI, and Microsoft 365 setup. |
 | `alex-act-msft` | `1.1.1` | Private `agency-playground` | Microsoft-internal Agency, WorkIQ, S360, and Org Report setup. |

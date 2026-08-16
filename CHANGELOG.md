@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [3.0.1] - 2026-08-15
+
+### Fixed
+
+- Styled the Markdown preview code-block copy control for the light preview
+  theme and restored the single-frame Mermaid container contract.
+
 ## [3.0.0] - 2026-08-15
 
 ### Added
