@@ -1,6 +1,6 @@
 {
   "name": "alex-act-core",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "private": true,
   "scripts": {
     "test": "node --test scripts/test-runtime-boundary.cjs scripts/test-native-memory-contract.cjs scripts/test-surface-continuity-contract.cjs scripts/test-personality-reference.cjs scripts/test-doc-hygiene.cjs"
