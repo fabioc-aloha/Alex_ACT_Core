@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [3.1.1] - 2026-08-17
+
+### Fixed
+
+- Corrected the shared installation guide to name Enterprise `v1.1.0`.
+
 ## [3.1.0] - 2026-08-17
 
 ### Added
