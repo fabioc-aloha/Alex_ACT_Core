@@ -1,13 +1,15 @@
 ---
 name: bootstrap-project
-description: "Previews and applies Core's minimal repository scaffold, project Copilot settings, and Markdown CSS while preserving project-owned files. Use for new repositories, missing AGENTS/HANDOFF/episodic files, or project .vscode setup."
+description: "Previews and applies Core's repository scaffold, portable workspace QoL settings, project Copilot settings, and Markdown CSS while preserving project-owned files. Use for new repositories, missing AGENTS/HANDOFF/episodic files, or project .vscode setup."
 lastReviewed: 2026-08-15
 ---
 
 # Bootstrap Project
 
-Set up one repository with Core's project-local guidance and VS Code baseline.
-This skill never edits user settings and never configures shared continuity.
+Set up one repository with Core's project-local guidance and a portable VS Code
+workspace baseline. The baseline covers editor, diff, Markdown, file/search,
+PowerShell terminal, and Git QoL preferences. It never edits user settings,
+configures extensions, or configures shared continuity.
 
 ## Preview First
 

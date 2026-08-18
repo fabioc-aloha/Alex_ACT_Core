@@ -59,7 +59,7 @@ test('Core bootstrap previews, applies, verifies, and repairs all canonical inst
     script, '--target-instructions', instructions,
   ], { cwd: root, encoding: 'utf8' }));
   assert.equal(preview.apply, false);
-  assert.equal(preview.coreVersion, '3.0.2');
+  assert.equal(preview.coreVersion, '3.1.0');
   assert.equal(preview.expectedFiles, 16);
   assert.equal(preview.files.filter((file) => file.action === 'create').length, 16);
   assert.equal(fs.readdirSync(instructions).length, 1);
@@ -223,6 +223,14 @@ test('Core project bootstrap previews, applies, preserves, and becomes idempoten
   const settings = JSON.parse(fs.readFileSync(path.join(repository, '.vscode', 'settings.json')));
   assert.equal(settings['chat.agentSkillsLocations']['.github/skills'], true);
   assert.deepEqual(settings['markdown.styles'], ['.vscode/markdown-light.css']);
+  assert.equal(settings['editor.formatOnSave'], true);
+  assert.equal(settings['diffEditor.hideUnchangedRegions.enabled'], true);
+  assert.equal(settings['files.eol'], '\n');
+  assert.equal(settings['files.watcherExclude']['**/node_modules/**'], true);
+  assert.equal(settings['search.exclude']['**/node_modules'], true);
+  assert.equal(settings['terminal.integrated.defaultProfile.windows'], 'pwsh');
+  assert.equal(settings['git.autofetch'], true);
+  assert.equal(settings['markdown.updateLinksOnFileMove.enabled'], 'always');
 
   const second = JSON.parse(execFileSync(process.execPath, [
     script, '--repository-root', repository,
@@ -294,7 +302,7 @@ test('Core declares self-activation and no Manager lifecycle redirects', () => {
   }
 });
 
-test('Core 3.0.2 release metadata is final before tagging', () => {
+test('Core 3.1.0 release metadata is final before tagging', () => {
   const manifest = JSON.parse(read('manifest.json'));
   const plugin = JSON.parse(read('plugin.json'));
   const packageJson = JSON.parse(read('package.json'));
@@ -302,17 +310,17 @@ test('Core 3.0.2 release metadata is final before tagging', () => {
   const readme = read('README.md');
   const install = read('INSTALL.md');
 
-  assert.equal(manifest.version, '3.0.2');
-  assert.equal(plugin.version, '3.0.2');
-  assert.equal(packageJson.version, '3.0.2');
+  assert.equal(manifest.version, '3.1.0');
+  assert.equal(plugin.version, '3.1.0');
+  assert.equal(packageJson.version, '3.1.0');
   assert.equal(manifest.status, 'released');
   assert.equal(manifest.distribution.status, 'published');
-  assert.equal(manifest.distribution.published_version, '3.0.2');
+  assert.equal(manifest.distribution.published_version, '3.1.0');
   assert.equal(manifest.nextRelease, undefined);
   assert.equal(manifest.candidateVersion, undefined);
-  assert.match(changelog, /## \[Unreleased\][\s\S]*## \[3\.0\.2\] - 2026-08-15[\s\S]*## \[3\.0\.1\] - 2026-08-15/);
-  assert.match(readme, /published version.*3\.0\.2/i);
-  assert.match(install, /\| Core \| `3\.0\.2` \|/);
+  assert.match(changelog, /## \[Unreleased\][\s\S]*## \[3\.1\.0\] - 2026-08-17[\s\S]*## \[3\.0\.2\] - 2026-08-15/);
+  assert.match(readme, /published version.*3\.1\.0/i);
+  assert.match(install, /\| Core \| `3\.1\.0` \|/);
   assert.doesNotMatch(install, /Manager|alex-act-manager/i);
   assert.match(install, /## Published Versions/);
   assert.doesNotMatch(install, /Not Yet Published/);

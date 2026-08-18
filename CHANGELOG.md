@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [3.1.0] - 2026-08-17
+
+### Added
+
+- Extended `bootstrap-project` with additive portable workspace QoL settings for
+  editor, diff, Markdown, file/search, PowerShell terminal, and Git behavior.
+  User-profile and extension-specific settings remain outside the bootstrap.
+
 ## [3.0.2] - 2026-08-15
 
 ### Fixed

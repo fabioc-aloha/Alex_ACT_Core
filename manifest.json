@@ -1,7 +1,7 @@
 {
   "$comment": "Mall-side plugin manifest. Core ships 16 source instructions, 32 baseline skills, and 9 slash-command prompts. Core owns self-activation and project-local bootstrap; native Copilot CLI owns plugin lifecycle; Scout owns shared continuity; Document Tools owns conversion. One Document Tools command remains a temporary redirect.",
   "plugin": "alex-act-core",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "status": "released",
   "shape": "sixteen-instructions + thirty-two-skills + nine-prompts (Core self-activation + project bootstrap + Alex Finch runtime personality + ACT canon + local continuity semantics + cognitive discipline + reasoning muscles + meditation loop + security & privacy + tooling awareness + git/lint + project-capability authoring + craft skills; native plugin lifecycle; shared continuity owned by Scout; conversion owned by Document Tools)",
   "description": "The self-activating Alex ACT baseline runtime plugin. Installs 32 reusable baseline skills and 9 slash-command prompts. Core owns its 16 runtime instructions, receipt, project scaffold, local continuity semantics, and consented project-capability authoring. Native Copilot CLI owns plugin lifecycle, Scout owns shared continuity, and Document Tools owns conversion.",
@@ -53,7 +53,7 @@
         "name": "bootstrap-project",
         "path": ".github/skills/bootstrap-project/SKILL.md",
         "install_to": ".github/skills/bootstrap-project/SKILL.md",
-        "role": "preview and apply Core's minimal repository guidance, project VS Code settings, Markdown CSS, episodic scaffold, and selective .gitignore tracking"
+        "role": "preview and apply Core's portable workspace QoL baseline, repository guidance, project VS Code settings, Markdown CSS, episodic scaffold, and selective .gitignore tracking"
       },
       {
         "name": "browser-tools",
@@ -400,7 +400,7 @@
   },
   "distribution": {
     "status": "published",
-    "published_version": "3.0.2"
+    "published_version": "3.1.0"
   },
   "verify_install": {
     "$comment": "Placeholder — will be filled when the first skill/instruction ships. Pattern from illustrator plugin: scripts/verify-install.mjs runs a stdio handshake against declared MCP servers + a filesystem check of installed skill paths."
