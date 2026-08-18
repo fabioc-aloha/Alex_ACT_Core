@@ -60,11 +60,11 @@ the capabilities their work needs.
 | Plugin | Published version | Delivery | Use it for |
 | --- | --- | --- | --- |
 | `alex-act-core` | `3.1.1` | `alex-mall` | Baseline identity, ACT discipline, instruction activation, and project bootstrap. |
-| `alex-act-illustrator-plugin` | `2.2.1` | `alex-mall` | Charts, figures, imagery, shells, banners, and visual companions. |
+| `alex-act-illustrator-plugin` | `2.2.2` | `alex-mall` | Charts, figures, imagery, shells, banners, and visual companions. |
 | `alex-act-document-tools` | `1.1.1` | `alex-mall` | Markdown, HTML, Word, email, and plain-text production. |
-| `alex-act-ai-operations` | `0.2.0` | `alex-mall` | Consent-gated model planning and provider execution. |
-| `alex-act-enterprise` | `1.0.1` | `alex-mall` | Public Azure, Fabric, Power BI, and Microsoft 365 setup. |
-| `alex-act-msft` | `1.1.1` | Private `agency-playground` | Microsoft-internal Agency, WorkIQ, S360, and Org Report setup. |
+| `alex-act-ai-operations` | `0.2.1` | `alex-mall` | Consent-gated model planning and provider execution. |
+| `alex-act-enterprise` | `1.1.0` | `alex-mall` | Public Azure, Fabric, Power BI, and Microsoft 365 setup. |
+| `alex-act-msft` | `1.1.4` | Managed private source | Microsoft-internal Agency, WorkIQ, S360, and Org Report setup. |
 
 ### Dependency Matrix
 
@@ -75,13 +75,19 @@ the capabilities their work needs.
 | Document Tools | None | Core is recommended, not required | Converter tools and local prerequisites remain Document Tools-owned. |
 | AI Operations | None | Separately installed from the brain spine | Provider login, data transfer, and cost require separate execution approval. |
 | Enterprise | None | Core is the expected discipline baseline | Configures seven public Microsoft plugins at repository scope by default. |
-| MSFT | None | Core is expected; Enterprise is optional | Requires Microsoft identity, corporate network access, and private marketplace access. |
+| MSFT | None | Core is expected; Enterprise is optional | Requires Microsoft identity, corporate network access, and managed-source access. |
 
 ### Install Commands
 
 Close all VS Code windows before installing or updating a plugin that VS Code
 has loaded. On Windows, an active extension host can retain plugin files and
 cause `os error 5`; use a standalone PowerShell terminal when that occurs.
+
+Core runs on Windows and macOS. Every `copilot` command below is identical on
+both; only the one-time CLI installation differs by platform. Core resolves the
+user instruction directory from the current home directory, so it activates at
+`%USERPROFILE%\.copilot\instructions` on Windows and `~/.copilot/instructions`
+on macOS. Use PowerShell on Windows and your default shell on macOS.
 
 Register and refresh the public Mall once per machine:
 
@@ -104,14 +110,6 @@ Install MSFT only on a Microsoft-managed account and corporate network:
 
 ```powershell
 git config --global core.longpaths true
-copilot plugin marketplace add agency-microsoft/playground
-copilot plugin install alex-act-msft@agency-playground
-```
-
-If the private marketplace route is unavailable but direct installation remains
-supported, use the managed-source fallback:
-
-```powershell
 copilot plugin install fabioc_microsoft/alex-act-msft
 ```
 
@@ -154,7 +152,7 @@ copilot plugin marketplace remove alex-mall
 copilot plugin marketplace remove alex-mall --force
 ```
 
-> **Windows only**: if VS Code is running when you invoke either path, the CLI can hit `os error 5` on loaded plugin trees. Close all VS Code windows first (File → Exit), open a fresh PowerShell terminal (not VS Code's integrated terminal), and run the commands there.
+> **Windows only**: if VS Code is running when you invoke either path, the CLI can hit `os error 5` on loaded plugin trees. Close all VS Code windows first (File → Exit), open a fresh PowerShell terminal (not VS Code's integrated terminal), and run the commands there. macOS does not lock loaded plugin files, so the same commands run from any terminal.
 
 ## What this is
 
@@ -169,7 +167,7 @@ Alex ACT Core is the **baseline plugin** — the minimal always-on brain that ev
 **What Core is NOT**:
 
 - Not the Copilot CLI itself — Core rides on top of Copilot CLI + Chat
-- Not a shared-continuity transport. Core owns local placement and trust semantics; Scout owns synchronized continuity operations.
+- Not a shared-continuity transport. Core owns local placement and trust semantics; native host memory, `HANDOFF.md`, and episodic records are the continuity defaults.
 - Not the Mall itself — the Mall lives in [`Alex_ACT_Plugin_Mall`](https://github.com/fabioc-aloha/Alex_Skill_Mall) and self-curates per ADR-008
 - Not a visual-authoring bundle — chart authoring, SVG banners, print figures, and AI imagery live in [`alex-act-illustrator-plugin`](https://github.com/fabioc-aloha/Alex_ACT_Illustrator_Plugin), not Core
 - Not a lifecycle wrapper — native Copilot CLI owns plugin install, list, update, and uninstall; required project bootstrap remains in Core
@@ -178,16 +176,16 @@ Alex ACT Core is the **baseline plugin** — the minimal always-on brain that ev
 
 ## Surface Continuity
 
-Native Copilot user, repository, and session memory remain the default
-persistence layers. Repository-root `HANDOFF.md` carries active project state,
-`.github/episodic/` carries durable project summaries, and the
-`surface-continuity` skill places reviewed cross-project knowledge and
-cross-surface work into Scout-owned continuity operations.
+Native Copilot user, repository, and session memory are the default persistence
+layers. Repository-root `HANDOFF.md` carries active project state, and
+`.github/episodic/` carries durable project summaries. Cross-project knowledge
+and cross-surface work remain local until a separately approved capability owns
+them.
 
-Core does not validate, stage, publish, poll, claim, or acknowledge shared
-records. If Scout continuity is unavailable, ordinary work falls back to
-native memory, `.github/episodic/`, and `HANDOFF.md` without error. No root
-`MEMORY.md` or automatic `memory-triggers` instruction is introduced.
+Core does not validate, stage, publish, poll, claim, acknowledge, or transport
+shared records. Native memory, `.github/episodic/`, and `HANDOFF.md` are normal
+operation. No root `MEMORY.md` or automatic `memory-triggers` instruction is
+introduced.
 
 ## Project Capability Authoring
 
@@ -228,7 +226,7 @@ Same layout as [`alex-act-illustrator-plugin`](https://github.com/fabioc-aloha/A
 
 **Prerequisites** (once per machine):
 
-- **Copilot CLI ≥ 1.0.75** — [install docs](https://docs.github.com/copilot/how-tos/set-up/install-copilot-cli). Verify with `copilot --version`. If already installed, update with `winget upgrade --id GitHub.CopilotCLI` (Windows).
+- **Copilot CLI ≥ 1.0.75** — [install docs](https://docs.github.com/copilot/how-tos/set-up/install-copilot-cli). Verify with `copilot --version`. Install or update with `winget install --id GitHub.Copilot` (Windows), `brew install --cask copilot-cli` (macOS), or `npm install -g @github/copilot` (any platform with Node.js 22+).
 - **GitHub CLI authenticated** — `gh auth login` and confirm with `gh auth status`.
 
 Full brand-new-user walkthrough (four personas, six install stages, anti-patterns): see [Alex ACT Core install guide](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/INSTALL.md).
@@ -275,12 +273,11 @@ plugin's namespaced setup command:
 - **`/alex-act-core bootstrap-project`** — previews and consent-gates project Markdown Preview CSS, settings, repository guidance, and handoff scaffolding
 - **`/alex-act-document-tools convert`** — routes supported Markdown, HTML, Word, email, and plain-text conversions
 
-Full walkthrough with slash-command examples: [USER-EXPERIENCE Stages 3–5](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/INSTALL.md).
+Full walkthrough with slash-command examples: [INSTALL Stages 3–5](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/INSTALL.md).
 
 ## Update Core
 
-Copilot CLI auto-update behavior depends on marketplace configuration. Run a
-targeted update when automatic updates are disabled or when you need an
+Copilot CLI plugins do not auto-update. Run a targeted update when you want an
 explicit version transition:
 
 ```powershell
@@ -305,7 +302,7 @@ user instructions.
 - `Access is denied (os error 5)` on Windows — close every VS Code window first. Copilot Chat's active MCP servers hold file handles on plugin binaries.
 - `Plugin "alex-act-core" is not installed` with the plugin still showing in `copilot plugin list [disabled]` — you have a zombie entry in `~/.copilot/config.json`'s `installedPlugins` array.
 
-Both failure modes and their fixes (including a working two-file cleanup pattern) are documented in [`USER-EXPERIENCE.md § Optional — start from a clean slate`](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/INSTALL.md).
+Both failure modes and their fixes (including a working two-file cleanup pattern) are documented in [`INSTALL.md § Optional — start from a clean slate`](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/INSTALL.md).
 
 ## Optional document conversion
 
@@ -316,16 +313,18 @@ command is a temporary redirect only.
 
 ## Roadmap
 
-Growth continues through evidence-gated proposals per [Alex ACT Core](https://github.com/fabioc-aloha/Alex_ACT_Core). The Both-classified inventory (framework baseline shipped to Core) is complete as of Batch 10 (2026-07-30). Future additions come from Steward's brain plan Part II under **Both** classification or as new proposals. See Steward's [brain plan](https://github.com/fabioc-aloha/Alex_ACT_Core) Part II for the current candidate pipeline.
+Core changes only through evidence-gated Steward proposals, explicit approval,
+focused tests, semantic-version classification, and a coordinated Core release
+plus Mall origin update. Packaging migrations must also pass their accepted
+cross-host gates before changing the current Copilot package.
 
 ## Related
 
-- [Alex_ACT_Core](https://github.com/fabioc-aloha/Alex_ACT_Core) — top-of-chain, author + curator of every shipped artefact
-- [`Alex_ACT_Illustrator_Plugin`](https://github.com/fabioc-aloha/Alex_ACT_Illustrator_Plugin) — first shipped Steward CLI plugin; proves the transport
+- [Alex_ACT_Core](https://github.com/fabioc-aloha/Alex_ACT_Core) — public baseline runtime source
+- [`Alex_ACT_Illustrator_Plugin`](https://github.com/fabioc-aloha/Alex_ACT_Illustrator_Plugin) — visual authoring specialization
 - [`Alex_ACT_Document_Tools`](https://github.com/fabioc-aloha/Alex_ACT_Document_Tools) — optional document conversion and shared converter runtime
-- [`Alex_ACT_Plugin_Mall`](https://github.com/fabioc-aloha/Alex_Skill_Mall) — CLI-native plugin marketplace v3.0.0 GA (2026-07-28)
-- [`Alex_ACT_Edition`](https://github.com/fabioc-aloha/Alex_ACT_Edition) — frozen v1 heir-template compatibility surface (v4.2.0, 2026-07-28)
-- Steward Plan Phase 3: [gap #1](https://github.com/fabioc-aloha/Alex_ACT_Core) — this repo's creation is the partial resolution
+- [`Alex_ACT_Plugin_Mall`](https://github.com/fabioc-aloha/Alex_Skill_Mall) — public distribution record
+- [`Alex_ACT_Edition`](https://github.com/fabioc-aloha/Alex_ACT_Edition) — frozen v1 compatibility evidence
 
 ## License
 

@@ -19,21 +19,18 @@ test('Core does not author a greeting overlay', () => {
   assert.equal(fs.existsSync(file('.github/instructions/greeting-checkin.instructions.md')), false);
 });
 
-test('Core surface-continuity owns placement while Scout owns shared operations', () => {
+test('Core surface-continuity keeps defaults native and repository-owned', () => {
   const skill = read('.github/skills/surface-continuity/SKILL.md');
   assert.match(skill, /^description: "Places durable experiences/m);
   assert.match(skill, /native host memory/i);
   assert.match(skill, /\.github\/episodic\//);
   assert.match(skill, /HANDOFF\.md/);
-  assert.match(skill, /untrusted/i);
-  assert.match(skill, /Scout owns shared-folder message bus/i);
-  assert.match(skill, /scout-message-bus/);
-  assert.match(skill, /scout-knowledge-base/);
-  assert.match(skill, /local fallback/i);
+  assert.match(skill, /no default message bus, heartbeat, knowledge base, or cross-host/i);
+  assert.match(skill, /normal Core contract/i);
+  assert.doesNotMatch(skill, /\bScout\b|scout-message-bus|scout-knowledge-base/i);
   assert.doesNotMatch(skill, /RFC 8785|JSON Canonicalization Scheme/i);
   assert.doesNotMatch(skill, /\/alex-act-manager continuity-/);
   assert.doesNotMatch(skill, /C:\\Users\\|DefaultAzureCredential|Graph authentication|polling daemon/i);
-
 });
 
 test('edited continuity artifacts carry current review dates and literal falsification deadlines', () => {
@@ -46,42 +43,40 @@ test('edited continuity artifacts carry current review dates and literal falsifi
   ];
   for (const artifact of artifacts) {
     const content = read(artifact);
-    assert.match(content, /^lastReviewed: 2026-08-15$/m, artifact);
+    assert.match(content, /^lastReviewed: 2026-08-18$/m, artifact);
     assert.match(content, /2026-11-15/, artifact);
   }
 });
 
-test('meditation keeps project history local and requires reviewed Scout deposits', () => {
+test('meditation keeps project history local without a default shared transport', () => {
   const meditation = read('.github/skills/meditation/SKILL.md');
   assert.match(meditation, /\.github\/episodic\//);
-  assert.match(meditation, /scout-knowledge-base/);
-  assert.match(meditation, /reviewed/i);
   assert.match(meditation, /never publish automatically/i);
+  assert.doesNotMatch(meditation, /\bScout\b|scout-knowledge-base/i);
 });
 
-test('PII guard covers Scout continuity records without selecting transport', () => {
+test('PII guard covers every persistent write without selecting transport', () => {
   const pii = read('.github/instructions/pii-memory-filter.instructions.md');
-  assert.match(pii, /Scout shared-continuity records/i);
   assert.match(pii, /every persistent write/i);
   assert.match(pii, /does not\s+select.*transport/is);
+  assert.doesNotMatch(pii, /\bScout\b/i);
   assert.doesNotMatch(pii, /C:\\Users\\fabioc|\\OneDrive - [^<\n]+/i);
 });
 
-test('Core uses native lifecycle and routes shared continuity to Scout without polling', () => {
+test('Core uses native lifecycle and local continuity without polling', () => {
   const health = read('.github/instructions/session-health-monitoring.instructions.md');
   const awareness = read('.github/instructions/proactive-awareness.instructions.md');
   assert.match(health, /copilot plugin list/);
   assert.doesNotMatch(health, /Manager|alex-act-manager/);
-  assert.match(health, /Scout owns optional shared continuity/i);
-  assert.match(awareness, /Scout messages/i);
-  assert.match(awareness, /untrusted evidence/i);
+  assert.match(health, /native host memory and repository continuity/i);
+  assert.doesNotMatch(`${health}\n${awareness}`, /\bScout\b/i);
   assert.doesNotMatch(`${health}\n${awareness}`, /setInterval|fs\.watch|readdirSync\([^)]*OneDrive/i);
 });
 
-test('continuity absence degrades to native and repository-owned fallback', () => {
+test('continuity defaults to native and repository-owned records', () => {
   const skill = read('.github/skills/surface-continuity/SKILL.md');
-  assert.match(skill, /Scout.*unavailable[\s\S]*native host memory/is);
-  assert.match(skill, /Scout.*unavailable[\s\S]*\.github\/episodic\//is);
-  assert.match(skill, /Scout.*unavailable[\s\S]*HANDOFF\.md/is);
-  assert.match(skill, /degraded, not fatal/i);
+  assert.match(skill, /native host memory for personal facts/i);
+  assert.match(skill, /\.github\/episodic\/`? for durable\s+project summaries/i);
+  assert.match(skill, /HANDOFF\.md.*active execution state/i);
+  assert.doesNotMatch(skill, /\bScout\b/i);
 });

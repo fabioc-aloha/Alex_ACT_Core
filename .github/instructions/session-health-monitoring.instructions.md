@@ -1,7 +1,7 @@
 ---
-description: "Monitors context-window health and graceful handoff continuously, using native plugin lifecycle commands and routing shared continuity to Scout"
+description: "Monitors context-window health and graceful handoff continuously, using native plugin lifecycle commands and repository continuity"
 applyTo: "**"
-lastReviewed: 2026-08-15
+lastReviewed: 2026-08-18
 ---
 
 # Session Health Monitoring
@@ -45,9 +45,9 @@ When approaching session limits or switching topics, write the cross-session han
 
 Core owns its instruction and project-bootstrap health. Use native
 `copilot plugin list`, `update`, and `uninstall` commands for plugin lifecycle.
-Scout owns optional shared continuity health and repair. If Scout is
-unavailable, continue with local handoff and context-health practices above.
+Native host memory and repository continuity own normal handoff and
+context-health practices. Core does not provide or route to a shared transport.
 
 ## Would Revise If
 
-Revise by **2026-11-15** if proxy heuristics for token counts consistently mispredict session capacity (warning signs miscalibrated for the current model class), if the BYOK token-counter assumption breaks (extension UI no longer surfaces percent-full), if graceful-handoff produces `HANDOFF.md` content that the next session cannot pick up from, or if Core duplicates Scout transport.
+Revise by **2026-11-15** if proxy heuristics for token counts consistently mispredict session capacity (warning signs miscalibrated for the current model class), if the BYOK token-counter assumption breaks (extension UI no longer surfaces percent-full), if graceful-handoff produces `HANDOFF.md` content that the next session cannot pick up from, or if Core duplicates shared transport.

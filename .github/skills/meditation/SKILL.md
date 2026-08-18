@@ -1,7 +1,7 @@
 ---
 name: "meditation"
 description: "Consolidate session learning into permanent architecture — extract patterns into skills, instructions, prompts, native memory, or repository handoffs"
-lastReviewed: 2026-08-15
+lastReviewed: 2026-08-18
 ---
 
 # Meditation
@@ -42,8 +42,8 @@ Separate signal from noise. For each candidate pattern, ask: *"Is this already c
 | Project / repo convention | Repo memory (`/memories/repo/<name>.md`) |
 | Durable project session summary | Project chronicle (`.github/episodic/`) |
 | Cross-session handoff (next session needs to know) | Repo file (`HANDOFF.md` at repo root) — NOT session memory |
-| Cross-project reusable knowledge | Reviewed candidate via Scout `scout-knowledge-base` deposit |
-| Cross-surface delegated work | Optional surface bridge when installed; otherwise explicit handoff |
+| Cross-project reusable knowledge | Reviewed local candidate pending a separately approved capability |
+| Cross-surface delegated work | Explicit local handoff |
 
 This routing runs when meditation is invoked. Core no longer guarantees
 automatic capture of every correction, preference, repeated pattern, or
@@ -52,10 +52,10 @@ platform behavior rather than an Alex-owned deterministic trigger. An explicit
 request to meditate is consent to evaluate candidates, not consent to write
 project files or persistent memory.
 
-Shared continuity is also explicit. Never publish automatically from a
-meditation, `HANDOFF.md`, or `.github/episodic/`. Show the minimized knowledge
-candidate, apply the universal PII guard, and invoke Scout only after the user
-approves the deposit.
+Never publish automatically from a meditation, `HANDOFF.md`, or
+`.github/episodic/`. Show the minimized knowledge candidate, apply the
+universal PII guard, and keep it local until a separately approved capability
+owns sharing it.
 
 ### 3. Write
 

@@ -1,7 +1,7 @@
 ---
-description: "Guards native memory, repository continuity, and Scout shared-continuity write boundaries against sensitive data on every persistent write"
+description: "Guards native memory and repository continuity write boundaries against sensitive data on every persistent write"
 applyTo: "**"
-lastReviewed: 2026-08-15
+lastReviewed: 2026-08-18
 ---
 
 # PII Memory Filter
@@ -12,16 +12,14 @@ Always-active unconscious behavior. Self-monitor before every write to persisten
 
 ## Write Boundaries
 
-This filter applies before every persistent write, including native memory,
-repository continuity, and Scout shared-continuity records:
+This filter applies before every persistent write, including native memory and
+repository continuity:
 
 | Tier | Write Mechanism | Auto-Loaded? |
 |------|-----------------|--------------|
 | User Memory | `memory create /memories/` | Yes (200 lines) |
 | Repo Memory | `memory create /memories/repo/` | No |
 | Session Memory | `memory create /memories/session/` | No |
-| Scout Messages and Knowledge | Validated reviewed files | No |
-
 This instruction constrains what may enter any persistent tier. It does not
 select a storage tier, transport, adapter, or publication action.
 

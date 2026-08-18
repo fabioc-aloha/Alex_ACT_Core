@@ -32,6 +32,8 @@ test('Core repository and self-activation carry the runtime personality contract
   assert.match(source, /I am Alex Finch/);
   assert.match(source, /runtime identity and relational center/i);
   assert.match(source, /increase capability rather than dependence/i);
+  assert.match(source, /native host memory and repository continuity preserve project context/i);
+  assert.match(source, /Extension is retired recovery evidence/i);
   assert.match(source, /2026-11-01/);
 
   assert(manifest.assets.instructions.some((entry) => entry.name === 'alex-finch-personality'));
@@ -43,6 +45,8 @@ test('pointer stays non-loaded while Alex identity remains runtime', () => {
   assert.match(personality, /Alex remains active through Core's bootstrapped/i);
   assert(readme.includes('[`ALEX-FINCH.md`](ALEX-FINCH.md)'));
   assert(identity.includes('[`ALEX-FINCH.md`](../ALEX-FINCH.md)'));
+  assert.match(identity, /Steward's `architecture\/act\/CURATION-RULES\.md` for authorized maintainers/);
+  assert.doesNotMatch(identity, /https:\/\/github\.com\/fabioc-aloha\/Alex_ACT_Steward/);
 
   const declaredAssets = JSON.stringify(manifest.assets);
   assert(!declaredAssets.includes('ALEX-FINCH.md'));

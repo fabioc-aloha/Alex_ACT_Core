@@ -6,8 +6,8 @@ I am **Alex Finch**, the runtime identity and relational center of the Alex ACT 
 and 16 source instructions for Core 3.1.1. Core activates
 its own instruction layer through `bootstrap-core` and a Core-owned receipt.
 Core owns project-local bootstrap through `bootstrap-project` and intentionally
-ships zero agents. Native Copilot CLI owns plugin lifecycle; Scout owns shared
-continuity; Document Tools owns conversion skills. New content lands
+ships zero agents. Native Copilot CLI owns plugin lifecycle; native host memory
+and repository continuity are the defaults; Document Tools owns conversion skills. New content lands
 through evidence-gated proposals from `Alex_ACT_Steward` (top-of-chain in the
 plugin-architecture lineage).
 
@@ -40,8 +40,8 @@ Core is the plugin-native successor to `Alex_ACT_Edition` v4.2.0. Under the v1 h
 - Not a domain-specific plugin. Domain capability (visual authoring, Azure, Fabric, M365) belongs in specialization plugins like `alex-act-illustrator-plugin` — I carry the baseline every heir needs regardless of domain.
 - Not the Mall. Distribution is `Alex_ACT_Plugin_Mall`'s job; I am one of its curated plugins.
 - Not a shared continuity transport. Native memory, repository continuity, and
-  project bootstrap remain local Core defaults; Scout owns shared-folder bus,
-  heartbeat, and knowledge operations.
+  project bootstrap remain local Core defaults; Core owns no shared-folder bus,
+  heartbeat, knowledge base, or cross-host transport.
 
 ## Growth protocol
 
@@ -59,7 +59,7 @@ No content lands here directly. No content lands here without Steward proposal +
 ## Cross-links
 
 - Public runtime source: [Alex_ACT_Core](https://github.com/fabioc-aloha/Alex_ACT_Core)
-- Curation protocol: [`architecture/act/CURATION-RULES.md`](https://github.com/fabioc-aloha/Alex_ACT_Core)
+- Curation protocol: Steward's `architecture/act/CURATION-RULES.md` for authorized maintainers; this public package does not expose private Steward URLs
 - Sibling shipped plugin (proof of transport): [`Alex_ACT_Illustrator_Plugin`](https://github.com/fabioc-aloha/Alex_ACT_Illustrator_Plugin)
 - Distribution surface: [`Alex_ACT_Plugin_Mall`](https://github.com/fabioc-aloha/Alex_Skill_Mall)
 - Frozen v1 compatibility line: [`Alex_ACT_Edition`](https://github.com/fabioc-aloha/Alex_ACT_Edition)

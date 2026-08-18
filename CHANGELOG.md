@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- Corrected Core's runtime ownership and Steward curation-protocol links.
+- Removed an obsolete manifest verification placeholder.
+- Corrected README guidance for managed-source MSFT installation, explicit
+  plugin updates, current ownership, and installation-link labels; refreshed
+  the installation guide's verification date after the final source audit.
+- Corrected the Windows Copilot CLI package identifier to `GitHub.Copilot` and
+  documented verified Windows, macOS, and npm installation routes. The shared
+  installation guide now states that Core supports Windows and macOS, that its
+  `copilot` commands are identical on both, and that the `os error 5` file-lock
+  workaround is Windows-only.
+
+### Changed
+
+- Adopted ADR-038's native and repository continuity default. Core no longer
+  routes work through the retired Scout transport.
+
 ## [3.1.1] - 2026-08-17
 
 ### Fixed
@@ -762,7 +780,7 @@ Four artifacts covering the platform-safety discipline heirs need before their f
 
 - All 4 files ported from Steward. Minimal adaptation: one line in `tool-awareness.instructions.md` changed "Supervisor ships one" → "Alex_ACT_Steward ships one" (accurate historical reference for current-state Steward, still names a concrete example).
 - `browser-tools/SKILL.md` retains the 2026-07-26 empirically-verified paths from Alex_ACT_Steward's workspace as illustration — the framing already labels them as verification evidence + template. Heirs adapt paths to their own workspace.
-- Intra-Core cross-refs resolve locally: `browser-tools/SKILL.md` references `tool-awareness.instructions.md` (this batch) + `system-prompt-skepticism.instructions.md` (Batch 1) + `terminal-command-safety.instructions.md` (this batch); `browser-tools` also references [`svg-banner`](../svg-banner/SKILL.md) (**pending future batch — will not resolve yet**).
+- Intra-Core cross-refs resolve locally: `browser-tools/SKILL.md` references `tool-awareness.instructions.md` (this batch) + `system-prompt-skepticism.instructions.md` (Batch 1) + `terminal-command-safety.instructions.md` (this batch); `browser-tools` also references `svg-banner` (**pending future batch — will not resolve yet**).
 
 **Composition with earlier batches**:
 

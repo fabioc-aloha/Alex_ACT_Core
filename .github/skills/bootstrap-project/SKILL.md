@@ -1,15 +1,17 @@
 ---
 name: bootstrap-project
 description: "Previews and applies Core's repository scaffold, portable workspace QoL settings, project Copilot settings, and Markdown CSS while preserving project-owned files. Use for new repositories, missing AGENTS/HANDOFF/episodic files, or project .vscode setup."
-lastReviewed: 2026-08-15
+lastReviewed: 2026-08-18
 ---
 
 # Bootstrap Project
 
 Set up one repository with Core's project-local guidance and a portable VS Code
 workspace baseline. The baseline covers editor, diff, Markdown, file/search,
-PowerShell terminal, and Git QoL preferences. It never edits user settings,
-configures extensions, or configures shared continuity.
+terminal, and Git QoL preferences. Its PowerShell profile keys are
+Windows-scoped and are ignored on macOS, where the system default shell
+applies. It never edits user settings, configures extensions, or configures
+shared continuity.
 
 ## Preview First
 
@@ -39,7 +41,7 @@ The minimal scaffold is `AGENTS.md`, thin Claude/Gemini adapters, `HANDOFF.md`,
 - Existing handoff, episodic, agent, settings, and CSS files are preserved.
 - Comment-rich JSONC requiring changes fails closed for manual merge.
 - Do not create `MEMORY.md`, README, license, framework, package manager, or Git.
-- Do not edit VS Code user settings or configure Scout/shared continuity.
+- Do not edit VS Code user settings or configure shared continuity.
 
 ## Anti-Patterns
 
@@ -48,7 +50,7 @@ The minimal scaffold is `AGENTS.md`, thin Claude/Gemini adapters, `HANDOFF.md`,
 | Run this through optional Manager | Core owns required project setup |
 | Replace custom project settings | Add only missing baseline entries |
 | Refresh CSS because hashes differ | Require separate refresh consent |
-| Configure shared continuity | Route to Scout |
+| Configure shared continuity | Keep work in repository continuity until a separately approved capability exists |
 
 ## Would Revise If
 

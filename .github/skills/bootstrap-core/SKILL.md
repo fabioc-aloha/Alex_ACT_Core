@@ -1,7 +1,7 @@
 ---
 name: bootstrap-core
 description: "Activates, verifies, repairs, or removes Core's 16 user-scope runtime instructions from canonical installed sources. Use after installing or updating Core, when Core identity or ACT behavior is inactive, or when Core receipt hashes drift."
-lastReviewed: 2026-08-15
+lastReviewed: 2026-08-18
 ---
 
 # Bootstrap Core
@@ -72,7 +72,7 @@ greeting and Manager receipt files are never removed.
 
 - Core self-activation is not general plugin lifecycle management.
 - Do not install, update, enable, disable, or uninstall plugins here.
-- Do not write Manager greeting or Scout continuity state.
+- Do not write non-Core instruction or external continuity state.
 - Do not fetch instruction bodies from the network.
 - Do not silently apply during install or session start.
 - Do not delete by filename glob; receipt and hash ownership are required.

@@ -218,8 +218,8 @@ test('Core project bootstrap previews, applies, preserves, and becomes idempoten
   const agents = fs.readFileSync(path.join(repository, 'AGENTS.md'), 'utf8');
   assert.match(agents, /HANDOFF\.md/);
   assert.doesNotMatch(agents, /Manager|alex-act-manager/i);
-  assert.match(agents, /Configure Scout explicitly when work must\s+cross projects\./);
-  assert.match(agents, /optional surface bridge only when host-specific agent\s+surface integration is needed\./);
+  assert.match(agents, /Keep cross-project work in an explicit\s+handoff until a separately approved capability owns it\./);
+  assert.doesNotMatch(agents, /\bScout\b/i);
   const settings = JSON.parse(fs.readFileSync(path.join(repository, '.vscode', 'settings.json')));
   assert.equal(settings['chat.agentSkillsLocations']['.github/skills'], true);
   assert.deepEqual(settings['markdown.styles'], ['.vscode/markdown-light.css']);
@@ -291,6 +291,7 @@ test('Core project bootstrap preserves JSONC strings that resemble trailing comm
 });
 
 test('Core declares self-activation and no Manager lifecycle redirects', () => {
+  const plugin = JSON.parse(read('plugin.json'));
   assert.equal(fs.existsSync(path.join(root, '.github', 'skills', 'bootstrap-core', 'SKILL.md')), true);
   assert.equal(fs.existsSync(path.join(root, '.github', 'prompts', 'bootstrap-core.prompt.md')), true);
   for (const name of [
@@ -300,6 +301,26 @@ test('Core declares self-activation and no Manager lifecycle redirects', () => {
     assert.equal(fs.existsSync(path.join(root, '.github', 'prompts', `${name}.prompt.md`)), false,
       `Core still declares Manager redirect ${name}`);
   }
+  assert.deepEqual(Object.keys(plugin).sort(), [
+    'author', 'category', 'commands', 'description', 'homepage', 'keywords',
+    'license', 'name', 'repository', 'skills', 'version',
+  ]);
+  assert.equal(plugin.skills, '.github/skills');
+  assert.equal(plugin.commands, '.github/prompts');
+  for (const relativePath of [
+    '.github/copilot-instructions.md',
+    '.github/instructions/alex-finch-personality.instructions.md',
+    '.github/instructions/pii-memory-filter.instructions.md',
+    '.github/instructions/proactive-awareness.instructions.md',
+    '.github/instructions/session-health-monitoring.instructions.md',
+    '.github/skills/bootstrap-core/SKILL.md',
+    '.github/skills/bootstrap-project/SKILL.md',
+    '.github/skills/meditation/SKILL.md',
+    '.github/skills/surface-continuity/SKILL.md',
+    'manifest.json',
+    'plugin.json',
+    'README.md',
+  ]) assert.doesNotMatch(read(relativePath), /\bScout\b/i, `${relativePath} retains retired Scout routing`);
 });
 
 test('Core 3.1.1 release metadata is final before tagging', () => {
@@ -316,10 +337,13 @@ test('Core 3.1.1 release metadata is final before tagging', () => {
   assert.equal(manifest.status, 'released');
   assert.equal(manifest.distribution.status, 'published');
   assert.equal(manifest.distribution.published_version, '3.1.1');
+  assert.equal(manifest.verify_install, undefined);
   assert.equal(manifest.nextRelease, undefined);
   assert.equal(manifest.candidateVersion, undefined);
   assert.match(changelog, /## \[Unreleased\][\s\S]*## \[3\.1\.1\] - 2026-08-17[\s\S]*## \[3\.1\.0\] - 2026-08-17/);
+  assert.doesNotMatch(changelog, /\]\(\.\.\/svg-banner\/SKILL\.md\)/);
   assert.match(readme, /published version.*3\.1\.1/i);
+  assert.match(install, /Last verified: 2026-08-18\./);
   assert.match(install, /\| Core \| `3\.1\.1` \|/);
   assert.match(install, /\| Enterprise \| `1\.1\.0` \|/);
   assert.doesNotMatch(install, /Manager|alex-act-manager/i);
@@ -344,7 +368,50 @@ test('Core README documents the constellation installation and dependency contra
   assert.match(readme, /manifests declare no dependency on Core or on one another/i);
   assert.match(readme, /Close all VS Code windows before installing or updating a plugin/i);
   assert.match(readme, /copilot plugin install alex-act-core@alex-mall/);
-  assert.match(readme, /copilot plugin install alex-act-msft@agency-playground/);
+  assert.match(readme, /copilot plugin install fabioc_microsoft\/alex-act-msft/);
+  assert.doesNotMatch(readme, /agency-playground|agency-microsoft\/playground/i);
+  assert.match(readme, /managed-source access/i);
+  assert.doesNotMatch(readme, /private marketplace access/i);
+  assert.match(readme, /\[INSTALL Stages 3–5\]\([^)]*INSTALL\.md\)/);
+  assert.match(readme, /Copilot CLI plugins do not auto-update/i);
+  assert.doesNotMatch(readme, /USER-EXPERIENCE|Batch 10|top-of-chain, author|gap #1/i);
+  for (const [plugin, version] of [
+    ['alex-act-illustrator-plugin', '2.2.2'],
+    ['alex-act-document-tools', '1.1.1'],
+    ['alex-act-ai-operations', '0.2.1'],
+    ['alex-act-enterprise', '1.1.0'],
+    ['alex-act-msft', '1.1.4'],
+  ]) assert(readme.includes(`| \`${plugin}\` | \`${version}\``),
+    `README must report ${plugin} ${version}`);
+});
+
+test('Core runs on Windows and macOS without platform-specific assumptions', () => {
+  const scripts = [
+    '.github/skills/bootstrap-core/scripts/bootstrap-core.cjs',
+    '.github/skills/bootstrap-project/scripts/bootstrap-project.cjs',
+  ];
+  for (const relativePath of scripts) {
+    const source = read(relativePath);
+    assert.match(source, /require\('node:path'\)/, relativePath);
+    assert.doesNotMatch(source, /USERPROFILE|APPDATA|process\.platform|win32|darwin/,
+      `${relativePath} must not branch on a specific platform`);
+    assert.doesNotMatch(source, /[A-Za-z]:\\\\|\\\\Users\\\\/,
+      `${relativePath} must not hardcode a Windows path`);
+  }
+  assert.match(read(scripts[0]), /os\.homedir\(\)/,
+    'the user instruction target must resolve from the current home directory');
+
+  const readme = read('README.md');
+  const install = read('INSTALL.md');
+  for (const guide of [readme, install]) {
+    assert.match(guide, /macOS/, 'installation guidance must cover macOS');
+    assert.match(guide, /brew install --cask copilot-cli/,
+      'macOS users need the documented Homebrew route');
+    assert.match(guide, /npm install -g @github\/copilot/,
+      'the cross-platform npm route must be documented');
+  }
+  assert.doesNotMatch(readme, /GitHub\.CopilotCLI/,
+    'winget package GitHub.CopilotCLI does not exist; the published id is GitHub.Copilot');
 });
 
 test('Core exposes self-activation, baseline skills, and one conversion redirect', () => {
@@ -398,7 +465,7 @@ test('meditation routes reusable project capabilities to consented local authori
   assert.doesNotMatch(platformAwareness, /mcp-builder/);
 });
 
-test('Core keeps bridge-neutral cross-surface safeguards without owning adapters', () => {
+test('Core excludes default cross-surface transport', () => {
   const manifest = JSON.parse(read('manifest.json'));
   const skills = manifest.assets.skills.map((entry) => entry.name);
   const continuity = read('.github/skills/surface-continuity/SKILL.md');
@@ -407,10 +474,8 @@ test('Core keeps bridge-neutral cross-surface safeguards without owning adapters
   assert.equal(fs.existsSync(path.join(
     root, '.github', 'skills', 'surface-communication', 'SKILL.md')), false);
   assert.match(continuity, /explicit user approval/i);
-  assert.match(continuity, /correlation ID/i);
-  assert.match(continuity, /untrusted/i);
-  assert.match(continuity, /optional surface bridge/i);
-  assert.doesNotMatch(continuity, /send-task|send-result|ChatGPT Desktop|GitHub Copilot app/i);
+  assert.match(continuity, /no default message bus, heartbeat, knowledge base, or cross-host/i);
+  assert.doesNotMatch(continuity, /correlation ID|untrusted|optional surface bridge|send-task|send-result|ChatGPT Desktop|GitHub Copilot app/i);
 });
 
 test('Core planning and git guidance require explicit approval before committing', () => {

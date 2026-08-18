@@ -4,7 +4,6 @@
 ## Continuity
 
 Use `HANDOFF.md` for active execution state and `.github/episodic/` for durable
-project-specific session summaries. Configure Scout explicitly when work must
-cross projects. Add an optional surface bridge only when host-specific agent
-surface integration is needed.
+project-specific session summaries. Keep cross-project work in an explicit
+handoff until a separately approved capability owns it.
 <!-- alex-act-continuity:end -->
