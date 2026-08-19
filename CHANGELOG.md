@@ -19,8 +19,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   this source-only change remains unreleased.
 - Added the `proactive-awareness` candidate skill. The resident instruction
   retains session detection plus the silence and frustration inhibition floors;
-  the skill carries PA1, PA2, and PA4 procedures. Phase 1 acceptance remains
-  pending a blind behavioral benchmark.
+  the skill carries PA1, PA2, and PA4 procedures. The bounded Phase 1 blind
+  benchmark reached tier-selection parity; this source-only change remains
+  unreleased.
 
 ## [3.1.2] - 2026-08-18
 
