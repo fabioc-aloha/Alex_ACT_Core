@@ -9,7 +9,7 @@ Alex ACT Core gives every workspace the same reasoning floor: Alex Finch's ident
 **Published version**: `3.1.2`. Install from the Alex ACT Mall as
 `alex-act-core@alex-mall`.
 
-**Current source shape**: 33 skills, 16 source instructions, and 9
+**Current source shape**: 34 skills, 16 source instructions, and 9
 slash-command prompts. Core activates its own 16 instructions through the
 consent-gated `bootstrap-core` command and records a Core-owned receipt.
 
@@ -214,7 +214,7 @@ Alex_ACT_Core/
 ├── .github/                    # Copilot Chat + CLI discovery surface
 │   ├── copilot-instructions.md
 │   ├── config/                 # brand-palette.json
-│   ├── skills/                 # 33 baseline framework, continuity, reasoning, safety, craft, and project-capability skills
+│   ├── skills/                 # 34 baseline framework, continuity, reasoning, safety, craft, and project-capability skills
 │   ├── instructions/           # 16 Core-owned sources activated by bootstrap-core
 │   └── prompts/                # 9 slash-command prompts
 └── .vscode/                    # workspace settings for self-dogfooding

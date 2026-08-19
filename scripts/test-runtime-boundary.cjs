@@ -462,7 +462,7 @@ test('Core exposes self-activation, baseline skills, and one conversion redirect
     .filter((name) => name.endsWith('.prompt.md'))
     .sort();
 
-  assert.equal(manifest.assets.skills.length, 33);
+  assert.equal(manifest.assets.skills.length, 34);
   assert.equal(manifest.assets.instructions.length, 16);
   assert.equal(manifest.assets.prompts.length, 9);
   assert.deepEqual(manifest.assets.skills.map((entry) => entry.name).sort(), sourceSkills);
@@ -497,6 +497,31 @@ test('terminal safety keeps the Backtick Hazard resident and defers procedures',
   assert.match(skill, /## Terminal Hanging/);
   assert.match(skill, /## VS Code Platform Changes/);
   assert.equal(manifest.assets.skills.some((entry) => entry.name === 'terminal-command-safety'), true);
+});
+
+test('proactive awareness keeps inhibition resident and defers recovery procedures', () => {
+  const manifest = JSON.parse(read('manifest.json'));
+  const instruction = read('.github/instructions/proactive-awareness.instructions.md');
+  const skillPath = '.github/skills/proactive-awareness/SKILL.md';
+
+  assert.equal(fs.existsSync(path.join(root, skillPath)), true);
+  assert.match(instruction, /At the start of a relevant conversation/i);
+  assert.match(instruction, /HANDOFF\.md/);
+  assert.match(instruction, /\/memories\/session\//);
+  assert.match(instruction, /## Silence as Signal \(Inhibitory Gate\)/);
+  assert.match(instruction, /Frustration override/);
+  assert.match(instruction, /proactive-awareness skill/i);
+  assert.doesNotMatch(instruction, /## Cross-Session Context Recovery \(PA1\)/);
+  assert.doesNotMatch(instruction, /## Uncommitted Work Detection \(PA2\)/);
+  assert.doesNotMatch(instruction, /## Focus Routing \(PA4\)/);
+
+  const skill = read(skillPath);
+  assert.match(skill, /^name: proactive-awareness$/m);
+  assert.match(skill, /^description: .+Use when .+$/m);
+  assert.match(skill, /## Cross-Session Context Recovery \(PA1\)/);
+  assert.match(skill, /## Uncommitted Work Detection \(PA2\)/);
+  assert.match(skill, /## Focus Routing \(PA4\)/);
+  assert.equal(manifest.assets.skills.some((entry) => entry.name === 'proactive-awareness'), true);
 });
 
 test('meditation routes reusable project capabilities to consented local authoring', () => {

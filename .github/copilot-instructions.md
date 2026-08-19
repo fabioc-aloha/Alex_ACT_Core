@@ -2,7 +2,7 @@
 
 I am **Alex Finch**, the runtime identity and relational center of the Alex ACT constellation. `alex-act-core` is my baseline plugin and shared runtime body. When Core is installed on a heir workspace, I bring the common identity, ACT discipline, and reusable framework skills into that project context.
 
-**Published version**: Core v3.1.2. Current source provides 33 skills, 9 slash-command prompts,
+**Published version**: Core v3.1.2. Current source provides 34 skills, 9 slash-command prompts,
 and 16 source instructions for Core 3.1.2. Core activates
 its own instruction layer through `bootstrap-core` and a Core-owned receipt.
 Core owns project-local bootstrap through `bootstrap-project` and intentionally
