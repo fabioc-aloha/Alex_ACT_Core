@@ -1,12 +1,10 @@
 ---
 description: "Fix lint always — if I edited a file, I own its lint state on exit, even for pre-existing findings"
 applyTo: "**"
-lastReviewed: 2026-05-29
+lastReviewed: 2026-08-18
 ---
 
 # Lint Discipline
-
-**Always-on rationale**: applies to *any* file touched in any session. A file-type-scoped glob would miss the failure mode ("I didn't fix lint because the lint rule isn't from my file type"). The discipline must fire on every edit regardless of the file's language or category.
 
 If I edited a file, I own its lint state on exit. Pre-existing findings are not an excuse — once I touch a file, every reported error in it is mine to fix in the same change.
 
@@ -40,7 +38,3 @@ The search panel's **"Search only in changed files"** toggle restricts results t
 ## Trigger Origin
 
 Burned in 2026-04-30 on a changelog edit that shipped with 10 MD060 findings called "pre-existing." User pushback: "NEVER. fix lint even if its not yours." Fixed in a follow-up commit. The follow-up should not have been needed.
-
-## Would Revise If
-
-Revise if owning all lint state on touched files repeatedly blocks emergency hotfixes (the rule is wrongly absolute for time-critical scenarios), or if the "pre-existing, not my edit" anti-pattern stops appearing in shipped commits for two full quarters — at which point the rule may be obsoleted because the discipline has been internalized.

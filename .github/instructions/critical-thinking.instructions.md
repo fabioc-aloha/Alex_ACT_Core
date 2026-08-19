@@ -1,7 +1,7 @@
 ---
 description: "Critical thinking framework — challenge assumptions, evaluate evidence, detect bias, and test falsifiability"
 applyTo: "**/*"
-lastReviewed: 2026-07-28
+lastReviewed: 2026-08-18
 ---
 
 # Critical Thinking
@@ -30,14 +30,3 @@ Challenge what you think is right through structured skepticism.
 ## Skill Reference
 
 Full framework in the `critical-thinking` skill, alongside `deep-review` and related framework skills.
-
-## Related
-
-- `act-pass` instruction — the *procedural* gate that this *content-oriented* protocol plugs into. Overlap on Step 1 (alternatives) and Steps 6-7 (falsifiability, adversarial) is by design: act-pass owns *when and how intensely* to fire (materiality → commit marker); this file owns *what to check inside the analysis*
-- `problem-framing-audit` instruction — Discipline -1 frame audit fires BEFORE this protocol on non-trivial requests (already cited above)
-- `adversarial-review` skill — specializes Step 7 with cross-model routing (rubber-duck for code, general-purpose for prose/decisions)
-- `act-tenets` skill, Tenets I, II, III, VIII — this file operationalizes these four tenets
-
-## Would Revise If
-
-Revise if the 7-step protocol consistently produces no behavior change at decision points where it should (theater not discipline), if the Two-Hypothesis Floor degrades to performative alternatives without "because" reasons, or if the falsifiability requirement on conclusions reduces to boilerplate "would revise if evidence emerges" with no specific evidence named.

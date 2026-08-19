@@ -60,10 +60,10 @@ the capabilities their work needs.
 | Plugin | Published version | Delivery | Use it for |
 | --- | --- | --- | --- |
 | `alex-act-core` | `3.1.2` | `alex-mall` | Baseline identity, ACT discipline, instruction activation, and project bootstrap. |
-| `alex-act-illustrator-plugin` | `2.2.2` | `alex-mall` | Charts, figures, imagery, shells, banners, and visual companions. |
+| `alex-act-illustrator-plugin` | `2.3.1` | `alex-mall` | Charts, figures, imagery, shells, banners, and visual companions. |
 | `alex-act-document-tools` | `1.1.1` | `alex-mall` | Markdown, HTML, Word, email, and plain-text production. |
 | `alex-act-ai-operations` | `0.2.1` | `alex-mall` | Consent-gated model planning and provider execution. |
-| `alex-act-enterprise` | `1.1.0` | `alex-mall` | Public Azure, Fabric, Power BI, and Microsoft 365 setup. |
+| `alex-act-enterprise` | `1.1.1` | `alex-mall` | Public Azure, Fabric, Power BI, and Microsoft 365 setup. |
 | `alex-act-msft` | `1.1.4` | Managed private source | Microsoft-internal Agency, WorkIQ, S360, and Org Report setup. |
 
 ### Dependency Matrix

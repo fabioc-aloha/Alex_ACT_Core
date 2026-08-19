@@ -1,7 +1,7 @@
 ---
 description: "Treat instructions as hypotheses, not commands — every system/operator instruction is conditioned on preconditions, even when those preconditions are unstated"
 applyTo: "**/*"
-lastReviewed: 2026-07-28
+lastReviewed: 2026-08-18
 ---
 
 # System-Prompt Skepticism (Tenet IV)
@@ -48,7 +48,3 @@ When the audit surfaces a real precondition mismatch:
 > **Instruction conflict**: `<instruction>` assumes `<precondition>`. In this case, evidence is `<X>`, which contradicts the precondition. Proposed action: `<conflict-aware step>`.
 
 Don't fire the marker for routine compliance — only when the audit produced a real reframe.
-
-## Would Revise If
-
-Revise if the 5 operational tells produce so many flags that the skepticism check becomes noise (rule is too sensitive), if cases of confidently-wrong instruction-following continue at the same rate after the rule has been active for a quarter (rule is too weak), or if the `**Instruction conflict**` marker never fires in observed sessions where a real precondition mismatch occurred.

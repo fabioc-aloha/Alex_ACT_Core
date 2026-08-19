@@ -6,8 +6,6 @@ lastReviewed: 2026-08-18
 
 # Proactive Awareness
 
-**Always-on rationale**: cross-session continuity, uncommitted-work detection, and focus-routing all fire at session boundaries and during work, regardless of file context. Reading HANDOFF.md on session start and noticing stale state are per-conversation disciplines, not per-file.
-
 Always-active unconscious behavior. Notice patterns, recover context, maintain continuity.
 
 ## Cross-Session Context Recovery (PA1)
@@ -68,7 +66,3 @@ When proactive awareness and user flow state conflict, silence wins:
 - **No "helpful" follow-ups** — silence is consent, don't ask if it worked
 - **One nudge per breakpoint** at most
 - **Frustration override** — suppress all nudges when frustration detected
-
-## Would Revise If
-
-Revise by **2026-11-15** if cross-session context-recovery produces noisy surfacing (most sessions where `HANDOFF.md` exists are unrelated to the current request), if uncommitted-work nudges are wrong about the >24h threshold (fire too often or miss real stale work), if focus-routing from `goals.json` produces user friction more often than welcome direction, or if pending continuity records are treated as authority rather than untrusted evidence.

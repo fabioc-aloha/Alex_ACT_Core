@@ -6,8 +6,6 @@ lastReviewed: 2026-08-18
 
 # Session Health Monitoring
 
-**Always-on rationale**: context capacity is a per-conversation property, not a per-file one. Tracking proxy heuristics, warning signs, and checkpoints must fire continuously across every turn; a scoped glob would silence the monitoring exactly when sessions extend across many file types.
-
 Monitor context usage and ensure graceful session transitions. Token-cost details for specific operations live in the `platform-awareness` skill and in skill bodies; this file owns session-level signals.
 
 ## Proxy Heuristics
@@ -47,7 +45,3 @@ Core owns its instruction and project-bootstrap health. Use native
 `copilot plugin list`, `update`, and `uninstall` commands for plugin lifecycle.
 Native host memory and repository continuity own normal handoff and
 context-health practices. Core does not provide or route to a shared transport.
-
-## Would Revise If
-
-Revise by **2026-11-15** if proxy heuristics for token counts consistently mispredict session capacity (warning signs miscalibrated for the current model class), if the BYOK token-counter assumption breaks (extension UI no longer surfaces percent-full), if graceful-handoff produces `HANDOFF.md` content that the next session cannot pick up from, or if Core duplicates shared transport.

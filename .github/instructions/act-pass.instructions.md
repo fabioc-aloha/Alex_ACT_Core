@@ -1,38 +1,9 @@
 ---
 description: "Run the 7-step ACT pass on medium and high stakes work — Materiality first, then Hypothesise, Alternatives, Disconfirmers, Audit-priors, Severity, Commit"
 applyTo: "**/*"
-lastReviewed: 2026-07-11
+lastReviewed: 2026-08-18
 ---
 
-# ACT Pass
-
-Run the 7-step Artificial Critical Thinking pass before non-trivial output. The pass is calibrated by stakes — most requests skip it; medium-stakes get a trimmed pass; high-stakes get the full pass.
-
-## Trigger Calibration
-
-| Stakes                                     | Pass type                            | Examples                                                                         |
-| ------------------------------------------ | ------------------------------------ | -------------------------------------------------------------------------------- |
-| **Low** — skip                             | Default exit at Step 1 (Materiality) | Formatting, naming, comment tweaks, mechanical edits, single-line bug fix        |
-| **Medium** — trimmed (steps 1, 3, 4, 5, 6) | Most common                          | Architectural choice, plan change, multi-file refactor, doc/manifesto draft      |
-| **High** — full (all 7 steps)              | Rare but mandatory                   | Release, deployment, irreversible op, security-critical change, schema migration |
-
-**Trigger phrases** that should fire at least a trimmed pass: "fix this", "make it faster", "release", "deploy", "merge", "is this safe", "should we", "what's the risk", "ship it", "is this ready".
-
-**Mandatory full pass**: when the work is a release commit, a `git push` to a protected branch, a destructive op (drop, delete, force-push), or any change to a contract that other heirs depend on.
-
-## How to Run a Pass
-
-### Trimmed Pass (Steps 1, 3, 4, 5, 6)
-
-For medium stakes — the five load-bearing checks:
-
-1. **Materiality** — confirm stakes are medium; if low, exit
-2. **Alternatives** — `H2 — <alternative claim because <grounding>>`
-3. **Disconfirmers** — `Would revise H1 if <specific observable evidence>`
-4. **Audit priors** — split evidence: `X from the user's request, Y from elsewhere`
-5. **Severity check** — `If H1 is false, my plan would reveal it because <X>`
-
-A trimmed pass produces at least three visible marker types: the Two-Hypothesis
 Floor, one explicit disconfirmer, and audit-prior or severity evidence.
 
 ### Full Pass (All 7 Steps)
@@ -86,33 +57,3 @@ If you fail to catch yourself but the user does, that's not a graceful recovery 
 | Pass after the action is taken                     | Pass must run before commit — post-hoc is theatre                      |
 | Skipping Step 4 (disconfirmers) on trimmed pass    | Step 4 is load-bearing; if you skip it, you're confirming, not testing |
 | Hiding the pass in internal reasoning              | Tenet IX requires visible markers in the output                        |
-
-## Related
-
-This pass is the runtime procedure over the 10 tenets defined in the `act-tenets` skill. Each step operationalizes one or more tenets:
-
-| Step | Tenet(s) operationalized |
-|---|---|
-| 1. Materiality | VI (Materiality Gating) |
-| 2. Hypothesise the ask | I (Hypothesis Primacy) |
-| 3. Surface alternatives | III (Multiple Working Hypotheses) |
-| 4. Identify disconfirmers | II (Disconfirmation Over Confirmation), VIII (Adversarial Self-Probe) |
-| 5. Audit priors | IV (System-Prompt Skepticism), V (Calibration Over Confidence) |
-| 6. Severity check | II (weight of the test) |
-| 7. Commit with marker | IX (Visible Markers, Not Invisible Discipline) |
-| Self-application section | X (Discipline Applies to Itself) |
-| Pre-check via `problem-framing-audit` instruction | VII (Frame Before Solve) — fires before the pass |
-
-The 7-step shape is one legitimate procedure over the 10 tenets, not a second canon. Reordering steps or inventing a 5-step or 8-step variant is allowed; the tenets stay stable. See the `act-tenets` skill's Canon Contract.
-
-### Composition with content-oriented protocols
-
-The `critical-thinking` instruction is the *content* companion to this *procedural* gate. When Step 3 (Alternatives) or Step 4 (Disconfirmers) fires, use critical-thinking's Steps 3-7 (missing data / evidence quality / bias / falsifiability / adversarial review) as the checklist for *what to look for* while generating alternatives or testing them. Overlap on the alternatives requirement is by design — act-pass owns the procedure; critical-thinking owns the content-check.
-
-## Would Revise If
-
-Revisit this pass structure if any of the following occur within a quarter:
-
-- Medium/high-stakes decisions pass the protocol but still produce repeated avoidable regressions
-- Trimmed-pass outputs repeatedly miss disconfirmers that later invalidate the chosen approach
-- Full-pass usage drops to near-zero on clearly high-stakes operations (ritual becoming decorative)

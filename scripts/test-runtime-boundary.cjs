@@ -191,6 +191,42 @@ test('Core bootstrap validates manifest parity and works from an isolated delive
   ], { cwd: target, encoding: 'utf8', stdio: 'pipe' }), /manifest.*instruction|instruction.*manifest/i);
 });
 
+test('Core keeps always-on instruction governance outside the bootstrap payload', () => {
+  const alwaysOnInstructions = [
+    'act-pass',
+    'alex-finch-personality',
+    'critical-thinking',
+    'emotional-intelligence',
+    'epistemic-calibration',
+    'lint-discipline',
+    'no-deferred-debt',
+    'pii-memory-filter',
+    'proactive-awareness',
+    'problem-framing-audit',
+    'reliance-nudges',
+    'session-health-monitoring',
+    'system-prompt-skepticism',
+    'terminal-command-safety',
+    'worldview',
+  ];
+
+  assert.equal(alwaysOnInstructions.length, 15);
+  for (const name of alwaysOnInstructions) {
+    const instruction = read(`.github/instructions/${name}.instructions.md`);
+    const governancePath = `.github/instructions/references/${name}.governance.md`;
+    assert.equal(fs.existsSync(path.join(root, governancePath)), true, governancePath);
+    assert.match(read(governancePath), /^## (Always-On Rationale|Related|Would Revise If|Falsifier)/m,
+      governancePath);
+    assert.doesNotMatch(instruction, /^## (Related|Would Revise If|Falsifier)/m,
+      `${name} governance must not remain resident`);
+    assert.doesNotMatch(instruction, /^\*\*Always-on rationale\*\*/mi,
+      `${name} always-on rationale must not remain resident`);
+  }
+
+  assert.equal(fs.existsSync(path.join(
+    root, '.github', 'instructions', 'references', 'agent-delegation.governance.md')), false);
+});
+
 test('Core project bootstrap previews, applies, preserves, and becomes idempotent', (t) => {
   const target = fs.mkdtempSync(path.join(os.tmpdir(), 'core-project-bootstrap-'));
   t.after(() => fs.rmSync(target, { recursive: true, force: true }));
@@ -345,7 +381,7 @@ test('Core 3.1.2 release metadata is final before tagging', () => {
   assert.match(readme, /published version.*3\.1\.2/i);
   assert.match(install, /Last verified: 2026-08-18\./);
   assert.match(install, /\| Core \| `3\.1\.2` \|/);
-  assert.match(install, /\| Enterprise \| `1\.1\.0` \|/);
+  assert.match(install, /\| Enterprise \| `1\.1\.1` \|/);
   assert.doesNotMatch(install, /Manager|alex-act-manager/i);
   assert.match(install, /## Published Versions/);
   assert.doesNotMatch(install, /Not Yet Published/);
@@ -376,10 +412,10 @@ test('Core README documents the constellation installation and dependency contra
   assert.match(readme, /Copilot CLI plugins do not auto-update/i);
   assert.doesNotMatch(readme, /USER-EXPERIENCE|Batch 10|top-of-chain, author|gap #1/i);
   for (const [plugin, version] of [
-    ['alex-act-illustrator-plugin', '2.2.2'],
+    ['alex-act-illustrator-plugin', '2.3.1'],
     ['alex-act-document-tools', '1.1.1'],
     ['alex-act-ai-operations', '0.2.1'],
-    ['alex-act-enterprise', '1.1.0'],
+    ['alex-act-enterprise', '1.1.1'],
     ['alex-act-msft', '1.1.4'],
   ]) assert(readme.includes(`| \`${plugin}\` | \`${version}\``),
     `README must report ${plugin} ${version}`);

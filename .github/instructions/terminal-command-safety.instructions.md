@@ -1,12 +1,10 @@
 ---
 description: "Prevent terminal command failures from shell metacharacter interpretation, output capture issues, and hanging commands"
 applyTo: "**"
-lastReviewed: 2026-07-07
+lastReviewed: 2026-08-18
 ---
 
 # Terminal Command Safety
-
-**Always-on rationale**: terminal commands fire from any task regardless of file context (build, test, git, deployment, exploration). Safety rules — especially the Backtick Hazard — must apply before every `run_in_terminal` call. A pattern-scoped glob would silence the protection in the cases most likely to ship destructive failures.
 
 ## Backtick Hazard (Critical)
 
@@ -65,7 +63,3 @@ Recent VS Code agentic-execution improvements reduce the need for some manual pa
 | 1.118       | Agentic execution sub-tool pre-filters terminal output (drops noise)                                                                                                     | When parsing exact error strings, full test results, encoding-sensitive output                                                                                                                                                                                                         |
 | 1.120–1.121 | `chat.tools.compressOutput.enabled` post-processes long output (diffs, test runners, builds); chat-agent background terminals auto-dispose after one-shot async commands | When you need raw lockfile diffs, full npm install logs, or output the compressor filters strip                                                                                                                                                                                        |
 | 1.127       | macOS/Linux terminal commands sandboxed by default                                                                                                                       | On mac/Linux, agent-invoked terminal commands run with network blocked + FS restricted; only elevation prompts for approval. Reduces the "approve every command" fatigue that Backtick Hazard mitigates on Windows. **On Windows, no change — all existing safety rules still apply.** |
-
-## Falsifier — Backtick Hazard
-
-The Backtick Hazard rule is essential because the underlying defect is unfixed in VS Code through 1.128 ([microsoft/vscode#295620](https://github.com/microsoft/vscode/issues/295620), open, milestone _On Deck_). Re-evaluate when #295620 closes; until then, the temp-file pattern is mandatory.

@@ -29,12 +29,13 @@ test('Core repository and self-activation carry the runtime personality contract
   assert.match(identity, /runtime identity and relational center/i);
 
   const source = read('.github/instructions/alex-finch-personality.instructions.md');
+  const governance = read('.github/instructions/references/alex-finch-personality.governance.md');
   assert.match(source, /I am Alex Finch/);
   assert.match(source, /runtime identity and relational center/i);
   assert.match(source, /increase capability rather than dependence/i);
   assert.match(source, /native host memory and repository continuity preserve project context/i);
   assert.match(source, /Extension is retired recovery evidence/i);
-  assert.match(source, /2026-11-01/);
+  assert.match(governance, /2026-11-01/);
 
   assert(manifest.assets.instructions.some((entry) => entry.name === 'alex-finch-personality'));
   assert(manifest.assets.skills.some((entry) => entry.name === 'bootstrap-core'));

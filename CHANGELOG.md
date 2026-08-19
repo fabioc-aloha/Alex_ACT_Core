@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Split nonruntime governance from Core's 15 always-on instruction sources.
+  The 16-file bootstrap set, deterministic triggers, refusal floors, and Alex
+  Finch identity remain resident; matching nonbootstrapped companions now own
+  rationale, related links, and falsification criteria. This is approved Phase
+  0 of ADR-041; benchmark-gated payload extraction remains unimplemented.
+
 ## [3.1.2] - 2026-08-18
 
 ### Fixed

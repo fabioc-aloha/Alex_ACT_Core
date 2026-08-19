@@ -1,7 +1,7 @@
 ---
 description: "Frame audit before solving — restate the problem, flag user-framing mismatches, surface symptom→cause reframes"
 applyTo: "**/*"
-lastReviewed: 2026-05-26
+lastReviewed: 2026-08-18
 ---
 
 # Problem Framing Audit (Discipline -1)
@@ -64,13 +64,3 @@ Silent passes need no marker — only fire markers when the audit produced somet
 ## Skill Reference
 
 Full step-back protocol (8 checks: restate, generalise, specialise, invert, why, pre-mortem, stakeholder, frame audit) in the `problem-framing-audit` skill. This instruction is the always-on gate; the skill is the detailed body.
-
-## Related
-
-- `act-tenets` skill, Tenet VII (Frame Before Solve) — this file operationalizes it
-- `act-pass` instruction — the 7-step pass expects the frame audit to have already fired (pre-check)
-- `critical-thinking` instruction — explicitly names "Frame audit comes first" and routes here on non-trivial requests
-
-## Would Revise If
-
-Revise if Discipline -1 fires on consistently trivial requests (the asymmetric activation rule is too broad), if the symptom→cause reframe table produces no reframes for 90+ days (the audit is decorative), or if the Explain/Summarize Frame produces `**Verified against**` markers that don't actually correspond to filesystem checks (the marker degrades to boilerplate).
