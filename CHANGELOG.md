@@ -22,6 +22,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   the skill carries PA1, PA2, and PA4 procedures. The bounded Phase 1 blind
   benchmark reached tier-selection parity; this source-only change remains
   unreleased.
+- Classified the next release as `4.0.0` MAJOR under ADR-022 and ADR-041 because
+  the resident instruction payload changes are part of Core's public bootstrap
+  behavior. This records the release boundary without creating a version, tag,
+  or release.
+- Corrected the supported-platform claim: Windows is verified for production;
+  macOS and Linux remain candidates until their host canaries pass.
+- Aligned the Copilot CLI prerequisite at `1.0.75`, completed the public plugin
+  inventory, and distinguished the published 32-skill release from the
+  unreleased 34-skill source.
 
 ## [3.1.2] - 2026-08-18
 

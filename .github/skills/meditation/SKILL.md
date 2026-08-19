@@ -17,7 +17,7 @@ Transform session insights into durable knowledge. Most sessions don't need it; 
 
 **Skip when**: the session was routine execution of patterns already encoded. Meditation on every session produces noise; the discipline is to write only what's new and portable.
 
-## The Five Steps
+## The Six Steps
 
 ### 1. Review
 

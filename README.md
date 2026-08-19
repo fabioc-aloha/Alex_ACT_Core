@@ -23,7 +23,7 @@ consent-gated `bootstrap-core` command and records a Core-owned receipt.
 
 ## Quick install (4 steps)
 
-For a fresh install on any machine:
+For a fresh Windows install, or an explicitly unverified macOS/Linux canary:
 
 1. **Register the Alex Mall marketplace**:
 
@@ -83,11 +83,13 @@ Close all VS Code windows before installing or updating a plugin that VS Code
 has loaded. On Windows, an active extension host can retain plugin files and
 cause `os error 5`; use a standalone PowerShell terminal when that occurs.
 
-Core runs on Windows and macOS. Every `copilot` command below is identical on
-both; only the one-time CLI installation differs by platform. Core resolves the
-user instruction directory from the current home directory, so it activates at
-`%USERPROFILE%\.copilot\instructions` on Windows and `~/.copilot/instructions`
-on macOS. Use PowerShell on Windows and your default shell on macOS.
+Windows is the verified production platform. Core's Node.js runtime scripts are
+platform-neutral, but the macOS and Linux installation paths remain candidates
+until their host canaries pass. The same `copilot` commands are intended across
+the three platforms. Core resolves the user instruction directory from the
+current home directory, so it activates at
+`%USERPROFILE%\.copilot\instructions` on Windows and
+`~/.copilot/instructions` elsewhere.
 
 Register and refresh the public Mall once per machine:
 
@@ -119,7 +121,9 @@ command only when its workload applies.
 
 ## Managing the Alex Mall marketplace
 
-The Alex Mall is where Core, Illustrator, and Enterprise install from. Four commands cover its lifecycle (all user-scope; work from any workspace):
+The Alex Mall distributes Core and the public capability plugins: Illustrator,
+Document Tools, AI Operations, and Enterprise. Four commands cover its lifecycle
+(all user-scope; work from any workspace):
 
 | Command | What it does |
 | --- | --- |
@@ -152,7 +156,7 @@ copilot plugin marketplace remove alex-mall
 copilot plugin marketplace remove alex-mall --force
 ```
 
-> **Windows only**: if VS Code is running when you invoke either path, the CLI can hit `os error 5` on loaded plugin trees. Close all VS Code windows first (File → Exit), open a fresh PowerShell terminal (not VS Code's integrated terminal), and run the commands there. macOS does not lock loaded plugin files, so the same commands run from any terminal.
+> **Windows only**: if VS Code is running when you invoke either path, the CLI can hit `os error 5` on loaded plugin trees. Close all VS Code windows first (File → Exit), open a fresh PowerShell terminal (not VS Code's integrated terminal), and run the commands there. File-lock behavior on the macOS and Linux candidate paths remains unqualified.
 
 ## What this is
 

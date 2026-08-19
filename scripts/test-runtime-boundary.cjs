@@ -89,6 +89,23 @@ test('Core bootstrap previews, applies, verifies, and repairs all canonical inst
   assert.equal(sha256(path.join(instructions, '.alex-act-core-bootstrap.json')), receiptHash,
     'a no-op apply must preserve receipt bytes');
 
+  const duplicateReceipt = JSON.parse(fs.readFileSync(path.join(
+    instructions, '.alex-act-core-bootstrap.json'), 'utf8'));
+  duplicateReceipt.files[1] = { ...duplicateReceipt.files[0] };
+  fs.writeFileSync(path.join(instructions, '.alex-act-core-bootstrap.json'),
+    `${JSON.stringify(duplicateReceipt, null, 2)}\n`);
+  const duplicatePreview = JSON.parse(execFileSync(process.execPath, [
+    script, '--target-instructions', instructions,
+  ], { cwd: root, encoding: 'utf8' }));
+  assert.equal(duplicatePreview.receipt.action, 'refresh',
+    'a duplicate-name receipt must not be treated as current');
+  execFileSync(process.execPath, [
+    script, '--target-instructions', instructions, '--apply',
+  ], { cwd: root, encoding: 'utf8' });
+  const refreshedReceipt = JSON.parse(fs.readFileSync(path.join(
+    instructions, '.alex-act-core-bootstrap.json'), 'utf8'));
+  assert.equal(new Set(refreshedReceipt.files.map((file) => file.name)).size, 16);
+
   const damaged = receipt.files.find((file) => file.name.includes('act-pass')).name;
   fs.writeFileSync(path.join(instructions, damaged), 'damaged\n');
   const repair = JSON.parse(execFileSync(process.execPath, [
@@ -359,7 +376,7 @@ test('Core declares self-activation and no Manager lifecycle redirects', () => {
   ]) assert.doesNotMatch(read(relativePath), /\bScout\b/i, `${relativePath} retains retired Scout routing`);
 });
 
-test('Core 3.1.2 release metadata is final before tagging', () => {
+test('Core source preserves published 3.1.2 metadata until the next release', () => {
   const manifest = JSON.parse(read('manifest.json'));
   const plugin = JSON.parse(read('plugin.json'));
   const packageJson = JSON.parse(read('package.json'));
@@ -381,11 +398,16 @@ test('Core 3.1.2 release metadata is final before tagging', () => {
   assert.match(readme, /published version.*3\.1\.2/i);
   assert.match(install, /Last verified: 2026-08-18\./);
   assert.match(install, /\| Core \| `3\.1\.2` \|/);
+  assert.match(install, /\| AI Operations \| `0\.2\.1` \|/);
   assert.match(install, /\| Enterprise \| `1\.1\.1` \|/);
   assert.doesNotMatch(install, /Manager|alex-act-manager/i);
   assert.match(install, /## Published Versions/);
   assert.doesNotMatch(install, /Not Yet Published/);
   assert.match(changelog, /update Manager to `1\.2\.0` first[\s\S]*update Core to `2\.0\.0`/i);
+  assert.match(changelog, /next release as `4\.0\.0` MAJOR/);
+  assert.equal(manifest.prerequisites.copilot_cli, '>=1.0.75');
+  assert.match(manifest.prerequisites.os, /Windows \(verified\)/);
+  assert.match(manifest.prerequisites.os, /macOS and Linux pending host validation/);
 });
 
 test('Core README documents the constellation installation and dependency contract', () => {
@@ -421,7 +443,7 @@ test('Core README documents the constellation installation and dependency contra
     `README must report ${plugin} ${version}`);
 });
 
-test('Core runs on Windows and macOS without platform-specific assumptions', () => {
+test('Core runtime scripts avoid platform-specific assumptions', () => {
   const scripts = [
     '.github/skills/bootstrap-core/scripts/bootstrap-core.cjs',
     '.github/skills/bootstrap-project/scripts/bootstrap-project.cjs',
@@ -440,14 +462,18 @@ test('Core runs on Windows and macOS without platform-specific assumptions', () 
   const readme = read('README.md');
   const install = read('INSTALL.md');
   for (const guide of [readme, install]) {
-    assert.match(guide, /macOS/, 'installation guidance must cover macOS');
+    assert.match(guide, /Windows is the verified production platform/);
+    assert.match(guide, /macOS and Linux.*candidates|macOS and Linux installation paths.*candidates/s);
+    assert.doesNotMatch(guide, /Windows and macOS are both supported|Core runs on Windows and macOS/);
     assert.match(guide, /brew install --cask copilot-cli/,
-      'macOS users need the documented Homebrew route');
+      'macOS candidates need the documented Homebrew route');
     assert.match(guide, /npm install -g @github\/copilot/,
       'the cross-platform npm route must be documented');
   }
   assert.doesNotMatch(readme, /GitHub\.CopilotCLI/,
     'winget package GitHub.CopilotCLI does not exist; the published id is GitHub.Copilot');
+  assert.doesNotMatch(`${readme}\n${install}`, /macOS does not lock loaded plugin files/i,
+    'unexecuted macOS lock behavior must not be presented as verified');
 });
 
 test('Core exposes self-activation, baseline skills, and one conversion redirect', () => {
@@ -468,6 +494,14 @@ test('Core exposes self-activation, baseline skills, and one conversion redirect
   assert.deepEqual(manifest.assets.skills.map((entry) => entry.name).sort(), sourceSkills);
   assert.deepEqual(manifest.assets.prompts.map((entry) => `${entry.name}.prompt.md`).sort(),
     sourcePrompts);
+  for (const type of ['skills', 'instructions', 'prompts']) {
+    for (const entry of manifest.assets[type]) {
+      assert.equal(fs.existsSync(path.join(root, entry.path)), true,
+        `${type} manifest path does not exist: ${entry.path}`);
+      assert.equal(entry.install_to, entry.path,
+        `${type} install path differs from source: ${entry.name}`);
+    }
+  }
   const sharedRuntime = path.join(root, '.github', 'scripts', 'shared');
   assert.equal(fs.existsSync(sharedRuntime)
     ? fs.readdirSync(sharedRuntime).length

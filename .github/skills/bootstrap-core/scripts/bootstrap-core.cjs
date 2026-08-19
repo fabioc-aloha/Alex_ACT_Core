@@ -119,6 +119,8 @@ function receiptCurrent(receipt, options, files) {
         || receipt.coreVersion !== options.coreVersion
         || !Array.isArray(receipt.files) || receipt.files.length !== files.length) return false;
     const expected = new Map(files.map((file) => [file.name, normalizedReceiptFile(file)]));
+    const names = new Set(receipt.files.map((entry) => entry?.name));
+    if (names.size !== files.length) return false;
     return receipt.files.every((entry) => {
         const source = expected.get(entry.name);
         return source && entry.owner === 'alex-act-core'

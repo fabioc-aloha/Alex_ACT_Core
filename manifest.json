@@ -406,9 +406,9 @@
     "agents": []
   },
   "prerequisites": {
-    "copilot_cli": ">=1.0.0",
+    "copilot_cli": ">=1.0.75",
     "alex_host": "GitHub Copilot Chat (VS Code 1.117+) OR Copilot CLI",
-    "os": "cross-platform (Windows, macOS, Linux)"
+    "os": "Windows (verified); macOS and Linux pending host validation"
   },
   "distribution": {
     "status": "published",
