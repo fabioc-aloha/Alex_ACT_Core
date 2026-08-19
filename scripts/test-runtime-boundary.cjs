@@ -462,7 +462,7 @@ test('Core exposes self-activation, baseline skills, and one conversion redirect
     .filter((name) => name.endsWith('.prompt.md'))
     .sort();
 
-  assert.equal(manifest.assets.skills.length, 32);
+  assert.equal(manifest.assets.skills.length, 33);
   assert.equal(manifest.assets.instructions.length, 16);
   assert.equal(manifest.assets.prompts.length, 9);
   assert.deepEqual(manifest.assets.skills.map((entry) => entry.name).sort(), sourceSkills);
@@ -476,6 +476,27 @@ test('Core exposes self-activation, baseline skills, and one conversion redirect
     assert.equal(fs.existsSync(path.join(root, '.github', 'skills', name, 'SKILL.md')), false,
       `${name} must be owned outside Core`);
   }
+});
+
+test('terminal safety keeps the Backtick Hazard resident and defers procedures', () => {
+  const manifest = JSON.parse(read('manifest.json'));
+  const instruction = read('.github/instructions/terminal-command-safety.instructions.md');
+  const skillPath = '.github/skills/terminal-command-safety/SKILL.md';
+
+  assert.equal(fs.existsSync(path.join(root, skillPath)), true);
+  assert.match(instruction, /## Backtick Hazard \(Critical\)/);
+  assert.match(instruction, /terminal-command-safety skill/i);
+  assert.doesNotMatch(instruction, /## Output Capture Failures/);
+  assert.doesNotMatch(instruction, /## Terminal Hanging/);
+  assert.doesNotMatch(instruction, /## VS Code platform changes/);
+
+  const skill = read(skillPath);
+  assert.match(skill, /^name: terminal-command-safety$/m);
+  assert.match(skill, /^description: .+Use when .+$/m);
+  assert.match(skill, /## Output Capture Failures/);
+  assert.match(skill, /## Terminal Hanging/);
+  assert.match(skill, /## VS Code Platform Changes/);
+  assert.equal(manifest.assets.skills.some((entry) => entry.name === 'terminal-command-safety'), true);
 });
 
 test('meditation routes reusable project capabilities to consented local authoring', () => {

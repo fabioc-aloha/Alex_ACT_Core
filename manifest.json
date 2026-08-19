@@ -1,10 +1,10 @@
 {
-  "$comment": "Mall-side plugin manifest. Core ships 16 source runtime instructions, nonbootstrapped governance companions, 32 baseline skills, and 9 slash-command prompts. Core owns self-activation and project-local bootstrap; native Copilot CLI owns plugin lifecycle; native host memory and repository files provide continuity; Document Tools owns conversion. One Document Tools command remains a temporary redirect.",
+  "$comment": "Mall-side plugin manifest. Core ships 16 source runtime instructions, nonbootstrapped governance companions, 33 baseline skills, and 9 slash-command prompts. Core owns self-activation and project-local bootstrap; native Copilot CLI owns plugin lifecycle; native host memory and repository files provide continuity; Document Tools owns conversion. One Document Tools command remains a temporary redirect.",
   "plugin": "alex-act-core",
   "version": "3.1.2",
   "status": "released",
-  "shape": "sixteen-instructions + thirty-two-skills + nine-prompts (Core self-activation + project bootstrap + Alex Finch runtime personality + ACT canon + local continuity semantics + cognitive discipline + reasoning muscles + meditation loop + security & privacy + tooling awareness + git/lint + project-capability authoring + craft skills; native plugin lifecycle; native and repository continuity; conversion owned by Document Tools)",
-  "description": "The self-activating Alex ACT baseline runtime plugin. Installs 32 reusable baseline skills and 9 slash-command prompts. Core owns its 16 runtime instructions, nonbootstrapped governance companions, receipt, project scaffold, local continuity semantics, and consented project-capability authoring. Native Copilot CLI owns plugin lifecycle, native host memory and repository files provide continuity, and Document Tools owns conversion.",
+  "shape": "sixteen-instructions + thirty-three-skills + nine-prompts (Core self-activation + project bootstrap + Alex Finch runtime personality + ACT canon + local continuity semantics + cognitive discipline + reasoning muscles + meditation loop + security & privacy + tooling awareness + git/lint + project-capability authoring + craft skills; native plugin lifecycle; native and repository continuity; conversion owned by Document Tools)",
+  "description": "The self-activating Alex ACT baseline runtime plugin. Installs 33 reusable baseline skills and 9 slash-command prompts. Core owns its 16 runtime instructions, nonbootstrapped governance companions, receipt, project scaffold, local continuity semantics, and consented project-capability authoring. Native Copilot CLI owns plugin lifecycle, native host memory and repository files provide continuity, and Document Tools owns conversion.",
   "homepage": "https://github.com/fabioc-aloha/Alex_ACT_Core",
   "license": "MIT",
   "authors": [
@@ -198,6 +198,12 @@
         "path": ".github/skills/systematic-debugging/SKILL.md",
         "install_to": ".github/skills/systematic-debugging/SKILL.md",
         "role": "4-phase root-cause-first method (investigate → pattern-analyze → hypothesize → implement) that beats guess-and-check thrashing; use for any bug, test failure, unexpected behavior before proposing fixes"
+      },
+      {
+        "name": "terminal-command-safety",
+        "path": ".github/skills/terminal-command-safety/SKILL.md",
+        "install_to": ".github/skills/terminal-command-safety/SKILL.md",
+        "role": "on-demand output-capture, hung-command, and platform-behavior procedures; the resident instruction retains the Backtick Hazard safety floor"
       },
       {
         "name": "test-driven-development",

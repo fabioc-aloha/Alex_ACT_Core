@@ -13,6 +13,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   Finch identity remain resident; matching nonbootstrapped companions now own
   rationale, related links, and falsification criteria. This is approved Phase
   0 of ADR-041; benchmark-gated payload extraction remains unimplemented.
+- Added the `terminal-command-safety` skill. The resident instruction retains
+  the Backtick Hazard while the skill carries output capture, hanging, and
+  platform-behavior procedures. The bounded Phase 1 blind benchmark passed;
+  this source-only change remains unreleased.
 
 ## [3.1.2] - 2026-08-18
 
