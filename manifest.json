@@ -1,7 +1,7 @@
 {
   "$comment": "Mall-side plugin manifest. Core ships 16 source runtime instructions, nonbootstrapped governance companions, 34 baseline skills, and 9 slash-command prompts. Core owns self-activation and project-local bootstrap; native Copilot CLI owns plugin lifecycle; native host memory and repository files provide continuity; Document Tools owns conversion. One Document Tools command remains a temporary redirect.",
   "plugin": "alex-act-core",
-  "version": "3.1.2",
+  "version": "4.0.0",
   "status": "released",
   "shape": "sixteen-instructions + thirty-four-skills + nine-prompts (Core self-activation + project bootstrap + Alex Finch runtime personality + ACT canon + local continuity semantics + cognitive discipline + reasoning muscles + meditation loop + security & privacy + tooling awareness + git/lint + project-capability authoring + craft skills; native plugin lifecycle; native and repository continuity; conversion owned by Document Tools)",
   "description": "The self-activating Alex ACT baseline runtime plugin. Installs 34 reusable baseline skills and 9 slash-command prompts. Core owns its 16 runtime instructions, nonbootstrapped governance companions, receipt, project scaffold, local continuity semantics, and consented project-capability authoring. Native Copilot CLI owns plugin lifecycle, native host memory and repository files provide continuity, and Document Tools owns conversion.",
@@ -412,6 +412,6 @@
   },
   "distribution": {
     "status": "published",
-    "published_version": "3.1.2"
+    "published_version": "4.0.0"
   }
 }

@@ -6,8 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [4.0.0] - 2026-08-21
+
 ### Changed
 
+- Narrowed `bootstrap-project` and Core's authoring workspace settings to
+  portable QoL. Standard `.github` customizations remain host-discovered, while
+  personal discovery paths, automatic approval, and obsolete experimental
+  toggles stay out of project settings.
 - Split nonruntime governance from Core's 15 always-on instruction sources.
   The 16-file bootstrap set, deterministic triggers, refusal floors, and Alex
   Finch identity remain resident; matching nonbootstrapped companions now own

@@ -59,7 +59,7 @@ test('Core bootstrap previews, applies, verifies, and repairs all canonical inst
     script, '--target-instructions', instructions,
   ], { cwd: root, encoding: 'utf8' }));
   assert.equal(preview.apply, false);
-  assert.equal(preview.coreVersion, '3.1.2');
+  assert.equal(preview.coreVersion, '4.0.0');
   assert.equal(preview.expectedFiles, 16);
   assert.equal(preview.files.filter((file) => file.action === 'create').length, 16);
   assert.equal(fs.readdirSync(instructions).length, 1);
@@ -274,7 +274,15 @@ test('Core project bootstrap previews, applies, preserves, and becomes idempoten
   assert.match(agents, /Keep cross-project work in an explicit\s+handoff until a separately approved capability owns it\./);
   assert.doesNotMatch(agents, /\bScout\b/i);
   const settings = JSON.parse(fs.readFileSync(path.join(repository, '.vscode', 'settings.json')));
-  assert.equal(settings['chat.agentSkillsLocations']['.github/skills'], true);
+  for (const key of [
+    'chat.agentSkillsLocations',
+    'chat.promptFilesLocations',
+    'chat.agentFilesLocations',
+    'chat.instructionsFilesLocations',
+    'chat.permissions.default',
+  ]) {
+    assert.equal(settings[key], undefined, `${key} belongs to the user profile, not a project baseline`);
+  }
   assert.deepEqual(settings['markdown.styles'], ['.vscode/markdown-light.css']);
   assert.equal(settings['editor.formatOnSave'], true);
   assert.equal(settings['diffEditor.hideUnchangedRegions.enabled'], true);
@@ -289,6 +297,21 @@ test('Core project bootstrap previews, applies, preserves, and becomes idempoten
     script, '--repository-root', repository,
   ], { cwd: root, encoding: 'utf8' }));
   assert.equal(second.creates.length, 0);
+});
+
+test('Core authoring settings remain profile-neutral', () => {
+  const settings = JSON.parse(read('.vscode/settings.json'));
+  for (const key of [
+    'chat.agentSkillsLocations',
+    'chat.promptFilesLocations',
+    'chat.agentFilesLocations',
+    'chat.instructionsFilesLocations',
+    'chat.permissions.default',
+    'github.copilot.chat.autoMode.tiers.enabled',
+  ]) {
+    assert.equal(settings[key], undefined, `${key} belongs to the user profile, not Core's workspace`);
+  }
+  assert.deepEqual(settings['markdown.styles'], ['.vscode/markdown-light.css']);
 });
 
 test('Core project bootstrap preserves custom settings and blocks agent conflicts', (t) => {
@@ -340,7 +363,9 @@ test('Core project bootstrap preserves JSONC strings that resemble trailing comm
   ], { cwd: root, encoding: 'utf8' });
   const settings = JSON.parse(fs.readFileSync(path.join(repository, '.vscode', 'settings.json')));
   assert.equal(settings.note, 'literal,}');
-  assert.equal(settings['chat.agentSkillsLocations']['.github/skills'], true);
+  assert.equal(settings['chat.agentSkillsLocations'], undefined);
+  assert.equal(settings['chat.permissions.default'], undefined);
+  assert.equal(settings['editor.formatOnSave'], true);
 });
 
 test('Core declares self-activation and no Manager lifecycle redirects', () => {
@@ -376,7 +401,7 @@ test('Core declares self-activation and no Manager lifecycle redirects', () => {
   ]) assert.doesNotMatch(read(relativePath), /\bScout\b/i, `${relativePath} retains retired Scout routing`);
 });
 
-test('Core source preserves published 3.1.2 metadata until the next release', () => {
+test('Core source preserves published 4.0.0 metadata until the next release', () => {
   const manifest = JSON.parse(read('manifest.json'));
   const plugin = JSON.parse(read('plugin.json'));
   const packageJson = JSON.parse(read('package.json'));
@@ -384,20 +409,20 @@ test('Core source preserves published 3.1.2 metadata until the next release', ()
   const readme = read('README.md');
   const install = read('INSTALL.md');
 
-  assert.equal(manifest.version, '3.1.2');
-  assert.equal(plugin.version, '3.1.2');
-  assert.equal(packageJson.version, '3.1.2');
+  assert.equal(manifest.version, '4.0.0');
+  assert.equal(plugin.version, '4.0.0');
+  assert.equal(packageJson.version, '4.0.0');
   assert.equal(manifest.status, 'released');
   assert.equal(manifest.distribution.status, 'published');
-  assert.equal(manifest.distribution.published_version, '3.1.2');
+  assert.equal(manifest.distribution.published_version, '4.0.0');
   assert.equal(manifest.verify_install, undefined);
   assert.equal(manifest.nextRelease, undefined);
   assert.equal(manifest.candidateVersion, undefined);
-  assert.match(changelog, /## \[Unreleased\][\s\S]*## \[3\.1\.2\] - 2026-08-18[\s\S]*## \[3\.1\.1\] - 2026-08-17/);
+  assert.match(changelog, /## \[Unreleased\][\s\S]*## \[4\.0\.0\] - 2026-08-21[\s\S]*## \[3\.1\.2\] - 2026-08-18/);
   assert.doesNotMatch(changelog, /\]\(\.\.\/svg-banner\/SKILL\.md\)/);
-  assert.match(readme, /published version.*3\.1\.2/i);
-  assert.match(install, /Last verified: 2026-08-18\./);
-  assert.match(install, /\| Core \| `3\.1\.2` \|/);
+  assert.match(readme, /published version.*4\.0\.0/i);
+  assert.match(install, /Last verified: 2026-08-21\./);
+  assert.match(install, /\| Core \| `4\.0\.0` \|/);
   assert.match(install, /\| AI Operations \| `0\.2\.1` \|/);
   assert.match(install, /\| Enterprise \| `1\.1\.1` \|/);
   assert.doesNotMatch(install, /Manager|alex-act-manager/i);
