@@ -34,12 +34,31 @@ function readJson(file, fallback = null) {
     return JSON.parse(fs.readFileSync(file, 'utf8'));
 }
 
+function defaultTargetInstructions() {
+    const copilotHome = process.env.COPILOT_HOME?.trim();
+    if (copilotHome) {
+        if (!path.isAbsolute(copilotHome)) {
+            throw new Error('COPILOT_HOME must be an absolute path');
+        }
+        return {
+            path: path.join(copilotHome, 'instructions'),
+            source: 'COPILOT_HOME',
+        };
+    }
+    return {
+        path: path.join(os.homedir(), '.copilot', 'instructions'),
+        source: 'home-directory',
+    };
+}
+
 function parseArgs(args) {
     const plugin = readJson(path.join(CORE_ROOT, 'plugin.json'));
+    const defaultTarget = defaultTargetInstructions();
     const options = {
         apply: false,
         remove: false,
-        targetInstructions: path.join(os.homedir(), '.copilot', 'instructions'),
+        targetInstructions: defaultTarget.path,
+        targetSource: defaultTarget.source,
         workspaceInstructions: null,
         coreVersion: plugin?.version,
     };
@@ -57,6 +76,7 @@ function parseArgs(args) {
                 throw new Error(`${value} requires a value`);
             }
             options[values.get(value)] = args[++index];
+            if (value === '--target-instructions') options.targetSource = 'explicit';
         } else throw new Error(`unknown argument: ${value}`);
     }
     if (!options.coreVersion) throw new Error('Core version is unavailable');
@@ -206,6 +226,8 @@ function buildPlan(options) {
             apply: options.apply,
             mode: 'remove',
             coreVersion: options.coreVersion,
+            targetInstructions: options.targetInstructions,
+            targetSource: options.targetSource,
             expectedFiles: files.length,
             files: actions,
             receipt: { action: receipt ? 'remove-when-clean' : 'absent' },
@@ -227,6 +249,8 @@ function buildPlan(options) {
         apply: options.apply,
         mode: 'activate',
         coreVersion: options.coreVersion,
+        targetInstructions: options.targetInstructions,
+        targetSource: options.targetSource,
         expectedFiles: files.length,
         files: actions,
         receipt: {

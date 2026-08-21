@@ -10,7 +10,7 @@ Last verified: 2026-08-21.
 
 | Component | Version | Distribution |
 | --- | --- | --- |
-| Core | `4.0.0` | `alex-act-core@alex-mall` |
+| Core | `4.0.1` | `alex-act-core@alex-mall` |
 | Illustrator | `2.5.1` | `alex-act-illustrator-plugin@alex-mall` |
 | Document Tools | `1.1.1` | `alex-act-document-tools@alex-mall` |
 | AI Operations | `0.2.1` | `alex-act-ai-operations@alex-mall` |
@@ -20,15 +20,16 @@ Last verified: 2026-08-21.
 ## Supported Platforms
 
 Windows is the verified production platform. Core's Node.js runtime scripts are
-platform-neutral and resolve the user instruction directory from the current
-home directory, but the macOS and Linux installation paths have not completed
-their host canaries. Treat them as candidates rather than supported production
-platforms until that evidence exists.
+platform-neutral and resolve the user instruction directory from `COPILOT_HOME`
+when it is set to an absolute path; otherwise they use the current home
+directory. The macOS and Linux installation paths have not completed their host
+canaries. Treat them as candidates rather than supported production platforms
+until that evidence exists.
 
-The same `copilot` commands are intended to activate at
-`%USERPROFILE%\.copilot\instructions` on Windows and
-`~/.copilot/instructions` on macOS or Linux. Use PowerShell on Windows and the
-platform's default shell elsewhere.
+The same `copilot` commands activate at `$COPILOT_HOME/instructions` when
+`COPILOT_HOME` is set; otherwise they use `%USERPROFILE%\.copilot\instructions`
+on Windows and `~/.copilot/instructions` on macOS or Linux. Use PowerShell on
+Windows and the platform's default shell elsewhere.
 
 ## Prerequisites
 
@@ -89,8 +90,10 @@ receipt action. Apply only after explicit consent. Reload the host after the
 instruction files are written.
 
 Core's receipt is
-`~/.copilot/instructions/.alex-act-core-bootstrap.json`. It owns only Core's 16
-instruction files. A second preview must report only preserve actions.
+`<resolved-instructions>/.alex-act-core-bootstrap.json`. The preview reports
+that resolved directory: `$COPILOT_HOME/instructions` when `COPILOT_HOME` is
+set, otherwise `~/.copilot/instructions`. It owns only Core's 16 instruction
+files. A second preview must report only preserve actions.
 
 ## 4. Install Optional Specializations
 

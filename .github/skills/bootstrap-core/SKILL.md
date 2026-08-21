@@ -1,15 +1,16 @@
 ---
 name: bootstrap-core
 description: "Activates, verifies, repairs, or removes Core's 16 user-scope runtime instructions from canonical installed sources. Use after installing or updating Core, when Core identity or ACT behavior is inactive, or when Core receipt hashes drift."
-lastReviewed: 2026-08-18
+lastReviewed: 2026-08-21
 ---
 
 # Bootstrap Core
 
 Activate Core's own runtime without requiring Manager. Copilot plugins expose
 skills and commands but do not load `.instructions.md` files as plugin
-components. This skill copies Core's canonical instruction sources to the
-documented user instruction location after explicit consent.
+components. This skill copies only Core's 16 canonical instruction sources and
+its Core-owned receipt to the active user instruction location after explicit
+consent.
 
 ## Preview First
 
@@ -21,18 +22,21 @@ node <this-skill>/scripts/bootstrap-core.cjs
 
 The preview resolves exactly 16 canonical sources from the installed Core
 plugin root, verifies exact parity with Core's manifest instruction inventory,
-calculates source and destination hashes, reports create, replace, or preserve
-actions, includes the current Core version, inspects legacy mixed-receipt
-evidence, and writes nothing.
+calculates source and destination hashes, reports the resolved distribution
+target and its source, reports create, replace, or preserve actions, includes
+the current Core version, inspects legacy mixed-receipt evidence, and writes
+nothing.
 
-Use `--target-instructions <path>` only for an explicit alternate target or a
+When `COPILOT_HOME` is an absolute path, the default target is
+`$COPILOT_HOME/instructions`; otherwise it is `~/.copilot/instructions`. Use
+`--target-instructions <path>` only for an explicit alternate target or a
 disposable test. Use `--workspace-instructions <path>` to recursively report
 possible workspace overlap before applying user-scope instructions.
 
 ## Apply After Consent
 
-Show the exact file actions, machine-wide user scope, receipt action, overlap
-report, and current Core version. Ask:
+Show the resolved target, its source, exact file actions, user scope, receipt
+action, overlap report, and current Core version. Ask:
 
 > Activate these 16 Core instructions for every workspace on this machine?
 
@@ -72,6 +76,7 @@ greeting and Manager receipt files are never removed.
 
 - Core self-activation is not general plugin lifecycle management.
 - Do not install, update, enable, disable, or uninstall plugins here.
+- Do not copy plugin directories, caches, settings, or non-Core instructions.
 - Do not write non-Core instruction or external continuity state.
 - Do not fetch instruction bodies from the network.
 - Do not silently apply during install or session start.

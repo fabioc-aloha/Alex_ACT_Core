@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [4.0.1] - 2026-08-21
+
+### Fixed
+
+- Made `bootstrap-core` honor an absolute `COPILOT_HOME` when selecting its
+  default instruction target. Its preview now reports the distribution target
+  and source, while writes remain limited to the 16 manifest-owned Core
+  instructions and their Core-owned receipt.
+
 ## [4.0.0] - 2026-08-21
 
 ### Changed

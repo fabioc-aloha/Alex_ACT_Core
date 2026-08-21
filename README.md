@@ -6,7 +6,7 @@
 
 Alex ACT Core gives every workspace the same reasoning floor: Alex Finch's identity, ACT's critical-thinking discipline, and reusable skills arrive as one plugin-native baseline. Projects add specialized capability without rebuilding the brain.
 
-**Published version**: `4.0.0`. Install from the Alex ACT Mall as
+**Published version**: `4.0.1`. Install from the Alex ACT Mall as
 `alex-act-core@alex-mall`.
 
 **Current source shape**: 34 skills, 16 source instructions, and 9
@@ -59,8 +59,8 @@ the capabilities their work needs.
 
 | Plugin | Published version | Delivery | Use it for |
 | --- | --- | --- | --- |
-| `alex-act-core` | `4.0.0` | `alex-mall` | Baseline identity, ACT discipline, instruction activation, and project bootstrap. |
-| `alex-act-illustrator-plugin` | `2.4.0` | `alex-mall` | Charts, figures, imagery, shells, banners, and visual companions. |
+| `alex-act-core` | `4.0.1` | `alex-mall` | Baseline identity, ACT discipline, instruction activation, and project bootstrap. |
+| `alex-act-illustrator-plugin` | `2.5.1` | `alex-mall` | Charts, figures, imagery, shells, banners, and visual companions. |
 | `alex-act-document-tools` | `1.1.1` | `alex-mall` | Markdown, HTML, Word, email, and plain-text production. |
 | `alex-act-ai-operations` | `0.2.1` | `alex-mall` | Consent-gated model planning and provider execution. |
 | `alex-act-enterprise` | `1.1.1` | `alex-mall` | Public Azure, Fabric, Power BI, and Microsoft 365 setup. |
@@ -86,8 +86,9 @@ cause `os error 5`; use a standalone PowerShell terminal when that occurs.
 Windows is the verified production platform. Core's Node.js runtime scripts are
 platform-neutral, but the macOS and Linux installation paths remain candidates
 until their host canaries pass. The same `copilot` commands are intended across
-the three platforms. Core resolves the user instruction directory from the
-current home directory, so it activates at
+the three platforms. Core resolves the user instruction directory from an
+absolute `COPILOT_HOME` when set, so it activates at
+`$COPILOT_HOME/instructions`; otherwise it uses
 `%USERPROFILE%\.copilot\instructions` on Windows and
 `~/.copilot/instructions` elsewhere.
 

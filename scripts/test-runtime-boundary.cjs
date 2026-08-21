@@ -59,7 +59,9 @@ test('Core bootstrap previews, applies, verifies, and repairs all canonical inst
     script, '--target-instructions', instructions,
   ], { cwd: root, encoding: 'utf8' }));
   assert.equal(preview.apply, false);
-  assert.equal(preview.coreVersion, '4.0.0');
+  assert.equal(preview.coreVersion, '4.0.1');
+  assert.equal(preview.targetInstructions, instructions);
+  assert.equal(preview.targetSource, 'explicit');
   assert.equal(preview.expectedFiles, 16);
   assert.equal(preview.files.filter((file) => file.action === 'create').length, 16);
   assert.equal(fs.readdirSync(instructions).length, 1);
@@ -118,6 +120,46 @@ test('Core bootstrap previews, applies, verifies, and repairs all canonical inst
   ], { cwd: root, encoding: 'utf8' });
   assert.equal(sha256(path.join(instructions, damaged)), sha256(path.join(
     root, '.github', 'instructions', damaged.replace(/^alex-act-/, ''))));
+});
+
+test('Core bootstrap distributes only to the active COPILOT_HOME instruction directory', (t) => {
+  const target = fs.mkdtempSync(path.join(os.tmpdir(), 'core-bootstrap-home-'));
+  t.after(() => fs.rmSync(target, { recursive: true, force: true }));
+  const copilotHome = path.join(target, 'copilot-home');
+  const instructions = path.join(copilotHome, 'instructions');
+  const script = path.join(
+    root, '.github', 'skills', 'bootstrap-core', 'scripts', 'bootstrap-core.cjs');
+  const env = { ...process.env, COPILOT_HOME: copilotHome };
+
+  const preview = JSON.parse(execFileSync(process.execPath, [script], {
+    cwd: root,
+    encoding: 'utf8',
+    env,
+  }));
+  assert.equal(preview.targetInstructions, instructions);
+  assert.equal(preview.targetSource, 'COPILOT_HOME');
+  assert.equal(preview.files.filter((file) => file.action === 'create').length, 16);
+  assert.equal(fs.existsSync(copilotHome), false);
+
+  execFileSync(process.execPath, [script, '--apply'], {
+    cwd: root,
+    encoding: 'utf8',
+    env,
+  });
+  assert.equal(fs.existsSync(path.join(instructions, '.alex-act-core-bootstrap.json')), true);
+  assert.equal(fs.readdirSync(copilotHome).length, 1);
+  assert.equal(fs.readdirSync(instructions).filter((name) => name.endsWith('.instructions.md')).length, 16);
+});
+
+test('Core bootstrap rejects a relative COPILOT_HOME', () => {
+  const script = path.join(
+    root, '.github', 'skills', 'bootstrap-core', 'scripts', 'bootstrap-core.cjs');
+  assert.throws(() => execFileSync(process.execPath, [script], {
+    cwd: root,
+    encoding: 'utf8',
+    env: { ...process.env, COPILOT_HOME: 'relative-copilot-home' },
+    stdio: 'pipe',
+  }), /COPILOT_HOME must be an absolute path/);
 });
 
 test('Core bootstrap detects nested workspace instruction overlap', (t) => {
@@ -401,7 +443,7 @@ test('Core declares self-activation and no Manager lifecycle redirects', () => {
   ]) assert.doesNotMatch(read(relativePath), /\bScout\b/i, `${relativePath} retains retired Scout routing`);
 });
 
-test('Core source preserves published 4.0.0 metadata until the next release', () => {
+test('Core source preserves published 4.0.1 metadata until the next release', () => {
   const manifest = JSON.parse(read('manifest.json'));
   const plugin = JSON.parse(read('plugin.json'));
   const packageJson = JSON.parse(read('package.json'));
@@ -409,20 +451,20 @@ test('Core source preserves published 4.0.0 metadata until the next release', ()
   const readme = read('README.md');
   const install = read('INSTALL.md');
 
-  assert.equal(manifest.version, '4.0.0');
-  assert.equal(plugin.version, '4.0.0');
-  assert.equal(packageJson.version, '4.0.0');
+  assert.equal(manifest.version, '4.0.1');
+  assert.equal(plugin.version, '4.0.1');
+  assert.equal(packageJson.version, '4.0.1');
   assert.equal(manifest.status, 'released');
   assert.equal(manifest.distribution.status, 'published');
-  assert.equal(manifest.distribution.published_version, '4.0.0');
+  assert.equal(manifest.distribution.published_version, '4.0.1');
   assert.equal(manifest.verify_install, undefined);
   assert.equal(manifest.nextRelease, undefined);
   assert.equal(manifest.candidateVersion, undefined);
-  assert.match(changelog, /## \[Unreleased\][\s\S]*## \[4\.0\.0\] - 2026-08-21[\s\S]*## \[3\.1\.2\] - 2026-08-18/);
+  assert.match(changelog, /## \[Unreleased\][\s\S]*## \[4\.0\.1\] - 2026-08-21[\s\S]*## \[4\.0\.0\] - 2026-08-21/);
   assert.doesNotMatch(changelog, /\]\(\.\.\/svg-banner\/SKILL\.md\)/);
-  assert.match(readme, /published version.*4\.0\.0/i);
+  assert.match(readme, /published version.*4\.0\.1/i);
   assert.match(install, /Last verified: 2026-08-21\./);
-  assert.match(install, /\| Core \| `4\.0\.0` \|/);
+  assert.match(install, /\| Core \| `4\.0\.1` \|/);
   assert.match(install, /\| AI Operations \| `0\.2\.1` \|/);
   assert.match(install, /\| Enterprise \| `1\.1\.1` \|/);
   assert.doesNotMatch(install, /Manager|alex-act-manager/i);
@@ -459,7 +501,7 @@ test('Core README documents the constellation installation and dependency contra
   assert.match(readme, /Copilot CLI plugins do not auto-update/i);
   assert.doesNotMatch(readme, /USER-EXPERIENCE|Batch 10|top-of-chain, author|gap #1/i);
   for (const [plugin, version] of [
-    ['alex-act-illustrator-plugin', '2.3.1'],
+    ['alex-act-illustrator-plugin', '2.5.1'],
     ['alex-act-document-tools', '1.1.1'],
     ['alex-act-ai-operations', '0.2.1'],
     ['alex-act-enterprise', '1.1.1'],
