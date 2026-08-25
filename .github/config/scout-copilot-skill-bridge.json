@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "scoutNativePlugins": [
+    "alex-act-core"
+  ],
+  "scoutExcludedPlugins": [
+    "alex-act-ai-operations",
+    "alex-act-document-tools",
+    "alex-act-enterprise",
+    "alex-act-illustrator-plugin",
+    "alex-act-msft"
+  ],
+  "sources": [
+    {
+      "plugin": "alex-act-core",
+      "marketplace": "alex-mall",
+      "skillRoot": ".github/skills",
+      "skills": [
+        "act-tenets",
+        "adversarial-review",
+        "anti-hallucination",
+        "big-idea",
+        "code-review",
+        "communication-craft",
+        "critical-thinking",
+        "deep-review",
+        "doc-hygiene",
+        "ethical-reasoning",
+        "git-workflow",
+        "humanizer",
+        "lint-clean-markdown",
+        "markdown-mermaid",
+        "markdown-sanitization-chain",
+        "mutation-testing",
+        "plan",
+        "risk-analysis",
+        "security-and-hardening",
+        "spike",
+        "status-reporting",
+        "systematic-debugging",
+        "test-driven-development",
+        "token-waste-elimination"
+      ]
+    },
+    {
+      "plugin": "alex-act-document-tools",
+      "marketplace": "alex-mall",
+      "skillRoot": "skills",
+      "skills": [
+        "docx-to-md",
+        "html-to-md",
+        "md-to-eml",
+        "md-to-html",
+        "md-to-txt"
+      ]
+    },
+    {
+      "plugin": "alex-act-illustrator-plugin",
+      "marketplace": "alex-mall",
+      "skillRoot": ".github/skills",
+      "skills": [
+        "annotate-screenshot",
+        "ascii-chart",
+        "chart-big-idea",
+        "chart-vocabulary",
+        "corpus-qa-sweep",
+        "docs-shell",
+        "figure-generator",
+        "flint-chart",
+        "flint-theme",
+        "print-svg-style-guide",
+        "render-verify",
+        "svg-banner"
+      ]
+    },
+    {
+      "plugin": "alex-act-ai-operations",
+      "marketplace": "alex-mall",
+      "skillRoot": ".github/skills",
+      "skills": [
+        "model-router"
+      ]
+    }
+  ],
+  "canarySkills": [
+    "act-tenets",
+    "docx-to-md",
+    "flint-chart",
+    "model-router"
+  ]
+}

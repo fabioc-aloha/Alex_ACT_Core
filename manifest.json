@@ -1,10 +1,10 @@
 {
-  "$comment": "Mall-side plugin manifest. Core ships 16 source runtime instructions, nonbootstrapped governance companions, 34 baseline skills, and 9 slash-command prompts. Core owns self-activation and project-local bootstrap; native Copilot CLI owns plugin lifecycle; native host memory and repository files provide continuity; Document Tools owns conversion. One Document Tools command remains a temporary redirect.",
+  "$comment": "Mall-side plugin manifest. Core ships 16 source runtime instructions, nonbootstrapped governance companions, 35 baseline skills, and 9 slash-command prompts. Core owns self-activation, project-local bootstrap, and the Scout-Copilot skill-bridge doctor; native Copilot CLI owns plugin lifecycle; native host memory and repository files provide continuity; Document Tools owns conversion. One Document Tools command remains a temporary redirect.",
   "plugin": "alex-act-core",
-  "version": "4.0.2",
+  "version": "4.1.0",
   "status": "released",
-  "shape": "sixteen-instructions + thirty-four-skills + nine-prompts (Core self-activation + project bootstrap + Alex Finch runtime personality + ACT canon + local continuity semantics + cognitive discipline + reasoning muscles + meditation loop + security & privacy + tooling awareness + git/lint + project-capability authoring + craft skills; native plugin lifecycle; native and repository continuity; conversion owned by Document Tools)",
-  "description": "The self-activating Alex ACT baseline runtime plugin. Installs 34 reusable baseline skills and 9 slash-command prompts. Core owns its 16 runtime instructions, nonbootstrapped governance companions, receipt, project scaffold, local continuity semantics, and consented project-capability authoring. Native Copilot CLI owns plugin lifecycle, native host memory and repository files provide continuity, and Document Tools owns conversion.",
+  "shape": "sixteen-instructions + thirty-five-skills + nine-prompts (Core self-activation + project bootstrap + Scout-Copilot skill bridge + Alex Finch runtime personality + ACT canon + local continuity semantics + cognitive discipline + reasoning muscles + meditation loop + security & privacy + tooling awareness + git/lint + project-capability authoring + craft skills; native plugin lifecycle; native and repository continuity; conversion owned by Document Tools)",
+  "description": "The self-activating Alex ACT baseline runtime plugin. Installs 35 reusable baseline skills and 9 slash-command prompts. Core owns its 16 runtime instructions, nonbootstrapped governance companions, receipt, project scaffold, local continuity semantics, consented project-capability authoring, and the Scout-Copilot skill-bridge doctor. Native Copilot CLI owns plugin lifecycle, native host memory and repository files provide continuity, and Document Tools owns conversion.",
   "homepage": "https://github.com/fabioc-aloha/Alex_ACT_Core",
   "license": "MIT",
   "authors": [
@@ -126,6 +126,12 @@
         "path": ".github/skills/markdown-sanitization-chain/SKILL.md",
         "install_to": ".github/skills/markdown-sanitization-chain/SKILL.md",
         "role": "render user-supplied markdown safely — marked.js → DOMPurify → Mermaid pipeline; order matters, skipping the sanitizer is XSS; DOMPurify allowlist for Mermaid attributes"
+      },
+      {
+        "name": "manage-scout-copilot-skill-bridge",
+        "path": ".github/skills/manage-scout-copilot-skill-bridge/SKILL.md",
+        "install_to": ".github/skills/manage-scout-copilot-skill-bridge/SKILL.md",
+        "role": "preview, apply, and verify the curated read-in-place Scout-Copilot skill bridge from a manifest without copying plugin bodies or duplicating native MCP ownership"
       },
       {
         "name": "project-capability-authoring",
@@ -412,6 +418,6 @@
   },
   "distribution": {
     "status": "published",
-    "published_version": "4.0.2"
+    "published_version": "4.1.0"
   }
 }

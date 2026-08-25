@@ -59,7 +59,7 @@ test('Core bootstrap previews, applies, verifies, and repairs all canonical inst
     script, '--target-instructions', instructions,
   ], { cwd: root, encoding: 'utf8' }));
   assert.equal(preview.apply, false);
-  assert.equal(preview.coreVersion, '4.0.2');
+  assert.equal(preview.coreVersion, '4.1.0');
   assert.equal(preview.targetInstructions, instructions);
   assert.equal(preview.targetSource, 'explicit');
   assert.equal(preview.expectedFiles, 16);
@@ -428,7 +428,6 @@ test('Core declares self-activation and no Manager lifecycle redirects', () => {
   assert.equal(plugin.skills, '.github/skills');
   assert.equal(plugin.commands, '.github/prompts');
   for (const relativePath of [
-    '.github/copilot-instructions.md',
     '.github/instructions/alex-finch-personality.instructions.md',
     '.github/instructions/pii-memory-filter.instructions.md',
     '.github/instructions/proactive-awareness.instructions.md',
@@ -437,13 +436,19 @@ test('Core declares self-activation and no Manager lifecycle redirects', () => {
     '.github/skills/bootstrap-project/SKILL.md',
     '.github/skills/meditation/SKILL.md',
     '.github/skills/surface-continuity/SKILL.md',
-    'manifest.json',
     'plugin.json',
-    'README.md',
   ]) assert.doesNotMatch(read(relativePath), /\bScout\b/i, `${relativePath} retains retired Scout routing`);
+  const bridgeSkill = read('.github/skills/manage-scout-copilot-skill-bridge/SKILL.md');
+  const manifest = read('manifest.json');
+  const identity = read('.github/copilot-instructions.md');
+  assert.match(bridgeSkill, /curated read-in-place bridge/i);
+  assert.match(manifest, /Scout-Copilot skill-bridge doctor/i);
+  assert.match(identity, /manage-scout-copilot-skill-bridge/i);
+  assert.doesNotMatch(`${bridgeSkill}\n${manifest}`,
+    /message bus|heartbeat|knowledge base/i);
 });
 
-test('Core source preserves published 4.0.2 metadata until the next release', () => {
+test('Core source preserves published 4.1.0 metadata', () => {
   const manifest = JSON.parse(read('manifest.json'));
   const plugin = JSON.parse(read('plugin.json'));
   const packageJson = JSON.parse(read('package.json'));
@@ -451,20 +456,20 @@ test('Core source preserves published 4.0.2 metadata until the next release', ()
   const readme = read('README.md');
   const install = read('INSTALL.md');
 
-  assert.equal(manifest.version, '4.0.2');
-  assert.equal(plugin.version, '4.0.2');
-  assert.equal(packageJson.version, '4.0.2');
+  assert.equal(manifest.version, '4.1.0');
+  assert.equal(plugin.version, '4.1.0');
+  assert.equal(packageJson.version, '4.1.0');
   assert.equal(manifest.status, 'released');
   assert.equal(manifest.distribution.status, 'published');
-  assert.equal(manifest.distribution.published_version, '4.0.2');
+  assert.equal(manifest.distribution.published_version, '4.1.0');
   assert.equal(manifest.verify_install, undefined);
   assert.equal(manifest.nextRelease, undefined);
   assert.equal(manifest.candidateVersion, undefined);
-  assert.match(changelog, /## \[Unreleased\][\s\S]*## \[4\.0\.2\] - 2026-08-25[\s\S]*## \[4\.0\.1\] - 2026-08-21/);
+  assert.match(changelog, /## \[Unreleased\][\s\S]*## \[4\.1\.0\] - 2026-08-25[\s\S]*## \[4\.0\.2\] - 2026-08-25/);
   assert.doesNotMatch(changelog, /\]\(\.\.\/svg-banner\/SKILL\.md\)/);
-  assert.match(readme, /published version.*4\.0\.2/i);
+  assert.match(readme, /published version.*4\.1\.0/i);
   assert.match(install, /Last verified: 2026-08-25\./);
-  assert.match(install, /\| Core \| `4\.0\.2` \|/);
+  assert.match(install, /\| Core \| `4\.1\.0` \|/);
   assert.match(install, /\| Illustrator \| `2\.5\.2` \|/);
   assert.match(install, /\| Document Tools \| `1\.2\.0` \|/);
   assert.match(install, /\| AI Operations \| `0\.2\.1` \|/);
@@ -558,7 +563,7 @@ test('Core exposes self-activation, baseline skills, and one conversion redirect
     .filter((name) => name.endsWith('.prompt.md'))
     .sort();
 
-  assert.equal(manifest.assets.skills.length, 34);
+  assert.equal(manifest.assets.skills.length, 35);
   assert.equal(manifest.assets.instructions.length, 16);
   assert.equal(manifest.assets.prompts.length, 9);
   assert.deepEqual(manifest.assets.skills.map((entry) => entry.name).sort(), sourceSkills);

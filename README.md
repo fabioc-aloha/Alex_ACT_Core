@@ -6,12 +6,13 @@
 
 Alex ACT Core gives every workspace the same reasoning floor: Alex Finch's identity, ACT's critical-thinking discipline, and reusable skills arrive as one plugin-native baseline. Projects add specialized capability without rebuilding the brain.
 
-**Published version**: `4.0.2`. Install from the Alex ACT Mall as
+**Published version**: `4.1.0`. Install from the Alex ACT Mall as
 `alex-act-core@alex-mall`.
 
-**Current source shape**: 34 skills, 16 source instructions, and 9
+**Current source shape**: 35 skills, 16 source instructions, and 9
 slash-command prompts. Core activates its own 16 instructions through the
-consent-gated `bootstrap-core` command and records a Core-owned receipt.
+consent-gated `bootstrap-core` command and records a Core-owned receipt. It
+includes a fail-closed Scout-Copilot skill-bridge doctor.
 
 **Public runtime source**: [Alex ACT Core](https://github.com/fabioc-aloha/Alex_ACT_Core) contains the shipped skills, prompts, instruction sources, release history, and installation contract. Changes remain evidence-gated before release.
 
@@ -59,7 +60,7 @@ the capabilities their work needs.
 
 | Plugin | Published version | Delivery | Use it for |
 | --- | --- | --- | --- |
-| `alex-act-core` | `4.0.2` | `alex-mall` | Baseline identity, ACT discipline, instruction activation, and project bootstrap. |
+| `alex-act-core` | `4.1.0` | `alex-mall` | Baseline identity, ACT discipline, instruction activation, project bootstrap, and the Scout-Copilot bridge doctor. |
 | `alex-act-illustrator-plugin` | `2.5.2` | `alex-mall` | Charts, figures, imagery, shells, banners, and visual companions. |
 | `alex-act-document-tools` | `1.2.0` | `alex-mall` | Markdown, HTML, Word, email, and plain-text production. |
 | `alex-act-ai-operations` | `0.2.1` | `alex-mall` | Consent-gated model planning and provider execution. |
@@ -178,6 +179,9 @@ Alex ACT Core is the **baseline plugin** — the minimal always-on brain that ev
 - Not a lifecycle wrapper — native Copilot CLI owns plugin install, list, update, and uninstall; required project bootstrap remains in Core
 - Not a conversion bundle — document conversion lives in [`alex-act-document-tools`](https://github.com/fabioc-aloha/Alex_ACT_Document_Tools)
 - Not a cross-platform surface bridge — host pairing, app adapters, MCP policy, and task execution belong in an optional capability; Core retains only local continuity and safety semantics
+- Not a duplicate Scout runtime — Core's skill-bridge doctor exposes a curated
+  Copilot library in place while Scout retains its native instructions, MCP
+  servers, and Microsoft 365 capabilities
 
 ## Surface Continuity
 

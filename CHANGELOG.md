@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [4.1.0] - 2026-08-25
+
+### Added
+
+- Added `manage-scout-copilot-skill-bridge`, a fail-closed Core doctor for the
+  curated read-in-place Scout skill library. Its manifest keeps Core
+  instructions and Scout-native MCP servers local, bridges only host-neutral
+  skills, and excludes Enterprise, MSFT, provider execution, and duplicate
+  plugin mounts.
+
 ## [4.0.2] - 2026-08-25
 
 ### Fixed
