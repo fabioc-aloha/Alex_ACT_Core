@@ -6,15 +6,15 @@ plugins are independent optional capabilities selected according to the work.
 
 ## Published Versions
 
-Last verified: 2026-08-21.
+Last verified: 2026-08-25.
 
 | Component | Version | Distribution |
 | --- | --- | --- |
-| Core | `4.0.1` | `alex-act-core@alex-mall` |
-| Illustrator | `2.5.1` | `alex-act-illustrator-plugin@alex-mall` |
-| Document Tools | `1.1.1` | `alex-act-document-tools@alex-mall` |
+| Core | `4.0.2` | `alex-act-core@alex-mall` |
+| Illustrator | `2.5.2` | `alex-act-illustrator-plugin@alex-mall` |
+| Document Tools | `1.2.0` | `alex-act-document-tools@alex-mall` |
 | AI Operations | `0.2.1` | `alex-act-ai-operations@alex-mall` |
-| Enterprise | `1.1.1` | `alex-act-enterprise@alex-mall` |
+| Enterprise | `1.1.2` | `alex-act-enterprise@alex-mall` |
 | MSFT | `1.1.4` | `fabioc_microsoft/alex-act-msft`, managed-source access required |
 
 ## Supported Platforms

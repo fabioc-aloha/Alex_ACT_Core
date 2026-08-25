@@ -59,7 +59,7 @@ test('Core bootstrap previews, applies, verifies, and repairs all canonical inst
     script, '--target-instructions', instructions,
   ], { cwd: root, encoding: 'utf8' }));
   assert.equal(preview.apply, false);
-  assert.equal(preview.coreVersion, '4.0.1');
+  assert.equal(preview.coreVersion, '4.0.2');
   assert.equal(preview.targetInstructions, instructions);
   assert.equal(preview.targetSource, 'explicit');
   assert.equal(preview.expectedFiles, 16);
@@ -443,7 +443,7 @@ test('Core declares self-activation and no Manager lifecycle redirects', () => {
   ]) assert.doesNotMatch(read(relativePath), /\bScout\b/i, `${relativePath} retains retired Scout routing`);
 });
 
-test('Core source preserves published 4.0.1 metadata until the next release', () => {
+test('Core source preserves published 4.0.2 metadata until the next release', () => {
   const manifest = JSON.parse(read('manifest.json'));
   const plugin = JSON.parse(read('plugin.json'));
   const packageJson = JSON.parse(read('package.json'));
@@ -451,22 +451,24 @@ test('Core source preserves published 4.0.1 metadata until the next release', ()
   const readme = read('README.md');
   const install = read('INSTALL.md');
 
-  assert.equal(manifest.version, '4.0.1');
-  assert.equal(plugin.version, '4.0.1');
-  assert.equal(packageJson.version, '4.0.1');
+  assert.equal(manifest.version, '4.0.2');
+  assert.equal(plugin.version, '4.0.2');
+  assert.equal(packageJson.version, '4.0.2');
   assert.equal(manifest.status, 'released');
   assert.equal(manifest.distribution.status, 'published');
-  assert.equal(manifest.distribution.published_version, '4.0.1');
+  assert.equal(manifest.distribution.published_version, '4.0.2');
   assert.equal(manifest.verify_install, undefined);
   assert.equal(manifest.nextRelease, undefined);
   assert.equal(manifest.candidateVersion, undefined);
-  assert.match(changelog, /## \[Unreleased\][\s\S]*## \[4\.0\.1\] - 2026-08-21[\s\S]*## \[4\.0\.0\] - 2026-08-21/);
+  assert.match(changelog, /## \[Unreleased\][\s\S]*## \[4\.0\.2\] - 2026-08-25[\s\S]*## \[4\.0\.1\] - 2026-08-21/);
   assert.doesNotMatch(changelog, /\]\(\.\.\/svg-banner\/SKILL\.md\)/);
-  assert.match(readme, /published version.*4\.0\.1/i);
-  assert.match(install, /Last verified: 2026-08-21\./);
-  assert.match(install, /\| Core \| `4\.0\.1` \|/);
+  assert.match(readme, /published version.*4\.0\.2/i);
+  assert.match(install, /Last verified: 2026-08-25\./);
+  assert.match(install, /\| Core \| `4\.0\.2` \|/);
+  assert.match(install, /\| Illustrator \| `2\.5\.2` \|/);
+  assert.match(install, /\| Document Tools \| `1\.2\.0` \|/);
   assert.match(install, /\| AI Operations \| `0\.2\.1` \|/);
-  assert.match(install, /\| Enterprise \| `1\.1\.1` \|/);
+  assert.match(install, /\| Enterprise \| `1\.1\.2` \|/);
   assert.doesNotMatch(install, /Manager|alex-act-manager/i);
   assert.match(install, /## Published Versions/);
   assert.doesNotMatch(install, /Not Yet Published/);
@@ -502,10 +504,10 @@ test('Core README documents the constellation installation and dependency contra
   assert.match(readme, /user-scope `autoUpdate`\s+setting/i);
   assert.doesNotMatch(readme, /USER-EXPERIENCE|Batch 10|top-of-chain, author|gap #1/i);
   for (const [plugin, version] of [
-    ['alex-act-illustrator-plugin', '2.5.1'],
-    ['alex-act-document-tools', '1.1.1'],
+    ['alex-act-illustrator-plugin', '2.5.2'],
+    ['alex-act-document-tools', '1.2.0'],
     ['alex-act-ai-operations', '0.2.1'],
-    ['alex-act-enterprise', '1.1.1'],
+    ['alex-act-enterprise', '1.1.2'],
     ['alex-act-msft', '1.1.4'],
   ]) assert(readme.includes(`| \`${plugin}\` | \`${version}\``),
     `README must report ${plugin} ${version}`);

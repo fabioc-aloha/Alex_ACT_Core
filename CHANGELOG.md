@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [4.0.2] - 2026-08-25
+
+### Fixed
+
+- Corrected the update guidance to distinguish built-in marketplace
+  auto-updates from the Alex Mall's explicit-update default. User-added
+  marketplaces may opt into auto-update only through user-scope configuration.
+
 ## [4.0.1] - 2026-08-21
 
 ### Fixed
