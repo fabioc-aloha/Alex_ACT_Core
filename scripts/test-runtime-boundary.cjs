@@ -498,7 +498,8 @@ test('Core README documents the constellation installation and dependency contra
   assert.match(readme, /managed-source access/i);
   assert.doesNotMatch(readme, /private marketplace access/i);
   assert.match(readme, /\[INSTALL Stages 3–5\]\([^)]*INSTALL\.md\)/);
-  assert.match(readme, /Copilot CLI plugins do not auto-update/i);
+  assert.match(readme, /User-added marketplaces, including `alex-mall`, remain\s+manual/i);
+  assert.match(readme, /user-scope `autoUpdate`\s+setting/i);
   assert.doesNotMatch(readme, /USER-EXPERIENCE|Batch 10|top-of-chain, author|gap #1/i);
   for (const [plugin, version] of [
     ['alex-act-illustrator-plugin', '2.5.1'],

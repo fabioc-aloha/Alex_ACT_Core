@@ -282,15 +282,18 @@ Full walkthrough with slash-command examples: [INSTALL Stages 3–5](https://git
 
 ## Update Core
 
-Copilot CLI plugins do not auto-update. Run a targeted update when you want an
-explicit version transition:
+For the Alex ACT Mall, use a targeted update when you want an explicit version
+transition:
 
 ```powershell
 copilot plugin update alex-act-core
 ```
 
-Read the [CHANGELOG](CHANGELOG.md) before applying a version that carries
-breaking changes.
+GitHub Copilot CLI can auto-update plugins from its built-in marketplaces at
+trusted session start. User-added marketplaces, including `alex-mall`, remain
+manual unless the user enables that marketplace's user-scope `autoUpdate`
+setting. Read the [CHANGELOG](CHANGELOG.md) before applying a version that
+carries breaking changes.
 
 ## Uninstall
 
