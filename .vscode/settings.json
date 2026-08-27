@@ -2,5 +2,7 @@
   "$comment": "Core keeps its workspace settings portable and profile-neutral. VS Code discovers the standard .github customizations without workspace-specific discovery paths; user profile settings own personal skills and approval defaults.",
   "markdown.styles": [
     ".vscode/markdown-light.css"
-  ]
+  ],
+  "markdown.validate.enabled": true,
+  "markdown.updateLinksOnFileMove.enabled": "prompt"
 }
