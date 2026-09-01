@@ -5,39 +5,57 @@
 > [`bootstrap-project`](https://github.com/fabioc-aloha/Alex_ACT_Core/blob/main/.github/skills/bootstrap-project/SKILL.md)
 > contract. Do not run the retired commands or paths below as current guidance.
 
-**Goal:** Add an explicit Core workspace bootstrap that provisions Markdown Preview CSS and safely merges `.vscode/settings.json` for new plugin-native workspaces.
+**Historical goal:** Add an explicit Core workspace bootstrap that provisioned
+Markdown Preview CSS and safely merged workspace settings for new plugin-native
+workspaces. This design was retired; current projects use VS Code user-level
+defaults instead.
 
-**Architecture:** Promote the proven Edition workspace-bootstrap behavior into a new Core skill and namespaced command. A deterministic Node script previews changes by default and applies only after consent; it preserves existing CSS, existing `markdown.styles`, unrelated JSONC settings, and unrelated `.gitignore` rules. Steward remains the governance source for the migration contract, while Core owns the runtime implementation.
+**Architecture at the time:** Promote the proven Edition workspace-bootstrap
+behavior into a new Core skill and namespaced command. The proposed deterministic
+Node script would have preserved existing CSS, existing `markdown.styles`,
+unrelated JSONC settings, and unrelated `.gitignore` rules. Steward remained the
+governance source for the migration contract, while Core owned the runtime
+implementation.
 
 **Tech Stack:** Node.js CommonJS, `node:test`, GitHub Copilot plugin skills/prompts, JSON/JSONC workspace settings, VS Code Markdown Preview CSS.
 
 ---
 
-## Current Context
+## Historical Context
 
-- Legacy `Alex_ACT_Edition` already creates `.vscode/markdown-light.css`, merges `markdown.styles`, preserves heir overrides, refreshes Edition-owned CSS on upgrade, and tests the production bootstrap path.
+- Legacy `Alex_ACT_Edition` created a repository-local preview stylesheet,
+  merged `markdown.styles`, preserved heir overrides, refreshed CSS on upgrade,
+  and tested the production bootstrap path. That policy is retired.
 - Plugin-native `alex-act-core` 0.5.1 has no workspace bootstrap skill or command.
 - Core's `configure-vscode` prompt explicitly owns user scope only.
 - Steward's plugin-native migration document says Core provides `.vscode/settings.json` guidance separately, but no such Core flow exists.
 - The `helper` workspace exposed the gap: its absolute user-level `markdown.styles` path was unsupported, and the two workspace files had to be created manually.
 - The exact manual repair and evidence are recorded in `C:\Development\helper\meta\alex-act-upgrade-bootstrap-experience-2026-08-02.md`.
 
-## Behavioral Contract
+## Retired Behavioral Contract
 
-The new `/alex-act-core bootstrap-workspace` flow must:
+The proposed `/alex-act-core bootstrap-workspace` flow was designed to:
 
 1. Target the current workspace by default or an explicit `--target` path.
 2. Preview every write before applying it.
 3. Require explicit consent before `--apply`.
-4. Copy Core's bundled `markdown-mermaid/markdown-light.css` only when `.vscode/markdown-light.css` is absent.
-5. Preserve an existing workspace stylesheet byte-for-byte.
-6. Add `"markdown.styles": [".vscode/markdown-light.css"]` only when the key is absent.
-7. Preserve an existing `markdown.styles` value, including custom arrays and `null`.
+4. It would have copied Core's bundled preview stylesheet only when a
+   repository stylesheet was absent.
+5. It would have preserved an existing workspace stylesheet byte-for-byte.
+6. It would have added a workspace `markdown.styles` entry only when the key
+   was absent.
+7. It would have preserved an existing `markdown.styles` value, including
+   custom arrays and `null`.
 8. Parse JSONC input, preserve unrelated settings semantically, and stop on malformed JSON/JSONC.
-9. Detect a broad `.vscode/` ignore rule and preview a targeted replacement that tracks only `settings.json` and `markdown-light.css`.
+9. Detect a broad workspace-config ignore rule and preview a targeted
+   replacement for the proposed settings and stylesheet files.
 10. Preserve unrelated `.gitignore` rules and unrelated `.vscode` files.
 11. Be idempotent on a second run.
-12. Report deterministic evidence: resolved paths, settings action, CSS action, ignore action, file size, and SHA-256.
+12. Report deterministic evidence: resolved paths, settings action, stylesheet
+    action, ignore action, file size, and SHA-256.
+
+These requirements document a superseded design only. They must not be used to
+copy, activate, or manage repository-local Markdown Preview CSS.
 
 ## Task 1: Record the Steward Decision
 
@@ -180,18 +198,11 @@ Expected: merger tests pass; full bootstrap tests still fail because the command
 - Reuse: `C:\Development\Alex_ACT_Core\.github\skills\markdown-mermaid\markdown-light.css`
 - Test: `C:\Development\Alex_ACT_Core\scripts\test-workspace-bootstrap.cjs`
 
-### Step 1: Add the baseline
+### Step 1: Historical baseline proposal
 
-```json
-{
-  "settings": {
-    "markdown.styles": [".vscode/markdown-light.css"]
-  },
-  "mergeMode": {
-    "markdown.styles": "set-if-absent"
-  }
-}
-```
+The proposal included a workspace `markdown.styles` baseline. It was retired
+without implementation; projects now use VS Code user-level defaults rather
+than a repository-local preview stylesheet.
 
 ### Step 2: Implement argument parsing
 

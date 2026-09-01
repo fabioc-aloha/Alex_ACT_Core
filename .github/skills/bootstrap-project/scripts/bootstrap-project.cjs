@@ -12,7 +12,6 @@ const RESOURCE_FILES = Object.freeze({
     'GEMINI.md': 'GEMINI.md',
     'HANDOFF.md': 'HANDOFF.md',
     '.github/episodic/README.md': 'episodic-README.md',
-    '.vscode/markdown-light.css': 'markdown-light.css',
 });
 
 function sha256(value) {
@@ -20,11 +19,10 @@ function sha256(value) {
 }
 
 function parseArgs(args) {
-    const options = { apply: false, refreshCss: false, repositoryRoot: null };
+    const options = { apply: false, repositoryRoot: null };
     for (let index = 0; index < args.length; index++) {
         const value = args[index];
         if (value === '--apply') options.apply = true;
-        else if (value === '--refresh-css') options.refreshCss = true;
         else if (value === '--repository-root') {
             if (!args[index + 1] || args[index + 1].startsWith('--')) {
                 throw new Error('--repository-root requires a value');
@@ -177,19 +175,25 @@ function planGitignore(root) {
     if (!fs.existsSync(file)) {
         return {
             action: 'create',
-            content: '.vscode/*\n!.vscode/settings.json\n!.vscode/markdown-light.css\n',
+            content: '.vscode/*\n!.vscode/settings.json\n',
         };
     }
     const original = fs.readFileSync(file, 'utf8');
     const lines = original.split(/\r?\n/);
     const broad = /^(?:\/)?\.vscode\/?$/;
-    if (!lines.some((line) => broad.test(line.trim()))) return { action: 'preserve' };
+    const stylesheetException = /^!\.vscode\/markdown-(?:light|preview)\.css$/;
+    const filtered = lines.filter((line) => !stylesheetException.test(line.trim()));
+    const removedStylesheetException = filtered.length !== lines.length;
+    if (!filtered.some((line) => broad.test(line.trim()))) {
+        return removedStylesheetException
+            ? { action: 'remove-css-exception', content: `${filtered.join('\n').replace(/\n+$/, '')}\n` }
+            : { action: 'preserve' };
+    }
     const output = [];
     let replaced = false;
-    for (const line of lines) {
+    for (const line of filtered) {
         if (broad.test(line.trim())) {
-            if (!replaced) output.push(
-                '.vscode/*', '!.vscode/settings.json', '!.vscode/markdown-light.css');
+            if (!replaced) output.push('.vscode/*', '!.vscode/settings.json');
             replaced = true;
         } else output.push(line);
     }
@@ -223,27 +227,14 @@ function buildPlan(options) {
             _value: merged.merged,
         };
     }
-    const cssFile = path.join(root, '.vscode', 'markdown-light.css');
-    const cssBytes = resource('markdown-light.css');
-    let css = { action: 'create', sha256: sha256(cssBytes), _bytes: cssBytes };
-    if (fs.existsSync(cssFile)) {
-        const current = sha256(fs.readFileSync(cssFile));
-        css = {
-            action: options.refreshCss && current !== sha256(cssBytes) ? 'refresh' : 'preserve',
-            sha256: sha256(cssBytes),
-            currentSha256: current,
-            _bytes: cssBytes,
-        };
-    }
     return {
         schemaVersion: 1,
         apply: options.apply,
         classification,
         blocked,
         nestedAgents: nestedAgents(root),
-        creates: creates.filter((entry) => entry.relativePath !== '.vscode/markdown-light.css'),
+        creates,
         settings,
-        css,
         gitignore: planGitignore(root),
         _root: root,
     };
@@ -269,21 +260,16 @@ function applyPlan(plan) {
         writeAtomic(path.join(plan._root, '.vscode', 'settings.json'),
             `${JSON.stringify(plan.settings._value, null, 2)}\n`);
     }
-    if (plan.css.action === 'create' || plan.css.action === 'refresh') {
-        writeAtomic(path.join(plan._root, '.vscode', 'markdown-light.css'), plan.css._bytes);
-    }
-    if (plan.gitignore.action === 'create' || plan.gitignore.action === 'narrow-vscode-rule') {
+    if (plan.gitignore.action !== 'preserve') {
         writeAtomic(path.join(plan._root, '.gitignore'), plan.gitignore.content);
     }
     const verification = buildPlan({
         repositoryRoot: plan._root,
         apply: false,
-        refreshCss: false,
     });
     plan.verification = {
         pendingCreates: verification.creates.length,
         pendingSettingsChanges: verification.settings.changes.length,
-        cssAction: verification.css.action,
     };
     return plan;
 }
@@ -300,11 +286,6 @@ function publicPlan(plan) {
             action: plan.settings.action,
             changes: plan.settings.changes,
             hadComments: plan.settings.hadComments,
-        },
-        css: {
-            action: plan.css.action,
-            sha256: plan.css.sha256,
-            currentSha256: plan.css.currentSha256 || null,
         },
         gitignore: { action: plan.gitignore.action },
         ...(plan.verification ? { verification: plan.verification } : {}),

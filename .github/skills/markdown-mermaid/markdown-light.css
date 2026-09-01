@@ -2,8 +2,9 @@
    GitHub-flavored Markdown Preview Theme
    Alex Cognitive Architecture - Polished Edition
 
-   Copy to .vscode/markdown-light.css and reference in settings.json:
-   "markdown.styles": [".vscode/markdown-light.css"]
+   Optional personal reference stylesheet. This project does not install or
+   activate it. If you choose to use it, configure it only in your VS Code
+   user profile, never in repository settings.
    ============================================================================ */
 
 /* ============================================

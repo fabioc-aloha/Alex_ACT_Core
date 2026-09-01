@@ -325,7 +325,7 @@ test('Core project bootstrap previews, applies, preserves, and becomes idempoten
   ]) {
     assert.equal(settings[key], undefined, `${key} belongs to the user profile, not a project baseline`);
   }
-  assert.deepEqual(settings['markdown.styles'], ['.vscode/markdown-light.css']);
+  assert.equal(settings['markdown.styles'], undefined);
   assert.equal(settings['editor.formatOnSave'], true);
   assert.equal(settings['diffEditor.hideUnchangedRegions.enabled'], true);
   assert.equal(settings['files.eol'], '\n');
@@ -341,8 +341,8 @@ test('Core project bootstrap previews, applies, preserves, and becomes idempoten
   assert.equal(second.creates.length, 0);
 });
 
-test('Core authoring settings remain profile-neutral', () => {
-  const settings = JSON.parse(read('.vscode/settings.json'));
+test('Core project baseline remains profile-neutral', () => {
+  const settings = JSON.parse(read('.github/skills/bootstrap-project/resources/project-settings.json'));
   for (const key of [
     'chat.agentSkillsLocations',
     'chat.promptFilesLocations',
@@ -353,7 +353,7 @@ test('Core authoring settings remain profile-neutral', () => {
   ]) {
     assert.equal(settings[key], undefined, `${key} belongs to the user profile, not Core's workspace`);
   }
-  assert.deepEqual(settings['markdown.styles'], ['.vscode/markdown-light.css']);
+  assert.equal(settings['markdown.styles'], undefined);
 });
 
 test('Core project bootstrap preserves custom settings and blocks agent conflicts', (t) => {
@@ -363,10 +363,8 @@ test('Core project bootstrap preserves custom settings and blocks agent conflict
   fs.mkdirSync(path.join(repository, '.vscode'), { recursive: true });
   fs.writeFileSync(path.join(repository, '.vscode', 'settings.json'), JSON.stringify({
     'editor.fontSize': 17,
-    'markdown.styles': ['custom.css'],
     note: 'literal,}',
   }, null, 2));
-  fs.writeFileSync(path.join(repository, '.vscode', 'markdown-light.css'), 'custom css\n');
   fs.writeFileSync(path.join(repository, 'AGENT.md'), '# Singular\n');
   fs.writeFileSync(path.join(repository, 'AGENTS.md'), '# Divergent\n');
   const script = path.join(
@@ -383,8 +381,6 @@ test('Core project bootstrap preserves custom settings and blocks agent conflict
     path.join(repository, '.vscode', 'settings.json')))['editor.fontSize'], 17);
   assert.equal(JSON.parse(fs.readFileSync(
     path.join(repository, '.vscode', 'settings.json'))).note, 'literal,}');
-  assert.equal(fs.readFileSync(path.join(repository, '.vscode', 'markdown-light.css'), 'utf8'),
-    'custom css\n');
 });
 
 test('Core project bootstrap preserves JSONC strings that resemble trailing commas', (t) => {

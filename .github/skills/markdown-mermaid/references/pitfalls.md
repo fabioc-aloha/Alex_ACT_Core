@@ -236,7 +236,8 @@ This provides a clean white background for edge labels, ensuring readability on 
 
 **Problem**: Diagrams have dark backgrounds in VS Code preview
 
-**Solution 2**: Apply included `markdown-light.css` via settings
+**Solution 2**: Use a light Mermaid theme and adjust VS Code user-level preview
+preferences if needed. Repository settings do not install preview CSS.
 
 ### Disproportionate Diagram Layouts (Too Wide/Too Tall)
 
@@ -831,7 +832,8 @@ flowchart TB
 
 **Problem**: Blockquotes render with excessive vertical padding
 
-**Solution**: Included in `markdown-light.css`:
+**Optional personal-style reference**: the standalone `markdown-light.css`
+contains:
 
 ```css
 blockquote p {
@@ -841,4 +843,3 @@ blockquote p {
 ```
 
 ---
-

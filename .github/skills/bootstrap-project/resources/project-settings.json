@@ -58,9 +58,6 @@
   "git.enableSmartCommit": true,
   "git.openRepositoryInParentFolders": "always",
   "git.pruneOnFetch": true,
-  "markdown.styles": [
-    ".vscode/markdown-light.css"
-  ],
   "markdown.updateLinksOnFileMove.enabled": "always",
   "markdown.editor.updateLinksOnPaste.enabled": true
 }

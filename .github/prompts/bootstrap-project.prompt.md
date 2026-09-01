@@ -1,5 +1,5 @@
 ---
-description: "Preview and apply Core's minimal repository guidance, project VS Code settings, and Markdown CSS. Use for new projects or project-scaffold repair."
+description: "Preview and apply Core's minimal repository guidance and project VS Code settings. Use for new projects or project-scaffold repair."
 lastReviewed: 2026-08-15
 ---
 
@@ -12,8 +12,7 @@ lastReviewed: 2026-08-15
 4. Stop on conflicting root agent files or invalid settings.
 5. Ask for repository apply consent.
 6. Rerun the same command with `--apply` after consent.
-7. Ask separately before `--refresh-css --apply`.
-8. Verify the second preview has no pending creates or settings changes.
+7. Verify the second preview has no pending creates or settings changes.
 
 Revise by **2026-11-15** if this prompt edits user settings, configures shared
 continuity, or diverges from the linked script.
