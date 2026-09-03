@@ -9,8 +9,8 @@ Alex ACT Core gives every workspace the same reasoning floor: Alex Finch's ident
 **Published version**: `4.1.0`. Install from the Alex ACT Mall as
 `alex-act-core@alex-mall`.
 
-**Current source shape**: 35 skills, 16 source instructions, and 9
-slash-command prompts. Core activates its own 16 instructions through the
+**Current source shape**: 35 skills, 17 source instructions, and 9
+slash-command prompts. Core activates its own 17 instructions through the
 consent-gated `bootstrap-core` command and records a Core-owned receipt. It
 includes a fail-closed Scout-Copilot skill-bridge doctor.
 
@@ -46,7 +46,7 @@ For a fresh Windows install, or an explicitly unverified macOS/Linux canary:
    /alex-act-core bootstrap-core
    ```
 
-Step 4 previews and separately asks whether to activate Core's 16 user-scope
+Step 4 previews and separately asks whether to activate Core's 17 user-scope
 runtime instructions. Core project bootstrap and native Copilot CLI lifecycle
 commands cover the remaining baseline operations.
 
@@ -71,7 +71,7 @@ the capabilities their work needs.
 
 | Plugin | Manifest dependency | Expected composition | Additional boundary |
 | --- | --- | --- | --- |
-| Core | None | The baseline itself | Activates and verifies its 16 user-scope instructions. |
+| Core | None | The baseline itself | Activates and verifies its 17 user-scope instructions. |
 | Illustrator | None | Core is recommended, not required | MCP-backed features provision their reviewed local runtime only when selected. |
 | Document Tools | None | Core is recommended, not required | Converter tools and local prerequisites remain Document Tools-owned. |
 | AI Operations | None | Separately installed from the brain spine | Provider login, data transfer, and cost require separate execution approval. |
@@ -224,7 +224,7 @@ Alex_ACT_Core/
 │   ├── copilot-instructions.md
 │   ├── config/                 # brand-palette.json
 │   ├── skills/                 # 34 baseline framework, continuity, reasoning, safety, craft, and project-capability skills
-│   ├── instructions/           # 16 Core-owned sources activated by bootstrap-core
+│   ├── instructions/           # 17 Core-owned sources activated by bootstrap-core
 │   └── prompts/                # 9 slash-command prompts
 └── .vscode/                    # workspace settings for self-dogfooding
 ```

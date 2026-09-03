@@ -62,8 +62,8 @@ test('Core bootstrap previews, applies, verifies, and repairs all canonical inst
   assert.equal(preview.coreVersion, '4.1.0');
   assert.equal(preview.targetInstructions, instructions);
   assert.equal(preview.targetSource, 'explicit');
-  assert.equal(preview.expectedFiles, 16);
-  assert.equal(preview.files.filter((file) => file.action === 'create').length, 16);
+  assert.equal(preview.expectedFiles, 17);
+  assert.equal(preview.files.filter((file) => file.action === 'create').length, 17);
   assert.equal(fs.readdirSync(instructions).length, 1);
 
   const applied = JSON.parse(execFileSync(process.execPath, [
@@ -74,7 +74,7 @@ test('Core bootstrap previews, applies, verifies, and repairs all canonical inst
     instructions, '.alex-act-core-bootstrap.json'), 'utf8'));
   assert.equal(receipt.schemaVersion, 2);
   assert.equal(receipt.bootstrappedBy, 'alex-act-core');
-  assert.equal(receipt.files.length, 16);
+  assert.equal(receipt.files.length, 17);
   assert(receipt.files.every((file) => file.owner === 'alex-act-core'));
   for (const file of receipt.files) {
     const source = path.join(root, '.github', 'instructions', file.name.replace(/^alex-act-/, ''));
@@ -106,7 +106,7 @@ test('Core bootstrap previews, applies, verifies, and repairs all canonical inst
   ], { cwd: root, encoding: 'utf8' });
   const refreshedReceipt = JSON.parse(fs.readFileSync(path.join(
     instructions, '.alex-act-core-bootstrap.json'), 'utf8'));
-  assert.equal(new Set(refreshedReceipt.files.map((file) => file.name)).size, 16);
+  assert.equal(new Set(refreshedReceipt.files.map((file) => file.name)).size, 17);
 
   const damaged = receipt.files.find((file) => file.name.includes('act-pass')).name;
   fs.writeFileSync(path.join(instructions, damaged), 'damaged\n');
@@ -138,7 +138,7 @@ test('Core bootstrap distributes only to the active COPILOT_HOME instruction dir
   }));
   assert.equal(preview.targetInstructions, instructions);
   assert.equal(preview.targetSource, 'COPILOT_HOME');
-  assert.equal(preview.files.filter((file) => file.action === 'create').length, 16);
+  assert.equal(preview.files.filter((file) => file.action === 'create').length, 17);
   assert.equal(fs.existsSync(copilotHome), false);
 
   execFileSync(process.execPath, [script, '--apply'], {
@@ -148,7 +148,7 @@ test('Core bootstrap distributes only to the active COPILOT_HOME instruction dir
   });
   assert.equal(fs.existsSync(path.join(instructions, '.alex-act-core-bootstrap.json')), true);
   assert.equal(fs.readdirSync(copilotHome).length, 1);
-  assert.equal(fs.readdirSync(instructions).filter((name) => name.endsWith('.instructions.md')).length, 16);
+  assert.equal(fs.readdirSync(instructions).filter((name) => name.endsWith('.instructions.md')).length, 17);
 });
 
 test('Core bootstrap rejects a relative COPILOT_HOME', () => {
@@ -198,7 +198,7 @@ test('Core bootstrap removal rejects unsafe receipts and verifies owned cleanup'
   const removal = JSON.parse(execFileSync(process.execPath, [
     script, '--target-instructions', instructions, '--remove', '--apply',
   ], { cwd: root, encoding: 'utf8' }));
-  assert.equal(removal.verification.removed, 15);
+  assert.equal(removal.verification.removed, 16);
   assert.deepEqual(removal.verification.preservedModified, [modified.name]);
   assert.equal(removal.verification.receiptRemoved, false);
   assert.equal(fs.existsSync(receiptPath), true);
@@ -220,7 +220,7 @@ test('Core bootstrap removal rejects unsafe receipts and verifies owned cleanup'
   const cleanRemoval = JSON.parse(execFileSync(process.execPath, [
     script, '--target-instructions', cleanInstructions, '--remove', '--apply',
   ], { cwd: root, encoding: 'utf8' }));
-  assert.equal(cleanRemoval.verification.removed, 16);
+  assert.equal(cleanRemoval.verification.removed, 17);
   assert.deepEqual(cleanRemoval.verification.preservedModified, []);
   assert.equal(cleanRemoval.verification.receiptRemoved, true);
   assert.equal(fs.readdirSync(cleanInstructions).length, 0);
@@ -238,8 +238,8 @@ test('Core bootstrap validates manifest parity and works from an isolated delive
   const applied = JSON.parse(execFileSync(process.execPath, [
     script, '--target-instructions', instructions, '--apply',
   ], { cwd: target, encoding: 'utf8' }));
-  assert.equal(applied.expectedFiles, 16);
-  assert.equal(applied.verification.destinationHashes, 16);
+  assert.equal(applied.expectedFiles, 17);
+  assert.equal(applied.verification.destinationHashes, 17);
 
   const manifestPath = path.join(delivered, 'manifest.json');
   const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
@@ -254,6 +254,7 @@ test('Core keeps always-on instruction governance outside the bootstrap payload'
   const alwaysOnInstructions = [
     'act-pass',
     'alex-finch-personality',
+    'audience-copy-review',
     'critical-thinking',
     'emotional-intelligence',
     'epistemic-calibration',
@@ -269,7 +270,7 @@ test('Core keeps always-on instruction governance outside the bootstrap payload'
     'worldview',
   ];
 
-  assert.equal(alwaysOnInstructions.length, 15);
+  assert.equal(alwaysOnInstructions.length, 16);
   for (const name of alwaysOnInstructions) {
     const instruction = read(`.github/instructions/${name}.instructions.md`);
     const governancePath = `.github/instructions/references/${name}.governance.md`;
@@ -560,7 +561,7 @@ test('Core exposes self-activation, baseline skills, and one conversion redirect
     .sort();
 
   assert.equal(manifest.assets.skills.length, 35);
-  assert.equal(manifest.assets.instructions.length, 16);
+  assert.equal(manifest.assets.instructions.length, 17);
   assert.equal(manifest.assets.prompts.length, 9);
   assert.deepEqual(manifest.assets.skills.map((entry) => entry.name).sort(), sourceSkills);
   assert.deepEqual(manifest.assets.prompts.map((entry) => `${entry.name}.prompt.md`).sort(),
@@ -700,7 +701,7 @@ test('fresh-install guidance activates Core directly and uses native lifecycle c
 
 test('Core activation has one owner and no greeting overlay dependency', () => {
   assert.equal(fs.readdirSync(path.join(root, '.github', 'instructions'))
-    .filter((name) => name.endsWith('.instructions.md')).length, 16);
+    .filter((name) => name.endsWith('.instructions.md')).length, 17);
   const health = read('.github/instructions/session-health-monitoring.instructions.md');
   assert.doesNotMatch(health, /Manager|alex-act-manager/);
   assert.match(health, /copilot plugin list/);

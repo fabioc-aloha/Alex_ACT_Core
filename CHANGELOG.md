@@ -6,6 +6,33 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Added `audience-copy-review`, a 17th always-on instruction that routes
+  user-facing and customer-facing prose through humanizer's Copywriter Mode by
+  default. It gates on an audience test (will a reader outside the authoring
+  team form an impression or make a decision?) rather than on file paths, since
+  a README and an internal ADR are both markdown. Internal artifacts —
+  `plan.md`, `HANDOFF.md`, ADRs, code comments, commit messages — stay silent,
+  and doubt resolves toward silence. Ships with
+  `references/audience-copy-review.governance.md`.
+- Added **Copywriter Mode** to the `humanizer` skill: an audience-aware
+  language-review workflow distinct from AI-tell removal — a five-tag taxonomy
+  (`[idiom]`/`[tone]`/`[register]`/`[ambiguity]`/`[grammar]`), a hero-first
+  approval-gated before/after table workflow, and explicit scoping guidance so
+  domain acronyms and jargon are out of scope by default. Includes a worked
+  example (`examples/copywriter-mode-example.md`).
+
+### Changed
+
+- Retitled the `humanizer` skill to "AI-Tell Removal and Audience Copy Review"
+  and rewrote its opening paragraph to name both modes. The previous title
+  described only AI-tell removal, which excluded a mode built for copy
+  containing no AI tells at all.
+- Raised the canonical Core instruction count from 16 to 17 across
+  `bootstrap-core`, its prompt, the runtime-boundary tests, `manifest.json`,
+  `plugin.json`, `README.md`, `INSTALL.md`, and `.github/copilot-instructions.md`.
+
 ## [4.1.0] - 2026-08-25
 
 ### Added

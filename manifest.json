@@ -107,7 +107,7 @@
         "name": "humanizer",
         "path": ".github/skills/humanizer/SKILL.md",
         "install_to": ".github/skills/humanizer/SKILL.md",
-        "role": "remove 29 documented AI-writing patterns (Wikipedia's 'Signs of AI writing') via draft → self-audit → rewrite — optional voice-calibration from user-provided writing sample; adapted from Hermes Agent / blader/humanizer"
+        "role": "remove 29 documented AI-writing patterns (Wikipedia's 'Signs of AI writing') via draft → self-audit → rewrite, plus Copywriter Mode for audience-aware language review of existing human-written copy (five-tag taxonomy, hero-first approval-gated before/after tables); optional voice-calibration from user-provided writing sample; adapted from Hermes Agent / blader/humanizer"
       },
       {
         "name": "lint-clean-markdown",
@@ -236,6 +236,13 @@
         "path": ".github/instructions/alex-finch-personality.instructions.md",
         "install_to": ".github/instructions/alex-finch-personality.instructions.md",
         "role": "concise always-on runtime contract for Alex Finch personality and voice: curiosity, conscientiousness, independent judgment, ethical partnership, grounded emotional attention, human prose, calibrated confidence, and anti-caricature boundaries",
+        "applyTo": "**"
+      },
+      {
+        "name": "audience-copy-review",
+        "path": ".github/instructions/audience-copy-review.instructions.md",
+        "install_to": ".github/instructions/audience-copy-review.instructions.md",
+        "role": "route user-facing and customer-facing prose through humanizer's Copywriter Mode by default — audience test (will an outside reader form an impression or make a decision?), named audience, jargon out of scope, approval-gated findings, one tag per row; silent for internal artifacts like plan.md, HANDOFF.md, ADRs, and commit messages",
         "applyTo": "**"
       },
       {

@@ -1,12 +1,12 @@
 ---
 name: humanizer
-description: Use when the user wants to humanize, de-AI, de-slop, or un-ChatGPT a piece of text — strip AI-isms and add real voice. Scans for 29 documented AI-writing patterns (Wikipedia's "Signs of AI writing") and produces a draft → self-audit → final rewrite. Optional voice-calibration from a user-provided writing sample. Adapted from Hermes Agent / blader/humanizer.
-lastReviewed: 2026-06-07
+description: Use when the user wants to humanize, de-AI, de-slop, or un-ChatGPT a piece of text — strip AI-isms and add real voice — or wants a copywriter pass that reviews existing copy for a named audience (e.g., non-native English readers) using an idiom/tone/register/ambiguity/grammar taxonomy and an approval-gated before/after table workflow. Scans for 29 documented AI-writing patterns (Wikipedia's "Signs of AI writing") and produces a draft → self-audit → final rewrite. Optional voice-calibration from a user-provided writing sample. Adapted from Hermes Agent / blader/humanizer.
+lastReviewed: 2026-09-03
 ---
 
-# Humanizer: Remove AI Writing Patterns
+# Humanizer: AI-Tell Removal and Audience Copy Review
 
-Identify and remove signs of AI-generated text to make writing sound natural and human. Based on Wikipedia's "Signs of AI writing" guide (maintained by WikiProject AI Cleanup), derived from observations of thousands of AI-generated text instances.
+Two modes for two different problems. **AI-tell removal** identifies and strips signs of AI-generated text to make writing sound natural and human, based on Wikipedia's "Signs of AI writing" guide (maintained by WikiProject AI Cleanup), derived from observations of thousands of AI-generated text instances. **Copywriter Mode** reviews existing, human-written copy for how well it lands with a specific named audience — the source text may contain no AI tells at all.
 
 **Key insight:** LLMs use statistical algorithms to guess what should come next. The result tends toward the most statistically likely completion, which is how the telltale patterns below get baked in.
 
@@ -19,6 +19,7 @@ Load this skill whenever the user asks to:
 - edit a draft (blog post, essay, PR description, docs, memo, email, tweet, resume bullet) to sound more natural
 - match their voice in writing they're producing
 - review text for AI tells before publishing
+- review or write copy for a **named audience** (e.g., non-native English professional readers, executives, external customers) — use **Copywriter Mode** below instead of the AI-tell patterns; the source text may already be entirely human-written
 
 Also apply this skill to **your own** output when writing user-facing prose — release notes, PR descriptions, documentation, long-form explanations, summaries. If your project ships a prose-authoring worker agent with a banned-vocabulary filter (for example, Steward's `markdown-author` or the illustrator plugin's), the always-on filter strips the worst tells; humanizer is the deeper on-demand pass that catches what slips through when the user explicitly cares about voice quality.
 
@@ -68,6 +69,100 @@ If the user provides a writing sample (their own previous writing), analyze it b
 
 - Inline: "Humanize this text. Here's a sample of my writing for voice matching: [sample]"
 - File: "Humanize this text. Use my writing style from [file path] as a reference."
+
+## Copywriter Mode: Audience-Aware Language Review
+
+Distinct from AI-tell removal above: this mode reviews **existing, human-written** copy for how
+well it lands with a **specific named audience** — most often non-native English professional
+readers, but also executives, external customers, or any audience with different assumptions than
+the author's. Use it when the user asks to review a site, document, or deck "for [audience]," or
+wants a copywriter's pass rather than a de-AI pass. The source text does not need to show any AI
+tells at all; a fully human-written page can still land wrong for a reader it wasn't written for.
+
+The `audience-copy-review` instruction fires this mode automatically for user-facing and
+customer-facing artifacts, including your own output. It is not limited to explicit user requests.
+
+### Scope: don't confuse literacy gaps with language nuance
+
+Confirm what's actually in scope before producing findings. Two different problems get conflated
+by default:
+
+- **Domain literacy** (acronyms, internal terminology, jargon the audience already knows from
+  working in the field) — usually **out of scope**. Flagging every acronym on a page written by
+  and for domain experts creates noise the user will immediately reject.
+- **Language nuance** (idiom, tone, register, ambiguity, grammar) — the actual target. This is
+  copy that would be understood differently, or not at all, by a careful reader in a professional
+  but non-native-English context, regardless of how well they know the subject matter.
+
+If unsure which applies, ask once, early, before producing findings — don't assume
+acronym-expansion is wanted by default; a domain-expert audience usually doesn't need it.
+
+### The five-tag taxonomy
+
+Tag every finding with exactly one of these, so the _kind_ of concern is explicit, not just the
+fix:
+
+| Tag | Meaning |
+| --- | --- |
+| `[idiom]` | A figurative phrase that does not mean its literal words ("pick two," "hold the line," "in flight"). |
+| `[tone]` | Wording that reads more blunt, combative, or slogan-like than the underlying fact warrants. |
+| `[register]` | Casual or conversational wording sitting next to formal language in the same passage. |
+| `[ambiguity]` | A word or phrase with a plausible second meaning that isn't the intended one ("bandwidth," "running," "one room"). |
+| `[grammar]` | A sentence whose construction — not its vocabulary — could slow a careful reader down (a clipped dash standing in for a missing clause, an unusual verb formation). |
+
+### Workflow: hero first, approval-gated, one page at a time
+
+1. **Scope the review.** Confirm the audience, confirm domain literacy is out of scope (see
+   above), confirm the surface (one page, one section, the whole site).
+2. **Read before touching anything.** A full read-only pass across the whole scope, tagging every
+   finding, is cheaper and more defensible than piecemeal edits — do this even if changes will be
+   approved incrementally.
+3. **Present the hero first.** For any page, review title, subtitle/tagline, and lede as a
+   **before/after table** before the rest of the page. These carry the most weight and the highest
+   visibility (page `<title>`, meta description, H1) — get them right, and get explicit sign-off,
+   before touching supporting content.
+4. **One approval per table.** Never apply a finding the user hasn't explicitly approved. A table
+   with unapproved rows is a proposal, not a change.
+5. **Recurring phrases are a single decision, not N decisions.** If a phrase repeats across many
+   pages (a tagline, a slogan, a piece of established brand voice), surface it once, name where
+   else it recurs, and ask whether fixing it everywhere would meaningfully change the voice — then
+   apply the same decision consistently. Don't silently fix only the first occurrence and leave
+   the rest inconsistent.
+6. **Verify before calling it done.** After applying an approved change, re-render or re-read the
+   actual output (not just the diff) to confirm it landed as intended.
+7. **Move to the next scope only after the current one is fully resolved.** Finish one
+   page/section end-to-end before starting the next — partial coverage across many pages is
+   harder to track than full coverage of one.
+
+### Before/after table format
+
+```markdown
+| Element | Current | Proposed | Why |
+| --- | --- | --- | --- |
+| Claim (tagline) | "Fast and nimble isn't free when it breaks someone else's work." | "Moving quickly has a cost when it breaks another team's work." | `[idiom]` "isn't free" is idiomatic and slightly elliptical for a non-native reader. |
+```
+
+One row per finding, one tag per row. If a single element (a lede, a paragraph) carries two
+different concerns, split it into two rows scoped to the specific sentence or phrase rather than
+stacking tags in one "Why" cell — a row carrying two tags can't be approved or rejected
+independently, which breaks the approval gate. Keep "Why" short and specific — name the tag and
+the concrete reason, not a vague "sounds unnatural."
+
+### Composes with
+
+- **Voice Calibration** (above) still applies: don't flatten every idiom into bland corporate
+  phrasing. A phrase that is low-risk and clearly understood, even if figurative, may be worth
+  keeping — that's a legitimate outcome of the review, not a failure to find something.
+- **PERSONALITY AND SOUL** (below): Copywriter Mode's goal is comprehension, not sterility. A
+  rewrite that removes an idiom but also removes all personality has overcorrected — flag that
+  tension explicitly rather than defaulting to the blandest possible phrasing.
+- [communication-craft](../communication-craft/SKILL.md): use that skill for audience-lead
+  structure (So-What/What/Now-What, stakes-calibrated feedback voice); use Copywriter Mode for
+  sentence-level language fit within an already-established structure.
+
+A worked example (a fictional internal tool's homepage, reviewed for a non-native-English
+engineering audience) is in
+[`examples/copywriter-mode-example.md`](examples/copywriter-mode-example.md).
 
 ## PERSONALITY AND SOUL
 
@@ -519,6 +614,10 @@ When users hit a slow page, they leave.
 
 ## Process
 
+**If Copywriter Mode was invoked** (audience-targeted review, see above), follow that workflow
+instead of the steps below — it replaces the draft/self-audit loop with the before/after table
+and approval gate.
+
 1. Read the input text carefully (read the file with the workspace read tool if it's a file).
 2. Identify all instances of the patterns above.
 3. Rewrite each problematic section.
@@ -537,16 +636,21 @@ When users hit a slow page, they leave.
 
 ## Output Format
 
-Provide:
+For AI-tell removal, provide:
 
 1. Draft rewrite
 2. "What makes the below so obviously AI generated?" (brief bullets)
 3. Final rewrite
 4. A brief summary of changes made (optional, if helpful)
 
+For Copywriter Mode, provide the before/after table described above, scoped to the current page or
+section, and stop for explicit approval before applying anything.
+
 ## Full Example
 
 End-to-end demonstration of the draft → self-audit → final rewrite loop is in [`examples/full-example.md`](examples/full-example.md). Read it once on first invocation to see how all 29 patterns compound in a single piece of AI-flavored prose and how the iterative pass strips them out.
+
+A Copywriter Mode worked example is in [`examples/copywriter-mode-example.md`](examples/copywriter-mode-example.md).
 
 ## Related
 
@@ -554,6 +658,8 @@ End-to-end demonstration of the draft → self-audit → final rewrite loop is i
 - [code-review](../code-review/SKILL.md) — post-write review skill; humanizer is post-write _prose_ cleanup with a different rubric
 - [doc-hygiene](../doc-hygiene/SKILL.md) — anti-drift rules for living documents; humanizer is anti-AI-tells for any prose
 - [meditation](../meditation/SKILL.md) — when a humanizer pass surfaces a recurring AI tell in your own output, that's the signal a discipline addition might be earned; route through meditation
+- [communication-craft](../communication-craft/SKILL.md) — use for audience-lead _structure_ (So-What/What/Now-What, stakes-calibrated feedback voice); use Copywriter Mode above for sentence-level language _fit_ (idiom/tone/register/ambiguity/grammar) within an already-established structure — the two compose on the same document
+- `audience-copy-review` instruction — the always-on gate that decides when Copywriter Mode fires without being asked
 - Some project brains ban em-dashes outright in shipped prose (see for example Steward's Cardinal Rule 2 in `.github/copilot-instructions.md`); Pattern 14 above documents the underlying reason
 
 ## Would Revise If
@@ -561,11 +667,14 @@ End-to-end demonstration of the draft → self-audit → final rewrite loop is i
 - **Event-based**: zero observed invocations across the fleet within 90 days — sunset (skill is decorative on top of `markdown-author`'s always-on prose discipline). Sink to Mall rather than removing entirely so heirs who write a lot of public-facing prose can install on demand.
 - **Date-based**: 2026-09-07 (90 days from adoption). If by then `humanizer` is invoked but consistently overrides heir voice in ways the heir reverts ≥3 times, the Voice Calibration section is failing — either tighten the calibration discipline or rebalance toward voice-preserving rewrites.
 - **Counter-evidence**: if a heir reports that the 29-pattern catalog flags legitimate stylistic choices (e.g., humor that uses Rule of Three intentionally) as AI tells ≥3 times in a quarter, the patterns are too aggressive — add explicit "false positive" carve-outs.
+- **Copywriter Mode, event-based**: if a heir reports Copywriter Mode flagging domain acronyms or jargon as findings ≥2 times despite the Scope section above, tighten the "confirm scope first" instruction — the mode is drifting back into acronym-expansion territory it was explicitly narrowed away from.
+- **Copywriter Mode, counter-evidence**: if a heir reports the taxonomy tags being applied inconsistently (the same finding tagged differently across sessions) ≥3 times, the five-tag definitions need sharper examples, not more tags.
+- **Copywriter Mode, counter-evidence**: if a heir reports the hero-first staging feels slower than a single full-page table on short pages, add an explicit "skip hero-first staging for pages under N words" exception rather than dropping the staged approach for every page.
 
 ## Attribution
 
 This skill is adapted from [Hermes Agent's port](https://github.com/NousResearch/hermes-agent) of [blader/humanizer](https://github.com/blader/humanizer) (MIT licensed), which is itself based on [Wikipedia: Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), maintained by WikiProject AI Cleanup. The patterns documented there come from observations of thousands of instances of AI-generated text on Wikipedia.
 
-Original author: Siqi Chen ([@blader](https://github.com/blader)). Source upstream: https://github.com/blader/humanizer (version 2.5.1). The 29 patterns, personality/soul section, and full worked example are preserved verbatim from the source. Adapted for Edition with neutral tool references (workspace read/edit) replacing Hermes-native tool names (`read_file`, `patch`, `write_file`), composition notes with `markdown-author` agent and Cardinal Rule 2, and ACT-shape frontmatter + `## Would Revise If` falsifier. Original MIT license preserved upstream.
+Original author: Siqi Chen ([@blader](https://github.com/blader)). Source upstream: <https://github.com/blader/humanizer> (version 2.5.1). The 29 patterns, personality/soul section, and full worked example are preserved verbatim from the source. Adapted for Edition with neutral tool references (workspace read/edit) replacing Hermes-native tool names (`read_file`, `patch`, `write_file`), composition notes with `markdown-author` agent and Cardinal Rule 2, and ACT-shape frontmatter + `## Would Revise If` falsifier. Original MIT license preserved upstream. **Copywriter Mode** (the five-tag taxonomy, hero-first approval-gated workflow, and before/after table format) is an Alex ACT addition, not part of the upstream `blader/humanizer` port — derived from a real audience-language-review engagement, then genericized.
 
 Key insight from Wikipedia: "LLMs use statistical algorithms to guess what should come next. The result tends toward the most statistically likely result that applies to the widest variety of cases."

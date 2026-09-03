@@ -1,6 +1,6 @@
 ---
 name: bootstrap-core
-description: "Activates, verifies, repairs, or removes Core's 16 user-scope runtime instructions from canonical installed sources. Use after installing or updating Core, when Core identity or ACT behavior is inactive, or when Core receipt hashes drift."
+description: "Activates, verifies, repairs, or removes Core's 17 user-scope runtime instructions from canonical installed sources. Use after installing or updating Core, when Core identity or ACT behavior is inactive, or when Core receipt hashes drift."
 lastReviewed: 2026-08-21
 ---
 
@@ -8,7 +8,7 @@ lastReviewed: 2026-08-21
 
 Activate Core's own runtime without requiring Manager. Copilot plugins expose
 skills and commands but do not load `.instructions.md` files as plugin
-components. This skill copies only Core's 16 canonical instruction sources and
+components. This skill copies only Core's 17 canonical instruction sources and
 its Core-owned receipt to the active user instruction location after explicit
 consent.
 
@@ -20,7 +20,7 @@ Run the bundled script without `--apply`:
 node <this-skill>/scripts/bootstrap-core.cjs
 ```
 
-The preview resolves exactly 16 canonical sources from the installed Core
+The preview resolves exactly 17 canonical sources from the installed Core
 plugin root, verifies exact parity with Core's manifest instruction inventory,
 calculates source and destination hashes, reports the resolved distribution
 target and its source, reports create, replace, or preserve actions, includes
@@ -38,7 +38,7 @@ possible workspace overlap before applying user-scope instructions.
 Show the resolved target, its source, exact file actions, user scope, receipt
 action, overlap report, and current Core version. Ask:
 
-> Activate these 16 Core instructions for every workspace on this machine?
+> Activate these 17 Core instructions for every workspace on this machine?
 
 After an explicit yes, rerun the same command with `--apply`. The script writes
 only changed files, writes `.alex-act-core-bootstrap.json` atomically when its
@@ -53,7 +53,7 @@ for preserving matching bytes, not authority to rewrite or delete Manager state.
 
 A current bootstrap requires:
 
-1. Exactly 16 canonical Core source instructions.
+1. Exactly 17 canonical Core source instructions.
 2. A schema-v2 Core receipt with the installed Core version.
 3. Sixteen disjoint Core-owned receipt entries.
 4. Source, destination, and receipt SHA-256 parity.
@@ -68,7 +68,7 @@ adding `--apply`. The script removes only receipt-owned destinations whose
 current hashes still match the receipt. Modified or unowned files are preserved
 and reported. Receipt entries must match Core's exact manifest-backed ownership
 set; unsafe, duplicate, foreign, or malformed entries fail closed before path
-resolution. Clean removal verifies all 16 deletions and removes the receipt.
+resolution. Clean removal verifies all 17 deletions and removes the receipt.
 Modified owned bytes and their receipt remain as recovery evidence. Manager
 greeting and Manager receipt files are never removed.
 
@@ -94,6 +94,6 @@ greeting and Manager receipt files are never removed.
 
 ## Would Revise If
 
-Revise by **2026-11-15** if Core-alone cannot activate all 16 sources, a
+Revise by **2026-11-15** if Core-alone cannot activate all 17 sources, a
 preview mutates state, a receipt claims a Manager or user-owned file, source
 resolution fails in a delivered plugin, or removal deletes modified bytes.

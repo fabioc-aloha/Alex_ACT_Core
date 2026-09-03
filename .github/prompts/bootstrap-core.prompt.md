@@ -1,5 +1,5 @@
 ---
-description: "Preview, activate, verify, repair, or remove Core's 16 user-scope runtime instructions. Use after installing or updating Core, or when Alex ACT identity and always-on reasoning behavior are inactive."
+description: "Preview, activate, verify, repair, or remove Core's 17 user-scope runtime instructions. Use after installing or updating Core, or when Alex ACT identity and always-on reasoning behavior are inactive."
 lastReviewed: 2026-08-21
 ---
 
@@ -12,7 +12,7 @@ lastReviewed: 2026-08-21
    overlap report.
 4. Ask for explicit activation or repair consent.
 5. After consent, rerun the exact command with `--apply`.
-6. Verify all 16 destination hashes and the Core-owned receipt. A no-op apply
+6. Verify all 17 destination hashes and the Core-owned receipt. A no-op apply
    must preserve receipt bytes.
 7. Report legacy mixed-receipt evidence without modifying Manager greeting
    ownership.
