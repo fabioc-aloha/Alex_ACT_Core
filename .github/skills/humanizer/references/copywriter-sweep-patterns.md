@@ -60,20 +60,30 @@ Construction and typography:
 
 ## Harvested — AI Wars of 2026, 2026-09-03
 
-Added after a semantic pass found these with no matchable pattern. They are cheap to catch now:
+Added after semantic passes found these with no matchable pattern. They are cheap to catch now:
 
 | Phrase | Tag | Note |
 | --- | --- | --- |
 | `software estate` / `agent estates` | `[ambiguity]` | British-IT sense of *estate*; reads first as property or inheritance |
 | `below the line` | `[idiom]` | Unglossed exclusion idiom; worst inside a glossary definition |
 | `distribution play` / `the play` | `[idiom]` | *Play* as a strategic-move noun |
+| `crown a company` / `crown a champion` | `[idiom]` | Determiner variants an exact-phrase scan for `crown a winner` misses |
+| `clear that bar` | `[idiom]` | Determiner variant of `clear the bar` |
+| `live hypotheses` / `live explanations` / `live options` | `[ambiguity]` | *Live* as active-or-in-contention; collocation only, never the bare word |
+| `talk past each other` | `[idiom]` | Fail to engage with each other's meaning; opaque read literally |
+| `plays out` / `play out` | `[register]` | Conversational phrasal verb inside formal prose |
 | `manufacture overnight` | `[idiom]` | Low risk; usually keep |
 | `proving ground` | `[idiom]` | Low risk; usually keep |
 | `prove hollow` | `[idiom]` | Low risk; usually keep |
 | `where work gets done` | `[idiom]` | Low risk; usually keep |
+| `go nowhere` / `push back` | `[idiom]` | Low risk in casual or social copy; usually keep |
 
 Recording low-risk keeps matters as much as recording changes. It stops the next reviewer from
 re-litigating a decision that was already made deliberately.
+
+Two entries above — `crown a company` and `clear that bar` — are **determiner variants** of
+patterns already in the seed families. Exact-phrase scans miss them. When harvesting, add the
+variant rather than assuming the base phrase covers it.
 
 ## The limit of harvesting
 

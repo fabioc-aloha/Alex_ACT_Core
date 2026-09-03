@@ -32,13 +32,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Added a two-phase sweep to Copywriter Mode for corpora too large to read in
   one pass: a mechanical pattern sweep, then a semantic close read, then a
   harvest step that folds novel close-read findings into the project's pattern
-  list. A controlled comparison on a 35-file web-book — pattern sweep versus an
-  independent blind semantic read, same content and taxonomy — produced 15
-  distinct findings of which only 2 were found by both. The gap is threshold,
-  not coverage: the sweep has none and reports marginal items a reader tolerates,
-  while the close read finds ordinary words carrying a second sense that no
-  pattern list can hold. Ships with
-  `references/copywriter-sweep-patterns.md`.
+  list. Three independent reviews of a 35-file web-book — mechanical sweep, a
+  blind close read, and a blind two-phase run, all to the same audience and
+  taxonomy — produced 23 distinct findings of which only 2 were found by all
+  three. Ships with `references/copywriter-sweep-patterns.md`.
+- Recorded the reproducibility limit in Copywriter Mode: in the same
+  comparison, two independent close reads each missed the other's two
+  highest-ranked findings entirely, so a single pass is a sample rather than a
+  census. High-stakes copy now calls for a second blind close read, and the
+  rationale notes that a third pass buys arbitration — it dropped one
+  over-flagged finding and confirmed one a single reviewer had missed.
+- Required Copywriter Mode reviews to enumerate reader-facing surfaces during
+  scoping. A reviewer told to review "the prose" reasonably excluded JSON
+  subtitles, diagram labels, and metadata, which hid three of four occurrences
+  of a title-level idiom.
+- Added a Phase 1 control-scan technique (run the same patterns single-line and
+  multi-line, compare counts) and read the rejection rate as a health signal:
+  zero rejections means the pattern list is too narrow, near-total rejection
+  means it is too noisy. Phase 2 findings now record whether the sweep or the
+  close read surfaced them.
 - Raised the canonical Core instruction count from 16 to 17 across
   `bootstrap-core`, its prompt, the runtime-boundary tests, `manifest.json`,
   `plugin.json`, `README.md`, `INSTALL.md`, and `.github/copilot-instructions.md`.

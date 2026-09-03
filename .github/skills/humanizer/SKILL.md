@@ -113,7 +113,11 @@ fix:
 ### Workflow: hero first, approval-gated, one page at a time
 
 1. **Scope the review.** Confirm the audience, confirm domain literacy is out of scope (see
-   above), confirm the surface (one page, one section, the whole site).
+   above), and **enumerate the reader-facing surfaces explicitly** — not just "the site." Chapter
+   subtitles, diagram labels, `alt` text, meta descriptions, and card captions often live in JSON
+   or front matter that looks like structured data. A reviewer told to review "the prose" will
+   apply a sensible-looking scope rule and exclude them. In a controlled run, that exact
+   exclusion hid three of four occurrences of a title-level idiom.
 2. **Read before touching anything.** A full read-only pass across the whole scope, tagging every
    finding, is cheaper and more defensible than piecemeal edits — do this even if changes will be
    approved incrementally. On a corpus too large to read in one pass, use the two-phase sweep
@@ -140,10 +144,10 @@ fix:
 For a corpus larger than a few pages, run both phases. They are not redundant, and the second does
 not replace the first.
 
-**Why both.** A controlled comparison on a 35-file web-book ran a pattern sweep and an independent
-blind semantic read over identical content, same audience, same taxonomy. Fifteen distinct
-findings; **only two were found by both**. The reason is not coverage — both reviewers read the
-same hero files. It is **threshold**:
+**Why both.** A controlled comparison on a 35-file web-book ran three independent reviews over
+identical content, same audience, same taxonomy: a mechanical sweep, a blind close read, and a
+blind two-phase run. Twenty-three distinct findings; **only two were found by all three**. The
+first gap is not coverage — the reviewers read the same files. It is **threshold**:
 
 | | Mechanical sweep | Close read |
 | --- | --- | --- |
@@ -153,7 +157,7 @@ same hero files. It is **threshold**:
 | Misses | Anything not on the list | Marginal items a reader judges tolerable |
 | Cost | Minutes | Hours |
 
-The sweep caught `need not` and a `[ambiguity]` on _live_ that the close read passed over as
+The sweep caught `need not` and an `[ambiguity]` on _live_ that a close read passed over as
 tolerable. The close read caught _software estate_, _below the line_, and _distribution play_ —
 none of them idioms, all ordinary words carrying a second sense, none matchable by any list. The
 methods fail in opposite directions, which is why either alone leaves most findings unfound.
@@ -165,11 +169,17 @@ constructions, ambiguity candidates, and dash/arrow typography. A seed list is i
 Match **multi-line**. Hard-wrapped files split phrases across line breaks, so `crown a winner`
 becomes `crown a\nwinner` and a single-line scan returns "no matches" — a false negative that
 looks exactly like clean copy. Wrapping is often inconsistent within one corpus, so a single-line
-tool appears to work on most files while silently missing the wrapped ones. Verify one known hit
-before trusting any empty result.
+tool appears to work on most files while silently missing the wrapped ones.
+
+Prove the match mode before trusting an empty result. The cheapest proof is a **control scan**:
+run the same patterns single-line and multi-line, and compare the counts. If multi-line returns
+more, the difference is exactly what a single-line tool would have missed. In one run the counts
+were 4 and 5, and the extra hit was a phrase wrapped across two lines on the landing page.
 
 Phase 1 output is a **candidate list, not findings**. Candidates are rejected during Phase 2 as a
-normal outcome, not a failure.
+normal outcome, not a failure. The rejection rate is a health signal: **zero rejections means the
+list is too narrow** to be doing real work, and **near-total rejection means it is too noisy** to
+be worth running. A quarter rejected is a working list.
 
 **Phase 2 — close read.** Read every sentence and judge comprehension. Do not work down the Phase
 1 list; read the prose. For each passage: does every phrase mean its literal words, and is any
@@ -178,10 +188,27 @@ register hold? Does the construction force a re-read? Does any reference assume 
 background? Resolve every Phase 1 candidate explicitly — accept it as a finding or record why it
 was rejected.
 
+**Mark each finding with its origin** — surfaced by the sweep, or found only by reading. Without
+that, the workflow cannot be audited and the rejection rate cannot be read.
+
 If the corpus is large, delegate Phase 2 to a subagent per section with the audience, the scope
 exclusion, and the taxonomy restated in full. A reviewer who has already seen the findings cannot
 produce an independent read, so on a high-stakes corpus run Phase 2 blind — without access to the
 Phase 1 output — and merge afterwards. That costs a merge step and buys genuine independence.
+
+**One close read is not a complete review.** In the controlled comparison, two independent
+reviewers each read the entire corpus sentence by sentence, to the same brief, and **each missed
+the other's two highest-ranked findings entirely** — not marginal calls, the items each had put
+first. Both reported the corpus as being in good shape, and both were right about different
+subsets of it. Variance between competent readers turned out to be a larger effect than variance
+between methods.
+
+So treat a single pass as a sample, not a census. On high-stakes copy — a landing page, a launch
+announcement, a title, anything expensive to get wrong in public — commission a **second
+independent close read**, blind to the first, and merge. Elsewhere, one pass plus the sweep is the
+right cost. The second reader buys arbitration as much as coverage: where two passes disagree, a
+third settles it, and in the controlled run a third pass both dropped one finding as an over-flag
+and confirmed another that a single reviewer had missed.
 
 **Phase 3 — harvest.** Every fixed phrase Phase 2 found that Phase 1 missed joins the project's
 pattern list. It moves permanently from expensive detection to free. Record low-risk keeps too, so
@@ -735,6 +762,7 @@ A Copywriter Mode worked example is in [`examples/copywriter-mode-example.md`](e
 - **Copywriter Mode, counter-evidence**: if a heir reports the taxonomy tags being applied inconsistently (the same finding tagged differently across sessions) ≥3 times, the five-tag definitions need sharper examples, not more tags.
 - **Copywriter Mode, counter-evidence**: if a heir reports the hero-first staging feels slower than a single full-page table on short pages, add an explicit "skip hero-first staging for pages under N words" exception rather than dropping the staged approach for every page.
 - **Copywriter Mode, two-phase sweep**: if a project's harvested pattern list stops producing new Phase 1 catches across three consecutive reviews while Phase 2 keeps finding novel items, harvesting is not compounding as designed — the findings are ordinary-word second senses rather than fixed phrases, and the sweep should be scoped down to typography and register rather than grown.
+- **Copywriter Mode, second reader**: if two independent blind close reads of the same corpus agree on most of each other's top findings across three separate corpora, the reproducibility problem is smaller than measured and the second-reader recommendation is over-engineering — drop it back to a single pass plus sweep. Conversely, if a third pass keeps overturning findings that two passes agreed on, two readers is not enough for high-stakes copy.
 
 ## Attribution
 
