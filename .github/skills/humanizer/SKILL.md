@@ -116,7 +116,8 @@ fix:
    above), confirm the surface (one page, one section, the whole site).
 2. **Read before touching anything.** A full read-only pass across the whole scope, tagging every
    finding, is cheaper and more defensible than piecemeal edits — do this even if changes will be
-   approved incrementally.
+   approved incrementally. On a corpus too large to read in one pass, use the two-phase sweep
+   below.
 3. **Present the hero first.** For any page, review title, subtitle/tagline, and lede as a
    **before/after table** before the rest of the page. These carry the most weight and the highest
    visibility (page `<title>`, meta description, H1) — get them right, and get explicit sign-off,
@@ -133,6 +134,69 @@ fix:
 7. **Move to the next scope only after the current one is fully resolved.** Finish one
    page/section end-to-end before starting the next — partial coverage across many pages is
    harder to track than full coverage of one.
+
+### The two-phase sweep: mechanical sweep, then close read
+
+For a corpus larger than a few pages, run both phases. They are not redundant, and the second does
+not replace the first.
+
+**Why both.** A controlled comparison on a 35-file web-book ran a pattern sweep and an independent
+blind semantic read over identical content, same audience, same taxonomy. Fifteen distinct
+findings; **only two were found by both**. The reason is not coverage — both reviewers read the
+same hero files. It is **threshold**:
+
+| | Mechanical sweep | Close read |
+| --- | --- | --- |
+| Threshold | None — reports every hit | High — judgment skips marginal cases |
+| Ceiling | The pattern list | What is actually on the page |
+| Catches | Known fixed phrases, typography, formal register | Ordinary words carrying a second sense, compressed constructions, cultural references |
+| Misses | Anything not on the list | Marginal items a reader judges tolerable |
+| Cost | Minutes | Hours |
+
+The sweep caught `need not` and a `[ambiguity]` on _live_ that the close read passed over as
+tolerable. The close read caught _software estate_, _below the line_, and _distribution play_ —
+none of them idioms, all ordinary words carrying a second sense, none matchable by any list. The
+methods fail in opposite directions, which is why either alone leaves most findings unfound.
+
+**Phase 1 — mechanical sweep.** Scan the corpus for known idiom families, formal-register
+constructions, ambiguity candidates, and dash/arrow typography. A seed list is in
+[`references/copywriter-sweep-patterns.md`](references/copywriter-sweep-patterns.md).
+
+Match **multi-line**. Hard-wrapped files split phrases across line breaks, so `crown a winner`
+becomes `crown a\nwinner` and a single-line scan returns "no matches" — a false negative that
+looks exactly like clean copy. Wrapping is often inconsistent within one corpus, so a single-line
+tool appears to work on most files while silently missing the wrapped ones. Verify one known hit
+before trusting any empty result.
+
+Phase 1 output is a **candidate list, not findings**. Candidates are rejected during Phase 2 as a
+normal outcome, not a failure.
+
+**Phase 2 — close read.** Read every sentence and judge comprehension. Do not work down the Phase
+1 list; read the prose. For each passage: does every phrase mean its literal words, and is any
+figurative sense recoverable from context? Could a sentence be parsed a second way? Does the
+register hold? Does the construction force a re-read? Does any reference assume a national
+background? Resolve every Phase 1 candidate explicitly — accept it as a finding or record why it
+was rejected.
+
+If the corpus is large, delegate Phase 2 to a subagent per section with the audience, the scope
+exclusion, and the taxonomy restated in full. A reviewer who has already seen the findings cannot
+produce an independent read, so on a high-stakes corpus run Phase 2 blind — without access to the
+Phase 1 output — and merge afterwards. That costs a merge step and buys genuine independence.
+
+**Phase 3 — harvest.** Every fixed phrase Phase 2 found that Phase 1 missed joins the project's
+pattern list. It moves permanently from expensive detection to free. Record low-risk keeps too, so
+the next reviewer does not re-litigate a settled decision.
+
+The economics only work on the second pass and after. The first run costs more than either method
+alone. What repays it is that a living corpus is re-reviewed: subsequent runs sweep the whole
+corpus mechanically against a list that keeps growing, and close-read only what changed since the
+last pass.
+
+**What harvesting cannot do.** It converts a discovered phrase into a free future catch. It does
+not convert the class. _Estate_, _play_, and _bar_ are ordinary words — adding them bare to a
+pattern list produces hundreds of false positives. Only the specific collocation is listable, and
+only after a reader has already found it. The close read never becomes unnecessary; on a stable
+corpus it simply has less left to find.
 
 ### Before/after table format
 
@@ -670,6 +734,7 @@ A Copywriter Mode worked example is in [`examples/copywriter-mode-example.md`](e
 - **Copywriter Mode, event-based**: if a heir reports Copywriter Mode flagging domain acronyms or jargon as findings ≥2 times despite the Scope section above, tighten the "confirm scope first" instruction — the mode is drifting back into acronym-expansion territory it was explicitly narrowed away from.
 - **Copywriter Mode, counter-evidence**: if a heir reports the taxonomy tags being applied inconsistently (the same finding tagged differently across sessions) ≥3 times, the five-tag definitions need sharper examples, not more tags.
 - **Copywriter Mode, counter-evidence**: if a heir reports the hero-first staging feels slower than a single full-page table on short pages, add an explicit "skip hero-first staging for pages under N words" exception rather than dropping the staged approach for every page.
+- **Copywriter Mode, two-phase sweep**: if a project's harvested pattern list stops producing new Phase 1 catches across three consecutive reviews while Phase 2 keeps finding novel items, harvesting is not compounding as designed — the findings are ordinary-word second senses rather than fixed phrases, and the sweep should be scoped down to typography and register rather than grown.
 
 ## Attribution
 

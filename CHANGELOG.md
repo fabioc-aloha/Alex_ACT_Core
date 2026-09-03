@@ -29,6 +29,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   and rewrote its opening paragraph to name both modes. The previous title
   described only AI-tell removal, which excluded a mode built for copy
   containing no AI tells at all.
+- Added a two-phase sweep to Copywriter Mode for corpora too large to read in
+  one pass: a mechanical pattern sweep, then a semantic close read, then a
+  harvest step that folds novel close-read findings into the project's pattern
+  list. A controlled comparison on a 35-file web-book — pattern sweep versus an
+  independent blind semantic read, same content and taxonomy — produced 15
+  distinct findings of which only 2 were found by both. The gap is threshold,
+  not coverage: the sweep has none and reports marginal items a reader tolerates,
+  while the close read finds ordinary words carrying a second sense that no
+  pattern list can hold. Ships with
+  `references/copywriter-sweep-patterns.md`.
 - Raised the canonical Core instruction count from 16 to 17 across
   `bootstrap-core`, its prompt, the runtime-boundary tests, `manifest.json`,
   `plugin.json`, `README.md`, `INSTALL.md`, and `.github/copilot-instructions.md`.
