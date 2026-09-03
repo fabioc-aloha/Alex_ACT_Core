@@ -29,19 +29,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   and rewrote its opening paragraph to name both modes. The previous title
   described only AI-tell removal, which excluded a mode built for copy
   containing no AI tells at all.
-- Added a two-phase sweep to Copywriter Mode for corpora too large to read in
+- Added a three-phase review to Copywriter Mode for corpora too large to read in
   one pass: a mechanical pattern sweep, then a semantic close read, then a
   harvest step that folds novel close-read findings into the project's pattern
   list. Three independent reviews of a 35-file web-book — mechanical sweep, a
-  blind close read, and a blind two-phase run, all to the same audience and
+  blind close read, and a blind three-phase run, all to the same audience and
   taxonomy — produced 23 distinct findings of which only 2 were found by all
   three. Ships with `references/copywriter-sweep-patterns.md`.
-- Recorded the reproducibility limit in Copywriter Mode: in the same
-  comparison, two independent close reads each missed the other's two
-  highest-ranked findings entirely, so a single pass is a sample rather than a
-  census. High-stakes copy now calls for a second blind close read, and the
-  rationale notes that a third pass buys arbitration — it dropped one
-  over-flagged finding and confirmed one a single reviewer had missed.
+- Recorded the sampling limit in Copywriter Mode: the close read is executed by
+  a language model, so its output is one sample rather than a complete account,
+  and repeated runs over the same corpus diverge by construction. High-stakes
+  copy now calls for ensembling — several blind runs with an identical brief, a
+  union of findings, and agreement count read as a confidence tier rather than
+  a filter. The evidence behind it is directional rather than measured: the
+  runs varied brief as well as method, so sampling noise cannot be isolated
+  from that data.
 - Required Copywriter Mode reviews to enumerate reader-facing surfaces during
   scoping. A reviewer told to review "the prose" reasonably excluded JSON
   subtitles, diagram labels, and metadata, which hid three of four occurrences

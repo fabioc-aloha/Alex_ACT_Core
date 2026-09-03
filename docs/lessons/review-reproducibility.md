@@ -1,58 +1,62 @@
 ---
-title: One expert review pass is a sample, not a census
-category: failure-modes
+title: A stochastic reviewer needs ensembling, not a second opinion
+category: procedures
 created: 2026-09-03
-confidence: high
-tags: review,reproducibility,copy-review,audit,second-reader
+confidence: medium
+tags: llm,sampling,review,ensembling,confounds,experiment-design
 ---
 
 ## Lesson
 
-Two independent reviewers reading the same material to the same brief can each
-miss the other's highest-ranked findings entirely. Treat a single careful review
-pass as a sample of what is there, not a complete account of it.
+When a review step is executed by a language model, its output is one sample from a stochastic
+process. Two runs over the same material will diverge. Design for that with repeated runs and a
+union of findings, rather than treating a single clean report as coverage or a disagreement as a
+difference of expert opinion.
 
 ## Context
 
-A controlled comparison ran three independent language reviews over one 35-file
-documentation corpus, same audience and same rubric: a mechanical pattern sweep,
-a blind close read, and a blind two-phase run. Reviewers two and three both read
-every sentence and had no access to each other's output.
+Three language-review passes were run over one documentation corpus. Two of them read every
+sentence, and each missed the other's two highest-ranked findings. Both reported the corpus as
+being in good shape.
 
-Twenty-three distinct findings emerged. Only two were found by all three. More
-pointedly, reviewer three found zero of reviewer two's top two findings, and
-reviewer two found zero of reviewer three's top two. Both reported the corpus as
-being in good shape, and both were right about different subsets of it.
+That result was initially written up as a discovery about reviewer variance. It is not. Model
+sampling is non-deterministic by construction, so divergence between runs is the expected
+behaviour of the instrument and should have been predicted rather than observed with surprise.
 
-Variance between competent reviewers turned out to be a larger effect than
-variance between review methods.
+The experiment also could not support the interpretation placed on it. The second and third runs
+used different briefs, because the brief was revised between them. Method difference, brief
+difference, and sampling noise are therefore confounded, and no clean divergence rate can be
+extracted. It was also a single corpus in a single domain.
+
+The misreading had a practical cost beyond the wording. Framed as expert disagreement, the remedy
+looks like commissioning a costly second reviewer, and a single-source finding looks suspect.
+Framed as sampling variance, the remedy is cheap repetition, and a single-source finding is simply
+the expected tail of a sampled distribution. In this exercise the highest-value finding of the
+whole comparison appeared in exactly one run.
 
 ## Signals
 
-- A review returns "this is clean" or a short finding list, and the reviewer read
-  carefully rather than skimming. Cleanliness is not evidence of completeness.
-- Two reviewers disagree not about a judgement but about whether an item exists
-  at all. That is a coverage gap, not a difference of opinion.
-- A single reviewer's priority ordering is treated as the priority ordering.
+- A review, classification, or extraction step is performed by a language model.
+- Two runs disagree and the disagreement is being explained in terms of judgement or expertise.
+- A single clean model-generated report is being treated as evidence of coverage.
+- Findings are ranked by how many runs produced them, and low-count findings are being discarded.
+- A comparison between runs varied more than one thing at a time.
 
 ## Recommended response
 
-- Commission a second independent pass, blind to the first, for anything
-  expensive to get wrong in public: a landing page, a launch announcement, a
-  title, a public API surface.
-- Merge rather than replace. A finding that only one reviewer produced is not
-  weaker for being single-source unless the other reviewer explicitly considered
-  and rejected it.
-- Use a third pass for arbitration rather than volume. In this comparison the
-  third run's most valuable output was not its four new findings but settling one
-  disputed item and confirming another that a single reviewer had missed.
-- Keep the reviewers genuinely independent. A second pass by someone who has seen
-  the first inherits its answers and produces agreement that means nothing.
+- Hold the brief identical across runs. Varying it measures the brief, not the material.
+- Run each pass blind to the others. A run with access to prior output converges on it, which
+  manufactures agreement rather than testing it.
+- Union the findings. Absence from one run is not rejection unless that run explicitly considered
+  and rejected the item.
+- Use agreement count as a confidence tier rather than a filter: found by every run means act
+  first, found once means it still needs a judgement call.
+- Before claiming a rate or a magnitude, check what varied between runs. If more than one thing
+  did, the number conflates them and should be reported as directional only.
 
 ## Would revise if
 
-Two independent blind passes over the same material agree on most of each other's
-top findings across three separate corpora. That would make the second-reader
-recommendation over-engineering, and a single pass plus a mechanical sweep would
-be the right cost. Conversely, if a third pass keeps overturning findings that two
-passes agreed on, two readers is not enough for high-stakes material.
+A controlled trial — same corpus, same brief, varying only the sampling seed — shows repeated runs
+converging on substantially the same findings. Ensembling would then be unnecessary overhead for
+this class of task. Equally, if such a trial shows the union still growing at five runs, the
+guidance understates how many passes are needed and should name a higher floor.

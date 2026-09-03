@@ -120,7 +120,7 @@ fix:
    exclusion hid three of four occurrences of a title-level idiom.
 2. **Read before touching anything.** A full read-only pass across the whole scope, tagging every
    finding, is cheaper and more defensible than piecemeal edits — do this even if changes will be
-   approved incrementally. On a corpus too large to read in one pass, use the two-phase sweep
+   approved incrementally. On a corpus too large to read in one pass, use the three-phase review
    below.
 3. **Present the hero first.** For any page, review title, subtitle/tagline, and lede as a
    **before/after table** before the rest of the page. These carry the most weight and the highest
@@ -139,14 +139,14 @@ fix:
    page/section end-to-end before starting the next — partial coverage across many pages is
    harder to track than full coverage of one.
 
-### The two-phase sweep: mechanical sweep, then close read
+### The three-phase review: sweep, close read, harvest
 
 For a corpus larger than a few pages, run both phases. They are not redundant, and the second does
 not replace the first.
 
 **Why both.** A controlled comparison on a 35-file web-book ran three independent reviews over
 identical content, same audience, same taxonomy: a mechanical sweep, a blind close read, and a
-blind two-phase run. Twenty-three distinct findings; **only two were found by all three**. The
+blind three-phase run. Twenty-three distinct findings; **only two were found by all three**. The
 first gap is not coverage — the reviewers read the same files. It is **threshold**:
 
 | | Mechanical sweep | Close read |
@@ -196,19 +196,37 @@ exclusion, and the taxonomy restated in full. A reviewer who has already seen th
 produce an independent read, so on a high-stakes corpus run Phase 2 blind — without access to the
 Phase 1 output — and merge afterwards. That costs a merge step and buys genuine independence.
 
-**One close read is not a complete review.** In the controlled comparison, two independent
-reviewers each read the entire corpus sentence by sentence, to the same brief, and **each missed
-the other's two highest-ranked findings entirely** — not marginal calls, the items each had put
-first. Both reported the corpus as being in good shape, and both were right about different
-subsets of it. Variance between competent readers turned out to be a larger effect than variance
-between methods.
+**A close read is one sample, not a census.** Phase 2 is executed by a language model, and model
+sampling is stochastic: the same brief over the same corpus produces different findings on
+different runs. This is a property of the instrument, not a failure of the reviewer, and it should
+be designed around rather than discovered.
 
-So treat a single pass as a sample, not a census. On high-stakes copy — a landing page, a launch
-announcement, a title, anything expensive to get wrong in public — commission a **second
-independent close read**, blind to the first, and merge. Elsewhere, one pass plus the sweep is the
-right cost. The second reader buys arbitration as much as coverage: where two passes disagree, a
-third settles it, and in the controlled run a third pass both dropped one finding as an over-flag
-and confirmed another that a single reviewer had missed.
+In the comparison behind this workflow, two separate close reads of one corpus each missed the
+other's two highest-ranked findings, and both reported the corpus as being in good shape. Treat
+that as the expected shape of a single pass. Do not read one clean report as coverage.
+
+Two caveats on that number, because the run was not a controlled one. The second read used a
+different brief from the first, so method difference, brief difference, and sampling noise are
+confounded and cannot be separated from that data. It was also a single corpus. The finding is
+therefore directional — a single pass under-covers — not a measured rate.
+
+So on high-stakes copy — a landing page, a launch announcement, a title, anything expensive to get
+wrong in public — **run the close read more than once and union the results**:
+
+1. Use an **identical brief** each run. Varying the brief measures the brief, not the corpus.
+2. Run each pass **blind** to the others' findings. A reviewer who has seen prior output will
+   converge on it, which manufactures agreement rather than testing it.
+3. **Union the findings.** A finding that appears in one run is not weaker for being single-source
+   unless another run explicitly considered and rejected it. Silence is not rejection.
+4. Use **agreement count as a confidence tier**, not as a filter. Found by every run: high
+   confidence, act first. Found once: still real, needs a judgement call. In the comparison, the
+   highest-value finding of the whole exercise appeared in exactly one run.
+5. Where runs **disagree on a recommendation** rather than on existence, a further run arbitrates.
+   In the comparison a third pass dropped one over-flagged finding and confirmed one that a single
+   pass had missed.
+
+Elsewhere, one pass plus the sweep is the right cost. Ensembling is cheap relative to publishing
+copy that misleads a reader, and it is the correct response to a stochastic instrument.
 
 **Phase 3 — harvest.** Every fixed phrase Phase 2 found that Phase 1 missed joins the project's
 pattern list. It moves permanently from expensive detection to free. Record low-risk keeps too, so
@@ -761,8 +779,8 @@ A Copywriter Mode worked example is in [`examples/copywriter-mode-example.md`](e
 - **Copywriter Mode, event-based**: if a heir reports Copywriter Mode flagging domain acronyms or jargon as findings ≥2 times despite the Scope section above, tighten the "confirm scope first" instruction — the mode is drifting back into acronym-expansion territory it was explicitly narrowed away from.
 - **Copywriter Mode, counter-evidence**: if a heir reports the taxonomy tags being applied inconsistently (the same finding tagged differently across sessions) ≥3 times, the five-tag definitions need sharper examples, not more tags.
 - **Copywriter Mode, counter-evidence**: if a heir reports the hero-first staging feels slower than a single full-page table on short pages, add an explicit "skip hero-first staging for pages under N words" exception rather than dropping the staged approach for every page.
-- **Copywriter Mode, two-phase sweep**: if a project's harvested pattern list stops producing new Phase 1 catches across three consecutive reviews while Phase 2 keeps finding novel items, harvesting is not compounding as designed — the findings are ordinary-word second senses rather than fixed phrases, and the sweep should be scoped down to typography and register rather than grown.
-- **Copywriter Mode, second reader**: if two independent blind close reads of the same corpus agree on most of each other's top findings across three separate corpora, the reproducibility problem is smaller than measured and the second-reader recommendation is over-engineering — drop it back to a single pass plus sweep. Conversely, if a third pass keeps overturning findings that two passes agreed on, two readers is not enough for high-stakes copy.
+- **Copywriter Mode, three-phase review**: if a project's harvested pattern list stops producing new Phase 1 catches across three consecutive reviews while Phase 2 keeps finding novel items, harvesting is not compounding as designed — the findings are ordinary-word second senses rather than fixed phrases, and the sweep should be scoped down to typography and register rather than grown.
+- **Copywriter Mode, ensembling**: if repeated close reads over the same corpus with an identical brief converge on substantially the same findings across three separate corpora, sampling variance is smaller than assumed and the ensembling recommendation is over-engineering — drop back to a single pass plus the sweep. Conversely, if a controlled N-run trial shows the union still growing at five runs, the guidance understates how many passes high-stakes copy needs.
 
 ## Attribution
 

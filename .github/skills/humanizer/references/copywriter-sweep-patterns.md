@@ -1,6 +1,6 @@
 # Copywriter Mode — sweep pattern seed list
 
-Phase 1 input for the two-phase sweep described in `SKILL.md`. Copy this into a project as a
+Phase 1 input for the three-phase review described in `SKILL.md`. Copy this into a project as a
 starting point, then grow it: every fixed phrase harvested from a Phase 2 semantic read joins the
 project's own copy permanently.
 
@@ -96,4 +96,4 @@ false positives and is worse than useless; only the specific collocation is list
 after a human or semantic reader has already found it.
 
 So the semantic pass never becomes unnecessary. On a stable corpus it simply has less left to
-find, which is exactly the compounding return the two-phase design is built to produce.
+find, which is exactly the compounding return the three-phase design is built to produce.
