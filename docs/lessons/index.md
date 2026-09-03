@@ -10,5 +10,6 @@ working around it when it turns out to be wrong.
 | Date | Category | Title | Tags |
 | --- | --- | --- | --- |
 | 2026-09-03 | procedures | [A stochastic reviewer needs ensembling, not a second opinion](review-reproducibility.md) | llm, sampling, ensembling, experiment-design |
+| 2026-09-03 | failure-modes | [A staged payload is not a publication](staged-is-not-published.md) | publishing, branches, branch-protection, verification |
 | 2026-09-03 | gotchas | [Switching credentials back before verifying destroys the verification](gh-account-verification-trap.md) | git, github, multi-account, verification |
 | 2026-09-03 | anti-patterns | [A hardcoded inventory count is a distributed edit](hardcoded-inventory-counts.md) | counts, drift, tests, doc-hygiene |
