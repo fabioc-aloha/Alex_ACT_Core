@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- Removed event-handler allowances from the Markdown sanitizer example and
+  required event binding in trusted application code. Added executable DOMPurify
+  regression cases for event attributes, unsafe URLs, scripts, and safe markup,
+  plus consent-contract checks and locked test dependencies installed by CI.
+
 ### Added
 
 - Added `audience-copy-review`, a 17th always-on instruction that routes

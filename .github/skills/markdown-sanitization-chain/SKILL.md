@@ -61,7 +61,7 @@ async function renderMarkdown(content, container) {
 ## Common Mistakes
 
 | Mistake | Consequence |
-|---------|-------------|
+| --------- | ------------- |
 | Skip DOMPurify ("it's internal content") | XSS from any content source |
 | Sanitize after Mermaid renders | Mermaid-injected scripts execute |
 | Use `innerHTML` without sanitization anywhere | Classic XSS |
@@ -72,11 +72,15 @@ async function renderMarkdown(content, container) {
 ```javascript
 const config = {
   ADD_TAGS: ['mermaid'],            // preserve diagram tags
-  ADD_ATTR: ['onclick'],            // only if absolutely needed
+  ADD_ATTR: ['class'],              // preserve diagram class hooks only
   FORBID_TAGS: ['style', 'script'], // explicit blocklist
-  FORBID_ATTR: ['onerror', 'onload'],
+  FORBID_ATTR: ['onclick', 'onerror', 'onload'],
 };
 ```
+
+Do not allow `on*` event attributes by default. If a product genuinely needs
+an event handler, bind it in trusted application code after sanitization instead
+of allowing user-supplied event attributes through DOMPurify.
 
 ## Verification Checklist
 
@@ -94,4 +98,6 @@ const config = {
 
 ## Would Revise If
 
-Revisit this skill by **2026-08-26** (90 days) or sooner if any of the following fires: DOMPurify or marked.js publishes a breaking change that invalidates the documented chain order; a real XSS payload bypasses the chain in production use; or Mermaid changes its render-time HTML interface in a way that makes the post-sanitization step unsafe.
+Revisit the repaired configuration by **2026-09-19** or sooner if DOMPurify or marked.js
+changes the documented chain behavior, an event attribute or unsafe URL survives the tested
+configuration, or Mermaid's post-sanitization output introduces executable user content.

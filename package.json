@@ -2,7 +2,11 @@
   "name": "alex-act-core",
   "version": "4.1.0",
   "private": true,
+  "devDependencies": {
+    "dompurify": "3.4.12",
+    "jsdom": "29.1.1"
+  },
   "scripts": {
-    "test": "node --test scripts/test-runtime-boundary.cjs scripts/test-scout-copilot-skill-bridge.cjs scripts/test-native-memory-contract.cjs scripts/test-surface-continuity-contract.cjs scripts/test-personality-reference.cjs scripts/test-doc-hygiene.cjs"
+    "test": "node --test scripts/test-runtime-boundary.cjs scripts/test-scout-copilot-skill-bridge.cjs scripts/test-native-memory-contract.cjs scripts/test-surface-continuity-contract.cjs scripts/test-personality-reference.cjs scripts/test-doc-hygiene.cjs scripts/test-workflow-safety.cjs"
   }
 }
